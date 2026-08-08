@@ -1,0 +1,12 @@
+{
+  "name": "cqupt-802-courseware-tools",
+  "version": "2.0.0",
+  "description": "重邮802代码课程 PPT 渲染工具：deck.yaml -> .pptx",
+  "scripts": {
+    "render": "node render-pptx.js"
+  },
+  "dependencies": {
+    "js-yaml": "^5.2.3",
+    "pptxgenjs": "^4.0.1"
+  }
+}

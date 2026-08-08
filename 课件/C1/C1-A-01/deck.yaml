@@ -1,0 +1,203 @@
+meta:
+  id: C1-A-01
+  title: 初识C程序
+  stage: A基础
+  instructor: 牙膏学长
+  duration: 35min
+
+slides:
+  # ---------- 课段导学（约5分钟） ----------
+  - type: cover
+    kicker: 重邮802 数据结构代码课程
+    title: C语言基础阶段
+    subtitle: 第1节 初识C程序
+    meta: 阶段：基础 ｜ 主讲：牙膏学长 ｜ 预计35分钟 ｜ 资料答疑：伴梦研途QQ群
+
+  - type: content
+    kicker: 课段导学 · 本课段的定位
+    title: 802 代码题的地基
+    blocks:
+      - type: table
+        head: [题型, 分值, 用到的C语言基础]
+        rows:
+          - [程序阅读题, 约20分, 看懂语法、循环、判断]
+          - [算法分析题, 3题 30分, 写得出伪代码]
+      - type: text
+        text: 本阶段目标（5节 · 约3小时）：**读懂**最简单的C程序，**写出**顺序结构的伪代码
+      - type: note
+        text: 指针内容在C语言强化阶段展开；本阶段不要求看懂指针
+
+  - type: content
+    kicker: 课段导学 · 本课段目录
+    title: C语言基础阶段目录
+    blocks:
+      - type: table
+        head: [节次, 内容, 时长]
+        rows:
+          - [第1节（本节）, 程序骨架：main、printf、#define, 35min]
+          - [第2节, 数据类型、变量、scanf/printf, 35min]
+          - [第3节, 运算符：算术、关系、逻辑、%取模, 30min]
+          - [第4节, 分支（if/switch）与循环（while/for）, 40min]
+          - [第5节, 函数、数组、字符数组, 40min]
+      - type: note
+        text: 每节一个新概念；学完本阶段，进入指针与结构体强化阶段
+
+  - type: content
+    kicker: 课段导学 · 选课建议
+    title: 按自己的情况选择
+    blocks:
+      - type: table
+        head: [你的情况, 建议]
+        rows:
+          - [没写过代码 / 跨考, 从第1节开始完整学习]
+          - [学过C，大部分遗忘, 按目录选听生疏的节]
+          - [能独立写简单程序（if、循环、数组）, 跳过本阶段，直接进入强化阶段]
+
+  - type: content
+    kicker: 课段导学 · 学习要求
+    title: 四条学习要求
+    blocks:
+      - type: bullets
+        items:
+          - "**跟练**：视频里写一行，跟着写一行"
+          - "**手撕**：课后合上笔记，凭记忆把代码写出来"
+          - "**默写**：基础模板代码要能默写"
+          - "**课后题**：每节1道跟练题＋1道模仿题，答案在讲稿附录"
+      - type: text
+        text: 本阶段只讲**怎么用**；涉及地址、指针的原理，统一放到强化阶段讲解
+
+  - type: transition
+    kicker: 课段导学结束
+    title: 第1节 初识C程序
+    subtitle: 学完能看懂一个完整程序的每一行
+
+  # ---------- 正课（约30分钟） ----------
+  - type: content
+    badge: 正课开始
+    kicker: 先看一个东西
+    title: 这两行字，是怎么跑到屏幕上的？
+    blocks:
+      - type: code
+        text: |
+          printf("你好，重邮802！\n");
+          printf("我是牙膏学长\n");
+      - type: text
+        text: 你看得懂它在干嘛，但**说不清原理**？——很正常。这节课之后，你不但看得懂，还能自己写出来
+
+  - type: content
+    kicker: 思想先行
+    title: 程序是什么？
+    blocks:
+      - type: table
+        head: [环节, 说明]
+        rows:
+          - [输入, 数据（后面章节再说）]
+          - [处理, 按指令一步步算（就是代码）]
+          - [输出, 把结果告诉人（printf打印）]
+      - type: text
+        text: 计算机只懂0和1，**C语言是翻译官**：你把想法写成C代码，它翻译给电脑执行
+      - type: note
+        text: 802考的是伪代码——翻译官的标准动作，我们一个个学
+
+  - type: content
+    kicker: 第一个完整程序
+    title: C程序的骨架：五部分
+    blocks:
+      - type: code
+        text: |
+          // 头文件：引入别人写好的工具（printf在这里）
+          #include <stdio.h>
+          // 宏定义：给常量起名字
+          #define MaxSize 1000
+          // 主函数：程序从这里开始执行
+          int main(){
+              // 函数体：一条条指令
+              printf("你好，重邮802！\n");
+              // return 0：告诉系统"正常结束"
+              return 0;
+          }
+      - type: note
+        text: 先记五个名字，后面的课逐个拆开讲
+
+  - type: content
+    kicker: 代码精讲
+    title: 逐行读懂：第一个程序
+    blocks:
+      - type: code
+        text: |
+          #include <stdio.h>        // 头文件：printf在这里定义
+          #define MaxSize 1000      // 宏定义：以后写MaxSize就是1000
+          int main(){               // 主函数：程序入口
+              printf("你好！\n");    // 输出文字，\n是换行
+              return 0;              // 正常结束
+          }
+      - type: bullets
+        items:
+          - "**main**：程序的大门，不管代码多少，都从main开始执行"
+          - "**printf**：输出工具，双引号里写什么，屏幕就打印什么"
+          - "**\\n**：换行，没有它所有文字挤在一行"
+          - "**;**：一条语句的句号，不能丢"
+
+  - type: content
+    kicker: 两个小工具
+    title: "#define 与注释"
+    blocks:
+      - type: code
+        text: |
+          #define MaxSize 1000      // 给1000起个名字：MaxSize
+          #define PI 3.14            // 以后写PI，就是3.14
+
+          // 这是单行注释：解释这行在干嘛（考试写"算法思想"靠它）
+          /* 这是多行注释
+             可以写好几行 */
+      - type: bullets
+        items:
+          - "**#define**：给常量起名字，改一处全变——802真题里 MaxSize 就是这样来的"
+          - "**注释**：写给人看的，电脑忽略——考试要求写算法思想，就是注释的放大版"
+
+  - type: board
+    kicker: 板书推演
+    title: 从零手写第一个程序
+    task: 任务：在白纸上写出完整程序，让屏幕打印两行字（含换行、分号、return 0）。分六步：头文件 → main开头 → 第一行printf → 第二行printf → return 0 → 补右花括号
+
+  - type: content
+    kicker: 板书结论
+    title: 写出来的程序长这样
+    blocks:
+      - type: code
+        text: |
+          #include <stdio.h>
+          int main(){
+              printf("第一行\n");
+              printf("第二行\n");
+              return 0;
+          }
+      - type: note
+        text: 运行结果：
+      - type: code
+        text: |
+          第一行
+          第二行
+
+  - type: content
+    kicker: 本节总结
+    title: 总结
+    blocks:
+      - type: bullets
+        items:
+          - 一句话：**程序 = main入口 ＋ printf输出 ＋ 分号结尾**
+          - 本节没有算法，不分析复杂度，这个环节从下一节开始
+          - 易错点：忘分号 / 大小写混用 / 中文引号 / 花括号不配对
+      - type: note
+        text: 这四个错，初学阶段人人都会犯，写完检查一遍就行
+
+  - type: content
+    kicker: 课后任务
+    title: 1道跟练 ＋ 1道模仿
+    blocks:
+      - type: bullets
+        items:
+          - "**跟练题**：写一个程序，分三行输出你的名字、你的本科学校、你的考研目标"
+          - "**模仿题**：把课上你好程序改一改，用一条printf打印三行诗（提示：\\n可以放在中间）"
+      - type: note
+        text: 写完对照讲稿附录的参考答案；要求：合上笔记能默写main框架
