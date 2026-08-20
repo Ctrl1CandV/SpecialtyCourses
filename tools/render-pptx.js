@@ -103,6 +103,11 @@ function blockHeight(b, width) {
     case 'note': return estLines(b.text, 15, width) * 15 / 72 * 1.5 + 0.2;
     case 'text': return estLines(b.text, b.size || 18, width) * (b.size || 18) / 72 * 1.5 + 0.2;
     case 'gap': return b.h || 0.2;
+    case 'image': {
+      const iw = b.w || (CW * 0.6);
+      const ih = b.h || (iw * 0.66);
+      return Math.max(ih, 0.6) + 0.2;
+    }
     default: return 0.4;
   }
 }
@@ -163,6 +168,24 @@ function renderBlock(slide, b, y, scale) {
       return y + h + 0.14;
     }
     case 'gap': return y + (b.h || 0.2);
+    case 'image': {
+      // 图片块：支持 b.src（路径，相对于项目根或绝对）或 b.path（旧称兼容）
+      const src = b.src || b.path;
+      if (!src) return y + 0.4;
+      const imgPath = path.isAbsolute(src) ? src : path.resolve(__dirname, '..', src);
+      if (!fs.existsSync(imgPath)) {
+        slide.addText('[图片未找到: ' + src + ']', { x: MX, y, w: CW, h: 0.4, fontSize: 14, fontFace: S.font, color: S.red, align: 'center' });
+        return y + 0.6;
+      }
+      const iw = b.w || (CW * 0.6);
+      const ih = b.h || (iw * 0.66);
+      const ix = b.align === 'center' ? (W - iw) / 2 : MX;
+      const sizing = b.fit === 'contain'
+        ? { type: 'contain', w: iw, h: ih }
+        : { type: 'cover', w: iw, h: ih };
+      slide.addImage({ path: imgPath, x: ix, y, w: iw, h: ih, sizing });
+      return y + ih + 0.2;
+    }
     default: return y + 0.4;
   }
 }

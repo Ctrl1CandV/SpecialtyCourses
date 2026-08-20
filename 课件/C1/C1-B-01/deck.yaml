@@ -1,0 +1,194 @@
+meta:
+  id: C1-B-01
+  title: 指针入门与数组
+  stage: B强化
+  instructor: 牙膏学长
+  duration: 40min
+
+slides:
+  - type: cover
+    kicker: 重邮802 数据结构代码课程
+    title: C语言强化阶段
+    subtitle: 第1节 指针入门与数组
+    meta: 阶段：强化 ｜ 主讲：牙膏学长 ｜ 预计40分钟 ｜ 资料答疑：伴梦研途QQ群
+
+  - type: content
+    badge: 课段导学
+    kicker: 课段导学 · 位置
+    title: 指针是802代码的地基
+    blocks:
+      - type: table
+        head: [802题型, 指针的角色]
+        rows:
+          - [程序阅读题约20分, 补空常考p = p->next这类指针移动]
+          - [算法分析题3题30分, 链表、树、图的模板全由指针写成]
+      - type: bullets
+        items:
+          - 基础阶段给了你零件，强化阶段教你看懂**内存里发生了什么**
+          - C2的链表、树、图代码默认你会本阶段内容，不再回头补
+
+  - type: content
+    badge: 课段导学
+    kicker: 课段导学 · 目录
+    title: 强化阶段四节课
+    blocks:
+      - type: table
+        head: [节次, 主题, 学完你能做什么]
+        rows:
+          - [第1节, 指针入门与数组, 看懂地址与指针，明白数组下标的本质]
+          - [第2节, 结构体与typedef, 会定义结构体，看懂->与typedef]
+          - [第3节, 动态内存与引用, 会用malloc，看懂伪代码里的&传参]
+          - [第4节, 递归与综合实战, 手写顺序表与单链表，为数据结构课铺路]
+
+  - type: content
+    badge: 课段导学
+    kicker: 课段导学 · 适合人群
+    title: 谁适合从这里开始
+    blocks:
+      - type: table
+        head: [你的情况, 建议]
+        rows:
+          - [跟完了C语言基础阶段, 直接开始本节]
+          - [学过C语言但生疏, 从本节开始，遇到卡壳回看基础阶段对应节]
+          - [完全零基础, 先学完C语言基础阶段再回来]
+      - type: note
+        text: 课段之间可独立观看；回看指引格式：C语言基础阶段·第几节
+
+  - type: content
+    badge: 课段导学
+    kicker: 课段导学 · 学习要求
+    title: 这个课段怎么学
+    blocks:
+      - type: bullets
+        items:
+          - 每节课后手画一遍本节的内存图，比只看视频有效
+          - 代码要求能**合上资料默写**，802是纸笔考试，看懂不等于写得出
+          - 跟练题必须自己敲一遍再看答案；本阶段的题开始要求写在纸上
+
+  - type: content
+    kicker: 引题
+    title: 基础阶段留下的为什么，答案都指向地址
+    blocks:
+      - type: bullets
+        items:
+          - 三个为什么：scanf为什么要写&；数组下标为什么从0开始；越界为什么危险
+          - 这三个问题的答案，指向同一个东西：**内存的地址**
+          - 本节目标：学完你能看懂指针、用&和*操作地址，明白数组在内存里的样子
+
+  - type: content
+    kicker: 地址登场
+    title: 地址：内存格子的编号，&把编号拿出来
+    blocks:
+      - type: code
+        text: |
+          int x = 10;
+          printf("%p", &x);     // 打印x的地址，%p专门打地址
+      - type: bullets
+        items:
+          - 内存是一长排带编号的格子，变量住进去，编号就是**地址**
+          - "&放在变量前，意思是取这个变量的地址，读作取地址"
+          - "scanf(\"%d\", &score)：把输入的数字放进score所在的格子，不给地址它找不到地方放"
+
+  - type: content
+    kicker: 指针登场
+    title: 指针：专门存地址的变量
+    blocks:
+      - type: code
+        text: |
+          int x = 10;
+          int *p = &x;          // p里存的是x的地址，读作：p指向x
+      - type: bullets
+        items:
+          - "int *p：声明一个指针，它**只存地址**，存的是int变量的地址"
+          - "p = &x：把x的地址放进p，习惯说成**p指向x**"
+          - 画内存图的习惯从本节开始：格子写名字、编号、值，指针画箭头
+
+  - type: content
+    kicker: 取值的另一条路
+    title: "*p：顺着地址找到格子里的东西"
+    blocks:
+      - type: code
+        text: |
+          printf("%d", *p);     // 顺着p存的地址，取出格子里的值：10
+          *p = 20;              // x也变成20：改的是同一格内存
+      - type: bullets
+        items:
+          - "*读作取值：顺着地址找到那个格子，拿里面的东西"
+          - "p++：地址往后挪一格，指向**下一个int格子**（不是加1个字节，802伪代码按int读）"
+          - 顺带说清：p++先用再加，++p先加再用；802代码里几乎只用p++和i++这种先用再加的写法
+
+  - type: board
+    kicker: 板书推演
+    title: 从零推演：声明指针并顺着它改值
+    task: 任务：画内存格子推演四步。① 画格子x，值10（编号随手写如1000）；② 画指针p，把x的编号写进p，箭头指向x；③ 写 *p，读出10；④ 写 *p = 20，把格子里的10改成20。只画格子、编号、值、箭头，不写程序骨架
+
+  - type: content
+    kicker: 回看数组
+    title: 数组名就是首元素的地址，下标从0的答案在这
+    blocks:
+      - type: code
+        text: |
+          int a[5] = {10, 20, 30, 40, 50};
+          printf("%p", a);      // 数组名a就是首元素a[0]的地址
+          printf("%d", *(a + 2));   // 30：a[i] 就是 *(a+i)
+      - type: bullets
+        items:
+          - 数组的格子连成一片，a指向第一格，a+1指向第二格
+          - "a[2]的写法等价于*(a+2)：从起点数2格——**所以下标从0开始**，0表示起点自己"
+          - 遍历数组的for（i从0到n-1），本质就是指针一格一格往后走
+
+  - type: content
+    kicker: 本节难忘时刻
+    title: 越界：踩进了别人的格子
+    blocks:
+      - type: code
+        text: |
+          int a[5] = {10, 20, 30, 40, 50};
+          int b = 100;
+          a[5] = 999;           // 没有a[5]这一格：写进了别的变量的地盘
+      - type: bullets
+        items:
+          - a[5]只有下标0—4这五格，a[5]是第六格——那片内存住着别的变量
+          - 编译器多半不报错，值就这么被悄悄改掉，错得无声无息
+          - 这就是"越界危险"的真正原因：**不是程序不让，是那片内存不归你**
+
+  - type: content
+    kicker: 两个真实的坑
+    title: scanf吃回车与野指针
+    blocks:
+      - type: code
+        text: |
+          int n;
+          char ch;
+          scanf("%d", &n);
+          ch = getchar();       // 收走敲数字留下的回车
+          scanf("%c", &ch);     // 或者写成 scanf(" %c", &ch); 空格挡掉空白
+      - type: bullets
+        items:
+          - 先读数字再读字符时，残留的回车会被%c收走；两种救法记住一种即可
+          - "野指针：声明了没初始化的指针，*p是往**没人知道的地方**写东西，比越界更危险"
+          - 规矩只有一条：指针不初始化，就不许用*
+
+  - type: content
+    kicker: 本节小结
+    title: 这节就三件事
+    blocks:
+      - type: bullets
+        items:
+          - 地址是内存格子的编号，&取地址，*顺着地址取值，两者互逆
+          - 数组名是首元素地址，a[i]就是*(a+i)，下标从0是因为0表示起点
+          - 指针不初始化不许用；越界是踩进别人的内存
+      - type: note
+        text: 下一节：结构体与typedef，数据结构的结点就是用它们定义的
+
+  - type: content
+    kicker: 课后任务
+    title: 1道跟练 ＋ 1道模仿
+    blocks:
+      - type: bullets
+        items:
+          - "**跟练题**：声明int x=10和指向它的指针p，用*p把x改成25并打印，再画内存图标出每一步"
+          - "**模仿题**：声明int a[4]={1,2,3,4}，只用指针p从a走到a+3，依次打印四个元素"
+          - 要求：两道题先写在纸上再上机验证；合上资料能默写 int *p = &x; 和 *(a+i)
+      - type: note
+        text: 参考答案在讲稿附录一

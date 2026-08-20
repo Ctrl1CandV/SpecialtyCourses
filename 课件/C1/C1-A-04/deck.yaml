@@ -1,0 +1,244 @@
+meta:
+  id: C1-A-04
+  title: 分支与循环
+  stage: A基础
+  instructor: 牙膏学长
+  duration: 40min
+
+slides:
+  - type: cover
+    kicker: 重邮802 数据结构代码课程
+    title: C语言基础阶段
+    subtitle: 第4节 分支与循环
+    meta: 阶段：基础 ｜ 主讲：牙膏学长 ｜ 预计40分钟 ｜ 资料答疑：伴梦研途QQ群
+
+  - type: content
+    badge: 第4节
+    kicker: 先看一个问题
+    title: 程序不能只会一条路走到黑
+    blocks:
+      - type: code
+        text: |
+          scanf("%d", &score);
+          printf("及格\n");        // 不管考多少分，都打"及格"？
+      - type: bullets
+        items:
+          - 现在的程序只会**从上往下**执行，一条路走到黑
+          - 但真实问题要**判断**：及格不及格，走不同的路
+          - 还要**重复**：遍历一张表，每个元素都得看一遍
+          - 本节目标：学完你能用 **if/switch 做判断，while/for 做重复**
+
+  - type: content
+    kicker: 分支：if
+    title: 最简单的判断：if
+    blocks:
+      - type: code
+        text: |
+          if(score >= 60){
+              printf("及格\n");
+          }
+      - type: bullets
+        items:
+          - 读法：**如果**条件成立，**就**执行花括号里的语句
+          - 条件就是上一节的关系运算，结果是bool
+          - 条件不成立，花括号里的内容**整个跳过**
+          - 花括号不能省：哪怕只有一句，也建议写上
+
+  - type: content
+    kicker: 分支：if-else
+    title: 两条路：if-else
+    blocks:
+      - type: code
+        text: |
+          if(score >= 60){
+              printf("及格\n");
+          }else{
+              printf("不及格\n");
+          }
+      - type: bullets
+        items:
+          - 条件成立走if，不成立走else，**二选一，必走一条**
+          - else后面**不写条件**——它就是"否则"
+          - 802伪代码里判断成功失败，全是这个结构
+
+  - type: content
+    kicker: 分支：else if
+    title: 多条路：else if
+    blocks:
+      - type: code
+        text: |
+          if(score >= 90){
+              printf("优秀\n");
+          }else if(score >= 60){
+              printf("及格\n");
+          }else{
+              printf("不及格\n");
+          }
+      - type: bullets
+        items:
+          - 从上往下逐个判断，**命中一个就停**，后面不再看
+          - 顺序有讲究：先判90再判60，条件从大到小排
+          - 最后的else是兜底，前面都不命中才走它
+
+  - type: content
+    kicker: 分支：switch
+    title: 等值多选：switch
+    blocks:
+      - type: code
+        text: |
+          switch(level){
+              case 1: printf("优秀\n"); break;
+              case 2: printf("良好\n"); break;
+              default: printf("其他\n");
+          }
+      - type: bullets
+        items:
+          - switch专门处理"**等于某个值**"的多选，比一串if清爽
+          - 每个case后面的 **break 不能漏**，漏了会"穿透"到下一个case
+          - default是兜底，都不匹配时走它
+
+  - type: content
+    kicker: 循环登场
+    title: 重复的活，交给循环
+    blocks:
+      - type: code
+        text: |
+          printf("加油\n");
+          printf("加油\n");
+          printf("加油\n");        // 打100遍，难道写100行？
+      - type: bullets
+        items:
+          - 重复写100行：累、容易抄错、改需求就得重写
+          - 循环就是让计算机**重复做同一件事**
+          - 802里遍历表、数结点、找元素，全是循环
+
+  - type: content
+    kicker: 循环：while
+    title: while：条件成立就一直做
+    blocks:
+      - type: code
+        text: |
+          int i = 1;                  // ① 初始化
+          while(i <= 100){            // ② 条件
+              printf("%d ", i);
+              i++;                    // ③ 更新
+          }
+      - type: bullets
+        items:
+          - "**循环三要素**：初始化、条件、更新，一个都不能少"
+          - 每轮先判条件，成立才执行循环体，执行完再回去判
+          - 条件早晚要变false，循环才能停下来
+
+  - type: content
+    kicker: 本节难忘时刻
+    title: 忘写更新，就是死循环
+    blocks:
+      - type: code
+        text: |
+          int i = 1;
+          while(i <= 100){
+              printf("%d ", i);
+              // 忘了写 i++
+          }
+      - type: bullets
+        items:
+          - i永远是1，条件永远成立，**程序永远停不下来**
+          - 死循环不报错，程序就那么一直跑，这是最阴的错
+          - 写循环先问自己：**条件靠谁变false？那一行写了没？**
+
+  - type: content
+    kicker: 循环：for
+    title: for：三要素写在一行
+    blocks:
+      - type: code
+        text: |
+          for(int i = 1; i <= 100; i++){
+              printf("%d ", i);
+          }
+      - type: bullets
+        items:
+          - for把**初始化、条件、更新**收进一行，专门数数用
+          - 读法：从1开始，只要不超过100，每轮加1
+          - 数数、遍历下标，用for；条件复杂的，用while
+
+  - type: content
+    kicker: 循环控制
+    title: break 与 continue
+    blocks:
+      - type: code
+        text: |
+          for(int i = 1; i <= 10; i++){
+              if(i == 5) break;       // 整个循环到此结束
+              if(i % 2 == 0) continue; // 跳过本轮，进下一轮
+              printf("%d ", i);
+          }
+      - type: bullets
+        items:
+          - "**break**：砸掉整个循环，立刻出去"
+          - "**continue**：只跳过当前这一轮，循环继续"
+          - 802里找到目标就break，不满足条件就continue，天天用
+
+  - type: content
+    kicker: 嵌套循环
+    title: 循环里套循环，先知道有这回事
+    blocks:
+      - type: code
+        text: |
+          for(int i = 0; i < n; i++){
+              for(int j = 0; j < n; j++){
+                  // 访问 a[i][j]
+              }
+          }
+      - type: bullets
+        items:
+          - 处理二维数组、矩阵，要用两层循环
+          - 这节先知道有这回事，**用到时再展开**
+          - 802的邻接矩阵遍历，就是这个结构
+
+  - type: board
+    kicker: 板书推演
+    title: 从零写：读入分数，判等级
+    task: 任务：写一个完整程序，scanf读入分数，用if-else if-else输出"优秀/及格/不及格"。分六步：头文件 → main开头 → 声明并读入分数 → 写三段判断 → 打印 → return 0 补花括号。追加：再用for循环打印1到10
+
+  - type: content
+    kicker: 板书结论
+    title: 程序长这样
+    blocks:
+      - type: code
+        text: |
+          #include <stdio.h>
+          int main(){
+              int score;
+              scanf("%d", &score);
+              if(score >= 90) printf("优秀\n");
+              else if(score >= 60) printf("及格\n");
+              else printf("不及格\n");
+              for(int i = 1; i <= 10; i++) printf("%d ", i);
+              return 0;
+          }
+      - type: note
+        text: 输入95，输出"优秀"，然后打印 1 2 3 ... 10
+
+  - type: content
+    kicker: 本节总结
+    title: 这节记这四条
+    blocks:
+      - type: bullets
+        items:
+          - if/else if/else 按顺序判，命中就停；switch管等值多选，break别漏
+          - 循环三要素：初始化、条件、更新，**少一个就可能死循环**
+          - 数数用for，条件复杂用while
+          - break砸整个循环，continue跳过这一轮
+      - type: note
+        text: 下一节：函数与数组，本阶段收官
+
+  - type: content
+    kicker: 课后任务
+    title: 1道跟练 ＋ 1道模仿
+    blocks:
+      - type: bullets
+        items:
+          - "**跟练题**：写一个程序，用for循环打印1到100的和（提示：用一个变量累加）"
+          - "**模仿题**：把课上的判等级程序改一改，读入分数，判它是不是偶数（用上一节的%2）"
+      - type: note
+        text: 写完对照讲稿附录的参考答案；要求：合上笔记能默写循环三要素

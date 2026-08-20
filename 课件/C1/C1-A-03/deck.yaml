@@ -1,0 +1,207 @@
+meta:
+  id: C1-A-03
+  title: 运算符与表达式
+  stage: A基础
+  instructor: 牙膏学长
+  duration: 30min
+
+slides:
+  - type: cover
+    kicker: 重邮802 数据结构代码课程
+    title: C语言基础阶段
+    subtitle: 第3节 运算符与表达式
+    meta: 阶段：基础 ｜ 主讲：牙膏学长 ｜ 预计30分钟 ｜ 资料答疑：伴梦研途QQ群
+
+  - type: content
+    badge: 第3节
+    kicker: 先看上一节写到哪
+    title: 程序光会存，不会算
+    blocks:
+      - type: code
+        text: |
+          int score;
+          scanf("%d", &score);      // 上一节：数据进来了
+          printf("%d", score);      // 只能原样打出去
+      - type: bullets
+        items:
+          - 上一节的程序会存数据、会打印，但**什么也算不了**，就是个传声筒
+          - 802代码里到处是计算：判断奇偶、取个位、比较大小、数结点个数
+          - 本节目标：学完你能用**五类运算符**让程序会算
+
+  - type: content
+    kicker: 算术运算符
+    title: 加减乘除，除法有两个坑
+    blocks:
+      - type: code
+        text: |
+          a + b      a - b      a * b
+          a / b                  // 整数除法：9 / 2 等于 4，不是 4.5
+          9.0 / 2                // 有一个小数，结果就是小数：4.5
+          a % b                  // 取余：9 % 2 等于 1
+      - type: bullets
+        items:
+          - 乘号是 *，不是 ×；**整数除以整数，结果还是整数**，小数部分直接扔掉
+          - 想让除法出小数：两边只要有一个小数，结果就是小数
+          - "%是取余数：9除以2商4余1，所以 9 % 2 得 1"
+
+  - type: content
+    kicker: 取余的两个用途
+    title: "% 在802里就这两个用法"
+    blocks:
+      - type: code
+        text: |
+          x % 2      // 判断奇偶：得1是奇数，得0是偶数
+          x % 10     // 取个位：任何整数除以10的余数就是个位
+      - type: bullets
+        items:
+          - "**判断奇偶**：x % 2 得 1 就是奇数，得 0 就是偶数"
+          - "**取个位**：x % 10 直接拿到个位，取十位就 x / 10 % 10"
+          - 这两个用法在802真题和手算题里反复出现，现在就记牢
+
+  - type: content
+    kicker: 取余还能干这个
+    title: 拆时间：3670秒是几分几秒
+    blocks:
+      - type: code
+        text: |
+          int seconds = 3670;
+          printf("%d分%d秒", seconds / 60, seconds % 60);
+      - type: bullets
+        items:
+          - 3670秒：除以60取整，得61分钟；对60取余，得10秒
+          - 拆数字、拆时间，底层全是 / 和 % 这俩搭档
+          - 802手算题里凡是"换算单位"的活，思路都一样
+
+  - type: content
+    kicker: 赋值运算符
+    title: 上一节的老朋友，加几个简写
+    blocks:
+      - type: code
+        text: |
+          score = 125;            // 老朋友：先算右边，再放左边
+          score += 5;             // 等于 score = score + 5
+          score -= 5;             // 等于 score = score - 5
+          score *= 2;             // 等于 score = score * 2
+          score /= 2;             // 等于 score = score / 2
+      - type: bullets
+        items:
+          - "+= -= *= /= 都是简写，读法跟 = 一模一样：从右往左"
+          - 数据结构代码里 count++、length++ 到处都是，先认个脸熟
+
+  - type: content
+    kicker: 关系运算符
+    title: 比较大小，结果是个bool
+    blocks:
+      - type: code
+        text: |
+          a > b    a < b    a >= b    a <= b
+          a == b                             // 等于，两个等号！
+          a != b                             // 不等于
+      - type: bullets
+        items:
+          - 关系运算的结果是上一节讲的bool：**对就是true，错就是false**
+          - "**== 和 = 不是一回事**：=是赋值，==才是比较"
+          - 写成 a = 3 是往盒子里放3，a == 3 才是问"a是不是3"——混用是初学头号错误
+
+  - type: content
+    kicker: 本节难忘时刻
+    title: 0 < x < 10 不是你以为的意思
+    blocks:
+      - type: code
+        text: |
+          0 < x < 10       // 从左往右算：先算 0<x，结果再和10比
+      - type: bullets
+        items:
+          - C语言不能连着写比较，它从左往右一步一步算
+          - 0<x 的结果是1或0，再拿1和10比——**1<10 永远成立**
+          - 你以为在判断范围，其实在判断一句废话
+          - 正确写法：x > 0 && x < 10，用&&把两个条件接起来（下一页就讲）
+
+  - type: content
+    kicker: 逻辑运算符
+    title: 与、或、非
+    blocks:
+      - type: code
+        text: |
+          a && b     // 与：两边都为true，结果才true
+          a || b     // 或：两边有一个true，结果就true
+          !a         // 非：true变false，false变true
+      - type: bullets
+        items:
+          - 和关系运算一样，逻辑运算的结果也是bool
+          - "&&是\"并且\"，两个条件都满足才算数；||是\"或者\"，满足一个就行"
+          - 802伪代码的边界条件全是它：i >= 0 && i < length 就是"没越界"
+
+  - type: content
+    kicker: 自增自减
+    title: ++ 和 --：给自己加1减1
+    blocks:
+      - type: code
+        text: |
+          i++;        // i = i + 1
+          i--;        // i = i - 1
+      - type: bullets
+        items:
+          - "++就是自己加1，--就是自己减1，没别的"
+          - 数据结构代码里到处是它：i++、j--、length++ 数都数不过来
+          - i++ 和 ++i 有细微区别，**等真用到了再说**，现在只需要"加1"这个直觉
+
+  - type: content
+    kicker: 优先级
+    title: 只记这一句：括号 > 乘除取余 > 加减
+    blocks:
+      - type: code
+        text: |
+          2 + 3 * 4        // 先算 3 * 4，再加 2，得 14
+          (2 + 3) * 4      // 有括号先算括号，得 20
+      - type: bullets
+        items:
+          - 优先级不背全表，记住口诀：**括号最大，乘除取余次之，加减最小**
+          - 拿不准就加括号，多写一对括号不丢人
+          - 完整的优先级表等你用到的时候再翻，现在够用
+
+  - type: board
+    kicker: 板书推演
+    title: 从零写：读入一个整数，拆出个位和十位
+    task: 任务：写一个完整程序，scanf读入一个整数n，用%和/拆出个位（n%10）、十位（n/10%10），分别打印。分六步：头文件 → main开头 → 声明n并scanf读入 → 算个位十位 → printf打印 → return 0 补花括号
+
+  - type: content
+    kicker: 板书结论
+    title: 程序长这样
+    blocks:
+      - type: code
+        text: |
+          #include <stdio.h>
+          int main(){
+              int n;
+              scanf("%d", &n);
+              printf("个位：%d\n", n % 10);
+              printf("十位：%d\n", n / 10 % 10);
+              return 0;
+          }
+      - type: note
+        text: 输入125，输出：个位5、十位2。%和/配合就是拆数字的组合拳
+
+  - type: content
+    kicker: 本节总结
+    title: 这节记这四条
+    blocks:
+      - type: bullets
+        items:
+          - 整数除法丢小数；取余只能对整数用
+          - x%2判奇偶，x%10取个位，焊死
+          - 一个=是动作，两个==是问题；范围判断不能连着写
+          - 优先级就一句：括号 > 乘除取余 > 加减
+      - type: note
+        text: 下一节：分支与循环，程序会自己做判断、自己重复
+
+  - type: content
+    kicker: 课后任务
+    title: 1道跟练 ＋ 1道模仿
+    blocks:
+      - type: bullets
+        items:
+          - "**跟练题**：写一个程序，scanf读入一个整数，打印它的个位和十位（就是课上程序，自己从零敲一遍）"
+          - "**模仿题**：读入一个整数n，打印 n%2 的值，输入奇数看输出什么，输入偶数看输出什么"
+      - type: note
+        text: 写完对照讲稿附录的参考答案；要求：合上笔记能默写出%的两个用法

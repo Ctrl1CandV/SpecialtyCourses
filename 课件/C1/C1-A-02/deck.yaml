@@ -1,0 +1,262 @@
+meta:
+  id: C1-A-02
+  title: 数据类型、变量与输入输出
+  stage: A基础
+  instructor: 牙膏学长
+  duration: 35min
+
+slides:
+  - type: cover
+    kicker: 重邮802 数据结构代码课程
+    title: C语言基础阶段
+    subtitle: 第2节 数据类型、变量与输入输出
+    meta: 阶段：基础 ｜ 主讲：牙膏学长 ｜ 预计35分钟 ｜ 资料答疑：伴梦研途QQ群
+
+  - type: content
+    badge: 第2节
+    kicker: 先看一个问题
+    title: 写死的字，应付不了真题
+    blocks:
+      - type: code
+        text: |
+          printf("第一行\n");        // 内容在写代码时就定死了
+      - type: bullets
+        items:
+          - 上一节的printf，只能打印**事先写死**的内容
+          - 802算法题里，k的值是题目给的，元素的值是算出来的——这些**活数据**放哪？
+          - 本节目标：学完你能**存数据、算类型、让数据进出程序**
+
+  - type: content
+    kicker: 先回顾再出发
+    title: 上一节的骨架，你还记得吗
+    blocks:
+      - type: code
+        text: |
+          #include <stdio.h>
+          int main(){
+              printf("你好\n");
+              return 0;
+          }
+      - type: bullets
+        items:
+          - 五个部分：头文件、宏定义、main、函数体、return
+          - 这个骨架今天**原样复用**，我们只往里面装新东西
+          - 今天装三样：**变量、类型、输入输出**
+
+  - type: content
+    kicker: 思想先行
+    title: 变量 = 带名字的盒子
+    blocks:
+      - type: table
+        head: [盒子名（变量名）, 盒子规格（类型）, 装的东西（值）]
+        rows:
+          - [score, int, 125]
+          - [level, char, "'A'"]
+          - [pi, double, 3.14]
+      - type: bullets
+        items:
+          - 内存是一长排小格子，变量是**起了名字的格子**
+          - 写 score = 125，就是把125放进名为score的格子
+          - 每个格子还有编号（地址）——编号有什么用，强化阶段讲指针时揭晓
+
+  - type: content
+    kicker: 盒子有大有小
+    title: 802用得到的类型，就四种
+    blocks:
+      - type: table
+        head: [类型, 装什么, 盒子大小, 802里装什么]
+        rows:
+          - [int, 整数, 4字节, 分数、下标、length、k]
+          - [char, 一个字符, 1字节, 等级'A'、换行符'\n']
+          - [double, 小数, 8字节, 平均值、圆周率]
+          - [bool, 真/假, 1字节, 判断的结果]
+      - type: note
+        text: 802伪代码的元素类型统一按int读，看到ElemType不用纠结
+      - type: note
+        text: "'A'在电脑里存的是65——字符和整数底层相通，后面手算题会用"
+
+  - type: content
+    kicker: 声明与赋值
+    title: 先开盒子，再放东西
+    blocks:
+      - type: code
+        text: |
+          int score;            // 第1步：声明，先占一个盒子
+          score = 125;          // 第2步：赋值，把数据放进去
+          int target = 120;     // 简写：声明的同时赋初值（初始化）
+          score = score + 5;    // 把右边算出的结果，放回左边的盒子
+      - type: bullets
+        items:
+          - "**=是赋值，不是数学里的等于**：先算右边，再放进左边的盒子"
+          - 变量必须**先声明再使用**，没声明就用，编译器直接报错
+          - 命名规则：字母、数字、下划线，不能数字开头，区分大小写
+
+  - type: content
+    kicker: 本节难忘时刻
+    title: int x = 3.9，x里是几？
+    blocks:
+      - type: code
+        text: |
+          int x = 3.9;
+          printf("%d", x);      // 打印出来是几？
+      - type: bullets
+        items:
+          - 猜4的同学，数学思维很好，但**C语言不四舍五入**
+          - 答案是**3**：int盒子装不下小数，小数部分直接**截断**扔掉
+          - 想装3.9，就得用double盒子——**类型决定盒子能装什么**
+
+  - type: content
+    kicker: 常量
+    title: 不变的数，也给它起个名字
+    blocks:
+      - type: code
+        text: |
+          #define MaxSize 1000      // 上一节的老朋友
+          #define PI 3.14
+          const int DAYS = 365;     // 另一种写法：赋值后不许再改
+      - type: bullets
+        items:
+          - 字面常量：直接写在代码里的 125、3.14、'A'
+          - 命名常量：改一处全变，看名字就知道含义
+          - 802真题顺序表里的 MaxSize，就是这个用法
+
+  - type: content
+    kicker: printf的新花样
+    title: 把盒子里的东西打出来
+    blocks:
+      - type: table
+        head: [占位符, 对应类型, 例子]
+        rows:
+          - ['%d', int, 'printf("分数：%d", score)']
+          - ['%c', char, 'printf("等级：%c", level)']
+          - ['%f', double, 'printf("圆周率：%f", pi)']
+      - type: bullets
+        items:
+          - 占位符先占位，后面的变量**按顺序一一对应**
+          - 占位符和类型是同一套对应关系，跟上一页的类型表一起记
+
+  - type: content
+    kicker: 两个真实的坑
+    title: printf配错了，不报错，但结果全错
+    blocks:
+      - type: code
+        text: |
+          double pi = 3.14;
+          printf("%d", pi);     // 拿%d打小数：打出一串乱数，不报错
+          printf("%f", pi);     // 正确：3.140000（%f默认6位小数）
+      - type: bullets
+        items:
+          - 类型配错**不报错、程序照跑、结果全错**——这种坑最阴
+          - "%f默认打6位小数：3.14打出来是3.140000，不是bug"
+          - 想打百分号本身，写两个：%%
+
+  - type: board
+    kicker: 板书推演
+    title: 从零写：声明变量并打印出来
+    task: 任务：写一个完整程序，声明int存目标分120、int存当前分95、double存圆周率3.14，再用%d和%f分别打印。分六步：头文件 → main开头 → 声明并初始化三个变量 → printf打印 → return 0 → 补右花括号
+
+  - type: content
+    kicker: 板书结论
+    title: 程序长这样
+    blocks:
+      - type: code
+        text: |
+          #include <stdio.h>
+          int main(){
+              int target = 120;
+              int score = 95;
+              double pi = 3.14;
+              printf("目标分：%d\n", target);
+              printf("当前分：%d\n", score);
+              printf("圆周率：%f\n", pi);
+              return 0;
+          }
+      - type: note
+        text: 运行结果：目标分120、当前分95、圆周率3.140000
+
+  - type: content
+    kicker: 把数据拿进来
+    title: scanf：让用户输入数据
+    blocks:
+      - type: code
+        text: |
+          int score;
+          printf("请输入你的分数：");
+          scanf("%d", &score);            // 等用户键盘输入，存进score
+          printf("你输入的是：%d\n", score);
+      - type: bullets
+        items:
+          - 程序跑到scanf会**停下来等**，等你敲数字、敲回车
+          - "**&score**：变量名前必须加&——为什么，强化阶段讲指针时揭晓，现在照写"
+          - scanf占位符和printf大体一样：%d收整数、%c收字符；**读小数给double用%lf**
+
+  - type: content
+    kicker: scanf再加点料
+    title: 一次读两个数
+    blocks:
+      - type: code
+        text: |
+          int a, b;
+          scanf("%d %d", &a, &b);       // 占位符写几个，就收几个
+          printf("和是：%d\n", a + b);
+      - type: bullets
+        items:
+          - "**几个占位符，几个变量，几个&**，一一对应，一个不能少"
+          - 输入时，两个数中间用空格或回车隔开都行
+          - 以后写"读两个数求平均、比大小"，开头全是这句
+
+  - type: content
+    kicker: 一个真实的坑
+    title: scanf读字符，回车会捣乱
+    blocks:
+      - type: code
+        text: |
+          int n;
+          char ch;
+          scanf("%d", &n);        // 先读一个整数
+          scanf("%c", &ch);       // 再读字符：出问题了
+      - type: bullets
+        items:
+          - 现象：第二个scanf像被跳过，程序直接往下跑
+          - 原因：上次敲数字留下的**回车**，被%c当成字符收走了
+          - 现在知道有这个坑就行，救法在讲字符处理时专门说
+
+  - type: content
+    kicker: 为什么单独讲bool
+    title: bool：802伪代码里遍地都是
+    blocks:
+      - type: code
+        text: |
+          bool InitList(SqList &L){       // 802伪代码：顺序表初始化
+              L.length = 0;
+              return true;                // 成功，返回true
+          }
+      - type: bullets
+        items:
+          - bool只有两个值：**true和false**，表示"成没成功、是还是否"
+          - 802基本操作几乎都返回bool：初始化、插入、删除、入栈、入队
+          - 上机跑C代码时，开头加一句 #include <stdbool.h> 才能用bool
+
+  - type: content
+    kicker: 本节总结
+    title: 这节就三件事
+    blocks:
+      - type: bullets
+        items:
+          - 变量 = 带名字的盒子，类型 = 盒子规格，**int装不下小数，直接截断**
+          - printf用%d/%c/%f拿出去，**类型配错不报错但结果全错**
+          - scanf变量前加&拿进来，&的道理强化阶段揭晓
+      - type: note
+        text: 下一节：运算符，让程序会算
+
+  - type: content
+    kicker: 课后任务
+    title: 1道跟练 ＋ 1道模仿
+    blocks:
+      - type: bullets
+        items:
+          - "**跟练题**：写一个程序，用scanf读入你的目标分数，再用printf打印出来"
+          - "**模仿题**：用double存你今天复习的小时数，用%f打印，看输出几位小数"
+          - "**挑战题（选做）**：写 int x = 3.9; 打印x，亲眼看看截断"
+      - type: note
+        text: 写完对照讲稿附录的参考答案；要求：合上笔记能默写"声明—赋值—打印"三行

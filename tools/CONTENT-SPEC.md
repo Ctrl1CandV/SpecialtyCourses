@@ -5,6 +5,8 @@
 > - **PPT 渲染**（`tools/render-pptx.js` 管辖）：读取 deck.yaml，套用统一版式生成 .pptx。**只关心"怎么摆"**，内容 AI 不得干预样式。
 >
 > 生成命令：`node tools/render-pptx.js <课件目录>/deck.yaml`（输出同名 .pptx）
+>
+> **自检命令**：`node tools/check.js`（检查全部课件）或 `node tools/check.js 课件/C1/C1-A-02`（检查单节）。检查项：YAML解析、渲染、页数对应、字数预算、违禁词、内部代号、image路径、前向引用重复、讲稿加粗密度。每节课交付前必须跑一遍。
 
 ---
 
@@ -24,17 +26,18 @@
 
 ```yaml
 meta:
-  id: C1-A-01                    # 课段编号（进页脚）
+  id: C1-A-01                    # 课段编号（渲染元数据，不上页面；正文禁止出现内部代号）
   title: 初识C程序               # 本节标题
   stage: A基础                   # 阶段标签
   instructor: 牙膏学长
   duration: 35min
-  footer: 伴梦研途 · 重邮802代码班 · C1-A-01
 
 slides:
   - type: cover                  # 页型，见下文
     title: ...
 ```
+
+> 注意：**不设 footer 字段**——页脚只打印页码（渲染引擎内置），机构宣传由底图自带；封面 kicker 固定为"重邮802 数据结构代码课程"，不加机构名。
 
 ## 三、页型（type）
 
@@ -63,7 +66,24 @@ slides:
 | `code` | `text: 代码字符串` | 代码块（保留换行；注释用 `//`） |
 | `note` | `text` | 次要说明（灰字） |
 | `text` | `text`、`size`、`bold`、`color`、`align` | 普通段落（`**词**` 会加粗） |
+| `image` | `src`、`w`、`h`、`align`、`fit` | 图片块（C2起插图示用，见下方说明） |
 | `gap` | `h` | 留白 |
+
+**`image` 块说明**：
+- `src`：图片路径，**相对于项目根目录**（如 `知识笔记/image/KMP.png`）；也支持绝对路径。
+- `w`/`h`：宽/高（英寸），缺省时 w=内容宽×60%、h=w×0.66（约4:3）。C2 插图建议 `w: 8`、`h: 4.5` 左右。
+- `align`：`center` 居中，缺省左对齐。
+- `fit`：`contain`（完整显示不裁切，可能留白）或 `cover`（填满裁切），缺省 `cover`。笔记图建议 `contain`。
+- 写法示例：
+
+```yaml
+- type: image
+  src: 知识笔记/image/单链表插入.png
+  w: 8
+  h: 4.2
+  align: center
+  fit: contain
+```
 
 一页 blocks 总量控制：渲染器会自动缩字号防溢出，但**内容侧应主动控制密度**——一页 ≤6 条 bullets 或 ≤6 行表格或 ≤10 行代码，超了拆页。
 
