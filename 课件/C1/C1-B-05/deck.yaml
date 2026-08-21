@@ -1,0 +1,179 @@
+meta:
+  id: C1-B-05
+  title: 引用与参数传递
+  stage: B强化
+  instructor: 牙膏学长
+  duration: 40min
+
+slides:
+  - type: cover
+    kicker: 重邮802 数据结构代码课程
+    title: C语言强化阶段
+    subtitle: 第5节 引用与参数传递
+    meta: 阶段：强化 ｜ 主讲：牙膏学长 ｜ 预计40分钟 ｜ 资料答疑：伴梦研途QQ群
+
+  - type: content
+    kicker: 引题
+    title: 基础阶段留下的为什么：函数为什么改不动外面的变量
+    blocks:
+      - type: code
+        text: |
+          int a = 3, b = 5;
+          swap(a, b);        // 想让函数把a和b换过来
+          // 结果：a还是3，b还是5，纹丝不动
+      - type: bullets
+        items:
+          - 基础阶段留过这个问题：函数里明明改了，外面为什么没变
+          - 今天把传参的机制一次讲透，还会给你两种真正改得动的写法
+          - 本节目标：看懂值传递、指针传参、引用传参三种写法
+
+  - type: content
+    kicker: 值传递
+    title: 传参的真相：参数收到的是副本
+    blocks:
+      - type: bullets
+        items:
+          - 调用swap(a, b)时，a和b把自己的**值复印一份**交给x和y
+          - x、y是函数自己的局部变量，住在栈上的新格子里
+          - 函数里改的是复印件，原件从头到尾没人碰过
+
+  - type: content
+    kicker: 失败现场
+    title: swap失败版：函数里换得热闹，外面毫无变化
+    blocks:
+      - type: code
+        text: |
+          void swap(int x, int y){
+              int t = x;
+              x = y;
+              y = t;          // 换的只是x和y这两个副本
+          }
+      - type: bullets
+        items:
+          - 函数结束，x和y的格子被栈收回，复印件销毁
+          - a和b各自的格子里，还是3和5
+          - 想让函数改外面的变量，光靠值传递做不到
+
+  - type: content
+    kicker: 指针传参
+    title: 第一种解法：把地址传进去，顺着地址改
+    blocks:
+      - type: code
+        text: |
+          void swap(int *px, int *py){
+              int t = *px;
+              *px = *py;
+              *py = t;
+          }
+          swap(&a, &b);       // 传的是a和b的地址
+      - type: bullets
+        items:
+          - 参数收的不是值的复印件，是**地址**
+          - "*px改的就是a那一格：前几节课的隔空改物，用在这了"
+          - 调用处要写&a和&b，把钥匙交出去
+
+  - type: board
+    kicker: 板书推演
+    title: 两张图对比：值传递与指针传参
+    task: 任务：左半边画值传递——外面a、b两格，函数里x、y两格，标出"复印"；右半边画指针传参——外面a、b两格，函数里px、py两格，箭头从px、py分别指向a、b。只画格子与箭头，不写程序骨架
+
+  - type: content
+    kicker: 引用登场
+    title: 引用：变量的第二个名字
+    blocks:
+      - type: code
+        text: |
+          int x = 10;
+          int &r = x;        // r是x的引用，读作r是x的别名
+          r = 20;            // x也变成20
+      - type: bullets
+        items:
+          - 引用就是别名：r和x是同一格内存的两个名字
+          - 第一节课说的别名现象，今天有了专门的语法
+          - 引用是C++的语法，伪代码环境里可以直接用
+
+  - type: content
+    kicker: 引用的规矩
+    title: 引用两条规矩：出生就要绑定，绑了不改
+    blocks:
+      - type: bullets
+        items:
+          - 引用必须在定义时就初始化：int &r;单独一行不合法
+          - 绑定之后不能改绑：r = y是改x的值，不是让r改指向y
+          - 这一点和指针正好相反：指针随时能换指向，引用从一而终
+
+  - type: content
+    kicker: 引用传参
+    title: 第二种解法：引用传参，写法最干净
+    blocks:
+      - type: code
+        text: |
+          void swap(int &x, int &y){
+              int t = x;
+              x = y;
+              y = t;          // 直接改的就是a和b
+          }
+          swap(a, b);         // 调用处不用写&
+      - type: bullets
+        items:
+          - 参数x是a的别名，y是b的别名：函数里改x就是改a
+          - 函数体长得和失败版一模一样，差别只在参数表多了&
+          - 调用处干干净净，swap(a, b)，不用交地址
+
+  - type: content
+    kicker: 对比
+    title: 三种传参：一套需求，三种写法
+    blocks:
+      - type: table
+        head: [写法, 参数收到什么, 能改外面吗, 调用处]
+        rows:
+          - [值传递, 值的副本, 不能, swap(a, b)]
+          - [指针传参, 地址, 能, swap(&a, &b)]
+          - [引用传参, 别名, 能, swap(a, b)]
+      - type: note
+        text: 要读不要改，值传递就够；要改，指针或引用二选一
+
+  - type: content
+    kicker: 选型
+    title: 什么时候用哪种
+    blocks:
+      - type: bullets
+        items:
+          - 函数只读数据：值传递，简单直接
+          - 函数要改外面的变量：引用传参，写法干净
+          - 兼容纯C环境：指针传参，能力一样，调用处多写&
+          - 传大块数据（如结构体）：传地址或引用，避免整块复印
+
+  - type: content
+    kicker: 伪代码语境
+    title: 为什么伪代码的参数上常写&
+    blocks:
+      - type: bullets
+        items:
+          - 数据结构的初始化、插入这类函数，都要直接修改传进来的结构
+          - 参数写&，意思就是"这个参数允许改外面的东西"
+          - 以后读伪代码，看到参数上的&，就知道这函数会动调用者的数据
+
+  - type: content
+    kicker: 本节小结
+    title: 今天就三件事
+    blocks:
+      - type: bullets
+        items:
+          - 值传递交的是副本，函数改不动外面的变量——基础阶段的为什么解开了
+          - 想改得动，交地址：指针传参顺着*改，引用传参用别名改
+          - 引用两条规矩：出生即绑定，从一而终
+      - type: note
+        text: 下一节：递归与综合实战，把整个阶段的工具一次用上
+
+  - type: content
+    kicker: 课后任务
+    title: 1道跟练 ＋ 1道模仿
+    blocks:
+      - type: bullets
+        items:
+          - "**跟练题**：分别用指针版和引用版写swap，各自画内存图，验证a、b真的换了"
+          - "**模仿题**：写一个increment函数，用引用传参把外面的数加1，调用后打印验证"
+          - 要求：合上资料默写三种传参的函数头；纸上画图后再上机
+      - type: note
+        text: 参考答案在讲稿附录一

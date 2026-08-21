@@ -1,0 +1,197 @@
+meta:
+  id: C1-B-06
+  title: 递归与综合实战
+  stage: B强化
+  instructor: 牙膏学长
+  duration: 50min
+
+slides:
+  - type: cover
+    kicker: 重邮802 数据结构代码课程
+    title: C语言强化阶段
+    subtitle: 第6节 递归与综合实战
+    meta: 阶段：强化 ｜ 主讲：牙膏学长 ｜ 预计50分钟 ｜ 资料答疑：伴梦研途QQ群
+
+  - type: content
+    kicker: 引题
+    title: 函数调用自己，允许吗
+    blocks:
+      - type: code
+        text: |
+          void countdown(int n){
+              printf("%d ", n);
+              countdown(n - 1);      // 函数调用自己
+          }
+      - type: bullets
+        items:
+          - 允许，这叫**递归**：函数自己调自己
+          - 但这段代码有问题：它永远停不下来
+          - 本节目标：学会递归的三要素，看懂调用栈，最后从零手写顺序表和单链表
+
+  - type: content
+    kicker: 递归三要素
+    title: 递归三要素：终止、缩小、返回
+    blocks:
+      - type: code
+        text: |
+          int fact(int n){           // 求n的阶乘
+              if (n == 0) return 1;  // ① 终止条件
+              return n * fact(n - 1);// ② 缩小规模 ③ 返回结果
+          }
+      - type: bullets
+        items:
+          - 终止条件：什么时候不再调用自己，没有它就是无底洞
+          - 缩小规模：每次调用都要离终止更近一步
+          - 返回值：把自己这层的结果交回给上一层
+
+  - type: content
+    kicker: 调用栈
+    title: 递归怎么运行：一层一层展开，再一层一层收回
+    blocks:
+      - type: bullets
+        items:
+          - fact(3)调fact(2)，fact(2)调fact(1)，一路到fact(0)触发终止
+          - 每层调用都有自己的格子：参数n各是各的，互不干扰
+          - 收回时逐层交结果：1、1、2、6，最后fact(3)返回6
+
+  - type: board
+    kicker: 板书推演
+    title: 画fact(3)的调用栈
+    task: 任务：竖着画调用过程——fact(3)压进去，依次fact(2)、fact(1)、fact(0)，每层标自己的n；再从fact(0)往上画返回箭头，标每层交回的数。只画栈框、n值与返回箭头，不写程序骨架
+
+  - type: content
+    kicker: 对比
+    title: 递归与迭代：一套问题，两种写法
+    blocks:
+      - type: code
+        text: |
+          // 迭代版阶乘
+          int result = 1;
+          for(int i = 1; i <= n; i++)
+              result = result * i;
+      - type: bullets
+        items:
+          - 迭代靠循环，一层格子从头跑到尾；递归靠调用，层数随问题展开
+          - 阶乘这种问题，迭代更省；递归的优势在结构自带层次的问题上
+          - 两种都要会：读代码要都认得，写代码按问题选
+
+  - type: content
+    kicker: 两个事故
+    title: 递归的两大事故：无限递归与重复爆炸
+    blocks:
+      - type: code
+        text: |
+          int fib(int n){
+              if(n <= 1) return n;
+              return fib(n - 1) + fib(n - 2);
+          }
+      - type: bullets
+        items:
+          - 忘写终止条件：一层层调下去，栈被撑爆，程序崩溃
+          - 斐波那契的写法里，同样的子问题被反复算，n稍大就慢到不能忍
+          - 规矩：写递归先写终止条件；看见重复计算，知道有更聪明的记结果写法
+
+  - type: content
+    kicker: 综合实战
+    title: 从零手写顺序表：数组加长度
+    blocks:
+      - type: code
+        text: |
+          struct List {
+              int data[10];    // 数据存这里
+              int length;      // 当前存了几个
+          };
+      - type: bullets
+        items:
+          - 顺序表 = 数组 + 一个记录长度的数，打包成结构体
+          - length是命根子：没有它，不知道表里有几个数
+          - 前三节的工具全用上了：结构体、数组、成员访问
+
+  - type: content
+    kicker: 顺序表操作
+    title: 顺序表的初始化和插入：引用传参上岗
+    blocks:
+      - type: code
+        text: |
+          void initList(struct List &L){
+              L.length = 0;
+          }
+          void insert(struct List &L, int x){
+              L.data[L.length] = x;
+              L.length++;
+          }
+      - type: bullets
+        items:
+          - 参数写&：函数改的就是外面的表，上节课的引用传参
+          - 插入就两步：放进length那格，length加1
+          - main里造表、初始化、插几个数、遍历，一个能跑的表就成了
+
+  - type: content
+    kicker: 转向链表
+    title: 顺序表的短板：格子必须连成一片
+    blocks:
+      - type: bullets
+        items:
+          - 数组开多大写死，满了就装不下；中间插入还得搬一堆元素
+          - 换个思路：结点散着住，用指针把它们串起来
+          - 这就是链表：数据结构课的主角，今天先把它从零造出来
+
+  - type: content
+    kicker: 链表结点
+    title: 结点定义：数据加一个指向同类结点的指针
+    blocks:
+      - type: code
+        text: |
+          struct Node {
+              int data;              // 数据
+              struct Node *next;     // 指向下一个结点
+          };
+      - type: bullets
+        items:
+          - 成员next的类型是struct Node *：指向自己的同类，这叫自引用
+          - 定义里写全struct Node，不能省，此刻别名还不存在
+          - 一个结点的样子：一格数据，一把指向下一个结点的钥匙
+
+  - type: content
+    kicker: 造链表
+    title: malloc造结点，next串起来，指针走一遍
+    blocks:
+      - type: code
+        text: |
+          struct Node *p = (struct Node *)malloc(sizeof(struct Node));
+          p->data = 10;
+          p->next = NULL;      // 暂时没有下一个
+      - type: bullets
+        items:
+          - 结点住堆上：malloc申请，箭头指过去
+          - 两个结点这样串：前一个的next存后一个的地址
+          - 遍历就一句套路：p = p->next，沿着箭头一个一个走
+
+  - type: board
+    kicker: 板书推演
+    title: 画三个结点的单链表
+    task: 任务：① 画三个结点，每个分两半：data和next；② 填数据10、20、30，next互相串好，最后一个next填NULL；③ 画指针p从头走到尾，标每一轮打印的数。只画结点、箭头与p，不写程序骨架
+
+  - type: content
+    kicker: 本节小结
+    title: 今天就三件事
+    blocks:
+      - type: bullets
+        items:
+          - 递归三要素：终止条件、缩小规模、返回值；运行过程是调用栈的展开与收回
+          - 顺序表：数组加length，插入改length，引用传参让函数改得动表
+          - 单链表：结点带next，malloc造、指针串、p = p->next走
+      - type: note
+        text: 强化阶段到此完结；这六节课的工具，是数据结构课全部代码的地基
+
+  - type: content
+    kicker: 课后任务
+    title: 1道跟练 ＋ 1道模仿
+    blocks:
+      - type: bullets
+        items:
+          - "**跟练题**：手写阶乘的递归版与迭代版，都跑通，再把fact(3)的调用栈画一遍"
+          - "**模仿题**：malloc三个结点，数据1、2、3，串成链表，用p = p->next遍历打印"
+          - 要求：顺序表的定义与insert、链表结点定义，合上资料能默写
+      - type: note
+        text: 参考答案在讲稿附录一

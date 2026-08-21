@@ -1,0 +1,182 @@
+meta:
+  id: C1-B-02
+  title: 指针运算与数组
+  stage: B强化
+  instructor: 牙膏学长
+  duration: 40min
+
+slides:
+  - type: cover
+    kicker: 重邮802 数据结构代码课程
+    title: C语言强化阶段
+    subtitle: 第2节 指针运算与数组
+    meta: 阶段：强化 ｜ 主讲：牙膏学长 ｜ 预计40分钟 ｜ 资料答疑：伴梦研途QQ群
+
+  - type: content
+    kicker: 引题
+    title: 基础阶段留下的两个为什么，今天一次解开
+    blocks:
+      - type: bullets
+        items:
+          - 基础阶段讲数组时留了两个为什么：下标为什么从0开始；越界为什么危险
+          - 上节课我们拿到了指针这个工具，今天就用它把这两个问题一次解开
+          - 本节目标：会指针运算，能从地址的角度看懂数组
+
+  - type: content
+    kicker: 指针运算
+    title: p+1不是加1个字节，是往前走一格
+    blocks:
+      - type: code
+        text: |
+          int x = 10;
+          int *p = &x;
+          printf("%p", p);      // 假设打印1000
+          printf("%p", p + 1);  // 1004：一个int占4字节
+      - type: bullets
+        items:
+          - 指针加1，挪的是**指向类型的一格**：int*挪4字节，char*挪1字节
+          - 上节课说类型决定盒子大小，这里接上了：盒子多大，步子就多大
+          - p+n就是从当前位置往前n格，这是看懂数组的数学基础
+
+  - type: content
+    kicker: 顺带说清
+    title: i++与++i：先用再加，先加再用
+    blocks:
+      - type: code
+        text: |
+          int i = 3;
+          printf("%d", i++);   // 先打印3，i再变4
+          printf("%d", ++i);   // i先变5，再打印5
+      - type: bullets
+        items:
+          - i++：先按现在的值办事，办完再加；++i：先加，再办事
+          - 代码里绝大多数是用先再加的写法：循环里的i++，遍历里的p++
+          - 读代码时把i++理解成"这一轮用完再加"，就够用了
+
+  - type: content
+    kicker: 数组的地址视角
+    title: 数组名是首元素的地址，a[i]就是*(a+i)
+    blocks:
+      - type: code
+        text: |
+          int a[5] = {10, 20, 30, 40, 50};
+          printf("%p", a);          // a[0]的地址，不用写&
+          printf("%d", *(a + 2));   // 30：等价于a[2]
+      - type: bullets
+        items:
+          - 数组的格子连成一片，中间不留空；a指向第一格，a+1指向第二格
+          - "a[2]等价于**(a+2)**：从起点数2格，取那一格的值"
+          - 遍历数组的for，本质就是指针一格一格往后走
+
+  - type: content
+    kicker: 钩子兑现
+    title: 下标为什么从0：0表示起点自己
+    blocks:
+      - type: bullets
+        items:
+          - 下标表示的是**离起点几格**：a[1]离起点1格，a[2]离起点2格
+          - a[0]离起点0格，就是起点自己；从0数，一切顺理成章
+          - 要是从1开始，起点自己反而要写成a[1]，每次换算还得减1
+
+  - type: content
+    kicker: 数组名与指针
+    title: 数组名不是指针变量：a不能改指向
+    blocks:
+      - type: code
+        text: |
+          int a[5];
+          int *p = a;
+          p++;        // 合法：p是变量，可以挪
+          // a++;     // 非法：a是固定地址，不是变量
+      - type: bullets
+        items:
+          - a的值是首格地址，但它自己不是一个能重新赋值的格子
+          - sizeof(a)是整个数组的大小，sizeof(p)只是一个指针的大小
+          - 求元素个数的技巧：sizeof(a)/sizeof(a[0])
+
+  - type: board
+    kicker: 板书推演
+    title: 用指针把数组走一遍
+    task: 任务：① 画a[5]的五个连续格子并填值；② 画p指向a[0]；③ 写一行指针版遍历循环，标出每一轮p的位置；④ 右侧对照写下标版。只画格子、箭头与两行循环，不写程序骨架
+
+  - type: content
+    kicker: 两种遍历
+    title: 下标法与指针法：一套逻辑，两种写法
+    blocks:
+      - type: code
+        text: |
+          for(i = 0; i < 5; i++)
+              printf("%d", a[i]);      // 下标法
+          for(p = a; p <= a + 4; p++)
+              printf("%d", *p);        // 指针法
+      - type: bullets
+        items:
+          - 两种写法逻辑完全等价：下标法易读，指针法贴近机器干活的方式
+          - 指针版循环的边界：p走到a+4为止，写成a+5就多走一格
+          - 阅读题的循环边界挖空常考这一类，会画图就数得出来
+
+  - type: content
+    kicker: 本节难忘时刻
+    title: 越界：踩进了别人的格子
+    blocks:
+      - type: code
+        text: |
+          int a[5] = {10, 20, 30, 40, 50};
+          int b = 100;
+          a[5] = 999;           // 没有a[5]这一格：写进了别人的地盘
+      - type: bullets
+        items:
+          - a[5]只有下标0—4这五格，a[5]是第六格——那片内存住着别的变量
+          - 编译器多半不报错，值被悄悄改掉，错得无声无息
+          - 越界危险的真正原因：**不是程序不让，是那片内存不归你**
+
+  - type: content
+    kicker: 规矩
+    title: 越界规矩：最大下标是n-1
+    blocks:
+      - type: bullets
+        items:
+          - 长度是n，下标就是0到n-1，多走一步都是别人的地盘
+          - 写循环先问一句：这个数组最大下标是多少；条件里默念一遍再落笔
+          - 指针遍历同理：终点是a+n-1，条件写p <= a+n-1
+
+  - type: content
+    kicker: 钩子兑现
+    title: scanf吃回车的救法
+    blocks:
+      - type: code
+        text: |
+          int n;
+          char ch;
+          scanf("%d", &n);
+          ch = getchar();       // 收走敲数字留下的回车
+          scanf("%c", &ch);     // 或者写成 scanf(" %c", &ch);
+      - type: bullets
+        items:
+          - 敲完数字的回车留在缓冲区，被%c收走，看起来像这行被跳过
+          - 两种救法记一种：getchar()收走，或者%c前加空格挡掉空白
+          - 这个坑基础阶段留到了今天，现在填完
+
+  - type: content
+    kicker: 本节小结
+    title: 今天就三件事
+    blocks:
+      - type: bullets
+        items:
+          - 指针加1按指向类型挪格子；p+n就是往前n格
+          - a[i]就是*(a+i)：下标是偏移量，0表示起点自己
+          - 越界是踩进别人的内存，多半不报错；最大下标是n-1
+      - type: note
+        text: 下一节：结构体与typedef，数据结构的结点就是用它们定义的
+
+  - type: content
+    kicker: 课后任务
+    title: 1道跟练 ＋ 1道模仿
+    blocks:
+      - type: bullets
+        items:
+          - "**跟练题**：声明int a[5]={10,20,30,40,50}，只用指针p从a走到a+4依次打印，画出每一轮p的位置"
+          - "**模仿题**：同一个数组，让p从a+4出发，用p--倒着走，把五个数倒序打印"
+          - 要求：先在纸上预测打印结果，再上机验证；合上资料能默写 *(a+i) 和 p <= a+4
+      - type: note
+        text: 参考答案在讲稿附录一

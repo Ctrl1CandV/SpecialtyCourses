@@ -1,0 +1,187 @@
+meta:
+  id: C1-B-04
+  title: 动态内存
+  stage: B强化
+  instructor: 牙膏学长
+  duration: 45min
+
+slides:
+  - type: cover
+    kicker: 重邮802 数据结构代码课程
+    title: C语言强化阶段
+    subtitle: 第4节 动态内存
+    meta: 阶段：强化 ｜ 主讲：牙膏学长 ｜ 预计45分钟 ｜ 资料答疑：伴梦研途QQ群
+
+  - type: content
+    kicker: 引题
+    title: 局部数组的烦恼：大小必须提前定死
+    blocks:
+      - type: code
+        text: |
+          int n;
+          scanf("%d", &n);
+          // int a[n];  要多少格，写代码的时候还不知道
+      - type: bullets
+        items:
+          - 数组声明要写长度，可很多时候长度要等程序跑起来、读到数据才知道
+          - 开小了装不下，开大了浪费，写死一个数两头不讨好
+          - 本节目标：学一种**程序运行时才要空间**的办法
+
+  - type: content
+    kicker: 内存模型
+    title: 程序内存分三区：静态区、栈、堆
+    blocks:
+      - type: bullets
+        items:
+          - 静态区：全局变量住的地方，程序从生到死都在
+          - 栈：局部变量的家，进函数自动分，出函数自动收
+          - 堆：一大片空地，你伸手要，用完自己还
+          - 今天的主角是堆，但三区放在一起看，才知道它特别在哪
+
+  - type: content
+    kicker: 栈
+    title: 栈：自动管理的住所，快但做不了主
+    blocks:
+      - type: bullets
+        items:
+          - 你写的每个局部变量，都是栈上的格子：进函数就有，出函数就没
+          - 好处是全免费用，分配回收都不用操心；坏处是你做不了主
+          - 大小在写代码时就定了，运行时改不了；局部数组想变长，栈帮不上忙
+
+  - type: content
+    kicker: 堆登场
+    title: 堆：运行时才划给你的地盘
+    blocks:
+      - type: code
+        text: |
+          int *p = (int *)malloc(sizeof(int));
+      - type: bullets
+        items:
+          - malloc向堆要一个int大小的格子，要到了，把地址交到你手里
+          - malloc的名字就是memory allocation，内存分配
+          - 你手里只有地址：堆上的格子没有名字，全靠指针找它
+
+  - type: content
+    kicker: malloc三件套
+    title: malloc的标准动作：申请、判空、使用
+    blocks:
+      - type: code
+        text: |
+          int *p = (int *)malloc(sizeof(int));
+          if (p == NULL) {          // 判空：要不到地方必须处理
+              return 1;
+          }
+          *p = 100;                 // 用：和普通变量一样
+      - type: bullets
+        items:
+          - 内存不是无限的，malloc可能要不到，要不到就返回NULL
+          - 不判空直接用，等于往不存在的格子里写东西
+          - 申请、判空、使用，三步一套，写熟成本能
+
+  - type: content
+    kicker: 要一整片
+    title: malloc一片数组：sizeof算字节，指针当数组用
+    blocks:
+      - type: code
+        text: |
+          int n = 5;
+          int *arr = (int *)malloc(sizeof(int) * n);
+          arr[0] = 10;          // 像数组一样用
+      - type: bullets
+        items:
+          - malloc要的是字节数：n个int就是sizeof(int)乘n
+          - 要到的是一片连续的格子，上节课的数组规律原样适用
+          - arr[i]就是*(arr+i)：指针当数组名用，下标照样使
+
+  - type: board
+    kicker: 板书推演
+    title: 画内存三区与一次malloc
+    task: 任务：① 竖着画三个区域，标静态区、栈、堆；② 栈上画局部变量p的格子；③ 堆上画一片四格，标malloc要到的地方；④ 从p画箭头指向堆上的格子。只画区域、格子与箭头，不写程序骨架
+
+  - type: content
+    kicker: free
+    title: free：借了要还，一对一配对
+    blocks:
+      - type: code
+        text: |
+          free(p);        // 把p指向的格子还给堆
+          p = NULL;       // 规矩：还完把地址清掉
+      - type: bullets
+        items:
+          - 栈上的格子自动回收，堆上的不会：**不还就一直占着**
+          - 一次malloc配一次free，谁要的地方谁负责还
+          - free只管还格子，不会碰你的指针，p里还留着老地址
+
+  - type: content
+    kicker: 本节难忘时刻
+    title: 内存泄漏：要了不还，地盘越积越多
+    blocks:
+      - type: code
+        text: |
+          while(1){
+              int *p = (int *)malloc(sizeof(int) * 1000);
+              // 干完活直接进下一轮，忘了free
+          }
+      - type: bullets
+        items:
+          - 每一轮都要1000格，一轮都不还，堆越吃越满
+          - 编译器不提醒，程序不报错，只是内存悄悄见底
+          - 泄漏的可怕在**积累**：单次看不出，跑久了才崩
+
+  - type: content
+    kicker: 悬空指针
+    title: free之后：指针还指着老地方
+    blocks:
+      - type: bullets
+        items:
+          - free只收回格子，p里存的地址一个字没动
+          - 这片格子可能已经给了别人，你再*p就是动别人的东西
+          - 规矩：free之后紧跟一句p = NULL，把钥匙作废
+
+  - type: content
+    kicker: 兄弟知识点
+    title: malloc的邻居：calloc、realloc、new/delete
+    blocks:
+      - type: bullets
+        items:
+          - calloc：申请的同时把格子清零，多一步初始化
+          - realloc：把已申请的格子扩大或缩小，搬家带数据
+          - C++的new/delete：堆内存的另一套申请归还写法
+          - 这三样本课不展开，读代码碰到能认出来即可
+
+  - type: content
+    kicker: 选型
+    title: 栈还是堆：按需求选
+    blocks:
+      - type: table
+        head: [场景, 选谁]
+        rows:
+          - [大小固定、函数内用完就扔, 栈上局部变量]
+          - [大小运行时才知道, 堆上malloc]
+          - [数据要在函数之间传下去, 堆上malloc，传地址]
+      - type: note
+        text: 能用栈就别上堆：栈自动管理，堆要自己记账
+
+  - type: content
+    kicker: 本节小结
+    title: 今天就三件事
+    blocks:
+      - type: bullets
+        items:
+          - 内存三区：静态区、栈、堆；堆上的空间要自己申请自己还
+          - malloc三件套：申请、判空、使用；一次malloc配一次free
+          - 两大事故：泄漏是要了不还，悬空是还了还指
+      - type: note
+        text: 下一节：引用与参数传递，函数怎么改外面的变量
+
+  - type: content
+    kicker: 课后任务
+    title: 1道跟练 ＋ 1道模仿
+    blocks:
+      - type: bullets
+        items:
+          - "**跟练题**：malloc一个int的格子，判空后存入88，打印，free，置NULL，全程画内存图"
+          - "**模仿题**：读入n，malloc n个int的格子，用循环填0到n-1再打印，最后free"
+          - 要求：默写malloc三件套与free配对；纸上画图后再上机
+      - type: note
+        text: 参考答案在讲稿附录一

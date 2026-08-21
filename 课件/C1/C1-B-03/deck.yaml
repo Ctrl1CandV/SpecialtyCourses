@@ -1,0 +1,174 @@
+meta:
+  id: C1-B-03
+  title: 结构体与typedef
+  stage: B强化
+  instructor: 牙膏学长
+  duration: 40min
+
+slides:
+  - type: cover
+    kicker: 重邮802 数据结构代码课程
+    title: C语言强化阶段
+    subtitle: 第3节 结构体与typedef
+    meta: 阶段：强化 ｜ 主讲：牙膏学长 ｜ 预计40分钟 ｜ 资料答疑：伴梦研途QQ群
+
+  - type: content
+    kicker: 引题
+    title: 描述一个学生，一个变量不够用了
+    blocks:
+      - type: code
+        text: |
+          int age = 20;
+          double score = 88.5;
+          // 这两个变量描述的是同一个人，但代码里它们毫无关系
+      - type: bullets
+        items:
+          - 年龄和成绩明明属于同一个学生，散落的变量却表达不了这层归属
+          - 学生多起来更乱：age1、score1、age2、score2，谁跟谁配对全靠记
+          - 本节目标：学会把多个属性打包成一个整体，这就是**结构体**
+
+  - type: content
+    kicker: 结构体登场
+    title: struct：把属性打包成一个新类型
+    blocks:
+      - type: code
+        text: |
+          struct Student {
+              int age;          // 成员：年龄
+              double score;     // 成员：成绩
+          };                    // 分号不能丢
+      - type: bullets
+        items:
+          - struct是关键字，Student是你起的类型名，花括号里列成员
+          - 这只是**图纸**：声明了类型，还没有真正的变量
+          - 末尾的分号是高频错点，漏了编译器直接报错
+
+  - type: content
+    kicker: 造变量与访问
+    title: 定义结构体变量，用点号访问成员
+    blocks:
+      - type: code
+        text: |
+          struct Student stu = {20, 88.5};   // 按成员顺序初始化
+          printf("%d", stu.age);             // 20
+          stu.score = 90.0;                  // 改成员
+      - type: bullets
+        items:
+          - "stu.age读作stu的age：点号就是从整体里取某个成员"
+          - 初始化列表按成员声明的顺序对号入座
+          - 成员可以像普通变量一样读、改、参与运算
+
+  - type: content
+    kicker: 内存布局
+    title: 结构体在内存里：成员的盒子排成一排
+    blocks:
+      - type: bullets
+        items:
+          - stu.age占4格，stu.score占8格，两格连成一片，就是stu住的地方
+          - 结构体变量也有自己的地址，用的是**第一个成员**的编号
+          - 整体和成员的关系：一片格子与其中的几格，画图时分清楚
+
+  - type: content
+    kicker: 结构体赋值
+    title: 结构体可以整体赋值：逐成员拷贝
+    blocks:
+      - type: code
+        text: |
+          struct Student stu2;
+          stu2 = stu;     // 合法：age和score逐个拷过去
+      - type: bullets
+        items:
+          - 两个同类型结构体之间可以直接赋值，成员一个一个拷
+          - 数组做不到这一点：数组不能整体赋给数组，只能逐个元素搬
+          - 拷贝完是两份独立的数据，改stu2不影响stu
+
+  - type: board
+    kicker: 板书推演
+    title: 画结构体的内存图
+    task: 任务：① 写struct Student的类型定义（age、score两个成员）；② 画stu的内存格子：age四格、score八格连成一片，标上名字与值；③ 写stu.age和stu.score的取值；④ 旁边画stu2 = stu后的第二片格子。不写程序骨架
+
+  - type: content
+    kicker: 结构体指针
+    title: 结构体也有地址：&stu与指向它的指针
+    blocks:
+      - type: code
+        text: |
+          struct Student *p = &stu;   // p指向stu
+          printf("%d", (*p).age);     // 先取值再点成员，括号不能丢
+      - type: bullets
+        items:
+          - 指针的老规矩原样适用：&取地址，*取值，p指向stu
+          - "(*p).age：先顺着p拿到stu，再取age；**括号必须写**，点号优先级更高"
+          - 这套写法能用，但每次带括号太啰嗦，下一页给你简写
+
+  - type: content
+    kicker: 箭头写法
+    title: p->age：箭头是括号点号的简写
+    blocks:
+      - type: code
+        text: |
+          printf("%d", p->age);    // 等价于 (*p).age
+      - type: bullets
+        items:
+          - "p->age读作p指向的结构体的age，箭头就是\"先取值再点成员\"的糖"
+          - 三种写法一个意思：stu.age、(*p).age、p->age
+          - 代码里箭头出现频率极高，看到箭头先翻译成格子上的箭头
+
+  - type: content
+    kicker: typedef
+    title: typedef：给类型起别名
+    blocks:
+      - type: code
+        text: |
+          typedef struct Student Stu;
+          Stu stu2 = {21, 90.0};     // Stu就是struct Student的别名
+      - type: bullets
+        items:
+          - typedef给现有类型起个短名字，之后用别名声明变量
+          - 结构体名带着struct前缀写起来长，别名让声明变干净
+          - 别名和原名完全等价，用哪个编译器都认
+
+  - type: content
+    kicker: 对比
+    title: typedef与#define：一个是类型别名，一个是文本替换
+    blocks:
+      - type: bullets
+        items:
+          - "#define PSTU struct Student是预处理阶段的**文本替换**，只管抄写"
+          - typedef是编译器认可的类型别名，参与类型检查
+          - 声明类型别名用typedef，#define的老本行是定义常量
+
+  - type: content
+    kicker: 兄弟知识点
+    title: 结构体的邻居：结构体数组、联合、枚举
+    blocks:
+      - type: bullets
+        items:
+          - 结构体数组：把多个结构体排成数组，Stu list[10]就是十个学生排一排
+          - 联合（union）：多个成员共用同一片格子，同一时间只住一个
+          - 枚举（enum）：把一组常量名字排成队，如星期、方向
+          - 这三样本课不展开，但你要知道它们存在，读代码碰到别陌生
+
+  - type: content
+    kicker: 本节小结
+    title: 今天就三件事
+    blocks:
+      - type: bullets
+        items:
+          - struct把多个成员打包成新类型；点号取成员；末尾分号不能丢
+          - 结构体有地址，指针指向它；(*p).age带括号，p->age是简写
+          - typedef给类型起别名，和#define的文本替换是两码事
+      - type: note
+        text: 下一节：动态内存，学malloc怎么在堆上造格子
+
+  - type: content
+    kicker: 课后任务
+    title: 1道跟练 ＋ 1道模仿
+    blocks:
+      - type: bullets
+        items:
+          - "**跟练题**：定义struct Book（int pages; double price），造一个变量并初始化，用点号打印两个成员，再画内存图"
+          - "**模仿题**：声明struct Book *p指向它，分别用(*p).pages和p->pages打印，确认结果一样"
+          - 要求：合上资料默写结构体定义与p->age；两道题先纸上后上机
+      - type: note
+        text: 参考答案在讲稿附录一
