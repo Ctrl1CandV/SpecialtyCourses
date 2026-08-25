@@ -1,0 +1,87 @@
+# 本文件由 gen_decks.py 生成，修改请改生成器或分档表后重跑
+meta:
+  id: TS-4
+  title: 第4章 串 题目勾画
+  instructor: 牙膏学长
+  duration: 5min
+  background: assets/题集勾画底图.png
+  topSafe: 1.3
+
+slides:
+  - type: cover
+    kicker: "重邮考研802 数据结构"
+    title: "习题集题目勾画 · 第4章 串"
+    subtitle: "严蔚敏《数据结构题集（第2版）》"
+    meta: "依据：802考情与2020—2026真题 · 主讲：牙膏学长"
+  - type: content
+    kicker: "本章勾画总览"
+    title: "第4章三档题量与用法"
+    blocks:
+      - type: table
+        head: ["方向", "题数", "占比", "定位"]
+        rows:
+          - ["有价值必做", "7", "12%", "对应真题题型，逐题精做"]
+          - ["可做可不做", "21", "37%", "在纲内、考频低，限时巩固"]
+          - ["完全不做", "29", "51%", "超纲或无对应题型，直接跳过"]
+        align: center
+      - type: note
+        text: "题号口径：选N＝本章单项选择题第N题，答N＝解答题第N题，算N＝算法设计题第N题；页码为题集PDF页（书页＝PDF页−9）。"
+  - type: content
+    kicker: "有价值必做"
+    title: "必做题（1/2）"
+    blocks:
+      - type: table
+        head: ["题号", "考点", "价值"]
+        rows:
+          - ["4选16", "BF最坏复杂度", "简单匹配最坏O(n·m)计算，复杂度结论是填空可考形态"]
+          - ["4选17", "KMP时间复杂度", "O(n+m)标准结论（笔记KMP节），填空/选择可考"]
+          - ["4选18", "next数组手算", "「ababa「求next，2024填3/2025填8同型"]
+          - ["4选19", "KMP失配回退", "失配后i、j回退值计算，KMP手算核心动作"]
+        align: left
+        colW: [1.5, 2.7, 7.33]
+  - type: content
+    kicker: "有价值必做"
+    title: "必做题（2/2）"
+    blocks:
+      - type: table
+        head: ["题号", "考点", "价值"]
+        rows:
+          - ["4选20", "KMP全程手算", "匹配成功全程的指针变化，next应用的完整训练"]
+          - ["4答7", "next+nextval手算", "三个串求next与nextval"]
+          - ["4答8", "nextval手算", "20字符主串+模式串求nextval并匹配，填空高频真题同型"]
+        align: left
+        colW: [1.5, 2.7, 7.33]
+  - type: content
+    kicker: "可做可不做"
+    title: "可做可不做清单"
+    blocks:
+      - type: table
+        head: ["分组", "题号"]
+        rows:
+          - ["选择题：串的概念与存储（定义、基本运算、顺序…", "选1—11、13—15"]
+          - ["解答题：串基本运算的求值巩固（操作序列结果、…", "答1—6"]
+          - ["算法设计题：域内低频（前缀式转后缀式等，表达…", "算7"]
+        align: left
+        colW: [4.8, 6.73]
+  - type: content
+    kicker: "完全不做"
+    title: "完全不做清单"
+    blocks:
+      - type: table
+        head: ["内容", "题号"]
+        rows:
+          - ["块链存储密度", "选12；答9"]
+          - ["串的操作与匹配代码", "算1—6、8—28"]
+        align: left
+        colW: [4.8, 6.73]
+  - type: content
+    kicker: "使用建议"
+    title: "第4章刷题路线"
+    blocks:
+      - type: bullets
+        items:
+          - "必做7题：逐题精做，对照题集中所注真题年份回头验一遍"
+          - "可做可不做21题：一轮复习时限时过，二轮只看错题"
+          - "完全不做29题：直接跳过"
+      - type: note
+        text: "知识点回看：重邮数据结构笔记「串（模式匹配）」对应小节；答疑进页面底部群。"

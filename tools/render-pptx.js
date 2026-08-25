@@ -22,11 +22,12 @@ const S = {
 const W = 13.333, H = 7.5;          // 16:9
 const MX = 0.9;                      // 左右边距
 const CW = W - MX * 2;               // 内容宽
-const TOP = 1.05;                    // 顶部安全区（避开底图顶部色带，色带高约0.74in）
+const TOP_DEF = 1.05;                // 顶部安全区默认值（避开底图顶部色带，色带高约0.74in）
+let TOP = TOP_DEF;                   // 可被 deck.meta.topSafe 覆盖（如题集勾画底图左上角有校徽，需下移）
 const BODY_TOP = 2.62;               // 正文起始
 const FOOT_Y = 6.58;                 // 页脚（底图底部色带从约7.10in开始，页脚须在其上方）
 const CONTENT_BOTTOM = 6.42;         // 内容块可用底边界
-const BG = path.resolve(__dirname, '..', 'assets', '底图.jpg');
+let BG = path.resolve(__dirname, '..', 'assets', '底图.jpg'); // 可被 deck.meta.background 覆盖
 
 // ================= 工具 =================
 function parseRuns(text, base) {
@@ -138,6 +139,7 @@ function renderBlock(slide, b, y, scale) {
         align: b.align || 'center', valign: 'middle',
         border: { type: 'solid', pt: 0.75, color: S.line },
         autoPage: false,
+        ...(Array.isArray(b.colW) && b.colW.length ? { colW: b.colW } : {}),
       });
       return y + all.length * rowH + 0.25;
     }
@@ -236,11 +238,17 @@ async function main() {
   if (!file) { console.error('用法: node render-pptx.js <deck.yaml> [输出.pptx]'); process.exit(1); }
   const yamlPath = path.resolve(file);
   const outPath = process.argv[3] ? path.resolve(process.argv[3]) : path.join(path.dirname(yamlPath), path.basename(path.dirname(yamlPath)) + '.pptx');
-  if (!fs.existsSync(BG)) { console.error('未找到底图: ' + BG); process.exit(1); }
 
   const deck = yaml.load(fs.readFileSync(yamlPath, 'utf8'));
   const slides = deck.slides || [];
   if (!slides.length) { console.error('deck.yaml 中没有 slides'); process.exit(1); }
+
+  // deck 级覆盖：底图与顶部安全区（默认课程底图不变，题集勾画等专用底图走 meta.background）
+  if (deck.meta && deck.meta.background) {
+    BG = path.isAbsolute(deck.meta.background) ? deck.meta.background : path.resolve(__dirname, '..', deck.meta.background);
+  }
+  if (deck.meta && deck.meta.topSafe) TOP = deck.meta.topSafe;
+  if (!fs.existsSync(BG)) { console.error('未找到底图: ' + BG); process.exit(1); }
 
   const pptx = new PptxGenJS();
   pptx.defineLayout({ name: 'W16x9', width: W, height: H });

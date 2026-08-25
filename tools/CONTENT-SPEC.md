@@ -31,6 +31,8 @@ meta:
   stage: A基础                   # 阶段标签
   instructor: 牙膏学长
   duration: 35min
+  # background: assets/题集勾画底图.png  # 可选：覆盖默认课程底图（路径相对项目根）
+  # topSafe: 1.3                        # 可选：顶部安全区下移（英寸），用于左上角带校徽的底图
 
 slides:
   - type: cover                  # 页型，见下文
