@@ -54,10 +54,14 @@ slides:
           - 每层调用都有自己的格子：参数n各是各的，互不干扰
           - 收回时逐层交结果：1、1、2、6，最后fact(3)返回6
 
-  - type: board
-    kicker: 板书推演
-    title: 画fact(3)的调用栈
-    task: 任务：竖着画调用过程——fact(3)压进去，依次fact(2)、fact(1)、fact(0)，每层标自己的n；再从fact(0)往上画返回箭头，标每层交回的数。只画栈框、n值与返回箭头，不写程序骨架
+  - type: content
+    kicker: 动画演示 · 调用栈（本页逐条动画出现）
+    title: fact(3)的调用栈：展开与收回（不手写，跟着画）
+    blocks:
+      - type: bullets
+        items:
+          - ① 竖着叠四层框：fact(3)、fact(2)、fact(1)、fact(0)，每层标自己的n，向下箭头是调用
+          - ② 从fact(0)往上画返回箭头：逐层交回1、1、2、6，向上箭头是返回
 
   - type: content
     kicker: 对比
@@ -167,10 +171,15 @@ slides:
           - 两个结点这样串：前一个的next存后一个的地址
           - 遍历就一句套路：p = p->next，沿着箭头一个一个走
 
-  - type: board
-    kicker: 板书推演
-    title: 画三个结点的单链表
-    task: 任务：① 画三个结点，每个分两半：data和next；② 填数据10、20、30，next互相串好，最后一个next填NULL；③ 画指针p从头走到尾，标每一轮打印的数。只画结点、箭头与p，不写程序骨架
+  - type: content
+    kicker: 动画演示 · 单链表（本页逐条动画出现）
+    title: 三个结点的单链表：造、串、走（不手写，跟着画）
+    blocks:
+      - type: bullets
+        items:
+          - ① 横着画三个分离的结点，每个分两格：左data右next（散着住，不连片）
+          - ② 填数据10、20、30，next互串，最后一个next填NULL，箭头从next格指出
+          - ③ 画p从头走到尾：每轮p = p->next挪一步，打印10、20、30，p变NULL循环停
 
   - type: content
     kicker: 本节小结
@@ -194,4 +203,41 @@ slides:
           - "**模仿题**：malloc三个结点，数据1、2、3，串成链表，用p = p->next遍历打印"
           - 要求：顺序表的定义与insert、链表结点定义，合上资料能默写
       - type: note
-        text: 参考答案在讲稿附录一
+        text: 参考答案在本PPT最后两页，课后自行对照
+
+  - type: content
+    kicker: 参考答案 · 跟练题
+    title: 跟练题参考答案（自行对照）
+    blocks:
+      - type: code
+        text: |
+          // 阶乘递归版（fact(5)=120）
+          int fact(int n){
+              if (n == 0) return 1;    // 终止条件
+              return n * fact(n - 1);  // 缩小 + 返回
+          }
+          // 迭代版：result=1; for(i=1;i<=n;i++) result*=i;
+      - type: bullets
+        items:
+          - fact(3)调用栈：3→2→1→0四层展开，返回1、1、2、6
+          - 迭代版只用result和i两个变量，空间从头到尾不变
+
+  - type: content
+    kicker: 参考答案 · 模仿题
+    title: 模仿题参考答案（自行对照）
+    blocks:
+      - type: code
+        text: |
+          // 三结点单链表：造、串、走、还
+          struct Node { int data; struct Node *next; };
+          struct Node *a = (struct Node *)malloc(sizeof(struct Node));
+          // b、c同样造法，判空不能省；data分别填1、2、3
+          a->next = b;  b->next = c;  c->next = NULL;
+          struct Node *p = a;
+          while(p != NULL){ printf("%d ", p->data); p = p->next; }
+          free(a); free(b); free(c);
+      - type: bullets
+        items:
+          - 输出1 2 3；串联就是前一个的next存后一个的地址，遍历到NULL停
+          - 三个结点都要free，有借有还
+          - 代码省略头文件与main骨架

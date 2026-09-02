@@ -93,10 +93,16 @@ slides:
           - 要到的是一片连续的格子，上节课的数组规律原样适用
           - arr[i]就是*(arr+i)：指针当数组名用，下标照样使
 
-  - type: board
-    kicker: 板书推演
-    title: 画内存三区与一次malloc
-    task: 任务：① 竖着画三个区域，标静态区、栈、堆；② 栈上画局部变量p的格子；③ 堆上画一片四格，标malloc要到的地方；④ 从p画箭头指向堆上的格子。只画区域、格子与箭头，不写程序骨架
+  - type: content
+    kicker: 动画演示 · 内存三区图（本页逐条动画出现）
+    title: 内存三区与一次malloc的真相（不手写，跟着画）
+    blocks:
+      - type: bullets
+        items:
+          - ① 竖着分三区：静态区（小）、栈（中）、堆（大），同一块内存划出来的三个区域
+          - ② 栈区画格子p：局部变量是栈上的格子（初学者最常画错的位置）
+          - ③ 堆区画四格：标"malloc要到的地方"，这片格子没有名字，只有地址
+          - ④ 从p画箭头穿过两区指到堆上格子：栈上住指针，堆上住数据，一根箭头连两头
 
   - type: content
     kicker: free
@@ -184,4 +190,43 @@ slides:
           - "**模仿题**：读入n，malloc n个int的格子，用循环填0到n-1再打印，最后free"
           - 要求：默写malloc三件套与free配对；纸上画图后再上机
       - type: note
-        text: 参考答案在讲稿附录一
+        text: 参考答案在本PPT最后两页，课后自行对照
+
+  - type: content
+    kicker: 参考答案 · 跟练题
+    title: 跟练题参考答案（自行对照）
+    blocks:
+      - type: code
+        text: |
+          // malloc全流程：申请→判空→使用→归还→置NULL
+          int *p = (int *)malloc(sizeof(int));
+          if (p == NULL) return 1;
+          *p = 88;
+          printf("%d\n", *p);   // 88
+          free(p);
+          p = NULL;
+      - type: bullets
+        items:
+          - 内存图四步：申请后箭头跨区指堆→填值→free后格子涂掉箭头还在→置NULL箭头消失
+          - 判空和置NULL都不能省，一个防申请失败，一个防悬空指针
+
+  - type: content
+    kicker: 参考答案 · 模仿题
+    title: 模仿题参考答案（自行对照）
+    blocks:
+      - type: code
+        text: |
+          // 动态数组完整生命周期
+          int n;
+          scanf("%d", &n);
+          int *arr = (int *)malloc(sizeof(int) * n);
+          if (arr == NULL) return 1;
+          for(int i = 0; i < n; i++) arr[i] = i;
+          for(int i = 0; i < n; i++) printf("%d ", arr[i]);
+          free(arr);
+          arr = NULL;
+      - type: bullets
+        items:
+          - 字节数是sizeof(int)乘n，不是n；循环边界i<n
+          - 用完free加置NULL，有借有还
+          - 代码省略#include <stdio.h>、#include <stdlib.h>与main骨架

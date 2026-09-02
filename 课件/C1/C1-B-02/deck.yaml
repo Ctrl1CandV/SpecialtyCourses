@@ -94,14 +94,9 @@ slides:
           - sizeof(a)是整个数组的大小，sizeof(p)只是一个指针的大小
           - 求元素个数的技巧：sizeof(a)/sizeof(a[0])
 
-  - type: board
-    kicker: 板书推演
-    title: 用指针把数组走一遍
-    task: 任务：① 画a[5]的五个连续格子并填值；② 画p指向a[0]；③ 写一行指针版遍历循环，标出每一轮p的位置；④ 右侧对照写下标版。只画格子、箭头与两行循环，不写程序骨架
-
   - type: content
     kicker: 两种遍历
-    title: 下标法与指针法：一套逻辑，两种写法
+    title: 下标法与指针法：一套逻辑，两种写法（配合讲稿用图讲指针走数组）
     blocks:
       - type: code
         text: |
@@ -111,6 +106,7 @@ slides:
               printf("%d", *p);        // 指针法
       - type: bullets
         items:
+          - 五个连续格子，p从a[0]出发每轮走一格：正好五轮，打印五个数（画图跟一遍）
           - 两种写法逻辑完全等价：下标法易读，指针法贴近机器干活的方式
           - 指针版循环的边界：p走到a+4为止，写成a+5就多走一格
           - 阅读题的循环边界挖空常考这一类，会画图就数得出来
@@ -179,4 +175,39 @@ slides:
           - "**模仿题**：同一个数组，让p从a+4出发，用p--倒着走，把五个数倒序打印"
           - 要求：先在纸上预测打印结果，再上机验证；合上资料能默写 *(a+i) 和 p <= a+4
       - type: note
-        text: 参考答案在讲稿附录一
+        text: 参考答案在本PPT最后两页，课后自行对照
+
+  - type: content
+    kicker: 参考答案 · 跟练题
+    title: 跟练题参考答案（自行对照）
+    blocks:
+      - type: code
+        text: |
+          // 指针正向遍历（a[5]={10,20,30,40,50}）
+          int *p = a;
+          while(p <= a + 4){
+              printf("%d ", *p);
+              p++;
+          }
+      - type: bullets
+        items:
+          - 输出10 20 30 40 50；p从a出发，每轮打印*p后p++，走到a+4为止，共五轮
+          - 两个坑：条件写p<=a+5多走一格；先p++再打印会跳过第一个数
+
+  - type: content
+    kicker: 参考答案 · 模仿题
+    title: 模仿题参考答案（自行对照）
+    blocks:
+      - type: code
+        text: |
+          // 指针反向遍历
+          int *p = a + 4;
+          while(p >= a){
+              printf("%d ", *p);
+              p--;
+          }
+      - type: bullets
+        items:
+          - 输出50 40 30 20 10；起点换终点，方向反过来，每轮p--
+          - 条件是p>=a，走到首格为止，少走一格就漏数
+          - 代码省略#include <stdio.h>与main骨架

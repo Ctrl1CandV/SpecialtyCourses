@@ -15,7 +15,7 @@ const S = {
   gray: '8A9099',     // 次要文字
   line: 'D8DBE0',     // 表格线
   headBg: 'F5F6F7',   // 表头底
-  codeBg: 'F5F6F7',   // 代码底
+  codeBg: 'F7F9FC',   // 代码底（带蓝调的浅底，配左侧蓝竖条）
   font: '微软雅黑',
   codeFont: 'Consolas',
 };
@@ -145,8 +145,11 @@ function renderBlock(slide, b, y, scale) {
     }
     case 'code': {
       const lines = String(b.text).split('\n');
-      const ch = Math.max(0.6, lines.length * 0.26 + 0.35);
-      slide.addShape('rect', { x: MX, y, w: CW, h: ch, fill: { color: S.codeBg }, line: { color: S.line, width: 0.75 } });
+      // 高度随scale缩放：字号缩了盒子也要缩，否则密集页底部溢出
+      const ch = Math.max(0.6, lines.length * 0.26 * scale + 0.35);
+      // 浅底无硬边框 + 左侧蓝竖条（三色制内的代码块识别符）
+      slide.addShape('rect', { x: MX, y, w: CW, h: ch, fill: { color: S.codeBg } });
+      slide.addShape('rect', { x: MX, y, w: 0.055, h: ch, fill: { color: S.blue } });
       slide.addText(String(b.text), {
         x: MX + 0.28, y: y + 0.12, w: CW - 0.56, h: ch - 0.24,
         fontFace: S.codeFont, fontSize: Math.round(13.5 * scale), color: S.ink,

@@ -136,10 +136,16 @@ slides:
           - x和*p不是两个变量，是同一格内存的两个名字
           - 两个指针指向同一个变量时，谁改都一起变——这叫**别名**
 
-  - type: board
-    kicker: 板书推演
-    title: 从零推演：声明指针并顺着它改值
-    task: 任务：画内存格子推演四步。① 画格子x，值10（编号随手写如1000）；② 画指针p，把x的编号写进p，箭头指向x；③ 写 *p，读出10；④ 写 *p = 20，把格子里的10改成20。只画格子、编号、值、箭头，不写程序骨架
+  - type: content
+    kicker: 动画演示 · 内存图推演
+    title: 四步推演：声明指针并顺着它改值（本页逐条动画出现）
+    blocks:
+      - type: bullets
+        items:
+          - ① 画格子x：值10，门牌号随手写如1000（不写程序骨架，只画图）
+          - ② 画格子p：里面放x的门牌号1000，箭头从p指向x，这就是p指向x
+          - ③ 写 *p：顺着箭头看过去，x那格里是10，所以*p是10
+          - ④ 写 *p = 20：顺着箭头把格子里的10改成20，x也是20，同一格内存（*p改的是x那格，p自己的格子没动）
 
   - type: content
     kicker: 指针的规矩
@@ -185,4 +191,44 @@ slides:
           - "**模仿题**：声明int x=10、int y=20、int *p=&x，用一句p=&y让p改指向y，打印*p"
           - 要求：两道题先写在纸上再上机验证；合上资料能默写 int *p = &x; 和 *p = 25;
       - type: note
-        text: 参考答案在讲稿附录一
+        text: 参考答案在本PPT最后两页，课后自行对照
+
+  - type: content
+    kicker: 参考答案 · 跟练题
+    title: 跟练题参考答案（自行对照）
+    blocks:
+      - type: code
+        text: |
+          // 用*p把x改成25
+          int main(){
+              int x = 10;
+              int *p = &x;
+              *p = 25;
+              printf("%d\n", x);   // 25
+              return 0;
+          }
+      - type: bullets
+        items:
+          - 内存图：格子x（10→25）、格子p存x的地址、箭头p→x
+          - "*p = 25改的是x那一格，p自己的格子纹丝不动"
+          - 推演口诀：先找p里的门牌号，再顺门牌号找格子，最后在格子里改值
+
+  - type: content
+    kicker: 参考答案 · 模仿题
+    title: 模仿题参考答案（自行对照）
+    blocks:
+      - type: code
+        text: |
+          // p改指向y
+          int main(){
+              int x = 10, y = 20;
+              int *p = &x;
+              p = &y;
+              printf("%d\n", *p);  // 20
+              return 0;
+          }
+      - type: bullets
+        items:
+          - p = &y只改p自己格子里的编号，x和y的值全程不动
+          - 常见错法：把p = &y写成*p = &y，这是把地址往x那格里塞，类型都对不上
+          - 代码省略#include <stdio.h>

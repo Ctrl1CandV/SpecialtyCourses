@@ -72,10 +72,8 @@ slides:
           - "*px改的就是a那一格：前几节课的隔空改物，用在这了"
           - 调用处要写&a和&b，把钥匙交出去
 
-  - type: board
-    kicker: 板书推演
-    title: 两张图对比：值传递与指针传参
-    task: 任务：左半边画值传递——外面a、b两格，函数里x、y两格，标出"复印"；右半边画指针传参——外面a、b两格，函数里px、py两格，箭头从px、py分别指向a、b。只画格子与箭头，不写程序骨架
+
+
 
   - type: content
     kicker: 引用登场
@@ -176,4 +174,42 @@ slides:
           - "**模仿题**：写一个increment函数，用引用传参把外面的数加1，调用后打印验证"
           - 要求：合上资料默写三种传参的函数头；纸上画图后再上机
       - type: note
-        text: 参考答案在讲稿附录一
+        text: 参考答案在本PPT最后两页，课后自行对照
+
+  - type: content
+    kicker: 参考答案 · 跟练题
+    title: 跟练题参考答案（自行对照）
+    blocks:
+      - type: code
+        text: |
+          // 指针版与引用版swap
+          void swapPtr(int *px, int *py){
+              int t = *px; *px = *py; *py = t;
+          }
+          void swapRef(int &x, int &y){
+              int t = x; x = y; y = t;
+          }
+          int a = 3, b = 5;
+          swapPtr(&a, &b);    // a=5 b=3
+          swapRef(a, b);      // a=3 b=5
+      - type: bullets
+        items:
+          - 指针版图：px、py的箭头跨出函数框指向a、b，*px改的就是a的格子
+          - 引用版图：x直接标成a的别名，没有新格子
+
+  - type: content
+    kicker: 参考答案 · 模仿题
+    title: 模仿题参考答案（自行对照）
+    blocks:
+      - type: code
+        text: |
+          // 引用传参
+          void increment(int &n){ n = n + 1; }
+          int n = 10;
+          increment(n);
+          printf("%d\n", n);   // 11
+      - type: bullets
+        items:
+          - 参数写int &n，调用处不写&，函数里改n就是改外面的n
+          - 对照实验：参数若写成int n（值传递），调用后n仍是10
+          - 代码省略#include <stdio.h>与main骨架

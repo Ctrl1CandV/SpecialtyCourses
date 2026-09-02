@@ -82,11 +82,6 @@ slides:
           - 数组做不到这一点：数组不能整体赋给数组，只能逐个元素搬
           - 拷贝完是两份独立的数据，改stu2不影响stu
 
-  - type: board
-    kicker: 板书推演
-    title: 画结构体的内存图
-    task: 任务：① 写struct Student的类型定义（age、score两个成员）；② 画stu的内存格子：age四格、score八格连成一片，标上名字与值；③ 写stu.age和stu.score的取值；④ 旁边画stu2 = stu后的第二片格子。不写程序骨架
-
   - type: content
     kicker: 结构体指针
     title: 结构体也有地址：&stu与指向它的指针
@@ -171,4 +166,38 @@ slides:
           - "**模仿题**：声明struct Book *p指向它，分别用(*p).pages和p->pages打印，确认结果一样"
           - 要求：合上资料默写结构体定义与p->age；两道题先纸上后上机
       - type: note
-        text: 参考答案在讲稿附录一
+        text: 参考答案在本PPT最后两页，课后自行对照
+
+  - type: content
+    kicker: 参考答案 · 跟练题
+    title: 跟练题参考答案（自行对照）
+    blocks:
+      - type: code
+        text: |
+          // 定义、初始化、点号访问
+          struct Book {
+              int pages;
+              double price;
+          };
+          struct Book bk = {320, 45.5};
+          printf("%d %.1f\n", bk.pages, bk.price);   // 320 45.5
+      - type: bullets
+        items:
+          - 内存图：pages四格、price八格连成一片标bk，起点编号就是&bk的值
+          - 初始化按成员声明顺序对号入座，定义末尾分号不能丢
+
+  - type: content
+    kicker: 参考答案 · 模仿题
+    title: 模仿题参考答案（自行对照）
+    blocks:
+      - type: code
+        text: |
+          // (*p).pages 与 p->pages 等价
+          struct Book *p = &bk;
+          printf("%d\n", (*p).pages);   // 320
+          printf("%d\n", p->pages);     // 320
+      - type: bullets
+        items:
+          - 两次打印结果必须相同，不同就是括号或箭头写错了
+          - 常见错法：写成*p.pages，点号优先级更高，编译报错
+          - 代码省略#include <stdio.h>与main骨架
