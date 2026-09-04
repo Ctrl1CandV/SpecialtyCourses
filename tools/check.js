@@ -14,6 +14,10 @@
 //   8. image 块的 src 路径是否存在
 //   9. 讲稿前向引用钩子重复（"后面会讲"类铺垫过多则告警）
 //   10. 讲稿加粗密度（格式过度则告警）
+//   11. 讲稿"绕"口禁语（比喻替代术语/AI专用词，见授课技法指南§4.7）
+//   12. 讲稿正文未转义的指针星号（应写 \*，见授课技法指南§4.6第8条）
+//   13. deck 制作备注混进学生页（动画登记类文字只该进讲稿课前准备）
+//   注：第11—13项对已录制封存的课节不追溯（封存课件不回改）
 const fs = require('fs');
 const path = require('path');
 const yaml = require('js-yaml');
@@ -26,6 +30,12 @@ const COURSE_DIR = path.join(ROOT, '课件');
 const BAD_WORDS = /稳稳拿下|放心跟|跑不掉|一句话总结|首先，|其次，|综上所述|值得注意的是|不仅.*而且|总而言之/g;
 // 内部代号（面向学生不应出现，deck.meta.id 是渲染元数据不上页面）
 const INTERNAL_CODES = /C1-A|C1-B|C2-A|C2-B|C2-C|C3-A|C3-B|C3-C/g;
+// "绕"口禁语（第十轮：取自 C1-B-02 取证的高信号固定说法，替换对照表见授课技法指南§4.7）
+const ROUND_WORDS = /路线报一下|盘点.{0,6}问题|立(一个|个)规矩|规矩就一条|规矩记住|数学基础|设计哲学|自由翻译|按现在的值办事|办完事再|不管三七二十一|的脾气是|小尾巴|窗户纸|骨子里|新家具|新零件|构建这个画面|分界线就在|再交手|严丝合缝|家常便饭|才算真懂|压着没讲/g;
+// 已录制封存的课节：第十轮新增的第11—13项不追溯，避免产生不可修的告警
+const SEALED = /C0-代码班总先导|C1-A-0\d|802备考经验分享/;
+// deck 制作备注（学生页不应出现；注意不收 "占位"，会与 C 语言术语"占位符"相冲）
+const DECK_PROD_NOTES = /本页|逐条动画|不手写|配合讲稿|录制|口播|讲稿|待补/;
 
 const results = []; // {dir, level, msg}
 
@@ -168,6 +178,36 @@ function checkDeck(dir) {
   if (mdText) {
     const boldCount = (mdText.match(/\*\*/g) || []).length / 2;
     if (boldCount > 10) log(dir, 'WARN', `讲稿加粗 ${boldCount} 处（>10），格式过度，见授课技法指南§4.6`);
+  }
+
+  // 11. "绕"口禁语（第十轮：比喻替代术语与AI专用词，型一/型三仍需人工朗读自查）
+  const sealed = SEALED.test(dir) || SEALED.test(baseName);
+  if (mdText && !sealed) {
+    const roundMatches = mdText.match(ROUND_WORDS);
+    if (roundMatches) {
+      log(dir, 'WARN', `讲稿含"绕"口禁语 ${roundMatches.length} 处: ${[...new Set(roundMatches)].join('、')}（改法见授课技法指南§4.7对照表）`);
+    }
+  }
+
+  // 12. 讲稿正文未转义的指针星号（排除代码围栏、行内代码与加粗标记）
+  if (mdText && !sealed) {
+    const prose = mdText
+      .replace(/```[\s\S]*?```/g, '')   // 代码围栏
+      .replace(/`[^`\n]+`/g, '')          // 行内代码
+      .replace(/\*\*[^*\n]+\*\*/g, '');   // 加粗标记
+    const bareStars = (prose.match(/(?<!\\)\*/g) || []).length;
+    if (bareStars > 0) {
+      log(dir, 'WARN', `讲稿正文有 ${bareStars} 处未转义的 * ，指针与解引用应写 \\*（见授课技法指南§4.6第8条）`);
+    }
+  }
+
+  // 13. deck 制作备注混进学生页（第十轮：B-01/B-02/B-04/B-06 均查到"本页逐条动画出现"类备注印在标题上）
+  if (!sealed) {
+    const notes = String(deckText).replace(/^meta:[\s\S]*?^slides:/m, 'slides:')
+      .split('\n').filter(l => DECK_PROD_NOTES.test(l)).map(l => l.trim());
+    if (notes.length) {
+      log(dir, 'WARN', `deck 含制作备注 ${notes.length} 处（学生页不应出现，动画登记只进讲稿课前准备）: ${notes[0]}`);
+    }
   }
 }
 

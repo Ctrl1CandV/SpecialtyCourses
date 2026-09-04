@@ -96,7 +96,7 @@ slides:
 
   - type: content
     kicker: 两种遍历
-    title: 下标法与指针法：一套逻辑，两种写法（配合讲稿用图讲指针走数组）
+    title: 下标法与指针法：一套逻辑，两种写法
     blocks:
       - type: code
         text: |
