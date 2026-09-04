@@ -3,14 +3,14 @@ meta:
   title: 递归与综合实战
   stage: B强化
   instructor: 牙膏学长
-  duration: 50min
+  duration: 42min
 
 slides:
   - type: cover
     kicker: 重邮802 数据结构代码课程
     title: C语言强化阶段
     subtitle: 第6节 递归与综合实战
-    meta: 阶段：强化 ｜ 主讲：牙膏学长 ｜ 预计50分钟 ｜ 资料答疑：伴梦研途QQ群
+    meta: 阶段：强化 ｜ 主讲：牙膏学长 ｜ 预计42分钟 ｜ 资料答疑：伴梦研途QQ群
 
   - type: content
     kicker: 引题
@@ -55,8 +55,8 @@ slides:
           - 收回时逐层交结果：1、1、2、6，最后fact(3)返回6
 
   - type: content
-    kicker: 动画演示 · 调用栈（本页逐条动画出现）
-    title: fact(3)的调用栈：展开与收回（不手写，跟着画）
+    kicker: 调用栈推演
+    title: fact(3)的调用栈：展开与收回（拿纸跟着画）
     blocks:
       - type: bullets
         items:
@@ -97,101 +97,77 @@ slides:
 
   - type: content
     kicker: 综合实战
-    title: 从零手写顺序表：数组加长度
+    title: 把四样工具装进一个能跑的程序
     blocks:
+      - type: bullets
+        items:
+          - 目标不是学顺序表和链表：插入删除、头结点、查找那些是数据结构课的内容
+          - 今天只练四样工具的组合：结构体、指针、动态内存、引用传参
+          - 第一个组合：结构体里装数组，再配一个计数的成员
       - type: code
         text: |
           struct List {
-              int data[10];    // 数据存这里
-              int length;      // 当前存了几个
+              int data[10];    // 数据：结构体里装数组
+              int length;      // 计数：数组自己不知道存了几个
           };
-      - type: bullets
-        items:
-          - 顺序表 = 数组 + 一个记录长度的数，打包成结构体
-          - length是命根子：没有它，不知道表里有几个数
-          - 前三节的工具全用上了：结构体、数组、成员访问
+          void initList(struct List &L){ L.length = 0; }   // 引用传参改外面的表
 
   - type: content
-    kicker: 顺序表操作
-    title: 顺序表的初始化和插入：引用传参上岗
-    blocks:
-      - type: code
-        text: |
-          void initList(struct List &L){
-              L.length = 0;
-          }
-          void insert(struct List &L, int x){
-              L.data[L.length] = x;
-              L.length++;
-          }
-      - type: bullets
-        items:
-          - 参数写&：函数改的就是外面的表，上节课的引用传参
-          - 插入就两步：放进length那格，length加1
-          - main里造表、初始化、插几个数、遍历，一个能跑的表就成了
-
-  - type: content
-    kicker: 转向链表
-    title: 顺序表的短板：格子必须连成一片
-    blocks:
-      - type: bullets
-        items:
-          - 数组开多大写死，满了就装不下；中间插入还得搬一堆元素
-          - 换个思路：结点散着住，用指针把它们串起来
-          - 这就是链表：数据结构课的主角，今天先把它从零造出来
-
-  - type: content
-    kicker: 链表结点
-    title: 结点定义：数据加一个指向同类结点的指针
+    kicker: 结构体里装指针
+    title: 自引用：成员是指向同类结构体的指针
     blocks:
       - type: code
         text: |
           struct Node {
               int data;              // 数据
-              struct Node *next;     // 指向下一个结点
+              struct Node *next;     // 指向同类的指针
           };
       - type: bullets
         items:
-          - 成员next的类型是struct Node *：指向自己的同类，这叫自引用
-          - 定义里写全struct Node，不能省，此刻别名还不存在
-          - 一个结点的样子：一格数据，一把指向下一个结点的钥匙
+          - 数组必须连成一片、大小写死；要让几块分开的内存互相认识，只能用指针
+          - 自引用合法的关键在星号：成员是地址，不需要知道Node内部多大
+          - 成员写struct Node next（不带星号）就不行：套下去没有尽头
+          - 定义里struct不能省，此刻还没有别名
 
   - type: content
-    kicker: 造链表
-    title: malloc造结点，next串起来，指针走一遍
+    kicker: 造、串、走、还
+    title: malloc造结构体，箭头串起来，指针走一遍
     blocks:
       - type: code
         text: |
           struct Node *p = (struct Node *)malloc(sizeof(struct Node));
+          if (p == NULL) return 1;
           p->data = 10;
-          p->next = NULL;      // 暂时没有下一个
+          p->next = q;        // 串：前一个的next存后一个的地址
       - type: bullets
         items:
-          - 结点住堆上：malloc申请，箭头指过去
-          - 两个结点这样串：前一个的next存后一个的地址
-          - 遍历就一句套路：p = p->next，沿着箭头一个一个走
+          - 住堆上：数量运行时才知道，而且要活得比函数长（上节课的选型）
+          - next先置NULL：malloc不清零，垃圾地址会让遍历跑飞
+          - 走一遍：while(p != NULL)，打印p->data，再p = p->next
+          - 收尾三块都free再置NULL，账才平
 
   - type: content
-    kicker: 动画演示 · 单链表（本页逐条动画出现）
-    title: 三个结点的单链表：造、串、走（不手写，跟着画）
+    kicker: 综合内存图推演
+    title: 一张图把这一阶段全画上（拿纸跟着画）
     blocks:
       - type: bullets
         items:
-          - ① 横着画三个分离的结点，每个分两格：左data右next（散着住，不连片）
-          - ② 填数据10、20、30，next互串，最后一个next填NULL，箭头从next格指出
-          - ③ 画p从头走到尾：每轮p = p->next挪一步，打印10、20、30，p变NULL循环停
+          - ① 画栈：一个格子标p，里面装地址（局部变量住栈上）
+          - ② 画堆上三片分开的结构体格，每片两格：左data右next，填10、20、30
+          - ③ next互串画箭头，最后一片next写NULL；p的箭头指到第一片
+          - ④ 走一遍：p沿箭头挪三次打印，变NULL时循环停；free后格子涂掉、箭头失效
 
   - type: content
     kicker: 本节小结
-    title: 今天就三件事
+    title: 今天就两件事
     blocks:
       - type: bullets
         items:
           - 递归三要素：终止条件、缩小规模、返回值；运行过程是调用栈的展开与收回
-          - 顺序表：数组加length，插入改length，引用传参让函数改得动表
-          - 单链表：结点带next，malloc造、指针串、p = p->next走
+          - 四样工具的组合：结构体装数组也装指针、malloc造结构体、引用传参改外面、free平账
+          - 一张综合内存图：栈上指针、堆上分开的结构体格、箭头、NULL
       - type: note
-        text: 强化阶段到此完结；这六节课的工具，是数据结构课全部代码的地基
+        text: 顺序表与链表的正式内容（插删、头结点、查找）在数据结构课讲；强化阶段到此完结
 
   - type: content
     kicker: 课后任务
@@ -200,8 +176,8 @@ slides:
       - type: bullets
         items:
           - "**跟练题**：手写阶乘的递归版与迭代版，都跑通，再把fact(3)的调用栈画一遍"
-          - "**模仿题**：malloc三个结点，数据1、2、3，串成链表，用p = p->next遍历打印"
-          - 要求：顺序表的定义与insert、链表结点定义，合上资料能默写
+          - "**模仿题**：malloc三个struct Node，data填1、2、3，用next串起来，遍历打印后全部free"
+          - 要求：合上资料能默写fact递归版、struct Node定义、malloc＋判空＋箭头赋值＋free四步
       - type: note
         text: 参考答案在本PPT最后两页，课后自行对照
 
