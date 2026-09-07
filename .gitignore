@@ -3,4 +3,19 @@ node_modules/
 .DS_Store
 Thumbs.db
 .reasonix/
+_tmp/
 真题资料/数据结构题集第二版.pdf
+
+# 外部原始资料（主讲下载的教材/题集 PDF，版权与质量未筛，不入仓库）
+临时区/
+
+# Python 缓存
+__pycache__/
+*.pyc
+
+# SQLite 运行期临时文件
+*.db-wal
+*.db-shm
+
+# 数据库导出工具
+题库数据库/工具
