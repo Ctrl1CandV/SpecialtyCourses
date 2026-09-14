@@ -213,4 +213,49 @@ slides:
           - "**跟练题**：把板书的findMax程序自己从零敲一遍，别抄"
           - "**模仿题**：把findMax改成findMin，求数组最小值"
       - type: note
-        text: 写完对照讲稿附录的参考答案；要求：合上笔记能默写"函数定义四部分"和"数组遍历的for"
+        text: 参考答案在本PPT最后两页，课后自行对照；要求：合上笔记能默写"函数定义四部分"和"数组遍历的for"
+
+  - type: content
+    kicker: 参考答案 · 跟练题
+    title: 跟练题参考答案（自行对照）
+    blocks:
+      - type: code
+        text: |
+          #include <stdio.h>
+          int findMax(int a[], int n){
+              int m = a[0];
+              for(int i = 1; i < n; i++)
+                  if(a[i] > m) m = a[i];
+              return m;
+          }
+          int main(){
+              int a[4] = {3, 9, 2, 7};
+              printf("最大值：%d\n", findMax(a, 4));
+              return 0;
+          }
+      - type: bullets
+        items:
+          - "先把 a[0] 当作最大值，再从左到右逐个比大，遇到更大的就更新"
+          - "函数定义四部分：返回类型、函数名、参数表、函数体；返回值类型与 return 一致"
+  - type: content
+    kicker: 参考答案 · 模仿题
+    title: 模仿题参考答案（自行对照）
+    blocks:
+      - type: code
+        text: |
+          #include <stdio.h>
+          int findMin(int a[], int n){
+              int m = a[0];
+              for(int i = 1; i < n; i++)
+                  if(a[i] < m) m = a[i];
+              return m;
+          }
+          int main(){
+              int a[4] = {3, 9, 2, 7};
+              printf("最小值：%d\n", findMin(a, 4));
+              return 0;
+          }
+      - type: bullets
+        items:
+          - "把 findMax 里的大于号换成小于号、函数名换成 findMin，即求最小值"
+          - "数组下标从 0 到长度减 1；求最小值初值仍取 a[0]，不要从 0 起"

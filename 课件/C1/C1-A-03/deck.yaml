@@ -204,4 +204,41 @@ slides:
           - "**跟练题**：写一个程序，scanf读入一个整数，打印它的个位和十位（就是课上程序，自己从零敲一遍）"
           - "**模仿题**：读入一个整数n，打印 n%2 的值，输入奇数看输出什么，输入偶数看输出什么"
       - type: note
-        text: 写完对照讲稿附录的参考答案；要求：合上笔记能默写出%的两个用法
+        text: 参考答案在本PPT最后两页，课后自行对照；要求：合上笔记能默写出%的两个用法
+
+  - type: content
+    kicker: 参考答案 · 跟练题
+    title: 跟练题参考答案（自行对照）
+    blocks:
+      - type: code
+        text: |
+          #include <stdio.h>
+          int main(){
+              int n;
+              scanf("%d", &n);
+              printf("个位：%d\n", n % 10);
+              printf("十位：%d\n", n / 10 % 10);
+              return 0;
+          }
+      - type: bullets
+        items:
+          - "个位用 n 对 10 取余，十位用 n 先整除 10 再对 10 取余"
+          - "取余拿个位、整除砍掉个位，是后面拆位数的通用套路"
+  - type: content
+    kicker: 参考答案 · 模仿题
+    title: 模仿题参考答案（自行对照）
+    blocks:
+      - type: code
+        text: |
+          #include <stdio.h>
+          int main(){
+              int n;
+              scanf("%d", &n);
+              printf("%d\n", n % 2);
+              return 0;
+          }
+          // 输入5输出1（奇数），输入6输出0（偶数）
+      - type: bullets
+        items:
+          - "n 对 2 取余，输入奇数输出 1，输入偶数输出 0"
+          - "任何整数除以 2 的余数只有 0 和 1，正好用来判奇偶"

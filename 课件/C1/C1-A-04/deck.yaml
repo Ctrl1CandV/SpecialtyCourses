@@ -241,4 +241,43 @@ slides:
           - "**跟练题**：写一个程序，用for循环打印1到100的和（提示：用一个变量累加）"
           - "**模仿题**：把课上的判等级程序改一改，读入分数，判它是不是偶数（用上一节的%2）"
       - type: note
-        text: 写完对照讲稿附录的参考答案；要求：合上笔记能默写循环三要素
+        text: 参考答案在本PPT最后两页，课后自行对照；要求：合上笔记能默写循环三要素
+
+  - type: content
+    kicker: 参考答案 · 跟练题
+    title: 跟练题参考答案（自行对照）
+    blocks:
+      - type: code
+        text: |
+          #include <stdio.h>
+          int main(){
+              int sum = 0;
+              for(int i = 1; i <= 100; i++){
+                  sum += i;
+              }
+              printf("1到100的和是：%d\n", sum);
+              return 0;
+          }
+          // 输出：1到100的和是：5050
+      - type: bullets
+        items:
+          - "累加器 sum 先清零，for 让 i 从 1 累加到 100，结果为 5050"
+          - "循环三要素：初始化、条件、更新，缺一不可"
+  - type: content
+    kicker: 参考答案 · 模仿题
+    title: 模仿题参考答案（自行对照）
+    blocks:
+      - type: code
+        text: |
+          #include <stdio.h>
+          int main(){
+              int score;
+              scanf("%d", &score);
+              if(score % 2 == 0) printf("偶数\n");
+              else printf("奇数\n");
+              return 0;
+          }
+      - type: bullets
+        items:
+          - "读入 score，用 score 对 2 取余是否为 0 判偶数，否则为奇数"
+          - "判奇偶就是看除以 2 的余数；if 与 else 两条分支互斥"

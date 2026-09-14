@@ -226,4 +226,37 @@ slides:
           - "**跟练题**：写一个程序，分三行输出你的名字、你的本科学校、你的考研目标"
           - "**模仿题**：把课上的程序改一改，用一条printf打印三行诗（提示：\n可以放在中间）"
       - type: note
-        text: 写完对照讲稿附录的参考答案；要求：合上笔记能默写main框架
+        text: 参考答案在本PPT最后两页，课后自行对照；要求：合上笔记能默写main框架
+
+  - type: content
+    kicker: 参考答案 · 跟练题
+    title: 跟练题参考答案（自行对照）
+    blocks:
+      - type: code
+        text: |
+          #include <stdio.h>
+          int main(){
+              printf("张三\n");
+              printf("某大学\n");
+              printf("重庆邮电大学\n");
+              return 0;
+          }
+      - type: bullets
+        items:
+          - "三行 printf，每行末尾各带一个换行符；把内容换成你自己的姓名、学校、目标"
+          - "一个 printf 管一行，分号、双引号、换行符一样都不能少"
+  - type: content
+    kicker: 参考答案 · 模仿题
+    title: 模仿题参考答案（自行对照）
+    blocks:
+      - type: code
+        text: |
+          #include <stdio.h>
+          int main(){
+              printf("第一行诗\n第二行诗\n第三行诗\n");
+              return 0;
+          }
+      - type: bullets
+        items:
+          - "只用一条 printf 也能出三行：换行符放进字符串中间照样换行"
+          - "换行符是反斜杠加字母 n 两字符组成的整体，别拆开、别写成斜杠"

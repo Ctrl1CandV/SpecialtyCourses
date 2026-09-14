@@ -259,4 +259,57 @@ slides:
           - "**模仿题**：用double存你今天复习的小时数，用%f打印，看输出几位小数"
           - "**挑战题（选做）**：写 int x = 3.9; 打印x，亲眼看看截断"
       - type: note
-        text: 写完对照讲稿附录的参考答案；要求：合上笔记能默写"声明—赋值—打印"三行
+        text: 参考答案在本PPT最后三页，课后自行对照；要求：合上笔记能默写"声明—赋值—打印"三行
+
+  - type: content
+    kicker: 参考答案 · 跟练题
+    title: 跟练题参考答案（自行对照）
+    blocks:
+      - type: code
+        text: |
+          #include <stdio.h>
+          int main(){
+              int target;
+              printf("请输入你的目标分数：");
+              scanf("%d", &target);
+              printf("你的目标分数是：%d\n", target);
+              return 0;
+          }
+      - type: bullets
+        items:
+          - "scanf 读整数配 %d，变量前面要加取地址符"
+          - "先提示、再读入、后输出，三步走成一条闭环"
+  - type: content
+    kicker: 参考答案 · 模仿题
+    title: 模仿题参考答案（自行对照）
+    blocks:
+      - type: code
+        text: |
+          #include <stdio.h>
+          int main(){
+              double hours = 2.5;
+              printf("今天复习了%f小时\n", hours);
+              return 0;
+          }
+          // 输出：今天复习了2.500000小时（%f默认6位小数）
+      - type: bullets
+        items:
+          - "double 用 %f 打印，默认六位小数，2.5 会显示成 2.500000"
+          - "格式符要和变量类型对齐：%d 配 int，%f 配 double"
+  - type: content
+    kicker: 参考答案 · 挑战题
+    title: 挑战题参考答案（自行对照）
+    blocks:
+      - type: code
+        text: |
+          #include <stdio.h>
+          int main(){
+              int x = 3.9;
+              printf("%d\n", x);
+              return 0;
+          }
+          // 输出：3（小数部分被截断，不是四舍五入）
+      - type: bullets
+        items:
+          - "整数盒子里放 3.9，打印得到 3，小数部分被截断而非四舍五入"
+          - "往 int 塞小数会丢小数位；类型不匹配编译器通常只警告不报错"
