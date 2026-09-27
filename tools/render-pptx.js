@@ -109,6 +109,9 @@ function blockHeight(b, width) {
       const ih = b.h || (iw * 0.66);
       return Math.max(ih, 0.6) + 0.2;
     }
+    case 'diagram': {
+      return (b.h || 1.5) + 0.2;
+    }
     default: return 0.4;
   }
 }
@@ -191,7 +194,158 @@ function renderBlock(slide, b, y, scale) {
       slide.addImage({ path: imgPath, x: ix, y, w: iw, h: ih, sizing });
       return y + ih + 0.2;
     }
+    case 'diagram': {
+      return renderDiagram(slide, b, y, scale);
+    }
     default: return y + 0.4;
+  }
+}
+
+// ================= diagram 块（方案 C：简单规则图形走原生形状） =================
+function renderDiagram(slide, b, y, scale) {
+  const diagramType = b.diagram;
+  const w = b.w || (CW * 0.8);
+  const h = b.h || 1.5;
+  const x = b.align === 'center' ? (W - w) / 2 : MX;
+
+  if (diagramType === 'array') {
+    renderArrayDiagram(slide, b, x, y, w, h, scale);
+  } else if (diagramType === 'linkedlist') {
+    renderLinkedlistDiagram(slide, b, x, y, w, h, scale);
+  }
+  // stack/queue 后续扩展
+
+  return y + h + 0.2;
+}
+
+function renderArrayDiagram(slide, b, x, y, w, h, scale) {
+  const cells = b.cells || [];
+  const n = cells.length;
+  if (n === 0) return;
+
+  const cellW = w / n;
+  const cellH = h * 0.55;
+  const indexH = h * 0.18;
+  const indices = b.indices !== false;
+  const highlight = b.highlight || [];
+  const pointers = b.pointers || [];
+
+  // 画格子
+  for (let i = 0; i < n; i++) {
+    const cx = x + i * cellW;
+    const isHL = highlight.includes(i);
+    const fill = isHL ? 'FFF3CD' : 'FFFFFF';
+    const line = isHL ? S.red : S.line;
+
+    slide.addShape('rect', {
+      x: cx, y: y, w: cellW, h: cellH,
+      fill: { color: fill }, line: { color: line, width: 1 }
+    });
+    slide.addText(String(cells[i]), {
+      x: cx, y: y, w: cellW, h: cellH,
+      fontSize: Math.round(14 * scale), fontFace: S.font, color: S.ink,
+      align: 'center', valign: 'middle'
+    });
+
+    if (indices) {
+      slide.addText(String(i), {
+        x: cx, y: y + cellH, w: cellW, h: indexH,
+        fontSize: Math.round(10 * scale), fontFace: S.font, color: S.gray,
+        align: 'center', valign: 'top'
+      });
+    }
+  }
+
+  // 画指针标记
+  for (const ptr of pointers) {
+    const pos = ptr.position || 'below';
+    const idx = ptr.index !== undefined ? ptr.index : ptr.value;
+    if (idx < 0 || idx >= n) continue;
+
+    const px = x + idx * cellW + cellW / 2;
+    const arrowH = 0.22;
+    const ay = pos === 'above' ? y - arrowH - 0.02 : y + cellH + (indices ? indexH : 0) + 0.02;
+    const labelY = pos === 'above' ? ay - 0.22 : ay + arrowH;
+
+    slide.addShape('line', {
+      x: px, y: ay, w: 0, h: arrowH,
+      line: { color: S.blue, width: 1.5, lineHead: 'arrow' },
+      flipV: pos === 'above'
+    });
+    slide.addText(ptr.label || '', {
+      x: px - 0.6, y: labelY, w: 1.2, h: 0.22,
+      fontSize: Math.round(10 * scale), fontFace: S.font, color: S.blue, bold: true,
+      align: 'center', valign: 'middle'
+    });
+  }
+}
+
+function renderLinkedlistDiagram(slide, b, x, y, w, h, scale) {
+  const nodes = b.nodes || [];
+  const n = nodes.length;
+  if (n === 0) return;
+
+  const head = b.head !== false;
+  const headLabel = b.headLabel || '';
+  const isDouble = b.double === true;
+  const totalNodes = n + (head ? 1 : 0);
+  const nodeW = w / totalNodes;
+  const nodeH = h * 0.6;
+
+  let priorW, dataW, nextW;
+  if (isDouble) {
+    priorW = nodeW * 0.25; dataW = nodeW * 0.5; nextW = nodeW * 0.25;
+  } else {
+    priorW = 0; dataW = nodeW * 0.62; nextW = nodeW * 0.38;
+  }
+
+  for (let i = 0; i < totalNodes; i++) {
+    const nx = x + i * nodeW;
+    const isHead = head && i === 0;
+    const isFirst = i === 0;
+    const isLast = i === totalNodes - 1;
+    const value = isHead ? headLabel : nodes[i - (head ? 1 : 0)];
+    const circular = b.circular === true && isLast;
+
+    slide.addShape('rect', {
+      x: nx, y: y, w: nodeW, h: nodeH,
+      fill: { color: isHead ? 'F5F6F7' : 'FFFFFF' }, line: { color: S.line, width: 1 }
+    });
+
+    if (isDouble) {
+      slide.addShape('line', { x: nx + priorW, y: y, w: 0, h: nodeH, line: { color: S.line, width: 1 } });
+      slide.addShape('line', { x: nx + priorW + dataW, y: y, w: 0, h: nodeH, line: { color: S.line, width: 1 } });
+      const priorSym = (isFirst && !circular) ? '\u2227' : '\u2190';
+      slide.addText(priorSym, {
+        x: nx, y: y, w: priorW, h: nodeH,
+        fontSize: Math.round(13 * scale), fontFace: S.font,
+        color: (isFirst && !circular) ? S.gray : S.blue, align: 'center', valign: 'middle'
+      });
+      slide.addText(String(value), {
+        x: nx + priorW, y: y, w: dataW, h: nodeH,
+        fontSize: Math.round(13 * scale), fontFace: S.font, color: isHead ? S.gray : S.ink,
+        align: 'center', valign: 'middle'
+      });
+      const nextSym = circular ? '\u21ba' : (isLast ? '\u2227' : '\u2192');
+      slide.addText(nextSym, {
+        x: nx + priorW + dataW, y: y, w: nextW, h: nodeH,
+        fontSize: Math.round(13 * scale), fontFace: S.font,
+        color: (isLast && !circular) ? S.gray : S.blue, align: 'center', valign: 'middle'
+      });
+    } else {
+      slide.addShape('line', { x: nx + dataW, y: y, w: 0, h: nodeH, line: { color: S.line, width: 1 } });
+      slide.addText(String(value), {
+        x: nx, y: y, w: dataW, h: nodeH,
+        fontSize: Math.round(13 * scale), fontFace: S.font, color: isHead ? S.gray : S.ink,
+        align: 'center', valign: 'middle'
+      });
+      const nextSym = circular ? '\u21ba' : (isLast ? '\u2227' : '\u2192');
+      slide.addText(nextSym, {
+        x: nx + dataW, y: y, w: nextW, h: nodeH,
+        fontSize: Math.round(14 * scale), fontFace: S.font,
+        color: (isLast && !circular) ? S.gray : S.blue, align: 'center', valign: 'middle'
+      });
+    }
   }
 }
 

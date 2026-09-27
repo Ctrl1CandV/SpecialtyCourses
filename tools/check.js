@@ -7,7 +7,7 @@
 //   1. deck.yaml 能否被 js-yaml 正常解析
 //   2. 渲染是否无报错（调用 render-pptx.js）
 //   3. deck slides 数 == 讲稿 P 小节数
-//   4. 讲稿字数是否达到时长预算下限（160字/分）
+//   4. 讲稿字数相对计划时长的粗略估时提醒（非质量下限）
 //   5. 违禁词扫描（营销腔、AI味结构词）
 //   6. 内部代号泄漏（C1-A/C2-B 等，deck 与讲稿都不应出现）
 //   7. 讲稿每个 P 小节是否有页名
@@ -128,13 +128,12 @@ function checkDeck(dir) {
     log(dir, 'ERROR', `页数不一致: deck=${slides}页, 讲稿=${pSections}个P小节`);
   }
 
-  // 4. 讲稿字数 vs 时长预算
+  // 4. 整份讲稿（含附录）汉字数只触发中性复核提醒，不能据此推算口播时长或质量
   const duration = deck.meta ? parseDuration(deck.meta.duration) : 0;
   if (duration > 0 && mdText) {
     const zhCount = countChinese(mdText);
-    const minWords = duration * 160;
-    if (zhCount < minWords) {
-      log(dir, 'WARN', `讲稿字数偏少: ${zhCount}字, ${duration}分钟建议≥${minWords}字 (差${minWords - zhCount}字)`);
+    if (zhCount < duration * 160) {
+      log(dir, 'WARN', `估时提醒: 整份讲稿（含附录）约${zhCount}汉字，计划${duration}分钟；此数包含不口播内容，不能等同口播时长或内容质量。请结合实际口播、停顿、推演和练习核对`);
     }
   }
 
