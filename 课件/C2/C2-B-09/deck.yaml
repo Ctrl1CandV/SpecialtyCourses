@@ -1,0 +1,283 @@
+meta:
+  id: C2-B-09
+  title: 排序算法一：插入与交换
+  stage: B强化
+  instructor: 牙膏学长
+  duration: 45min
+
+slides:
+  - type: cover
+    kicker: 重邮802 数据结构代码课程
+    title: 数据结构强化阶段
+    subtitle: 第9节 排序算法一：插入与交换
+    meta: 阶段：强化 ｜ 主讲：牙膏学长 ｜ 预计45分钟 ｜ 资料答疑：伴梦研途QQ群
+
+  - type: content
+    kicker: 排序 · 下标基准
+    title: 两套下标基准与哨兵位的三个作用
+    blocks:
+      - type: bullets
+        items:
+          - "排序章节的约定：data[0] 留作哨兵、数据存 data[1..length]——这是基础阶段第1节说的约定，本节正式落地"
+          - "哨兵的三个作用：①直接插入里存待插元素，腾出一个变量位；②免掉循环的越界判断（j 减到 0 时 data[j]>data[0] 必然为假）；③快排里存枢轴，避免反复读写 low 位置"
+          - "哨兵只在需要它的算法里用；冒泡不需要哨兵，材料里它从 0 开始是另一种写法，第8页专门说明"
+      - type: note
+        text: "两套下标基准：线性表与查找章节 data[0] 起存、位序 1 起；排序章节 data[0] 是哨兵、数据 1 起。做题先看清题目用哪套"
+
+  - type: content
+    kicker: 直接插入
+    title: 直接插入：j 减到 0 为什么一定跳出
+    blocks:
+      - type: code
+        text: |
+          void InsertSort(SqList &L){                   // 数据存 L.data[1..length]
+              for(int i = 2; i <= L.length; i++){
+                  L.data[0] = L.data[i];                // 哨兵存待插入元素
+                  int j = i - 1;
+                  while(L.data[j] > L.data[0]){         // j=0 时必然跳出
+                      L.data[j + 1] = L.data[j];  j--;
+                  }
+                  L.data[j + 1] = L.data[0];
+              }
+          }
+      - type: bullets
+        items:
+          - "外层 i 从 2 开始：data[1] 一个元素天然有序，从第 2 个起逐个插入前面的有序区"
+          - "关键设问：j 减到 0 时循环为什么一定跳出？data[0] 存的就是待插元素自己，data[0]>data[0] 为假——这就是哨兵免掉越界判断的原理"
+      - type: note
+        text: "时间 O(n²)，最好情况（已有序）O(n)：每趟只比较一次、不移动；稳定"
+
+  - type: content
+    kicker: 直接插入 · 过程页
+    title: 五个数的直接插入逐趟（拿纸跟画）
+    blocks:
+      - type: diagram
+        diagram: array
+        cells: ["", 49, 38, 65, 97, 76]
+        indices: true
+        highlight: [0]
+        w: 8.5
+        h: 1.3
+        align: center
+      - type: bullets
+        items:
+          - "下标 0 是哨兵位（图里高亮），数据存 1 到 5；每趟把 data[i] 存进哨兵，从 i-1 往前扫"
+          - "第2趟插38：38<49，49 后移，38 落位1 → 38 49 65 97 76"
+          - "第3、4趟：65、97 都比前一个大，就位不动"
+          - "第5趟插76：76<97，97 后移；76>65 停，落位4 → 38 49 65 76 97"
+      - type: note
+        text: "每趟标出比较了几次、移动了几次：已就位时只比较 1 次，逆序时比较与移动都多——最好与最坏的差距就在这"
+
+  - type: content
+    kicker: 折半插入
+    title: 折半插入：比较与移动要分开算
+    blocks:
+      - type: code
+        text: |
+          void BinarySort(SqList &L){
+              for(int i = 2; i <= L.length; i++){
+                  if(L.data[i] >= L.data[i-1]) continue;      // 已就位，跳过
+                  L.data[0] = L.data[i];  int low = 1, high = i-1;
+                  while(low <= high){ int mid = (low+high)/2;
+                      if(L.data[0] < L.data[mid]) high = mid-1; else low = mid+1; }
+                  for(int j = i; j > low; j--) L.data[j] = L.data[j-1];
+                  L.data[low] = L.data[0];
+              }
+          }
+      - type: bullets
+        items:
+          - "改的只是'找插入位置'这一步：前面有序区用折半定位，每趟比较次数降到 O(logn)"
+          - "关键认识：比较次数降到 O(nlogn)，但移动次数仍是 O(n²)（找到位置后照样统一后移），总体时间复杂度不变"
+      - type: note
+        text: "'比较与移动分开算'是选择题常考点：折半插入没有降低时间复杂度，只减少了比较次数；开头 continue 是已就位优化"
+
+  - type: content
+    kicker: 二路插入
+    title: 二路插入：循环数组的 first 与 final
+    blocks:
+      - type: bullets
+        items:
+          - "用一个容量 n 的循环数组 temp，first 指当前最小值的位置、final 指最大值的位置"
+          - "插入分三种情形：比最小值还小，往前（逆时针）扩展 first；比最大值还大，往后（顺时针）扩展 final；落在中间，从 final 一侧往后腾位置再插"
+          - "排完从 first 开始按环序回填到 data[1..n]"
+      - type: note
+        text: "目标是减少移动次数（最坏也只移 n²/8 次），代价是多一个辅助数组、空间 O(n)；802 考手算过程，代码不要求默写"
+
+  - type: content
+    kicker: 希尔排序
+    title: 希尔排序：增量序列与为什么不稳定
+    blocks:
+      - type: bullets
+        items:
+          - "取增量 d，把下标相隔 d 的元素分成一组做直接插入；然后减小 d 重做，直到 d=1 做最后一趟普通直接插入"
+          - "常用增量序列 n/2、n/4、…、1；d 越大组越少、组内元素相距越远，一趟能消除越多逆序"
+          - "它不稳定：相隔元素的交换可能改变相同值的相对次序（相同值可能分在不同组里被分别移动）"
+      - type: note
+        text: "只给思想与一趟手算（题集勾画 10选15、10选25 全是手算），代码不写；时间约 O(n^1.3)，依赖增量序列"
+
+  - type: content
+    kicker: 冒泡排序
+    title: 冒泡：提前退出优化与下标说明
+    blocks:
+      - type: code
+        text: |
+          void BubbleSort(SqList &L){              // 材料按 0 起写：数据存 data[0..length-1]
+              for(int i = 0; i < L.length - 1; i++){
+                  bool swapped = false;
+                  for(int j = 0; j < L.length - 1 - i; j++)
+                      if(L.data[j] > L.data[j+1]){
+                          int tmp = L.data[j];
+                          L.data[j] = L.data[j+1];  L.data[j+1] = tmp;
+                          swapped = true;
+                      }
+                  if(!swapped) break;              // 本趟没交换说明已有序
+              }
+          }
+      - type: bullets
+        items:
+          - "每趟把最大的往后冒：相邻比较、逆序就交换，一趟下来最大的沉到末尾；swapped 标志让最好情况（已有序）降到 O(n)"
+          - "下标说明：这段材料按 0 起写、数据存 data[0..length-1]，与本章其他用哨兵的排序（1 起）起点不同，是伪代码的写法差异，不影响算法——做题看清题目给的起点"
+      - type: note
+        text: "时间最坏与平均 O(n²)、最好 O(n)；空间 O(1)；稳定（相等不交换，相对次序不变）"
+
+  - type: content
+    kicker: 快速排序 · Partition
+    title: 快排 Partition：哨兵存枢轴，挖坑填数
+    blocks:
+      - type: code
+        text: |
+          int Partition(SqList &L, int low, int high){
+              L.data[0] = L.data[low];                  // 哨兵存枢轴，low 位置成坑
+              while(low < high){
+                  while(L.data[high] >= L.data[0] && low < high) high--;
+                  L.data[low] = L.data[high];           // 填左坑，high 变新坑
+                  while(L.data[low] <= L.data[0] && low < high) low++;
+                  L.data[high] = L.data[low];           // 填右坑，low 变新坑
+              }
+              L.data[low] = L.data[0];  return low;     // 枢轴归位
+          }
+      - type: bullets
+        items:
+          - "挖坑填数：枢轴挖出来存进哨兵，从右找第一个比枢轴小的填进坑，再从左找第一个比枢轴大的填过去，相遇时枢轴放进最后的坑"
+          - "内外两层循环条件都要带 low<high，否则越界；QuickSort 递归是 (low,p-1) 与 (p+1,high)，枢轴已归位不能再包含"
+      - type: note
+        text: "平均 O(nlogn)，最坏（已有序）O(n²)，空间 O(logn) 递归栈；不稳定"
+
+  - type: content
+    kicker: Partition · 过程页
+    title: 七元素数组的 Partition 逐步（拿纸跟画）
+    blocks:
+      - type: diagram
+        diagram: array
+        cells: ["", 49, 38, 65, 97, 76, 13, 27]
+        indices: true
+        highlight: [0, 1]
+        w: 9.5
+        h: 1.3
+        align: center
+      - type: bullets
+        items:
+          - "枢轴取 data[1]=49 存进哨兵（高亮两格：哨兵位与第一个坑）；low=1、high=7"
+          - "从右：27<49 填到 data[1]，坑移到 7；从左：65>49 填到 data[7]，坑移到 3"
+          - "从右：13<49 填到 data[3]，坑移到 6；从左：97>49 填到 data[6]，坑移到 4"
+          - "high 从 6 左移到 4 与 low 相遇，枢轴 49 归位 data[4] → 27 38 13 49 76 97 65"
+      - type: note
+        text: "划分完左边 {27,38,13} 全小于 49、右边 {76,97,65} 全大于 49；你跟着把坑的位置一步步标出来就看清了"
+
+  - type: content
+    kicker: 平均值划分 · 勘误A2
+    title: 以平均值为界值的划分：死递归与进度保护
+    blocks:
+      - type: code
+        text: |
+          void QuickSortAvg(int R[], int low, int high){
+              if(low >= high) return;
+              int sum=0;  for(int i=low;i<=high;i++) sum+=R[i];
+              int avg=sum/(high-low+1), i=low, j=high;
+              while(i <= j){
+                  while(i<=j && R[i]<=avg) i++;
+                  while(i<=j && R[j]>avg) j--;
+                  if(i<j){ int t=R[i]; R[i]=R[j]; R[j]=t; i++; j--; }
+              }
+              if(low<=j && j<high) QuickSortAvg(R,low,j);   // 进度保护
+              if(low<i && i<=high) QuickSortAvg(R,i,high);
+          }
+      - type: bullets
+        items:
+          - "2021 类真题的同族变形：界值不取端点，取区间平均值 avg；划分逻辑与快排同族，i 找大于 avg 的、j 找小于等于 avg 的，交换"
+          - "修正（勘误A2）：两个递归条件加进度保护 j<high 与 i>low，保证递归区间真的变小"
+      - type: note
+        text: "不加保护会死递归：区间内元素全部小于等于 avg 时（例如全相等），递归区间与原来完全一样，永远停不下来——下一页拿反例走一遍"
+
+  - type: content
+    kicker: 死递归 · 检查页
+    title: 拿 R={5,5,5} 走一遍：死递归怎么发生（先自己推）
+    blocks:
+      - type: bullets
+        items:
+          - "avg=5；第一个内层 while 把 i 从 0 推到 3（high+1），因为三个元素都小于等于 avg；第二个内层 while 因 i<=j 已不成立而不执行，j 停在 2"
+          - "若只写 if(low<j)：low=0<j=2 成立，递归 QuickSortAvg(R,0,2)——区间 [0,2] 与原来完全一样，死递归"
+          - "修正后 if(low<=j && j<high)：j=2 不小于 high=2，条件不成立，不递归——停下来了"
+      - type: note
+        text: "这个反例同时教三件事：平均值划分的写法、递归必须有进度保证这个普适道理、以及怎么用一个小反例验证自己的代码"
+
+  - type: content
+    kicker: 模板卡
+    title: 模板卡：模板9 二分框架改判定
+    blocks:
+      - type: table
+        head: [模板, 适用场景, 骨架, 复杂度]
+        colW: [2.2, 3.8, 4.0, 1.5]
+        rows:
+          - ["模板9 二分框架改判定", "有序或特殊序列的查找与划分变式（2021 双调序列、平均值划分同族）", "low/high（或 i/j）夹逼，中间位置按题目条件决定往哪半走", "O(logn) 或 O(n)"]
+      - type: note
+        text: "快排 Partition 的挖坑填数、平均值划分的 i/j 相向而行、折半查找的夹逼，都是同一个框架的变体；C3 讲真题先报模板编号"
+
+  - type: content
+    kicker: 本节小结
+    title: 插入与交换：六个算法的复杂度与稳定性
+    blocks:
+      - type: bullets
+        items:
+          - "直接插入 O(n²)、稳定、最好 O(n)；折半插入比较 O(nlogn) 但移动仍 O(n²)、稳定；二路插入移动降到最坏 n²/8、要辅助数组、稳定"
+          - "希尔约 O(n^1.3)、不稳定；冒泡 O(n²)、swapped 优化后最好 O(n)、稳定"
+          - "快排平均 O(nlogn)、最坏 O(n²)（已有序）、空间 O(logn) 递归栈、不稳定"
+      - type: note
+        text: "完整的排序算法对比表（含选择、堆、归并、基数与链表可用性）在下一节收尾给出"
+
+  - type: content
+    kicker: 课后任务
+    title: 1道跟练 ＋ 1道变式
+    blocks:
+      - type: bullets
+        items:
+          - "**跟练题**：默写直接插入与 Partition；给序列 49、38、65、97、76、13、27 写出直接插入每一趟的结果与快排第一趟划分的结果"
+          - "**变式题**：题集勾画 10答2（Partition 过程）、10选21 与 10选42（快排第二趟判别）、10选15 与 10选25（希尔一趟手算）同类"
+          - "**自编题**：把平均值划分的代码拿 R={5,5,5} 跑一遍，说明为什么需要进度保护"
+      - type: note
+        text: "默写要求：合上资料能写出直接插入与 Partition；参考答案在本PPT最后两页，课后自行对照"
+
+  - type: content
+    kicker: 参考答案 · 跟练题
+    title: 跟练题参考答案（自行对照）
+    blocks:
+      - type: bullets
+        items:
+          - "直接插入每趟：38 49 65 97 76 13 27 → 38 49 65 97 76 13 27（65、97就位）→ 38 49 65 76 97 13 27 → 13 38 49 65 76 97 27 → 13 27 38 49 65 76 97"
+          - "快排第一趟（枢轴49）：27 38 13 49 76 97 65，枢轴归位第4个，左边全小右边全大"
+          - "直接插入与 Partition 代码见本节代码合集"
+      - type: note
+        text: "直接插入最好情况（已有序）每趟只比较1次；Partition 的坑位移动次序：1→7→3→6→4，枢轴最后填进 data[4]"
+
+  - type: content
+    kicker: 参考答案 · 变式题
+    title: 变式题参考答案（自行对照）
+    blocks:
+      - type: bullets
+        items:
+          - "10答2 Partition 过程：枢轴存哨兵，两边交替填坑，相遇时枢轴归位；每趟标出 low、high 与坑的位置"
+          - "10选21、10选42 快排第二趟判别：第一趟枢轴归位后，左右两段各自再走一趟 Partition，对照选项模拟"
+          - "10选15、10选25 希尔一趟：按增量 d 分组，各组内做直接插入，写出该趟结束时的序列"
+          - "自编题 R={5,5,5}：avg=5，i 推到 high+1、j 停在 high，不加 j<high 保护则递归区间不变死递归"
+      - type: note
+        text: "希尔与快排的趟次判别都是手算常考点；进度保护的道理适用于一切递归——区间必须真的变小"

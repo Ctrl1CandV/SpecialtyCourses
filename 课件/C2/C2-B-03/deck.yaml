@@ -1,0 +1,286 @@
+meta:
+  id: C2-B-03
+  title: 栈队应用与串匹配
+  stage: B强化
+  instructor: 牙膏学长
+  duration: 35min
+
+slides:
+  - type: cover
+    kicker: 重邮802 数据结构代码课程
+    title: 数据结构强化阶段
+    subtitle: 第3节 栈队应用与串匹配
+    meta: 阶段：强化 ｜ 主讲：牙膏学长 ｜ 预计35分钟 ｜ 资料答疑：伴梦研途QQ群
+
+  - type: content
+    badge: 正课开始
+    kicker: 引题 · 从结构到应用
+    title: 栈和队列是工具，这一节全拿它们解题
+    blocks:
+      - type: bullets
+        items:
+          - "数据结构基础阶段第5节给了零件：栈的 Push、Pop，队列的 EnQueue、DeQueue，默认你会"
+          - "这一节全是应用：括号匹配、中缀转后缀、后缀求值、判回文、双栈模拟队列"
+          - "每个应用只问一件事：栈后进先出的性质怎么用；队列变式考先进先出怎么保"
+          - "802 里它们是填空题与程序阅读题的常见形态：题集 3答7 直接考后缀求值的栈过程"
+
+  - type: content
+    kicker: 应用一 · 括号匹配
+    title: 一个栈：遇左括号压栈，遇右括号弹栈比对
+    blocks:
+      - type: code
+        text: |
+          bool BracketMatch(char str[], int n){
+              SqStack S; InitStack(S);
+              for(int i = 0; i < n; i++){
+                  if(str[i]=='(' || str[i]=='[' || str[i]=='{') Push(S, str[i]);
+                  else if(str[i]==')' || str[i]==']' || str[i]=='}'){   // 只拦右括号，其他字符跳过
+                      if(IsEmpty(S)) return false;      // ① 右括号多了
+                      char top; Pop(S, top);
+                      if((top=='(' && str[i]!=')') || (top=='[' && str[i]!=']') ||
+                         (top=='{' && str[i]!='}')) return false;   // ② 类型不匹配（交叉）
+                  }
+              }
+              return IsEmpty(S);      // ③ 左括号多了
+          }
+      - type: bullets
+        items:
+          - "分支必须写 else if 只拦右括号：写 else 会把字母数字运算符当右括号"
+          - "写 else 时 a+(b*c) 扫到 a 就弹栈误判失配"
+
+  - type: content
+    kicker: 应用一 · 失配分析
+    title: 三种失配：右多了、类型交叉、左括号多了
+    blocks:
+      - type: table
+        head: [失配情况, 什么时候发生, 例子]
+        rows:
+          - [右括号多了, 扫描中遇到右括号时栈已空, "“())” 第二个右括号无左可配"]
+          - [类型交叉, 弹出的左括号与当前右括号不是一对, "“[(])” 弹出“(”遇“]”失配"]
+          - [左括号多了, 全部字符扫完栈仍非空, "“(()” 剩一个左括号没配上"]
+      - type: bullets
+        items:
+          - "三种情况各自 return false，全配上且栈空才 return true；最后一句 IsEmpty(S) 专管第三种"
+          - "先自己判两个串：“[()]”与“[(])”只差一个字符，结果一样吗？答案在讲"
+
+  - type: content
+    kicker: 表达式求值 · 中缀转后缀
+    title: 中缀转后缀四条规则：数输出、左括号压、右括号弹到左括号
+    blocks:
+      - type: table
+        head: [扫描到, 处理动作, 要点]
+        rows:
+          - [操作数, 直接输出到后缀串, 不进栈]
+          - [左括号, 压栈, 等右括号来配对]
+          - [右括号, 弹栈并输出直到左括号, 左括号弹出但不输出]
+          - [运算符, 弹出栈里优先级大于等于它的，再压自己, 大于等于就是左结合，同级先弹左边]
+      - type: bullets
+        items:
+          - "扫完把栈里剩余运算符依次弹出输出；同级先弹，连续加减从左往右算"
+          - "两个 while 的 top 不等于左括号守卫不能缺，否则转 1+(2*3) 会误弹左括号"
+          - "拿 1+(2*3) 先自己转一遍，动画页逐步核对"
+
+  - type: content
+    kicker: 表达式求值 · 后缀求值
+    title: 后缀求值：遇数压栈、遇运算符弹两个，先弹的是右操作数
+    blocks:
+      - type: code
+        text: |
+          int EvalPostfix(char postfix[]){
+              SqStack S; InitStack(S);
+              for(int i = 0; postfix[i] != '\0'; i++){
+                  char c = postfix[i];
+                  if(c >= '0' && c <= '9'){ int x = c - '0'; Push(S, x); }
+                  else{
+                      int b, a; Pop(S, b); Pop(S, a);   // 先弹的是右操作数
+                      if(c == '+') Push(S, a + b); else if(c == '-') Push(S, a - b);
+                      else if(c == '*') Push(S, a * b); else Push(S, a / b);
+                  }
+              }
+              int result; Pop(S, result); return result;
+          }
+      - type: bullets
+        items:
+          - "栈后进先出：后压进的是表达式右边的操作数；减法和除法把两个数搞反就全错"
+          - "扫完全部字符栈里只剩一个数就是结果；每个字符处理一次，时间 O(n)"
+
+  - type: content
+    kicker: 表达式求值 · 动画推演
+    title: A+B*(C-D)-E/F 转后缀再求值（拿纸跟着画）
+    blocks:
+      - type: diagram
+        diagram: array
+        cells: ["+", "*", "(", "-"]
+        indices: true
+        pointers:
+          - label: 读完 C-D 的运算符栈
+            index: 3
+            position: above
+        w: 8
+        h: 1.0
+        align: center
+      - type: diagram
+        diagram: array
+        cells: [1, 2, 2]
+        indices: true
+        pointers:
+          - label: 求值到 5-3=2 入栈
+            index: 2
+            position: above
+        w: 6
+        h: 1.0
+        align: center
+      - type: bullets
+        items:
+          - "第一遍转后缀：数直接输出，符号按四条规则进出栈，得 ABCD-*+EF/-"
+          - "第二遍求值：数入栈，遇运算符弹两个算完再压；先弹的是右操作数"
+          - "结果 3（A=1 B=2 C=5 D=3 E=4 F=2）：验算 1+2×(5-3)-4÷2=3，拿纸写两遍栈状态"
+
+  - type: content
+    kicker: 应用三 · 判回文
+    title: 判回文：前半压栈后半比对，一个返回值表达两种结局
+    blocks:
+      - type: code
+        text: |
+          bool IsPalindrome(LinkList L, int n){
+              SqStack s; InitStack(s);
+              LNode *q, *p = L->next;
+              for(int i = 1; i <= n / 2; i++){ Push(s, p); p = p->next; }   // 前半压栈
+              if(n % 2 == 1) p = p->next;                                   // 奇数长度跳过中点
+              while(p != NULL){
+                  Pop(s, q);
+                  if(p->data != q->data) break;
+                  else p = p->next;
+              }
+              return IsEmpty(s);                                            // 栈空则是回文
+          }
+      - type: bullets
+        items:
+          - "失配 break 时栈里还有没弹完的元素，栈非空；全匹配弹了 n/2 次刚好栈空，一个返回值管两种结局"
+          - "边界在奇数长度那句：先跳过一个中点再比对；忘跳会拿中点和后半第一个元素比"
+
+  - type: content
+    kicker: 应用四 · 双栈模拟队列
+    title: 双栈模拟队列：s1 管入、s2 管出，s2 空了才倒
+    blocks:
+      - type: code
+        text: |
+          SqStack s1, s2;
+          bool EnQueue2(int x){ return Push(s1, x); }
+          bool DeQueue2(int &x){
+              if(!IsEmpty(s2)) return Pop(s2, x);
+              while(!IsEmpty(s1)){ int t; Pop(s1, t); Push(s2, t); }   // 倒一次，顺序反一次
+              if(IsEmpty(s2)) return false;
+              return Pop(s2, x);
+          }
+      - type: bullets
+        items:
+          - "s1 倒进 s2 顺序反一次，入队再压 s1 又反一次，两次反就是队列的先进先出"
+          - "只有 s2 空了才倒：s2 还有货就倒，新元素会排到旧元素前面，顺序就乱了"
+          - "均摊 O(1)：每个元素最多倒一次、弹一次；每次都倒退化成 O(n)"
+
+  - type: content
+    kicker: 串匹配 · 思想
+    title: 从 BF 到 KMP：主串指针 i 永不回溯
+    blocks:
+      - type: table
+        head: [对比项, BF, KMP]
+        rows:
+          - [失配后谁动, "主串 i 回到本轮起点加一", "主串 i 不动，模式串 j 退到 next[j]"]
+          - [依据, 换个起点逐个重试，怕漏, 已匹配的前缀与主串对齐，不用再比]
+          - [最坏时间, O(nm), O(n+m)]
+      - type: bullets
+        items:
+          - "next[j] 一句话：模式串前 j-1 个字符里，最长相等前后缀的长度加一"
+          - "BF 浪费在哪：已经比对过的字符，换个起点又从头比一遍"
+          - "next 的手算过程数据结构基础阶段第6节讲过，这里只用结论"
+      - type: note
+        text: "802 常考 next 数组的手算与含义，本节只讲为什么需要 KMP，不重复手算"
+
+  - type: content
+    kicker: 模板卡
+    title: 本节模板卡：辅助栈逆序（模板14）
+    blocks:
+      - type: table
+        head: [模板, 适用场景, 骨架, 复杂度]
+        rows:
+          - [模板14 辅助栈逆序, 判回文、倒数第 k、需要逆序输出的一类题, 要逆序的部分压栈，再逐个弹出比对或输出, O(n) 与 O(n)]
+      - type: note
+        text: "考过哪里：题集 3算5、3算7、3答7 同类；3算14 是队列变式；3答3、3答4、3答12、3答13、3算6 同属本节应用的题源"
+
+  - type: content
+    kicker: 小结与课后任务
+    title: 五个应用一张表，两道课后题
+    blocks:
+      - type: table
+        head: [应用, 关键动作, 最容易错的]
+        rows:
+          - [括号匹配, 遇左压、遇右弹并比对, else 把字母数字运算符当右括号]
+          - [中缀转后缀, 数输出、括号成对、运算符弹大于等于再压, 右括号处理忘了左括号弹出不输出]
+          - [后缀求值, 遇数压、遇运算符弹两个算完再压, 两个操作数次序搞反]
+          - [判回文, 前半压栈、后半逐个比对, 奇数长度忘了跳过中点]
+          - [双栈模拟队列, s1 入 s2 出、s2 空才倒, 每次都倒退化成 O(n)]
+      - type: bullets
+        items:
+          - "**跟练题一**：默写括号匹配（答案 P13）"
+          - "**跟练题二**：默写后缀求值，并把 A+B*(C-D)-E/F 手工转后缀、代入求值，取值见 P7（答案 P14）"
+          - "**变式题**：题集勾画 3算5、3算7、3答7、3算14（答案 P15，课后自行对照）"
+
+  - type: content
+    kicker: 参考答案 · 跟练题一
+    title: 跟练题一参考答案：括号匹配默写（自行对照）
+    blocks:
+      - type: code
+        text: |
+          bool BracketMatch(char str[], int n){
+              SqStack S; InitStack(S);
+              for(int i = 0; i < n; i++){
+                  if(str[i]=='(' || str[i]=='[' || str[i]=='{') Push(S, str[i]);
+                  else if(str[i]==')' || str[i]==']' || str[i]=='}'){   // 只拦右括号，其他字符跳过
+                      if(IsEmpty(S)) return false;      // ① 右括号多了
+                      char top; Pop(S, top);
+                      if((top=='(' && str[i]!=')') || (top=='[' && str[i]!=']') ||
+                         (top=='{' && str[i]!='}')) return false;   // ② 类型不匹配（交叉）
+                  }
+              }
+              return IsEmpty(S);      // ③ 左括号多了
+          }
+      - type: bullets
+        items:
+          - "三个 return false 对应三种失配；最后一句 return IsEmpty(S) 专管左括号多了"
+          - "分支是 else if 只拦右括号：写成 else，a+(b*c) 扫到 a 就弹栈误判"
+
+  - type: content
+    kicker: 参考答案 · 跟练题二
+    title: 跟练题二参考答案：后缀求值与表达式求值
+    blocks:
+      - type: code
+        text: |
+          int EvalPostfix(char postfix[]){
+              SqStack S; InitStack(S);
+              for(int i = 0; postfix[i] != '\0'; i++){
+                  char c = postfix[i];
+                  if(c >= '0' && c <= '9'){ int x = c - '0'; Push(S, x); }
+                  else{
+                      int b, a; Pop(S, b); Pop(S, a);   // 先弹的是右操作数
+                      if(c == '+') Push(S, a + b); else if(c == '-') Push(S, a - b);
+                      else if(c == '*') Push(S, a * b); else Push(S, a / b);
+                  }
+              }
+              int result; Pop(S, result); return result;
+          }
+      - type: bullets
+        items:
+          - "后缀形式 ABCD-*+EF/-；代入 A=1、B=2、C=5、D=3、E=4、F=2 逐步求值，结果 3"
+          - "验算 1+2×(5-3)-4÷2 = 3；转换的逐步栈状态见课后讲义附录一"
+
+  - type: content
+    kicker: 参考答案 · 变式题
+    title: 变式题参考答案（自行对照）
+    blocks:
+      - type: bullets
+        items:
+          - "3算5 括号匹配：与跟练题一同一算法，分支注意 else if 只拦右括号"
+          - "3算7 中缀转后缀：照 P5 规则四条，运算符弹大于等于再压"
+          - "3答7 表达式求值的栈过程：把 P7 两遍过程的每步栈状态写全，就是答题过程"
+          - "3算14 循环链表实现队列：数据结构基础阶段第5节链式队列的变式，回想 rear 的移动与判空"

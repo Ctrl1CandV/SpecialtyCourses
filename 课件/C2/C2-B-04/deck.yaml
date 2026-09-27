@@ -1,0 +1,306 @@
+meta:
+  id: C2-B-04
+  title: 树算法一：递归三件套
+  stage: B强化
+  instructor: 牙膏学长
+  duration: 45min
+
+slides:
+  - type: cover
+    kicker: 重邮802 数据结构代码课程
+    title: 数据结构强化阶段
+    subtitle: 第4节 树算法一：递归三件套
+    meta: 阶段：强化 ｜ 主讲：牙膏学长 ｜ 预计45分钟 ｜ 资料答疑：伴梦研途QQ群
+
+  - type: content
+    kicker: 引题
+    title: 为什么树的算法大部分都是递归
+    blocks:
+      - type: bullets
+        items:
+          - "二叉树的定义本身就是递归的：二叉树是空树，或者由一个根结点加上左、右两棵子树构成，子树还是二叉树"
+          - "每一层要做的动作完全一样：处理根、处理左子树、处理右子树，只是作用的对象越来越小"
+          - "先序、中序、后序遍历就是同一个递归体的三种执行顺序，数据结构基础阶段第7节已经写过"
+          - "想一个问题：求树的高度、求结点数，如果不用递归，循环该怎么写？"
+          - "结论：不是树的算法爱用递归，是树的定义决定了递归最顺手"
+
+  - type: content
+    kicker: 递归三件套 · 模板5
+    title: 通用骨架三行：终止、缩小、返回
+    blocks:
+      - type: code
+        text: |
+          int 某统计(BiTree T){
+              if(T == NULL) return 基准值;                // 终止：空树返回基准
+              int 左 = 某统计(T->lchild);                  // 缩小：递归左右子树
+              int 右 = 某统计(T->rchild);
+              return 合并(左, 右, 本结点);                 // 返回：合并子结果
+          }
+      - type: bullets
+        items:
+          - "第一行终止：树递归的终止条件是空树，空树返回什么就是基准值，写函数先定它"
+          - "中间缩小：左右子树各递归一次，规模每步下降一层"
+          - "最后一行返回：把两个子结果按题目要求合并，加上本结点的贡献"
+          - "写任何树统计函数只填两处：基准值填什么、合并怎么写"
+
+  - type: content
+    kicker: 递归三件套 · 三个实例
+    title: 求高度、结点数、叶子数：三行骨架只差两处
+    blocks:
+      - type: code
+        text: |
+          int TreeDepth(BiTree T){                        // 求高度
+              if(T == NULL) return 0;
+              return max(TreeDepth(T->lchild), TreeDepth(T->rchild)) + 1; }
+          int CountNodes(BiTree T){                       // 求结点数
+              if(T == NULL) return 0;
+              return CountNodes(T->lchild) + CountNodes(T->rchild) + 1; }
+          int CountLeaves(BiTree T){                      // 求叶子数
+              if(T == NULL) return 0;
+              if(T->lchild == NULL && T->rchild == NULL) return 1;   // 多一个叶子判定
+              return CountLeaves(T->lchild) + CountLeaves(T->rchild); }
+      - type: table
+        head: [实例, 终止返回, 合并方式, 多出来的判断]
+        rows:
+          - [求高度, "0", "max 加 1", 无]
+          - [求结点数, "0", "相加加 1", 无]
+          - [求叶子数, "0", 相加, "当前结点是叶子则直接返回 1"]
+      - type: bullets
+        items:
+          - "三个函数只有两处不同：基准值是什么、两个子结果怎么合并"
+          - "写新的树统计函数三步：先定终止值，再定合并方式，最后看要不要额外判断"
+
+  - type: content
+    kicker: 求高度 · 递归展开
+    title: 7 个结点的树求高度：递归展开再收回（拿纸跟着画）
+    blocks:
+      - type: image
+        src: assets/diagrams/b4-tree7.png
+        w: 6.5
+        h: 2.9
+        align: center
+        fit: contain
+      - type: bullets
+        items:
+          - "树形：根 1，左 2 右 3；2 的左 4 右 5；3 的左 6 右 7"
+          - "展开：1 调左 2 调右 3；2 再调 4、5；3 再调 6、7；4、5、6、7 再往下碰到空树返回 0"
+          - "收回：4 返回 max(0,0)+1=1，5 同理 1；2 返回 max(1,1)+1=2；6、7 同理 1，3 返回 2"
+          - "1 返回 max(2,2)+1=3，整棵树高度 3"
+          - "先自己在纸上画出调用框的进出顺序和每个框的返回值，再对照"
+
+  - type: content
+    kicker: 判完全二叉树 · 思路
+    title: 层序遍历加 tag：遇过缺孩子，后面必须全是叶子
+    blocks:
+      - type: bullets
+        items:
+          - "完全二叉树按层排满：只允许最后一层缺结点，且缺的都集中在右边"
+          - "一句话判据：若某个结点缺少子结点，则其后所有结点都必须是叶子结点"
+          - "做法：层序遍历每个出队结点，分别检查它的左孩子和右孩子"
+          - "tag 记是否已经遇过缺孩子：遇空孩子置 1；tag 已置 1 又遇到非空孩子，就不是完全二叉树"
+          - "左、右孩子分开查、分开置 tag：有右孩子没左孩子会被第二个分支拦下"
+
+  - type: content
+    kicker: 判完全二叉树 · 代码
+    title: JudgeComplete：两个分支各管一个孩子
+    blocks:
+      - type: code
+        text: |
+          int JudgeComplete(BiTree T){                    // 空树算完全二叉树
+              if(T == NULL) return 1;
+              SqQueue Q; InitQueue(Q); EnQueue(Q, T);
+              int tag = 0; BiTree p;                      // tag=1 表示已经遇过缺孩子
+              while(!IsEmpty(Q)){
+                  DeQueue(Q, p);
+                  if(p->lchild != NULL){ if(tag) return 0; EnQueue(Q, p->lchild); }else tag = 1;
+                  if(p->rchild != NULL){ if(tag) return 0; EnQueue(Q, p->rchild); }else tag = 1;
+              }
+              return 1;
+          }
+      - type: bullets
+        items:
+          - "分支一：孩子非空且 tag 是 1，返回 0，缺孩子之后还有非空结点"
+          - "分支二：孩子为空，置 tag=1，这是全函数唯一置 tag 的地方"
+          - "分支三：孩子非空且 tag 是 0，正常入队"
+          - "有右孩子没左孩子：第二个 if 里的非空孩子撞上 tag=1，照样返回 0"
+
+  - type: content
+    kicker: 判平衡二叉树 · 思路
+    title: 为什么返回高度而不用 bool：一个返回值带两种信息
+    blocks:
+      - type: bullets
+        items:
+          - "这个函数同时干两件事：往上报高度、往上报是否平衡"
+          - "返回 bool 就要拆成两个函数：先判平衡，再单独求高度，整棵树被递归两遍，O(n) 退成 O(n²)"
+          - "返回 int：平衡时返回高度，高度总是不小于 0；不平衡返回 -1"
+          - "用 -1 当信号安全，因为合法高度最小是 0，-1 不可能与真高度混淆"
+          - "先想一步：子树已经不平衡了，还有必要算另一边的高度吗？"
+
+  - type: content
+    kicker: 判平衡二叉树 · 代码
+    title: JudgeAVL：-1 短路，看到 -1 直接透传
+    blocks:
+      - type: code
+        text: |
+          int JudgeAVL(BiTree T){                         // 返回高度；-1 表示不平衡
+              if(T == NULL) return 0;                     // 空树高度 0，也算平衡
+              int HL = JudgeAVL(T->lchild);
+              if(HL == -1) return -1;                     // 左子树已不平衡，短路
+              int RL = JudgeAVL(T->rchild);
+              if(RL == -1) return -1;
+              if(HL - RL < -1 || HL - RL > 1) return -1;  // 本结点不平衡
+              return max(HL, RL) + 1;                     // 平衡，往上报高度
+          }
+      - type: bullets
+        items:
+          - "两个 if(HL == -1) return -1 是短路：子树已经不平衡，另一边不用再算"
+          - "忘写短路会把 -1 当高度继续算，差值判断全错"
+          - "不要写成先求高度再判差值：那是两遍递归，O(n²)"
+
+  - type: content
+    kicker: 求镜像树
+    title: mirrorTree：三行交换加两行递归
+    blocks:
+      - type: code
+        text: |
+          void mirrorTree(BiTree &T){
+              if(T == NULL) return;
+              BiTNode *temp = T->rchild;
+              T->rchild = T->lchild;
+              T->lchild = temp;
+              mirrorTree(T->lchild);
+              mirrorTree(T->rchild);
+          }
+      - type: bullets
+        items:
+          - "每个结点做一次左右指针交换，交换完递归进两个孩子，整棵树左右翻转"
+          - "先交换再递归、先递归再交换结果一样：交换的是两棵子树整体，选一种写到底"
+          - "这题只改结点内部指针，参数写成 BiTree T 值传递也能完成；要改 T 本身指向才需要引用"
+
+  - type: content
+    kicker: 求树的度 · 复习
+    title: 求树的度：孩子兄弟递归，全局变量记最大
+    blocks:
+      - type: code
+        text: |
+          int degree = 0;                     // 全局变量，记树的最大度
+          int Post(CSNode *p){
+              if(p == NULL) return 0;
+              Post(p->firstchild);
+              int d = 1 + Post(p->nextbro);   // 兄弟链长度就是本结点的度
+              degree = max(degree, d);
+              return d;
+          }
+      - type: bullets
+        items:
+          - "数据结构基础阶段第8节逐行讲过，这里不重复，只做两件事"
+          - "归入模板5的变体：返回值是兄弟链长度，全局变量存最大值"
+          - "记一个套路：递归中维护全局量，这是 802 常考的写法，下一节最长路径同一套路"
+
+  - type: content
+    kicker: 模板卡
+    title: 模板卡：模板 5 递归三件套
+    blocks:
+      - type: table
+        head: [模板, 适用场景, 骨架, 复杂度]
+        rows:
+          - [模板5 递归三件套, "树的高度、结点数、叶子数等一切统计", "终止基准值、递归左右子树、合并返回", "O(n)，递归栈 O(h)"]
+      - type: bullets
+        items:
+          - "变体：返回值不够用时带全局量（求树的度），或让返回值兼报状态（判平衡的 -1）"
+          - "用法：见到树的统计题，先填基准值再填合并式，别从第一行现想"
+      - type: note
+        text: "考过哪里：2025 最长路径、2024 判 BST，都属于递归中携带额外信息这一族"
+
+  - type: content
+    kicker: 小结
+    title: 本节七个算法一张表
+    blocks:
+      - type: table
+        head: [算法, 关键技巧, 最容易错的]
+        rows:
+          - [求高度, "终止 0，合并取 max 再加 1", "合并写成相加"]
+          - [求结点数, "终止 0，合并相加再加 1", "与求高度互相记混"]
+          - [求叶子数, "是叶子直接返回 1，不再递归", "多写加 1 就变成结点数"]
+          - [判完全二叉树, "层序加 tag", "只在左右都空时才置 tag，漏有右无左"]
+          - [判平衡二叉树, "返回高度，-1 短路", "忘短路，把 -1 当高度用"]
+          - [求镜像与求度, "三行交换；全局变量记最大", "想改 T 指向却用值传递"]
+
+  - type: content
+    kicker: 课后任务
+    title: 跟练默写四段，变式勾画五题
+    blocks:
+      - type: bullets
+        items:
+          - "**跟练题**：默写求高度、求结点数、求叶子数三个函数，再默写判完全与判平衡"
+          - "**变式题**：题集勾画 6算10（递归求叶数）、6算11（左右子树交换）、6算17（判完全二叉树）、6答17 与 6答33（树递归代码纠错）"
+          - "写不出就回看对应那一页，别直接抄答案"
+      - type: note
+        text: "参考答案在最后三页，课后自行对照"
+
+  - type: content
+    kicker: 参考答案 · 跟练一
+    title: 跟练题参考答案：递归三件套（自行对照）
+    blocks:
+      - type: code
+        text: |
+          int TreeDepth(BiTree T){
+              if(T == NULL) return 0;
+              return max(TreeDepth(T->lchild), TreeDepth(T->rchild)) + 1; }
+          int CountNodes(BiTree T){
+              if(T == NULL) return 0;
+              return CountNodes(T->lchild) + CountNodes(T->rchild) + 1; }
+          int CountLeaves(BiTree T){
+              if(T == NULL) return 0;
+              if(T->lchild == NULL && T->rchild == NULL) return 1;
+              return CountLeaves(T->lchild) + CountLeaves(T->rchild); }
+      - type: bullets
+        items:
+          - "三个函数只差两处：基准值与合并方式；叶子数多出叶子判定那一行"
+          - "时间 O(n)：每个结点访问一次；递归栈空间 O(h)"
+
+  - type: content
+    kicker: 参考答案 · 跟练二
+    title: 跟练题参考答案：判完全与判平衡（自行对照）
+    blocks:
+      - type: code
+        text: |
+          int JudgeComplete(BiTree T){
+              if(T == NULL) return 1;
+              SqQueue Q; InitQueue(Q); EnQueue(Q, T);
+              int tag = 0; BiTree p;
+              while(!IsEmpty(Q)){ DeQueue(Q, p);
+                  if(p->lchild != NULL){ if(tag) return 0; EnQueue(Q, p->lchild); }else tag = 1;
+                  if(p->rchild != NULL){ if(tag) return 0; EnQueue(Q, p->rchild); }else tag = 1; }
+              return 1; }
+          int JudgeAVL(BiTree T){
+              if(T == NULL) return 0;
+              int HL = JudgeAVL(T->lchild);   if(HL == -1) return -1;
+              int RL = JudgeAVL(T->rchild);   if(RL == -1) return -1;
+              if(HL - RL < -1 || HL - RL > 1) return -1;
+              return max(HL, RL) + 1; }
+      - type: bullets
+        items:
+          - "判完全唯一置 tag 的地方：孩子为空；有右无左会被第二个分支拦下"
+          - "判平衡两个 if 是短路；平衡返回高度，不平衡返回 -1"
+
+  - type: content
+    kicker: 参考答案 · 变式题
+    title: 变式题参考答案：题集五题（自行对照）
+    blocks:
+      - type: bullets
+        items:
+          - "6算10 递归求叶数：即求叶子数，是叶子直接返回 1，不加 1"
+          - "6算11 左右子树交换：即镜像树，三行交换加两行递归"
+          - "6算17 判完全二叉树：层序加 tag，三个分支照 JudgeComplete"
+          - "6答17 与 6答33 读算法纠错：先查终止返回值，再查合并与短路，-1 不能被当高度用"
+      - type: code
+        text: |
+          void mirrorTree(BiTree &T){
+              if(T == NULL) return;
+              BiTNode *temp = T->rchild;
+              T->rchild = T->lchild;
+              T->lchild = temp;
+              mirrorTree(T->lchild);
+              mirrorTree(T->rchild);
+          }

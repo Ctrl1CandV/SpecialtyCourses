@@ -1,0 +1,241 @@
+meta:
+  id: C2-A-09
+  title: 图：存储与遍历
+  stage: A基础
+  instructor: 牙膏学长
+  duration: 45min
+
+slides:
+  - type: cover
+    kicker: 重邮802 数据结构代码课程
+    title: 数据结构基础阶段
+    subtitle: 第9节 图：存储与遍历
+    meta: 阶段：基础 ｜ 主讲：牙膏学长 ｜ 预计45分钟 ｜ 资料答疑：伴梦研途QQ群
+
+  - type: content
+    kicker: 引题
+    title: 一张图，两种存法，各存了什么
+    blocks:
+      - type: bullets
+        items:
+          - "图比树复杂：结点（叫顶点）之间的关系任意，可以有环、可以多对多，不像树那样一层一层"
+          - "存图有两种主流办法：邻接矩阵用一个二维数组记'谁和谁之间有边'，邻接表用顶点表加边表记'每个顶点连向谁'"
+          - "全部图算法都建在两件事上：图怎么存、图怎么走。这一节就讲这两件，是三大重点章里图算法的地基"
+      - type: note
+        text: "图是 802 三大重点章之一，2020—2026 考了 5 道大题；这一节的两种存储和两种遍历，是后面所有图算法的前提"
+
+  - type: content
+    kicker: 存储 · 邻接矩阵
+    title: 邻接矩阵：一个二维数组记边
+    blocks:
+      - type: code
+        text: |
+          #define MaxVertexNum 100
+          typedef struct{
+              char vex[MaxVertexNum];                 // 顶点表
+              int edge[MaxVertexNum][MaxVertexNum];   // 邻接矩阵
+              int vexnum, arcnum;                     // 顶点数、边数
+              int kind;                               // 有向或无向
+          }MGraph;
+      - type: bullets
+        items:
+          - "edge[i][j]=1 表示顶点 i 到 j 有边；无向图的矩阵对称，因为 i-j 和 j-i 是同一条边"
+          - "有向图不对称，edge[i][j] 表示从 i 指向 j 的弧；带权图把 1 换成权值，不可达的位置存 INF（一个很大的数）"
+          - "空间是 O(n²)，不管有多少条边都开 n×n 个格子，稀疏图会浪费很多"
+
+  - type: content
+    kicker: 存储 · 邻接表
+    title: 邻接表：顶点表加边表，只存真实存在的边
+    blocks:
+      - type: code
+        text: |
+          typedef struct ArcNode{ int adjvex; int weight; struct ArcNode *nextarc; }ArcNode;  // 边表结点
+          typedef struct VNode{ VertexType data; ArcNode *firstarc; }VNode, AdjList[MaxVertexNum];  // 顶点表
+          typedef struct{ AdjList vertices; int vexnum, arcnum; int kind; }ALGraph;
+      - type: bullets
+        items:
+          - "每个顶点一个表头 VNode，firstarc 指向它的边表；边表结点 ArcNode 记 adjvex（连到哪个顶点）、nextarc 串起下一条边"
+          - "只存实际存在的边，空间 O(n+e)，稀疏图比邻接矩阵省得多；weight 是带权时用的，强化阶段讲 Prim 会用到"
+          - "有向图的邻接表，一个顶点的边表是它的出边；要查入度得遍历所有顶点的边表"
+
+  - type: content
+    kicker: 字段名统一
+    title: 字段名统一：以题目给的为准
+    blocks:
+      - type: bullets
+        items:
+          - "边表结点的下一指针，本课程统一叫 nextarc；但有的真题（如 2024、2025）题面自己给的字段叫 next，那就以题目为准、抄题目的字段名"
+          - "邻接矩阵本课程统一用 vex、edge、vexnum、arcnum；个别真题会给另一套字段名，答题时跟着题目给的走"
+          - "顶点数上限本课程统一叫 MaxVertexNum"
+      - type: note
+        text: "一句话规则：字段名以题目给出的定义为准，答题时抄题目的；本课程正文用统一的这一套，方便你记"
+
+  - type: content
+    kicker: 存储的应用
+    title: 求所有顶点的入度（2026真题第一步）
+    blocks:
+      - type: code
+        text: |
+          void Indegree(ALGraph G, int indeg[]){
+              for(int i = 0; i < G.vexnum; i++) indeg[i] = 0;          // 先清零
+              for(int i = 0; i < G.vexnum; i++)                        // 遍历每个顶点
+                  for(ArcNode *p = G.vertices[i].firstarc; p != NULL; p = p->nextarc)
+                      indeg[p->adjvex]++;                              // 它指向谁，谁的入度加一
+          }
+      - type: note
+        text: "为什么必须遍历所有顶点的边表？入度是'指向它的弧有多少条'，这些弧分散在各个顶点的边表里，只看一个顶点的边表只能得到它的出度。这是拓扑排序的第一步"
+
+  - type: content
+    kicker: 遍历 · 为什么要 visited
+    title: 图的遍历为什么必须用 visited
+    blocks:
+      - type: bullets
+        items:
+          - "树没有环，从上往下走不会重复；图有环，还可能多对多，不标记就会绕圈、重复访问甚至死循环"
+          - "所以用一个 visited 数组记'这个顶点访问过没有'，访问过就不再进去"
+          - "visited 通常是全局数组，这带来一个坑：下次遍历前必须把它全部复位，否则上次的标记会残留"
+      - type: note
+        text: "图的遍历有两种：DFS 深度优先（一条路走到黑再回头）和 BFS 广度优先（一层一层扩），和树的遍历思路相通"
+
+  - type: content
+    kicker: 遍历 · DFS
+    title: DFS 深度优先：递归版逐行看
+    blocks:
+      - type: code
+        text: |
+          bool visited[MaxVertexNum];
+          void DFS(ALGraph G, int v){
+              visit(v); visited[v] = true;                    // 先访问、再标记
+              for(ArcNode *p = G.vertices[v].firstarc; p != NULL; p = p->nextarc)
+                  if(!visited[p->adjvex]) DFS(G, p->adjvex);  // 没访问过的邻居，递归进去
+          }
+      - type: note
+        text: "两个要点：先 visit 再标记，次序别反；递归前必须判 !visited，否则有环的图会无限递归下去"
+
+  - type: content
+    kicker: 遍历 · BFS · 检查页
+    title: BFS 广度优先：为什么入队时就标记（先自己想）
+    blocks:
+      - type: code
+        text: |
+          void BFS(ALGraph G, int v){
+              visit(v); visited[v] = true; EnQueue(Q, v);      // 入队时就标记
+              while(!IsEmpty(Q)){
+                  DeQueue(Q, v);
+                  for(ArcNode *p = G.vertices[v].firstarc; p != NULL; p = p->nextarc)
+                      if(!visited[p->adjvex]){ visit(p->adjvex); visited[p->adjvex]=true; EnQueue(Q, p->adjvex); }
+              }
+          }
+      - type: note
+        text: "先想：如果把标记挪到出队时才做，会怎样？——同一个顶点会被多个邻居重复入队，visit 输出好几遍、队列也变长。入队时就标记，保证每个顶点最多入队一次"
+
+  - type: content
+    kicker: 遍历 · 过程页
+    title: 同一张图，DFS 与 BFS 走一遍对比（拿纸跟画）
+    blocks:
+      - type: image
+        src: assets/diagrams/a9-graph.png
+        w: 8
+        h: 3.0
+        align: center
+        fit: contain
+      - type: bullets
+        items:
+          - "图有5个顶点0到4，边是 0-1、0-2、1-3、2-4、3-4；邻接表按顶点号从小到大排"
+          - "DFS 从0：访问0→邻居1没访问，进1→1的邻居3没访问，进3→3的邻居4，进4→4的邻居2，进2→2的邻居都访问过，层层回退。序列 0 1 3 4 2"
+          - "BFS 从0：访问0入队；出0，把邻居1、2访问并入队；出1，邻居3访问入队；出2，邻居4访问入队；出3、出4无新顶点。序列 0 1 2 3 4"
+      - type: note
+        text: "同一张图，DFS 一路往深走（0 1 3 4 2），BFS 一层层扩（0 1 2 3 4）；你把 visited 和队列的状态一步步标出来就看清了"
+
+  - type: content
+    kicker: 遍历 · 非连通图
+    title: 非连通图：外套一层 Traverse
+    blocks:
+      - type: code
+        text: |
+          void DFS_Traverse(ALGraph G){
+              for(int i = 0; i < G.vexnum; i++) visited[i] = false;   // 先全部复位
+              for(int i = 0; i < G.vexnum; i++)
+                  if(!visited[i]) DFS(G, i);                          // 每个没访问的顶点各走一次
+          }
+      - type: note
+        text: "两层要点：进 Traverse 先把 visited 复位（全局数组会残留上次标记）；外套一层 for，是因为非连通图有多个连通分量，要从每个还没访问的顶点各启动一次 DFS，才能走遍全图"
+
+  - type: content
+    kicker: 复杂度对比
+    title: 两种存储下遍历的复杂度
+    blocks:
+      - type: table
+        head: [存储, DFS/BFS 时间, 空间, 存储开销]
+        colW: [2.2, 4.3, 2.0, 3.0]
+        rows:
+          - [邻接矩阵, O(n²)：每个顶点扫一整行 n 个, O(n), O(n²)]
+          - [邻接表, O(n+e)：n 个顶点加 e 条边各一次, O(n), O(n+e)]
+      - type: note
+        text: "为什么矩阵是 O(n²)？找某顶点的邻居要扫它那一整行 n 个格子，n 个顶点就是 n²。邻接表只走真实存在的边，是 O(n+e)。所以稀疏图用邻接表、稠密图用矩阵"
+
+  - type: content
+    kicker: 生成树与森林
+    title: DFS 生成树、BFS 生成树与生成森林
+    blocks:
+      - type: bullets
+        items:
+          - "遍历一个连通图时，走过的边会构成一棵树：DFS 走过的边叫 DFS 生成树，BFS 走过的边叫 BFS 生成树"
+          - "非连通图遍历完，每个连通分量各得一棵生成树，合起来是生成森林"
+          - "生成树的边数一定是顶点数减一；同一张图，DFS 和 BFS 生成的树通常不一样"
+      - type: note
+        text: "求生成树是画图题的常考点（题集勾画 7答5）；你按遍历的走法把经过的边画出来就是生成树"
+
+  - type: content
+    kicker: 拓展 · 并查集
+    title: 并查集：先认个脸，强化阶段要用
+    blocks:
+      - type: bullets
+        items:
+          - "并查集用一个数组 parent，parent[i] 记 i 的父结点，根结点的 parent 指向自己"
+          - "两个操作：Find 沿父结点一路往上找到根；Union 把一棵树的根接到另一棵树的根下，合并两个集合"
+          - "用途：判断两个顶点是不是已经在同一个集合里，强化阶段讲 Kruskal 最小生成树时靠它判环"
+      - type: note
+        text: "这一页先理这些概念，不展开代码；等强化阶段讲 Kruskal 时兑现，到时候你会看到并查集怎么用来判断加一条边会不会成环"
+
+  - type: content
+    kicker: 本节小结与课后
+    title: 小结与课后任务
+    blocks:
+      - type: bullets
+        items:
+          - "存储：邻接矩阵 O(n²) 适合稠密图，邻接表 O(n+e) 适合稀疏图；求入度要遍历所有顶点的边表"
+          - "遍历：DFS 递归、一路往深走到底再回退；BFS 用队列、一层层扩，入队时就标记 visited；非连通图外套 Traverse、先复位"
+          - "复杂度：矩阵 O(n²)、邻接表 O(n+e)；遍历走过的边构成生成树或生成森林"
+          - "**跟练**：默写邻接表定义、DFS、BFS、Indegree；给一张5顶点的图写出邻接矩阵与邻接表、从0出发的 DFS 与 BFS 序列。**模仿**：题集勾画 7选21、7选22 同类，判断哪个序列是合法的 DFS/BFS 序列"
+      - type: note
+        text: "参考答案在本PPT最后两页，课后自行对照。下一节进入强化阶段，从链表算法开始"
+
+  - type: content
+    kicker: 参考答案 · 跟练题
+    title: 跟练题参考答案（自行对照）
+    blocks:
+      - type: code
+        text: |
+          void DFS(ALGraph G, int v){ visit(v); visited[v]=true;
+              for(ArcNode *p=G.vertices[v].firstarc; p; p=p->nextarc)
+                  if(!visited[p->adjvex]) DFS(G, p->adjvex); }
+          void BFS(ALGraph G, int v){ visit(v); visited[v]=true; EnQueue(Q,v);
+              while(!IsEmpty(Q)){ DeQueue(Q,v);
+                  for(ArcNode *p=G.vertices[v].firstarc; p; p=p->nextarc)
+                      if(!visited[p->adjvex]){ visit(p->adjvex); visited[p->adjvex]=true; EnQueue(Q,p->adjvex); } } }
+      - type: note
+        text: "5顶点图（边0-1、0-2、1-3、2-4、3-4）从0出发：DFS 得 0 1 3 4 2，BFS 得 0 1 2 3 4；邻接表定义与 Indegree 见本节代码合集"
+
+  - type: content
+    kicker: 参考答案 · 模仿题
+    title: 模仿题参考答案（自行对照）
+    blocks:
+      - type: bullets
+        items:
+          - "判断一个序列是不是合法的 DFS/BFS：照着遍历规则模拟一遍，看能不能走出这个序列"
+          - "DFS 合法的关键：每一步要么走到未访问的邻居、要么回退，不能凭空跳到不相邻的未访问顶点"
+          - "BFS 合法的关键：必须按层扩，先访问的顶点的邻居要先于后访问顶点的邻居出队"
+          - "邻接表里邻居的排列顺序会影响 DFS/BFS 的具体序列，所以合法序列可能不止一个"
+      - type: note
+        text: "题集勾画 7选21、7选22 就是这个考法；你拿遍历规则去卡每个选项，模拟一遍就能判断"

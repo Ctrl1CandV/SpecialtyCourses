@@ -97,7 +97,7 @@ int findK(LinkList &L, int k){
 
 思想：q 先走 k 步，然后 p 与 q 同步走，q 到表尾时 p 恰好落后 k 个结点。**p 与 q 都从头结点 L 出发**，这是这个写法能对上"倒数第 k 个数据结点"的关键：头结点算作一个位置，正好抵消掉。时间 O(n) 一趟，空间 O(1)。这是 2025 年真题第 1 题。
 
-**倒数第 k 的方法二：辅助栈**（材料原文）：全部结点压栈，弹出 k 次，第 k 次弹出的就是。时间 O(n)，空间 O(k)。两法对比要讲：快慢指针空间更省，辅助栈的思路更直白且能处理"倒数第 k 到倒数第 1 全部输出"这类变体。
+**倒数第 k 的方法二：辅助栈**（材料原文）：全部结点压栈，弹出 k 次，第 k 次弹出的就是。时间 O(n)，空间 O(n)（材料代码是全部压栈，峰值栈深 n；若只压倒数 k 个可优化到 O(k)，但材料未这样写，课件按 O(n) 讲）。两法对比要讲：快慢指针空间更省，辅助栈的思路更直白且能处理“倒数第 k 到倒数第 1 全部输出”这类变体。
 
 **条件删除（前驱跟随）**：删除满足某条件的结点，必须记住前驱，因为单链表没有 prior。
 
@@ -229,18 +229,25 @@ bool Union(LinkList &la, LinkList lb){
 
 三个细节：判空必须用 `||`（任一为空就不能解引用）；两个收尾循环处理剩下的那一段；`free(lb)` 释放的是 lb 的头结点（它的数据结点已经被摘走了）。
 
-**408-2019 重排**（材料原文，三步）：题目是把 L=(a1,a2,...,an) 重排成 L'=(a1,an,a2,an-1,...)，要求空间 O(1)。
+**408-2019 重排**（修正版，三步；材料原文有两处缺陷，见勘误 A7）：题目是把 L=(a1,a2,...,an) 重排成 L'=(a1,an,a2,an-1,...)，要求空间 O(1)。
 
 ```c
 void Reorder(NODE *head){
     if(head == NULL || head->next == NULL || head->next->next == NULL) return;
-    // 第一步：快慢指针找中点
+    // 第一步：模板2 快慢指针找中点（终止条件保证偶数时 slow 停在前半段最后一个）
     NODE *slow = head->next, *fast = head->next;
-    while(fast != NULL && fast->next != NULL){ slow = slow->next; fast = fast->next->next; }
-    // 第二步：断开并逆置后半段
-    NODE *second = slow->next, *p = second->next;
+    while(fast->next != NULL && fast->next->next != NULL){
+        slow = slow->next; fast = fast->next->next;
+    }
+    // 第二步：模板1 断开并头插逆置后半段（rev 当头的完整头插，含后半段首元）
+    NODE *second = slow->next, *rev = NULL;
     slow->next = NULL;
-    while(p != NULL){ NODE *temp = p->next; p->next = second->next; second->next = p; p = temp; }
+    while(second != NULL){
+        NODE *temp = second->next;
+        second->next = rev; rev = second;
+        second = temp;
+    }
+    second = rev;
     // 第三步：交替插入
     NODE *first = head->next;
     while(second != NULL){
@@ -251,7 +258,7 @@ void Reorder(NODE *head){
 }
 ```
 
-讲法：先说清三步各用什么模板（第一步模板 2 快慢指针，第二步模板 1 头插逆置，第三步是新动作"交替插入"），再逐步走。快慢指针的终止条件 `fast != NULL && fast->next != NULL` 决定了偶数个结点时 slow 停在前半段的最后一个，这是第三步能交替的前提。
+讲法：先说清三步各用什么模板（第一步模板 2 快慢指针，第二步模板 1 头插逆置，第三步是新动作“交替插入”），再逐步走。快慢指针的终止条件 `fast->next != NULL && fast->next->next != NULL` 决定了偶数个结点时 slow 停在前半段的最后一个（n=6 时 slow=a3），这是第三步能交替的前提。**材料原文的两处缺陷**（终止条件写成 `fast != NULL && fast->next != NULL` 导致 slow 停在后半段第一个；第二步以 second 为锚头插造成自环丢结点）已登记勘误 A7，课件用上面的修正版，不回改主讲原文件。
 
 **约瑟夫环**（经典问题；材料在真题汇总里给了完整解答，本题不展开题面与分值，那是 C3-B-01 的事）：
 
@@ -1680,7 +1687,7 @@ void SelectSort(SqList &L){                   // 数据存 L.data[1..length]
 }
 ```
 
-两个细节：哨兵位这里不是存值而是存**下标**（`L.data[0] = i`），比较时要写 `L.data[L.data[0]]`（双重下标），这是学生最容易看错的一行；外层到 `L.length - 1` 而内层到 `L.length`，两个边界不同，因为最后一轮只剩一个元素不用比，但找最小值时必须把它算进去。时间 O(n²) 且与初始序列无关，稳定（用 `<` 而不是 `<=`）。
+两个细节：哨兵位这里不是存值而是存**下标**（`L.data[0] = i`），比较时要写 `L.data[L.data[0]]`（双重下标），这是学生最容易看错的一行；外层到 `L.length - 1` 而内层到 `L.length`，两个边界不同，因为最后一轮只剩一个元素不用比，但找最小值时必须把它算进去。时间 O(n²) 且与初始序列无关；**不稳定**（2026-09-27 生产 B10 时核实修正：交换会改变相同元素的相对次序，反例 {3a,3b,1} 第一趟 3a 与 1 交换后 3a 跑到 3b 后面；用 `<` 还是 `<=` 只影响选哪个最小值，救不了交换破坏的稳定性）。
 
 **大根堆的定义与下标关系**：完全二叉树顺序存储，下标从 1 开始，则结点 i 的左孩子是 2i、右孩子是 2i+1、父结点是 i/2。大根堆要求每个结点不小于它的两个孩子。这就是约定 1 里“排序章节从 1 开始”的真正原因（A1 理已经埋下，本页兑现）。
 
@@ -1775,7 +1782,7 @@ int merge(int A[], int temp[], int left, int mid, int right){
 | 希尔 | 约 O(n^1.3) | O(n²) | O(1) | 不稳定 |
 | 冒泡 | O(n²) | O(n²) | O(1) | 稳定 |
 | 快速 | O(nlogn) | O(n²) | O(logn) | 不稳定 |
-| 简单选择 | O(n²) | O(n²) | O(1) | 稳定 |
+| 简单选择 | O(n²) | O(n²) | O(1) | 不稳定 |
 | 堆排序 | O(nlogn) | O(nlogn) | O(1) | 不稳定 |
 | 二路归并 | O(nlogn) | O(nlogn) | O(n) | 稳定 |
 | 基数 | O(d(n+r)) | O(d(n+r)) | O(r) | 稳定 |

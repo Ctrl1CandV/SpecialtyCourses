@@ -1,0 +1,341 @@
+meta:
+  id: C2-B-07
+  title: 图算法二：生成树与最短路径
+  stage: B强化
+  instructor: 牙膏学长
+  duration: 40min
+
+slides:
+  - type: cover
+    kicker: 重邮802 数据结构代码课程
+    title: 数据结构强化阶段
+    subtitle: 第7节 图算法二：生成树与最短路径
+    meta: 阶段：强化 ｜ 主讲：牙膏学长 ｜ 预计40分钟 ｜ 资料答疑：伴梦研途QQ群
+
+  - type: content
+    kicker: 引题
+    title: 本节四个主题在 802 里的地位不一样
+    blocks:
+      - type: table
+        head: [主题, 在802里的考法, 本节怎么对待]
+        rows:
+          - [Prim 与 Kruskal 最小生成树, 中频，选择题考权值计算（题集 7选25）, 逐行走主循环，骨架背默]
+          - [Dijkstra 与 Floyd 最短路径, 综合应用题以手算为主, 只给骨架，讲清三重循环的含义]
+          - [多源 BFS, 2023 年第 2 题的解法, 完整讲：思想、骨架、逐层扩散动画]
+          - [关键路径, 考手算 AOE 网, 一页认识四个量，不写代码]
+      - type: bullets
+        items:
+          - "地位不同，课时分配就不同：Prim 八分钟、Kruskal 七分钟、Dijkstra 与 Floyd 七分钟、多源 BFS 八分钟、关键路径两分钟"
+          - "一张 5 顶点带权图从头用到尾：Prim、Kruskal、Dijkstra 都在它上面跑，结果互相核对"
+
+  - type: content
+    kicker: 最小生成树 · Prim
+    title: 最小生成树是权值和最小的生成树，Prim 从一个顶点往外长
+    blocks:
+      - type: image
+        src: assets/diagrams/b7-graph.png
+        w: 8.5
+        h: 3.8
+        align: center
+        fit: contain
+      - type: bullets
+        items:
+          - "生成树：从连通图里选出 n-1 条边，把所有顶点连起来且不成环；同一幅图的生成树不唯一"
+          - "最小生成树：所有生成树里权值和最小的那一棵，Prim 与 Kruskal 都是来找它的"
+          - "Prim 的思想：从一个顶点开始把它当种子树，每轮选一条树到树外顶点的最小权边，把新顶点并进来，树往外长一圈"
+          - "直到全部顶点并入，选中的 n-1 条边就是最小生成树；从顶点 0 开始，选边依次是 0-1、1-2、1-4、0-3"
+          - "盯住这条规则：Prim 每轮选的是到树的最短边，不是到起点的最短路"
+
+  - type: content
+    kicker: Prim · 三个数组
+    title: 先查 weight 字段，再分清 include、dist、parent 三个数组
+    blocks:
+      - type: code
+        text: |
+          typedef struct ArcNode{
+              int adjvex;                     // 该弧指向的顶点下标
+              int weight;                     // 边权：带权图必带，数据结构基础阶段第9节已放出
+              struct ArcNode *nextarc;
+          }ArcNode;
+      - type: bullets
+        items:
+          - "拿到任何一段图算法代码，先检查它用的字段在邻接表定义里有没有：Prim 用 p->weight，ArcNode 就必须带 weight 字段"
+          - "include[i]：顶点 i 是否已在生成树里，是就不再碰它"
+          - "dist[i]：顶点 i 到生成树的最小边权——是到树，不是到起点 0，这是与 Dijkstra 最要紧的区别"
+          - "parent[i]：选中 i 时走的那条边从哪个顶点来；生成树建好后沿 parent 回溯可还原全部树边"
+          - "三个数组初始化各一个循环：全 false、全 INF、全 -1"
+          - "先自己说一遍：dist[i] 是 i 到起点的距离吗？"
+
+  - type: content
+    kicker: Prim · 主循环
+    title: 主循环两拍：选最小的 u 并入树，再用 u 的边刷新邻居的 dist
+    blocks:
+      - type: code
+        text: |
+          for(int i = 0; i < G.vexnum; i++){ include[i] = false; dist[i] = INF; parent[i] = -1; }   // 不能写 dist[] = {INF}
+          dist[0] = 0;                                                    // 从顶点 0 开始长
+          for(int k = 0; k < G.vexnum; k++){
+              int u = -1, minDist = INF;
+              for(int i = 0; i < G.vexnum; i++)                       // ①选出树外 dist 最小的 u
+                  if(!include[i] && dist[i] < minDist){ minDist = dist[i]; u = i; }
+              if(u == -1) break;                                      // 图不连通，停
+              include[u] = true;                                      // ②u 并入树
+              for(ArcNode *p = G.vertices[u].firstarc; p != NULL; p = p->nextarc)
+                  if(!include[p->adjvex] && p->weight < dist[p->adjvex]){ dist[p->adjvex] = p->weight; parent[p->adjvex] = u; }
+          }
+      - type: bullets
+        items:
+          - "初始化必须写循环：int dist[] = {INF} 只把第一个元素置成 INF，其余全是 0——数据结构基础阶段第1节约定5说的就是这个坑"
+          - "主循环每轮两拍：先在树外选 dist 最小的 u 并入；再沿 u 的边表扫一遍，边权更小就刷新 dist 和 parent"
+          - "对照图走一遍：并入 0 后 dist[1]=2、dist[3]=6；并入 1 后 dist[2]=3、dist[4]=5；最小生成树权值和 16"
+          - "时间 O(n²)：每轮选最小要扫全部顶点，邻接表也一样；图不连通时 u 等于 -1 直接停"
+          - "最容易错：把 dist 当到起点的距离——它是到树的最小边权"
+
+  - type: content
+    kicker: 最小生成树 · Kruskal
+    title: Kruskal：边按权从小到大扫，不成环就加，并查集管判环
+    blocks:
+      - type: diagram
+        diagram: array
+        cells: [0, 1, 2, 3, 4]
+        indices: true
+        w: 8
+        h: 1.0
+        align: center
+      - type: note
+        text: "并查集初始化：parent[i] = i，每个顶点自成一棵树，Find(i) 返回 i 自己"
+      - type: bullets
+        items:
+          - "思想：把每条边按权从小到大排队，依次看每条边；两端点还不在同一棵树里就加入，加够 n-1 条边收工"
+          - "与 Prim 的差别：Prim 盯着顶点往外长，Kruskal 盯着边往里收；那张图按 Kruskal 扫边序 2、3、5、6，加完四条权值和也是 16"
+          - "判环靠并查集：Find 沿 parent 一路往上找到根；一条边两端的根相同，说明已经连通，再加就成环"
+          - "数据结构基础阶段第9节讲并查集时留的问题在这里兑现：它就是 Kruskal 的判环工具"
+          - "时间 O(e log e)：排序最贵；边少的稀疏图用 Kruskal，顶点稠密的图用 Prim"
+
+  - type: content
+    kicker: Kruskal · 骨架填空
+    title: 骨架三行：Find 找根、根不同就合并、加够 n-1 条边停
+    blocks:
+      - type: code
+        text: |
+          int Find(int parent[], int x){                  // 沿父结点往上找到根
+              while(parent[x] != x) x = parent[x];
+              return x;
+          }
+          void Kruskal(ALGraph G, Edge E[], int m, int vexnum){   // E 已按 w 升序
+              int parent[MaxVertexNum];
+              for(int i = 0; i < vexnum; i++) parent[i] = i;      // ①初始化并查集
+              int cnt = 0;
+              for(int i = 0; i < m && cnt < vexnum - 1; i++){     // ②双条件循环
+                  int a = Find(parent, E[i].u), b = Find(parent, E[i].v);
+                  if(a != b){ parent[a] = b; cnt++; }             // ③不成环，加入
+              }
+          }
+      - type: bullets
+        items:
+          - "三处填空：每个顶点自成一棵树；扫边循环用 m 与 n-1 双条件；根不同才合并并计数"
+          - "Edge 结构一行：u、v 两端点加 w 权值，排序按它排"
+          - "考场完整写法：先遍历邻接表把每条边收进 E，再按 w 升序排，之后才进这段骨架"
+          - "判环一句话：Find 两个端点，根相同跳过，根不同加边"
+          - "时间 O(e log e)：排序主导；并查集部分接近 O(e)"
+
+  - type: content
+    kicker: 最短路径 · Dijkstra
+    title: Dijkstra：dist、path、S 三个数组，每轮选最小的并入
+    blocks:
+      - type: code
+        text: |
+          void Dijkstra(MGraph G, int v0, int dist[], int path[], bool S[]){
+              for(int i = 0; i < G.vexnum; i++){
+                  dist[i] = G.edge[v0][i]; S[i] = false;      // 初始：直接连通的距离
+                  path[i] = (dist[i] < INF) ? v0 : -1;        // 初始前驱
+              }
+              dist[v0] = 0; S[v0] = true;
+              for(int k = 1; k < G.vexnum; k++){
+                  int u = 选 dist 最小且 S[u] 为 false 的顶点;
+                  S[u] = true;                                // u 的最短路已确定
+                  for(int i = 0; i < G.vexnum; i++)
+                      if(!S[i] && dist[u] + G.edge[u][i] < dist[i]){ dist[i] = dist[u] + G.edge[u][i]; path[i] = u; }
+              }
+          }
+      - type: table
+        head: [对照点, Prim, Dijkstra]
+        rows:
+          - ["dist 的含义", "到生成树的最小边权", "到起点 v0 的当前最短距离"]
+          - ["更新式", "边权 w 小于 dist[v] 就刷新", "dist[u] 加 w 小于 dist[i] 才刷新"]
+          - ["每轮动作", "选最小 u 并入树，刷新邻居", "选最小 u 并入 S，松弛其余顶点"]
+          - ["结果", "最小生成树，沿 parent 还原树边", "单源最短路，沿 path 还原路径"]
+      - type: note
+        text: "两个算法骨架几乎一样，差别全在更新式那一行：记住一个，另一个就带出来了"
+
+  - type: content
+    kicker: 最短路径 · Floyd
+    title: Floyd 三重循环：k 是中转点，必须放在最外层
+    blocks:
+      - type: image
+        src: assets/diagrams/b7-floyd.png
+        w: 10.5
+        h: 3.6
+        align: center
+        fit: contain
+      - type: code
+        text: |
+          for(int k = 0; k < G.vexnum; k++)           // ①中转点：必须最外层
+              for(int i = 0; i < G.vexnum; i++)
+                  for(int j = 0; j < G.vexnum; j++)
+                      if(A[i][k] + A[k][j] < A[i][j]) A[i][j] = A[i][k] + A[k][j];   // 松弛
+      - type: bullets
+        items:
+          - "一句话含义：依次把每个顶点 vk 当可能的中转点，对所有 i、j 试一次经过 vk 会不会更近"
+          - "k 必须在最外层：A[i][k] 与 A[k][j] 必须是只允许前 k-1 个顶点中转算完的结果；k 放内层会读到本轮没算完的值，结果直接错"
+          - "时间 O(n³)；实际写要判 A[i][k] 与 A[k][j] 都小于 INF，0x3f3f3f3f 的设计就是让 INF 相加不溢出成负数"
+
+  - type: content
+    badge: 真题·2023
+    kicker: 多源 BFS · 像素距离
+    title: 多源 BFS：与普通 BFS 只差一处——所有源点先全部入队
+    blocks:
+      - type: code
+        text: |
+          void PixelDist(int g[][MaxM], int dist[][MaxM], int n, int m){
+              SqQueue Q; InitQueue(Q);
+              for(int i = 0; i < n; i++)
+                  for(int j = 0; j < m; j++){                     // ①与普通 BFS 唯一的差别
+                      if(g[i][j] == 1){ dist[i][j] = 0; EnQueue(Q, i * m + j); }
+                      else dist[i][j] = -1;                       // -1 兼作 visited
+                  }
+              while(!IsEmpty(Q)){
+                  int cur; DeQueue(Q, cur);
+                  int x = cur / m, y = cur % m;                   // 一维编号还原成坐标
+                  for(int d = 0; d < 4; d++){ /* 越界跳过；dist 为 -1 才置值入队 */ }
+              }
+          }
+      - type: bullets
+        items:
+          - "题目形态：n×m 的 01 位图，1 是白像素，求每个像素到最近白像素的曼哈顿距离；2023 年第 2 题的解法就是它"
+          - "朴素做法是对每个黑像素各做一次 BFS，n²m² 必然超时；反过来让所有白像素同时往外扩散，只扫一遍"
+          - "三个细节：队列存一维编号 i×m+j，取出用除与模还原坐标；dist 等于 -1 兼作 visited，省一个数组；方向数组写四个方向，不写四段重复代码"
+          - "为什么第一次访问就是答案：BFS 逐层扩散，每扩一层距离加 1，第一次碰到的就是最近"
+          - "时间 O(nm)：每个像素入队出队各一次，这就是题目要的复杂度尽可能低"
+
+  - type: content
+    kicker: 多源 BFS · 逐层扩散
+    title: 3×4 位图逐层扩散：两个源点同时长，每扩一层距离加 1（拿纸跟着画）
+    blocks:
+      - type: image
+        src: assets/diagrams/b7-bfs.png
+        w: 11.5
+        h: 3.2
+        align: center
+        fit: contain
+      - type: bullets
+        items:
+          - "位图：白像素在 (0,1) 和 (2,2)；先在纸上把每个像素到最近白像素的距离手算一遍"
+          - "第 0 层：两个源点 dist 置 0 同时入队，队列先装两个坐标"
+          - "第 1 层：源点的上下左右共 6 个新像素 dist 置 1 入队，注意 (1,2) 只被记一次"
+          - "第 2 层：剩下 3 个像素 dist 置 2，队列出空，扩散停"
+          - "对照手算：动画得到的距离矩阵与曼哈顿距离逐个一致，第一次被访问的层号就是答案"
+
+  - type: content
+    kicker: 关键路径 · 认识四个量
+    title: 关键路径：ve、vl、e、l 四个量，802 考手算不写代码
+    blocks:
+      - type: table
+        head: [量, 含义, 怎么推]
+        rows:
+          - [ve(j), 事件 j 的最早发生时间, 从源点沿拓扑序正向推，取各前驱的最大]
+          - [vl(j), 事件 j 的最迟发生时间, 从汇点逆拓扑序反向推，取各后继的最小]
+          - [e(i), 活动 i 的最早开始时间, 等于活动起点的 ve]
+          - [l(i), 活动 i 的最迟开始时间, 等于活动终点的 vl 减活动时长]
+      - type: bullets
+        items:
+          - "e 等于 l 的活动叫关键活动，全部由关键活动组成的路径就是关键路径"
+          - "它在代码里是什么：两遍拓扑序递推，先正推 ve 再反推 vl，本课不写代码"
+          - "802 考的是 AOE 网手算（题集 7答10）：会填表、会找关键活动即可，代码没有考试收益"
+          - "手算训练在专业课里完成，这里只要求看到四个量不陌生"
+
+  - type: content
+    kicker: 模板卡
+    title: 模板 8：BFS 分层与多源 BFS
+    blocks:
+      - type: table
+        head: [模板, 适用场景, 骨架, 复杂度]
+        rows:
+          - [模板8 BFS 分层与多源 BFS, 单源分层统计、多源最近距离、01 位图扩散, "源点入队 dist 置 0；出队一层，邻居 dist 加 1 再入队", "O(nm) 或 O(n+e)"]
+      - type: bullets
+        items:
+          - "多源写法只改第一步：所有源点 dist 置 0 全部入队，之后与普通 BFS 完全一样"
+          - "用法：看到求到最近源点的距离，立刻想这张卡"
+      - type: note
+        text: "考过哪里：多源 BFS 是 2023 年第 2 题的解法；最小生成树权值计算是选择题考点（题集 7选25）；Dijkstra 与 Floyd 手算在综合应用题占分"
+
+  - type: content
+    kicker: 小结与课后任务
+    title: 四个主题一张表，两道课后题
+    blocks:
+      - type: table
+        head: [算法, 关键动作, 最容易错的]
+        rows:
+          - [Prim, 选最小 u 并入树，边权刷新 dist, 把 dist 当到起点的距离]
+          - [Kruskal, 边按权排序后扫，并查集判环, 不排序直接扫，得到的不是最小]
+          - [Dijkstra, 选最小 u 并入 S，累加松弛, 更新式写成只看边权]
+          - [Floyd, 三重循环按中转点松弛, k 写在内层]
+          - [多源 BFS, 所有源点先入队，逐层扩散, 忘记用 dist 为 -1 判重]
+      - type: bullets
+        items:
+          - "**跟练题**：默写 Prim 主循环与多源 BFS 的入队初始化；拿一张 4 顶点带权图手算 Prim 与 Kruskal 并核对结果"
+          - "**变式题**：题集勾画 7答7、7答11、7答13、7选27；自编变式：像素距离图改成八连通，代码改哪里"
+      - type: note
+        text: "参考答案在 PPT 最后两页，课后自行对照"
+
+  - type: content
+    kicker: 参考答案 · 跟练题
+    title: 跟练题参考答案（自行对照）
+    blocks:
+      - type: code
+        text: |
+          void Prim(ALGraph &G){
+              bool include[MaxVertexNum];
+              int dist[MaxVertexNum], parent[MaxVertexNum];
+              for(int i = 0; i < G.vexnum; i++){ include[i] = false; dist[i] = INF; parent[i] = -1; }
+              dist[0] = 0;
+              for(int k = 0; k < G.vexnum; k++){
+                  int u = -1, minDist = INF;
+                  for(int i = 0; i < G.vexnum; i++)
+                      if(!include[i] && dist[i] < minDist){ minDist = dist[i]; u = i; }
+                  if(u == -1) break;
+                  include[u] = true;
+                  for(ArcNode *p = G.vertices[u].firstarc; p != NULL; p = p->nextarc){
+                      int v = p->adjvex, w = p->weight;
+                      if(!include[v] && w < dist[v]){ dist[v] = w; parent[v] = u; }
+                  }
+              }
+          }
+      - type: code
+        text: |
+          // 多源 BFS 的入队初始化（完整代码见附录二）
+          for(int i = 0; i < n; i++)
+              for(int j = 0; j < m; j++){
+                  if(g[i][j] == 1){ dist[i][j] = 0; EnQueue(Q, i * m + j); }
+                  else dist[i][j] = -1;
+              }
+      - type: bullets
+        items:
+          - "Prim 关键：初始化写循环，不能写 dist[] = {INF}；每轮选最小、并入、刷新三拍"
+          - "多源 BFS 关键：所有白像素先全部入队，dist 置 0，其余置 -1"
+          - "手算核对：课上那张 5 顶点图，Prim 与 Kruskal 得到的权值和都是 16"
+
+  - type: content
+    kicker: 参考答案 · 变式题
+    title: 变式题参考答案（自行对照）
+    blocks:
+      - type: bullets
+        items:
+          - "7答7 最小生成树手算：Prim 逐轮选最小边并入，Kruskal 按序扫边用并查集判环，两种方法权值和一定相同"
+          - "7答11 Dijkstra 过程：每轮确定一个顶点的 dist，再用 dist[u] 加边权松弛其余顶点，手算表逐行填"
+          - "7答13 Floyd 过程：按 k 递增画矩阵序列，每轮固定中转点 k，试全部 i、j 对"
+          - "7选27 最短路径手算：先跑 Dijkstra 求单源，看清题目问的是路径长还是路径本身"
+          - "八连通变式：方向数组从 4 个扩成 8 个，越界判断与 dist 判重都不变，复杂度仍是 O(nm)"
+      - type: code
+        text: |
+          int dir[8][2] = {{-1,0},{1,0},{0,-1},{0,1},{-1,-1},{-1,1},{1,-1},{1,1}};

@@ -1,0 +1,222 @@
+meta:
+  id: C2-A-04
+  title: 双链表、循环链表与静态链表
+  stage: A基础
+  instructor: 牙膏学长
+  duration: 40min
+
+slides:
+  - type: cover
+    kicker: 重邮802 数据结构代码课程
+    title: 数据结构基础阶段
+    subtitle: 第4节 双链表、循环链表与静态链表
+    meta: 阶段：基础 ｜ 主讲：牙膏学长 ｜ 预计40分钟 ｜ 资料答疑：伴梦研途QQ群
+
+  - type: content
+    kicker: 引题
+    title: 单链表有两个不方便，这一节来补
+    blocks:
+      - type: bullets
+        items:
+          - "不方便一：单链表只能顺着 next 往前走，不能回头，想找某个结点的前驱，只能从头走一遍，O(i)"
+          - "不方便二：要在结点 p 前面插入，必须先从头走到 p 的前驱，很费事"
+          - "补的办法有三种：多一根指向前驱的指针（双链表）、让尾巴接回头（循环链表）、用数组加游标（静态链表）"
+      - type: note
+        text: "这一节讲三种单链表的变体，重点在双链表的指针次序，它是 2020 年真题考过的"
+
+  - type: content
+    kicker: 双链表 · 定义
+    title: 双链表：每个结点多一根 prior 指针
+    blocks:
+      - type: code
+        text: |
+          typedef struct DNode{
+              int data;
+              struct DNode *prior, *next;   // prior 指前驱，next 指后继
+          }DNode, *DLinkList;
+      - type: bullets
+        items:
+          - "比单链表多了一个 prior，指向前一个结点；这样从任一结点既能往后走也能往前走"
+          - "有了 prior，在 p 前面插入、找 p 的前驱，都不用再从头走，直接 p->prior 就拿到了"
+          - "代价是每个结点多存一根指针，空间换时间"
+
+  - type: content
+    kicker: 双链表 · 插入
+    title: 双链表插入：四条赋值，次序有讲究
+    blocks:
+      - type: code
+        text: |
+          bool ListInsert(DLinkList &L, int i, int elem){
+              DNode *p = GetElem(L, i - 1);          // 找前驱
+              if(p == NULL) return false;
+              DNode *s = (DNode *)malloc(sizeof(DNode));
+              if(s == NULL) return false;
+              s->data = elem;
+              s->next = p->next;                      // ① s 接住原后继
+              s->prior = p;                           // ② s 认 p 做前驱
+              if(p->next != NULL) p->next->prior = s; // ③ 原后继改认 s
+              p->next = s;                            // ④ p 指向 s
+              return true;
+          }
+      - type: note
+        text: "①②是安置新结点自己，先后无所谓；关键是③必须在④之前，下一页画图看为什么"
+
+  - type: content
+    kicker: 双链表插入 · 过程页
+    title: 四条赋值一步步画，换次序会怎样（拿纸跟着画）
+    blocks:
+      - type: diagram
+        diagram: linkedlist
+        nodes: [p, s, "后"]
+        head: false
+        double: true
+        w: 7
+        h: 1.3
+        align: center
+      - type: bullets
+        items:
+          - "① s->next = p->next：新结点 s 的 next 指向 p 原来的后继"
+          - "② s->prior = p：s 的 prior 指回 p"
+          - "③ p->next->prior = s：p 的原后继，把它的 prior 改成指向 s"
+          - "④ p->next = s：p 的 next 改指 s，插入完成"
+      - type: note
+        text: "若先做④再做③：p->next 已经变成 s，③ 就写成 s->prior=s，改了 s 自己，原后继的 prior 永远改不到，双向就断了"
+
+  - type: content
+    kicker: 双链表 · 删除
+    title: 双链表删除：跨过 s，两边都要接好
+    blocks:
+      - type: code
+        text: |
+          bool ListDelete(DLinkList &L, int i, int &elem){
+              DNode *p = GetElem(L, i - 1);          // 找前驱
+              if(p == NULL) return false;
+              if(p->next == NULL) return false;      // 第 i 个不存在
+              DNode *s = p->next;
+              elem = s->data;                         // 先取值带出
+              p->next = s->next;                      // p 跨过 s 接后继
+              if(s->next != NULL) s->next->prior = p; // 后继的 prior 改指 p
+              free(s);
+              return true;
+          }
+      - type: note
+        text: "比单链表删除多一句：后继的 prior 要改指 p；删的是尾结点时没有后继，所以要判 s->next != NULL"
+
+  - type: content
+    kicker: 循环单链表
+    title: 循环单链表：尾巴接回头，三处变了
+    blocks:
+      - type: table
+        head: [动作, 单链表, 循环单链表]
+        colW: [2.3, 4.6, 4.6]
+        rows:
+          - [建表结束, r->next = NULL, r->next = L（指回头结点）]
+          - [判空, L->next == NULL, L->next == L]
+          - [遍历终止, p != NULL, p != L]
+      - type: bullets
+        items:
+          - "循环链表没有 NULL 结尾，走到尾巴会自动绕回头结点，所以终止条件从'遇到 NULL'改成'绕回 L'"
+          - "要是还用 p != NULL 做终止，就永远停不下来，死循环"
+
+  - type: content
+    kicker: 循环双链表
+    title: 循环双链表：判空要两个条件
+    blocks:
+      - type: code
+        text: |
+          // 循环双链表判空：头结点的 prior 和 next 都指向自己
+          if(L->next == L && L->prior == L)  // 空表
+      - type: bullets
+        items:
+          - "循环双链表首尾相接成一个环，头结点的 next 指第一个、prior 指最后一个"
+          - "判空必须两个条件都满足：只判 next==L 不够，因为插入过程中可能 next 已成环、prior 还没接好"
+
+  - type: content
+    kicker: 静态链表
+    title: 静态链表：用数组和游标模拟链表
+    blocks:
+      - type: code
+        text: |
+          #define MaxSize 100
+          typedef struct{
+              int data;
+              int next;          // 游标：下一个元素的下标，-1 表示结束
+          }SLinkList[MaxSize];
+          // 在下标 p 的结点后插入下标 s 的结点，只改游标：
+          //   L[s].next = L[p].next;   L[p].next = s;
+      - type: bullets
+        items:
+          - "next 里存的是下标（游标），不是地址；所以没有指针也能有链表的效果"
+          - "插入删除只改游标、不搬数据，这一点和链表一样，和顺序表不一样"
+          - "用途：在没有指针的语言里模拟链表，或题目要求用数组实现链表操作"
+
+  - type: content
+    kicker: 检查页
+    title: 给你一个场景，该选哪种链表？（先自己判断）
+    blocks:
+      - type: table
+        head: [需求, 选哪种, 理由]
+        colW: [4.0, 3.3, 4.2]
+        rows:
+          - [只在尾部操作、要顺序, 单链表加 rear, 尾插 O(1)]
+          - [要频繁找前驱或双向走, 双链表, prior 直接给前驱]
+          - [要循环报数、轮转, 循环单链表, 走到尾自动回头]
+          - [要频繁在头尾两端操作, 循环双链表, 头尾都是 O(1)]
+          - [题目要求用数组, 静态链表, 游标代替指针]
+      - type: note
+        text: "先盖住右边两列，只看需求自己选，再对答案；这类'给场景选存储'是常考的判断点"
+
+  - type: content
+    kicker: 本节小结
+    title: 小结
+    blocks:
+      - type: bullets
+        items:
+          - "双链表：多一根 prior；插入四条赋值，③必须在④前；删除要改后继的 prior"
+          - "循环单链表：尾巴接回头，判空 L->next==L、遍历终止 p!=L；循环双链表判空要两个条件"
+          - "静态链表：数组加游标，next 存下标不存地址，插删只改游标"
+          - "选哪种看需求：找前驱用双链表，循环报数用循环链表，题目要数组用静态链表"
+      - type: note
+        text: "2026 年约瑟夫环用循环单链表模拟，2020 年真题考双向循环链表的指针次序，都出自这一节"
+
+  - type: content
+    kicker: 课后任务
+    title: 1道跟练 ＋ 1道模仿
+    blocks:
+      - type: bullets
+        items:
+          - "**跟练题**：默写 DNode 定义、双链表的插入与删除，并在插入代码旁标出四条赋值的次序约束"
+          - "**模仿题**：在双链表结点 p 之前插入新结点 s，写出四条赋值语句，并说明哪两条次序不能换、为什么（题集勾画 2答8 同类）"
+      - type: note
+        text: "默写要求：合上资料能写出双链表的插入删除、说清四条赋值次序；参考答案在本PPT最后两页，课后自行对照"
+
+  - type: content
+    kicker: 参考答案 · 跟练题
+    title: 跟练题参考答案（自行对照）
+    blocks:
+      - type: code
+        text: |
+          typedef struct DNode{ int data; struct DNode *prior, *next; }DNode, *DLinkList;
+          // 插入四条赋值的次序约束：
+          s->next = p->next;                       // ①
+          s->prior = p;                            // ②
+          if(p->next != NULL) p->next->prior = s;  // ③ 必须在④前
+          p->next = s;                             // ④
+      - type: note
+        text: "③必须在④前：④一执行 p->next 就变成 s，③再写就改到 s 自己，原后继的 prior 丢了；删除见本节代码合集"
+
+  - type: content
+    kicker: 参考答案 · 模仿题
+    title: 模仿题参考答案（自行对照）
+    blocks:
+      - type: code
+        text: |
+          // 在双链表结点 p 之前插入 s（p 已知，不用找前驱）
+          s->next = p;                 // s 的后继是 p
+          s->prior = p->prior;         // s 的前驱是 p 的原前驱
+          if(p->prior != NULL) p->prior->next = s;  // 原前驱改指 s
+          p->prior = s;                // p 的前驱改成 s
+      - type: bullets
+        items:
+          - "不能换的是'p->prior->next = s'与'p->prior = s'：必须先让原前驱接住 s，再改 p->prior，否则原前驱找不到了"
+          - "在 p 之前插入正好用上 prior：不用像单链表那样从头找前驱，这就是双链表的价值"

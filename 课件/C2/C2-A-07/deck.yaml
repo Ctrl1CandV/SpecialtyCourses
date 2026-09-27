@@ -1,0 +1,265 @@
+meta:
+  id: C2-A-07
+  title: 二叉树：存储与遍历
+  stage: A基础
+  instructor: 牙膏学长
+  duration: 45min
+
+slides:
+  - type: cover
+    kicker: 重邮802 数据结构代码课程
+    title: 数据结构基础阶段
+    subtitle: 第7节 二叉树：存储与遍历
+    meta: 阶段：基础 ｜ 主讲：牙膏学长 ｜ 预计45分钟 ｜ 资料答疑：伴梦研途QQ群
+
+  - type: content
+    kicker: 引题
+    title: 二叉树为什么不用数组存
+    blocks:
+      - type: bullets
+        items:
+          - "完全二叉树、满二叉树可以用数组存：结点 i 的左右孩子固定在 2i、2i+1，不浪费"
+          - "但一般二叉树形态千奇百怪，斜树、缺枝少叶，用数组要补大量空位，浪费严重"
+          - "所以一般二叉树用链式存：每个结点带两根指针指向左右孩子，这就是二叉链表"
+      - type: note
+        text: "遍历是二叉树全部算法的基础，强化阶段十个树算法都建在'能走一遍这棵树'上，所以这一节把四种遍历讲到位"
+
+  - type: content
+    kicker: 存储结构
+    title: 二叉链表与孩子兄弟链表
+    blocks:
+      - type: code
+        text: |
+          typedef struct BiTNode{
+              ElemType data;
+              struct BiTNode *lchild, *rchild;   // 左孩子、右孩子
+          }BiTNode, *BiTree;
+          typedef struct CSNode{
+              ElemType data;
+              struct CSNode *firstchild, *nextbro;  // 第一个孩子、下一个兄弟
+          }CSNode, *CSTree;
+      - type: note
+        text: "BiTree 是指向结点的指针，代表一棵树；孩子兄弟链表是把一般的树存成二叉树的办法，下一节展开，这里先认定义"
+
+  - type: content
+    kicker: 递归遍历
+    title: 三种递归遍历：只是 visit 的位置不同
+    blocks:
+      - type: code
+        text: |
+          void PreOrder(BiTree T){ if(T==NULL) return;
+              visit(T); PreOrder(T->lchild); PreOrder(T->rchild); }   // 先序：根 左 右
+          void InOrder(BiTree T){ if(T==NULL) return;
+              InOrder(T->lchild); visit(T); InOrder(T->rchild); }      // 中序：左 根 右
+          void PostOrder(BiTree T){ if(T==NULL) return;
+              PostOrder(T->lchild); PostOrder(T->rchild); visit(T); }  // 后序：左 右 根
+      - type: note
+        text: "三个函数摆一起你就看懂了：递归框架完全一样，只有 visit(T) 的位置在动——这就是遍历方式的全部区别"
+
+  - type: content
+    kicker: 递归遍历 · 检查页
+    title: 这棵树的三种序列，先自己写（拿纸画）
+    blocks:
+      - type: image
+        src: assets/diagrams/a7-tree.png
+        w: 6.5
+        h: 2.4
+        align: center
+        fit: contain
+      - type: text
+        text: "请先自己写出这棵树的先序、中序、后序、层序，再对答案。"
+      - type: bullets
+        items:
+          - "先序（根左右）：1 2 4 5 3"
+          - "中序（左根右）：4 2 5 1 3"
+          - "后序（左右根）：4 5 2 3 1"
+          - "层序（一层一层）：1 2 3 4 5"
+      - type: note
+        text: "这棵树后面还会用它演示非递归中序和建树，你先把它画在纸上"
+
+  - type: content
+    kicker: 递归的展开
+    title: 递归遍历在调用栈里怎么展开
+    blocks:
+      - type: bullets
+        items:
+          - "以中序为例，InOrder(1) 先调 InOrder(2)，InOrder(2) 先调 InOrder(4)，一路往左压栈"
+          - "到了 InOrder(4)，它的左孩子是 NULL 返回，才 visit(4)，再调它的右孩子（NULL）返回"
+          - "4 处理完回到 2，visit(2)，再调 2 的右孩子 5……层层展开、再层层收回"
+      - type: note
+        text: "这个'一路往左压、到底了再回退访问'的过程，就是非递归中序要用栈显式模拟的东西"
+
+  - type: content
+    kicker: 非递归先序
+    title: 非递归先序：弹出即访问，先压右再压左
+    blocks:
+      - type: code
+        text: |
+          void PreOrder2(BiTree T){
+              if(T == NULL) return;
+              SqStack s; InitStack(s);          // 栈里存结点指针（约定4）
+              Push(s, T);  BiTree p;
+              while(!IsEmpty(s)){
+                  Pop(s, p); visit(p);                          // 弹出即访问
+                  if(p->rchild != NULL) Push(s, p->rchild);     // 先压右
+                  if(p->lchild != NULL) Push(s, p->lchild);     // 再压左
+              }
+          }
+      - type: note
+        text: "为什么先压右再压左？栈后进先出，后压的左孩子先弹出，访问顺序就成了根、左、右"
+
+  - type: content
+    kicker: 非递归中序
+    title: 非递归中序：一路压左到底，弹出访问，转向右
+    blocks:
+      - type: code
+        text: |
+          void InOrder2(BiTree T){
+              if(T == NULL) return;
+              SqStack s; InitStack(s);
+              BiTNode *p = T;
+              while(!IsEmpty(s) || p != NULL){          // 两个条件缺一不可
+                  while(p != NULL){ Push(s, p); p = p->lchild; }  // 一路压左到底
+                  if(!IsEmpty(s)){ Pop(s, p); visit(p); p = p->rchild; }  // 弹出访问，转右
+              }
+          }
+      - type: note
+        text: "内层 while 把往左的一整条链全压栈，就是递归版'先一路往左走'的显式版；外层两个条件：栈空但 p 非空说明还有右子树，p 空但栈非空说明要回退"
+
+  - type: content
+    kicker: 非递归中序 · 过程页
+    title: 中序遍历那棵树，栈怎么变（拿纸跟画）
+    blocks:
+      - type: bullets
+        items:
+          - "① p=1，一路压左：压1、压2、压4，p 到 4 的左孩子 NULL 停；栈=[1,2,4]（4在顶）"
+          - "② 弹出4、visit(4)，p 转 4 的右孩子 NULL；输出 4"
+          - "③ p 空、栈非空，弹出2、visit(2)，p 转 2 的右孩子5；输出 4 2"
+          - "④ p=5，压5，p 到 5 左孩子 NULL；弹出5、visit(5)，p 转 NULL；输出 4 2 5"
+          - "⑤ 弹出1、visit(1)，p 转右孩子3；压3、弹3、visit(3)；输出 4 2 5 1 3"
+      - type: note
+        text: "最终中序 4 2 5 1 3，和递归版一致；这张图把递归的隐式栈变成了显式的栈"
+
+  - type: content
+    kicker: 非递归后序
+    title: 非递归后序：双栈逆序法
+    blocks:
+      - type: code
+        text: |
+          void PostOrder2(BiTree T){
+              if(T == NULL) return;                     // 判空不能少
+              SqStack s1, s2; InitStack(s1); InitStack(s2);
+              BiTNode *p;  Push(s1, T);
+              while(!IsEmpty(s1)){                      // s1 弹出序是"根右左"，全压进 s2
+                  Pop(s1, p); Push(s2, p);
+                  if(p->lchild) Push(s1, p->lchild);  if(p->rchild) Push(s1, p->rchild);
+              }
+              while(!IsEmpty(s2)){ Pop(s2, p); visit(p); }  // s2 逆置读出即"左右根"
+          }
+      - type: note
+        text: "s1 先压左再压右，弹出序就成了根、右、左；把它全压进 s2，再从 s2 弹出正好反过来，是左、右、根，即后序"
+
+  - type: content
+    kicker: 层序遍历
+    title: 层序遍历：为什么必须用队列
+    blocks:
+      - type: code
+        text: |
+          void LevelOrder(BiTree T){
+              if(T == NULL) return;
+              SqQueue Q; InitQueue(Q);          // 队列里存结点指针（约定4）
+              EnQueue(Q, T);  BiTNode *p;
+              while(!IsEmpty(Q)){
+                  DeQueue(Q, p); visit(p);
+                  if(p->lchild != NULL) EnQueue(Q, p->lchild);
+                  if(p->rchild != NULL) EnQueue(Q, p->rchild);
+              }
+          }
+      - type: note
+        text: "层序要先进先出，同层结点先入队先访问；用栈就变成深度优先了。入队前要判孩子非空，否则把 NULL 入队、出队 visit(NULL) 会崩"
+
+  - type: content
+    kicker: 由遍历序列建树
+    title: 由先序与中序建树：区间划分四步（2026真题）
+    blocks:
+      - type: code
+        text: |
+          BiTree Build(BiTree &T, int A[], int B[], int preL, int preR, int inL, int inR){
+              if(preL > preR) return NULL;                       // 区间为空
+              T = (BiTNode*)malloc(sizeof(BiTNode));  T->data = A[preL];  // 先序首元素是根
+              int k = inL;  while(B[k] != A[preL]) k++;          // 在中序里定位根
+              int leftLen = k - inL;                             // 左子树结点个数
+              Build(T->lchild, A,B, preL+1, preL+leftLen, inL, k-1);
+              Build(T->rchild, A,B, preL+leftLen+1, preR, k+1, inR);
+              return T;
+          }
+      - type: note
+        text: "四步：先序第一个是根；在中序里找到根 k，左边是左子树、右边是右子树；用 leftLen 把先序也切成两段；递归建左右。A 是先序、B 是中序"
+
+  - type: content
+    kicker: 建树 · 过程页
+    title: 先序 1 2 4 5 3、中序 4 2 5 1 3，怎么建（拿纸跟画）
+    blocks:
+      - type: bullets
+        items:
+          - "① 先序首元素 1 是根；在中序 4 2 5 [1] 3 里定位 1，左边 4 2 5 是左子树（3个），右边 3 是右子树（1个）"
+          - "② leftLen=3，把先序切成：根 1，左子树先序 2 4 5，右子树先序 3"
+          - "③ 递归左子树：先序 2 4 5、中序 4 2 5，根是 2，中序里 2 左边 4、右边 5，所以 2 的左是 4、右是 5"
+          - "④ 递归右子树：先序 3、中序 3，根是 3，无孩子"
+      - type: note
+        text: "建出来正是 P5 那棵树：1 的左 2 右 3，2 的左 4 右 5；四个下标边界随递归不断缩小"
+
+  - type: content
+    kicker: 本节小结
+    title: 四种遍历一张表
+    blocks:
+      - type: table
+        head: [遍历, 访问次序, 时间, 空间]
+        colW: [2.0, 4.0, 2.0, 3.5]
+        rows:
+          - [先序, 根 左 右, O(n), O(树高)，最坏 O(n)]
+          - [中序, 左 根 右, O(n), O(树高)，最坏 O(n)]
+          - [后序, 左 右 根, O(n), O(树高)，最坏 O(n)]
+          - [层序, 一层一层, O(n), O(队列最多一层结点)]
+      - type: note
+        text: "递归遍历空间是 O(树高) 不是 O(1)，栈深度要算；单支树最坏 O(n)。四种遍历是强化阶段所有树算法的基础"
+
+  - type: content
+    kicker: 课后任务
+    title: 1道跟练 ＋ 1道模仿
+    blocks:
+      - type: bullets
+        items:
+          - "**跟练题**：默写三种递归遍历、非递归中序、层序遍历；再由先序 1 2 4 5 3、中序 4 2 5 1 3 画出这棵树"
+          - "**模仿题**：题集勾画 6答28 同类——给中序与后序两个序列，写出建树的区间划分思路并画出树"
+      - type: note
+        text: "默写要求：合上资料能写出递归三遍历与非递归中序、层序；参考答案在本PPT最后两页，课后自行对照"
+
+  - type: content
+    kicker: 参考答案 · 跟练题
+    title: 跟练题参考答案（自行对照）
+    blocks:
+      - type: code
+        text: |
+          void InOrder(BiTree T){ if(T==NULL) return;
+              InOrder(T->lchild); visit(T); InOrder(T->rchild); }
+          void LevelOrder(BiTree T){ if(T==NULL) return;
+              SqQueue Q; InitQueue(Q); EnQueue(Q,T); BiTNode *p;
+              while(!IsEmpty(Q)){ DeQueue(Q,p); visit(p);
+                  if(p->lchild) EnQueue(Q,p->lchild);
+                  if(p->rchild) EnQueue(Q,p->rchild); } }
+      - type: note
+        text: "先序 1 2 4 5 3、中序 4 2 5 1 3 建出的树：1 为根，左子树 2（4、5 为其左右孩子），右子树 3；非递归中序见本节代码合集"
+
+  - type: content
+    kicker: 参考答案 · 模仿题
+    title: 模仿题参考答案（自行对照）
+    blocks:
+      - type: bullets
+        items:
+          - "中序+后序建树：后序的最后一个元素是根（后序是左右根）"
+          - "在中序里定位这个根，左边是左子树的中序、右边是右子树的中序"
+          - "用左子树结点个数把后序也切成左、右两段，递归建左右子树"
+          - "和先序+中序唯一的区别：根在先序是第一个、在后序是最后一个，其余区间划分思路一样"
+      - type: note
+        text: "先序定根看第一个、后序定根看最后一个，但必须配上中序才能分清左右子树；能唯一确定一棵树的是先序+中序、后序+中序、层序+中序，唯独先序+后序不行（分不清某结点是左还是右）"

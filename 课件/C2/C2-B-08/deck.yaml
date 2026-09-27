@@ -1,0 +1,285 @@
+meta:
+  id: C2-B-08
+  title: 查找算法
+  stage: B强化
+  instructor: 牙膏学长
+  duration: 40min
+
+slides:
+  - type: cover
+    kicker: 重邮802 数据结构代码课程
+    title: 数据结构强化阶段
+    subtitle: 第8节 查找算法
+    meta: 阶段：强化 ｜ 主讲：牙膏学长 ｜ 预计40分钟 ｜ 资料答疑：伴梦研途QQ群
+
+  - type: content
+    kicker: 引题
+    title: 查找的代码题少，为什么还要讲代码
+    blocks:
+      - type: bullets
+        items:
+          - "17 道算法大题里查找只占 1 道（2021 双调序列），但综合应用题里折半判定树、BST、AVL、散列 ASL 都是常客"
+          - "手算题的前提是看懂对应的代码：判定树就是折半查找过程的图形化，ASL 就是从树上读比较次数"
+          - "所以本节的定位：代码讲到能读懂能改写，手算只讲'它在代码里长什么样'，ASL 的完整计算训练留给专业课"
+      - type: note
+        text: "这一节六个查找方法：顺序、折半、BST、AVL、散列、分块；前两个是线性表查找，后四个是树形与散列查找"
+
+  - type: content
+    kicker: 顺序查找 · 哨兵法
+    title: 哨兵法：把两个判断合并成一个
+    blocks:
+      - type: code
+        text: |
+          int SeqSearch(int A[], int n, int key){
+              A[0] = key;                       // 哨兵：把待查值放在 0 位
+              int i = n;
+              while(A[i] != key) i--;           // 不需要判 i>=0，A[0] 一定命中
+              return i;                         // 返回 0 表示查找失败
+          }
+      - type: bullets
+        items:
+          - "普通版每次循环要判 i>=0 && A[i]!=key 两个条件；哨兵版只判 A[i]!=key，因为 A[0] 放了 key 保底，循环一定会停"
+          - "前提是数据存 A[1..n]、A[0] 留作哨兵位——这是查找章节的哨兵变体，与排序章节的 data[0] 哨兵同一思路"
+          - "n 很大时这个优化能省一半的比较次数"
+      - type: note
+        text: "时间 O(n)；顺序查找对表没有任何要求，有序无序都能查，这是它和折半查找的前提差别"
+
+  - type: content
+    kicker: 折半查找
+    title: 折半查找：三个边界都要讲清
+    blocks:
+      - type: code
+        text: |
+          int BinSearch(int A[], int low, int high, int key){
+              while(low <= high){
+                  int mid = (low + high) / 2;
+                  if(key == A[mid]) return mid + 1;      // 返回位序
+                  else if(key < A[mid]) high = mid - 1;
+                  else low = mid + 1;
+              }
+              return 0;                                  // 查找失败
+          }
+      - type: bullets
+        items:
+          - "边界一：low<=high 带等号，因为 low==high 时区间里还剩一个元素要查"
+          - "边界二：high=mid-1 与 low=mid+1 不能写成 mid，否则区间不缩小、死循环"
+          - "边界三：返回 mid+1 是位序，与基础阶段第2节 LocateElem 返回 i+1 是同一个约定"
+      - type: note
+        text: "时间 O(logn)；前提是线性表有序且顺序存储——链表不能折半，因为取中间元素要 O(n)"
+
+  - type: content
+    kicker: 折半查找 · 判定树
+    title: 判定树：折半查找过程的图形化
+    blocks:
+      - type: image
+        src: assets/diagrams/b8-judge-tree.png
+        w: 7.5
+        h: 2.6
+        align: center
+        fit: contain
+      - type: bullets
+        items:
+          - "把每次比较的 mid 画成结点，往左半区找是左子树、往右半区找是右子树，得到一棵平衡二叉树（n=11 的判定树如图）"
+          - "成功查找的比较次数 = 结点所在的层数；失败查找 = 走到对应外部结点（方框）的层数"
+          - "成功 ASL = 各层结点数乘层数的总和除以 n；失败 ASL = 各外部结点数乘层数除以外部结点数"
+      - type: note
+        text: "本课只要求会画判定树与读出比较次数；ASL 的完整计算训练在专业课，题集勾画 9答3 选做"
+
+  - type: content
+    kicker: BST · 查找与插入
+    title: BST 的查找与插入：参数为什么是指针的引用
+    blocks:
+      - type: code
+        text: |
+          BSTNode *BSTSearch(BSTNode *T, int key){
+              while(T != NULL && key != T->key){
+                  if(key < T->key) T = T->lchild; else T = T->rchild;
+              }
+              return T;                              // NULL 表示没找到
+          }
+          int BSTInsert(BSTNode *&T, int key){
+              if(T == NULL){                         // 找到空位，新建结点
+                  T = (BSTNode*)malloc(sizeof(BSTNode));
+                  T->key = key; T->lchild = T->rchild = NULL;  return 1;
+              }
+              if(key == T->key) return 0;            // 已存在，不插
+              return key<T->key ? BSTInsert(T->lchild,key) : BSTInsert(T->rchild,key);
+          }
+      - type: bullets
+        items:
+          - "BST 性质：左子树全部小于根、右子树全部大于根，中序遍历是有序序列"
+          - "插入参数是 BSTNode *&T（指针的引用）：要改的是父结点的 lchild 或 rchild 字段，不是 T 自己的副本；不带 & 新建的结点接不到树上"
+      - type: note
+        text: "查找时间 O(树高)，最坏 O(n)（单支树）；插入位置一定是叶子，找空位的过程就是查找过程"
+
+  - type: content
+    kicker: BST · 删除
+    title: BST 的删除：三种情况
+    blocks:
+      - type: code
+        text: |
+          int BSTDelete(BSTree &T, int key){
+              if(T==NULL) return 0;
+              if(key<T->key) return BSTDelete(T->lchild, key);
+              if(key>T->key) return BSTDelete(T->rchild, key);
+              if(T->lchild==NULL){ BSTNode *s=T; T=T->rchild; free(s); return 1; }
+              if(T->rchild==NULL){ BSTNode *s=T; T=T->lchild; free(s); return 1; }
+              BSTNode *pre=T->lchild;                    // 双孩子：找中序前驱
+              while(pre->rchild) pre=pre->rchild;
+              T->key=pre->key;  return BSTDelete(T->lchild, pre->key);
+          }
+      - type: bullets
+        items:
+          - "① 叶子：直接删，不影响其他结点；② 单孩子：把孩子接到父结点上（参数是引用，T=T->rchild 就直接改了父结点的字段）"
+          - "③ 双孩子：不能直接删（两棵子树会断），用中序前驱（左子树最大值）替换值，再递归删那个前驱——前驱一定没有右孩子，回到情况①或②"
+      - type: note
+        text: "为什么用中序前驱能保持 BST 性质：前驱是中序序列里刚好小于它的值，替换后左子树全部小于它、右子树全部大于它"
+
+  - type: content
+    kicker: BST 删除 · 过程页
+    title: 删除双孩子结点：中序前驱替换四步（拿纸跟画）
+    blocks:
+      - type: image
+        src: assets/diagrams/b8-bst-delete.png
+        w: 8.5
+        h: 2.7
+        align: center
+        fit: contain
+      - type: bullets
+        items:
+          - "① 找中序前驱：待删结点左子树的最右结点（图中删 45，前驱是左子树最右的 37）"
+          - "② 把前驱的值 37 拷到待删结点，树的结构没变、只改了值"
+          - "③ 递归到左子树删 37：它没有右孩子，按情况①或②删掉"
+          - "④ 验证：中序序列仍然有序，BST 性质保持"
+      - type: note
+        text: "也可以用中序后继（右子树最小值）替换，两者对称；本课统一用前驱"
+
+  - type: content
+    kicker: AVL · 四种旋转
+    title: AVL 插入：找最小失衡子树，定旋转类型
+    blocks:
+      - type: table
+        head: [新结点位置, 类型, 旋转]
+        colW: [5.5, 2.0, 4.0]
+        rows:
+          - [失衡结点的左孩子的左子树, LL, 右单旋]
+          - [右孩子的右子树, RR, 左单旋]
+          - [左孩子的右子树, LR, 先左后右双旋]
+          - [右孩子的左子树, RL, 先右后左双旋]
+      - type: code
+        text: |
+          void RotateR(AVLTree &T){            // 右单旋（LL 型）
+              AVLTree B = T->lchild;
+              T->lchild = B->rchild;           // B 的右子树回挂给 T 当左子树
+              B->rchild = T;
+              T = B;                           // B 上位当根
+          }
+      - type: note
+        text: "插入后从新结点往上找第一个平衡因子绝对值大于 1 的结点，就是最小失衡子树的根；代码只给右单旋作代表，其余三个对称写法课后自己补——802 考的是插入后画树与判断旋转类型，不是写旋转代码"
+
+  - type: content
+    kicker: 散列表
+    title: 散列构造与两种冲突处理
+    blocks:
+      - type: code
+        text: |
+          int Hash(int key){ return key % 11; }        // p 取不大于表长的最大质数
+          void InsertOpen(int H[], int key){           // 开放定址：线性探测
+              int addr = Hash(key);
+              while(H[addr]!=EMPTY && H[addr]!=DELETED){
+                  if(H[addr]==key) return;             // 已存在
+                  addr = (addr+1) % TableLen;          // 探测下一位
+              }
+              H[addr] = key;
+          }
+      - type: bullets
+        items:
+          - "除留余数法 p 取质数：让余数分布更均匀，冲突变少"
+          - "开放定址的删除不能直接置 EMPTY（会断开探测链，后面靠探测找到的元素就再也找不到），要打删除标记 DELETED，查找遇到 DELETED 要继续探"
+          - "链地址：同义词拉成单链表头插；不聚集、删除方便，但要额外指针空间"
+      - type: note
+        text: "SearchOpen 的终止依赖表里至少有一个 EMPTY 槽：表满且查不存在的关键字会无限探测，本函数在装载因子小于 1 时成立；ASL 计算训练留给专业课"
+
+  - type: content
+    kicker: 分块查找
+    title: 分块查找：索引表加块内顺序查找
+    blocks:
+      - type: bullets
+        items:
+          - "索引表存每块的最大值与起始位置，先在索引表里找块（可以折半），再在块内顺序查找"
+          - "块间有序、块内无序，是顺序查找与折半查找的折中：不要求整体有序，又比纯顺序快"
+          - "ASL 是两次查找之和：索引表查找加块内查找"
+      - type: note
+        text: "代码不写，只给思想；分块查找是填空题的考点（题集勾画 9答28 同类）"
+
+  - type: content
+    kicker: 模板卡
+    title: 模板卡：模板9 二分框架改判定
+    blocks:
+      - type: table
+        head: [模板, 适用场景, 骨架, 复杂度]
+        colW: [2.2, 3.8, 4.0, 1.5]
+        rows:
+          - ["模板9 二分框架改判定", "有序或特殊序列的查找变式（2021 双调序列最大值）", "low/high 夹逼，mid 处按题目条件决定往哪半走", "O(logn)"]
+      - type: note
+        text: "折半查找是它的标准形态；把'与 key 比大小'换成题目给的判定条件，就是各种变式题——C3 讲真题时先报这个模板编号"
+
+  - type: content
+    kicker: 本节小结与课后
+    title: 小结与课后任务
+    blocks:
+      - type: bullets
+        items:
+          - "六个查找方法：顺序（哨兵法省判断）、折半（三个边界、判定树读 ASL）、BST（查插删，删除分三种情况）、AVL（四种旋转保平衡）、散列（两种冲突处理）、分块（索引表加块内顺序）"
+          - "**跟练**：默写哨兵版顺序查找、折半查找、BST 的查找与插入；给序列 45、24、53、12、37、93 画出 BST 并算成功 ASL"
+          - "**变式**：题集勾画 9算1（哨兵顺序查找）、9答2（折半查找过程）、9选14 与 9选20（AVL 插入与旋转）同类"
+      - type: note
+        text: "参考答案在本PPT最后三页，课后自行对照。下一节进入排序：插入与交换"
+
+  - type: content
+    kicker: 参考答案 · 跟练一
+    title: 跟练题参考答案（自行对照）
+    blocks:
+      - type: code
+        text: |
+          int SeqSearch(int A[], int n, int key){
+              A[0]=key;  int i=n;
+              while(A[i]!=key) i--;  return i;
+          }
+          int BinSearch(int A[], int low, int high, int key){
+              while(low<=high){ int mid=(low+high)/2;
+                  if(key==A[mid]) return mid+1;
+                  else if(key<A[mid]) high=mid-1;  else low=mid+1; }
+              return 0;
+          }
+      - type: note
+        text: "BST 的查找与插入见本节代码合集；哨兵版返回 0 表示失败，折半返回 mid+1 是位序"
+
+  - type: content
+    kicker: 参考答案 · 跟练二
+    title: 序列 45、24、53、12、37、93 的 BST 与成功 ASL
+    blocks:
+      - type: image
+        src: assets/diagrams/b8-bst-answer.png
+        w: 5.5
+        h: 2.4
+        align: center
+        fit: contain
+      - type: bullets
+        items:
+          - "插入次序：45 为根；24<45 左；53>45 右；12<45<24 左左；37<45>24 左右；93>45>53 右右"
+          - "成功 ASL = (1×1 + 2×2 + 3×3) / 6 = 14/6 ≈ 2.33（层数：45 在第1层，24、53 在第2层，12、37、93 在第3层）"
+      - type: note
+        text: "BST 的形状由插入次序决定，同一组数不同次序可能得到不同形状的树"
+
+  - type: content
+    kicker: 参考答案 · 变式题
+    title: 变式题参考答案（自行对照）
+    blocks:
+      - type: bullets
+        items:
+          - "9算1 哨兵顺序查找：把 key 放 A[0]，从后往前扫，返回 0 即失败——与跟练一同一算法"
+          - "9答2 折半查找过程：每次取 mid=(low+high)/2 比较，画出 low、high、mid 的逐轮变化，比较次数就是判定树上的层数"
+          - "9选14、9选20 AVL 插入与旋转：插入后从新结点往上找最小失衡子树，按新结点位置定 LL/RR/LR/RL，LL 右单旋、RR 左单旋、LR 先左后右、RL 先右后左"
+      - type: note
+        text: "9答3（判定树加 ASL）选做；9答26、9答28（散列建表与冲突对比）的 ASL 计算在专业课练，本课只要求会写构造代码"

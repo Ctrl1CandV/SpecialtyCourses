@@ -1,0 +1,334 @@
+meta:
+  id: C2-B-06
+  title: 图算法一：遍历应用
+  stage: B强化
+  instructor: 牙膏学长
+  duration: 45min
+
+slides:
+  - type: cover
+    kicker: 重邮802 数据结构代码课程
+    title: 数据结构强化阶段
+    subtitle: 第6节 图算法一：遍历应用
+    meta: 阶段：强化 ｜ 主讲：牙膏学长 ｜ 预计45分钟 ｜ 资料答疑：伴梦研途QQ群
+
+  - type: content
+    kicker: 引题
+    title: 基础阶段第9节的 DFS，加一点东西就能解图的大题
+    blocks:
+      - type: bullets
+        items:
+          - "本节六个算法全部建在数据结构基础阶段第9节的 DFS 和 BFS 上，不引入新的遍历"
+          - "六个算法的差别只有两处：visited 怎么处理、额外带什么信息（深度、序列、入度表）"
+          - "图算法大题两大形态：路径类（两点间、经过 k、长度 k）和拓扑类（排序、验证、判唯一）"
+          - "数据结构基础阶段第9节留了一个问题：visited 什么时候要清掉？这一节用两个版本的代码给出答案"
+          - "听的方法：每个算法先问自己，只写最朴素的 DFS 会错在哪"
+
+  - type: content
+    kicker: 判连通 · 一次性标记
+    title: 判两点连通：标记打了就不撤，只问能不能到
+    blocks:
+      - type: code
+        text: |
+          int visited[MaxVertexNum] = {0};
+          int Pathitoj(ALGraph G, int i, int j){
+              if(i == j) return 1;
+              visited[i] = 1;
+              for(ArcNode *p = G.vertices[i].firstarc; p != NULL; p = p->nextarc){
+                  int k = p->adjvex;
+                  if(!visited[k] && Pathitoj(G, k, j)) return 1;
+              }
+              return 0;                       // 注意：这里不复位 visited
+          }
+      - type: bullets
+        items:
+          - "思想：从 i 出发做 DFS，撞到 j 返回 1；所有邻居都试完还没撞到，返回 0"
+          - "visited 是全局数组、标记后从不复位：探过到不了 j 的顶点，留着当剪枝"
+          - "隐患：同一程序里调第二次之前必须手动清零，把它当一次性函数用"
+          - "先自己想：为什么这题可以不复位 visited？想好再往下看"
+
+  - type: content
+    badge: 真题·2025
+    kicker: 经过k的路径 · DFS回溯
+    title: 从 u 到 v 并经过 k：拆成两段，中间必须复位
+    blocks:
+      - type: bullets
+        items:
+          - "思路：u 到 v 经过 k，就是 u 能到 k、并且 k 能到 v，两段都是普通的判连通"
+          - "三个要点：回溯句写在失败返回之前；成功返回时不清标记；两段之间必须手动清零"
+      - type: code
+        text: |
+          bool checkPath(ALGraph G, int u, int v, bool visited[]){
+              if(u == v) return true;
+              visited[u] = true;
+              for(ArcNode *p = G.vertices[u].firstarc; p != NULL; p = p->nextarc)
+                  if(!visited[p->adjvex] && checkPath(G, p->adjvex, v, visited)) return true;
+              visited[u] = false;             // 回溯：失败返回前复位
+              return false;
+          }
+          bool IsExistPathGoBy(ALGraph G, int u, int k, int v){
+              if(G.vexnum == 0 || G.arcnum == 0) return false;
+              bool visited[MaxVertexNum] = {false};    // 固定长度数组（勘误A6写法）
+              if(!checkPath(G, u, k, visited)) return false;         // 第一段：u 到 k
+              for(int i = 0; i < G.vexnum; i++) visited[i] = false;  // 两段之间复位
+              return checkPath(G, k, v, visited); }              // 第二段：k 到 v
+
+  - type: content
+    badge: 真题·2024
+    kicker: 长度k的路径 · 带深度
+    title: 长度为 k 的路径：多带一个 depth 参数，k 最大是 vexnum-1
+    blocks:
+      - type: bullets
+        items:
+          - "思想：DFS 多带一个 depth，每往下一层加 1；depth 等于 k 说明正好走出 k 条边"
+          - "k 范围 1 到 vexnum-1：简单路径不重复顶点，k 条边需 k+1 个不同顶点"
+          - "每个起点各试一遍，换起点前 visited 全部复位"
+      - type: code
+        text: |
+          bool DFS(ALGraph& G, int i, int depth, int k, int visited[]){
+              if(depth == k) return true;             // 走了 k 条边，成功
+              visited[i] = 1;
+              for(ArcNode* e = G.vertices[i].firstarc; e != NULL; e = e->nextarc){ int v = e->adjvex;
+                  if(!visited[v] && DFS(G, v, depth + 1, k, visited)){ visited[i] = 0; return true; } }
+              visited[i] = 0;                         // 回溯：失败返回前复位
+              return false;
+          }
+          bool existsKSimplePath(ALGraph& G, int k){
+              if(k < 1 || k > G.vexnum - 1) return false;   // 边界：k 条边需 k+1 个顶点
+              int visited[MaxVertexNum];
+              for(int i = 0; i < G.vexnum; i++){ for(int j = 0; j < G.vexnum; j++) visited[j] = 0;
+                  if(DFS(G, i, 0, k, visited)) return true; }
+              return false; }
+
+  - type: content
+    kicker: 对比 · visited的两种处理
+    title: 同样是 DFS，一个从不复位、一个回溯复位
+    blocks:
+      - type: code
+        text: |
+          // 判连通：只问能不能到，标记留着当剪枝
+          visited[i] = 1;   ... 试完 i 的所有邻居 ...
+          return 0;                    // 失败：标记保留
+          // 找路径：一条路不行，要让别的路还能经过这些顶点
+          visited[u] = true;   ... 试完 u 的所有邻居 ...
+          visited[u] = false;          // 失败：清除标记（回溯）
+          return false;
+      - type: table
+        head: [写法, 什么时候用, 失败返回时, 成功返回时, 隐患]
+        rows:
+          - [不复位, 只问能不能到, 标记保留当剪枝, 标记保留, 二次调用前要手动清零]
+          - [回溯复位, 找路径、多段拼接, 清除标记让别的路再试, 清或不清都对，统一即可, 忘复位会误判 false]
+      - type: bullets
+        items:
+          - "判断标准：问能不能到，用不复位；问路怎么走、要拼接多段，必须回溯复位——visited 只在找路径类题目里要清，这是数据结构基础阶段第9节留的问题的答案"
+
+  - type: content
+    kicker: 过程推演 · visited对比
+    title: 同一张图跑两种写法：差异出在顶点 1（拿纸跟着画）
+    blocks:
+      - type: image
+        src: assets/diagrams/b6-visited-compare.png
+        w: 7.4
+        h: 2.4
+        align: center
+        fit: contain
+      - type: bullets
+        items:
+          - "图：边 0-1、0-2、1-3、2-3、1-4、4-5；任务 0→5 且经过 3"
+          - "左版：段一 0→1→3 成功标记残留；段二 1 被挡住、2 是死路，误判 false"
+          - "右版：段一后复位；段二 3→1，0、2 试死后回退，走 4→5 成功"
+          - "差异帧：段二从 3 选邻居那一刻，左版的 1 走不了、右版的 1 能走"
+
+  - type: content
+    kicker: 拓扑排序 · 入度表加栈
+    title: 拓扑排序：入度 0 入栈，出栈输出并让后继入度减一
+    blocks:
+      - type: code
+        text: |
+          bool TopoLogicalSort(ALGraph G, int print[]){
+              if(G.kind != 1) return false;               // 只有有向图才有拓扑序
+              int indegree[MaxVertexNum] = {0};
+              for(int i = 0; i < G.vexnum; i++) for(ArcNode *p = G.vertices[i].firstarc; p != NULL; p = p->nextarc) indegree[p->adjvex]++;
+              SqStack S; InitStack(S);
+              for(int i = 0; i < G.vexnum; i++) if(indegree[i] == 0) Push(S, i);
+              int count = 0;
+              while(!IsEmpty(S)){ int u; Pop(S, u); print[count++] = u;
+                  for(ArcNode *p = G.vertices[u].firstarc; p != NULL; p = p->nextarc)
+                      if(--indegree[p->adjvex] == 0) Push(S, p->adjvex); }
+              return count == G.vexnum;                   // 输出不足说明有环
+          }
+      - type: bullets
+        items:
+          - "四步：求入度（数据结构基础阶段第9节的 Indegree）；入度 0 入栈；出栈输出；后继减一到 0 入栈"
+          - "栈换成队列也对：得到的拓扑序不同，但都合法（下一页推演会看见）"
+          - "先自己判断：为什么 count 小于 vexnum 就说明有环？想好再往下看"
+
+  - type: content
+    kicker: 过程推演 · 拓扑排序
+    title: 5 顶点 DAG 跑一遍：栈版输出 0 2 1 3 4（拿纸跟着画）
+    blocks:
+      - type: image
+        src: assets/diagrams/b6-topo-dag.png
+        w: 6.6
+        h: 2.35
+        align: center
+        fit: contain
+      - type: bullets
+        items:
+          - "初始入度 0、1、1、2、1（图下方格子），只有 0 入栈"
+          - "出 0 输出：1、2 减一都变 0 入栈（底 1 顶 2）；出 2：3 减到 1"
+          - "出 1：3 减到 0 入栈；出 3：4 减到 0 入栈；出 4 结束"
+          - "输出 0 2 1 3 4；换队列得 0 1 2 3 4 也合法；拿纸跟着画"
+
+  - type: content
+    badge: 真题·2026
+    kicker: 判拓扑序列 · 入度表
+    title: 判给定序列是不是拓扑序列：按给定顺序模拟，不用真排序
+    blocks:
+      - type: bullets
+        items:
+          - "关键认识：不需要自己做一遍拓扑排序再比较，按给定序列的顺序模拟一遍即可"
+          - "每检查一个 u：入度不为 0 返回 false；为 0 则把它的后继入度减一"
+          - "时间 O(|V|+|E|)、空间 O(|V|)，比先排序再比较省事"
+      - type: code
+        text: |
+          bool IsTopoSeq(ALGraph G, int seq[], int n){
+              if(G.vexnum == 0) return false;
+              int indegree[MaxVertexNum] = {0};
+              for(int i = 0; i < G.vexnum; i++)
+                  for(ArcNode *p = G.vertices[i].firstarc; p != NULL; p = p->nextarc) indegree[p->adjvex]++;
+              for(int i = 0; i < n; i++){ int u = seq[i];
+                  if(indegree[u] != 0) return false;      // 还有前驱没出现，不合法
+                  for(ArcNode *p = G.vertices[u].firstarc; p != NULL; p = p->nextarc) indegree[p->adjvex]--;
+              }
+              return true;
+          }
+
+  - type: content
+    kicker: 判拓扑序列唯一 · 邻接表版
+    title: 判拓扑序列是否唯一：任何一轮入度为 0 的只能有一个
+    blocks:
+      - type: bullets
+        items:
+          - "思路：某一轮同时有两个入度为 0 的顶点，它们谁前谁后都合法，拓扑序不唯一；反过来每轮恰好一个，顺序被唯一确定"
+      - type: code
+        text: |
+          bool uniquely(ALGraph G){
+              int indegree[MaxVertexNum] = {0}, num0 = 0;
+              for(int i = 0; i < G.vexnum; i++)
+                  for(ArcNode *p = G.vertices[i].firstarc; p != NULL; p = p->nextarc) indegree[p->adjvex]++;
+              SqQueue Q; InitQueue(Q);                   // 队列或栈都行，只数数
+              for(int i = 0; i < G.vexnum; i++) if(indegree[i] == 0){ num0++; EnQueue(Q, i); }
+              if(num0 != 1) return 0;                    // 第一轮入度为 0 的必须只有一个
+              while(!IsEmpty(Q)){ int v; DeQueue(Q, v); num0 = 0;
+                  for(ArcNode *p = G.vertices[v].firstarc; p != NULL; p = p->nextarc)
+                      if(--indegree[p->adjvex] == 0){ num0++; EnQueue(Q, p->adjvex); }
+                  if(num0 > 1) return 0; }               // 任何一轮新出两个就不唯一
+          return 1; }
+      - type: note
+        text: "字段对应：numVertices→vexnum、numEdges→arcnum、VerticesList→vex、Edge→edge"
+
+  - type: content
+    kicker: 模板卡
+    title: 本节两张模板卡
+    blocks:
+      - type: table
+        head: [模板, 适用场景, 骨架, 复杂度]
+        rows:
+          - [模板7 DFS 回溯, "路径类：经过 k、长度 k", "标记、递归、失败复位", "O(V+E)，栈 O(V)"]
+          - [模板13 入度表法, "拓扑类：排序、验证、唯一", "入度表、入栈输出、减一", "O(V+E)，空间 O(V)"]
+      - type: note
+        text: "考过哪里：模板 7——2025 年、2024 年的路径大题；模板 13——2026 年判拓扑序列、2024 年拓扑排序填空"
+
+  - type: content
+    kicker: 小结与课后任务
+    title: 六个算法一张表，两道跟练六道变式
+    blocks:
+      - type: table
+        head: [算法, visited 处理, 最容易错的]
+        rows:
+          - [判两点连通, 标记后从不复位, 二次调用前忘了清零]
+          - [经过 k 的路径, 回溯复位、两段之间再清零, 中间忘了复位，第二段误判]
+          - [长度 k 的路径, 回溯复位、每起点前清零, k 上界写成 vexnum]
+          - [拓扑排序, 不用 visited、用入度表, 先输出后减后继入度，次序写反]
+          - [判给定序列, 入度表加按序模拟, 忘了先求入度表]
+          - [判唯一, 入度表加每轮计数, 拿着另一套字段名写代码]
+      - type: bullets
+        items:
+          - "**跟练题**：默写拓扑排序与判给定序列是否拓扑序列两个完整函数"
+          - "**变式题**：题集勾画 7算13、7算14、7算18、7算19、7答9、7算25，与上方六个算法一一对应"
+
+  - type: content
+    kicker: 参考答案 · 跟练一
+    title: 跟练题参考答案：拓扑排序（自行对照）
+    blocks:
+      - type: code
+        text: |
+          bool TopoLogicalSort(ALGraph G, int print[]){
+              if(G.kind != 1) return false;
+              int indegree[MaxVertexNum] = {0};
+              for(int i = 0; i < G.vexnum; i++)
+                  for(ArcNode *p = G.vertices[i].firstarc; p != NULL; p = p->nextarc) indegree[p->adjvex]++;
+              SqStack S; InitStack(S);
+              for(int i = 0; i < G.vexnum; i++) if(indegree[i] == 0) Push(S, i);
+              int count = 0;
+              while(!IsEmpty(S)){ int u; Pop(S, u); print[count++] = u;
+                  for(ArcNode *p = G.vertices[u].firstarc; p != NULL; p = p->nextarc)
+                      if(--indegree[p->adjvex] == 0) Push(S, p->adjvex); }
+              return count == G.vexnum;
+          }
+      - type: bullets
+        items:
+          - "入度 0 入栈、出栈输出、后继入度减一、减到 0 再入栈，四步顺序不能反"
+          - "时间 O(|V|+|E|)、空间 O(|V|)；count 不足顶点数说明有环"
+
+  - type: content
+    kicker: 参考答案 · 跟练二
+    title: 跟练题参考答案：判给定序列是否拓扑序列（自行对照）
+    blocks:
+      - type: code
+        text: |
+          bool IsTopoSeq(ALGraph G, int seq[], int n){
+              if(G.vexnum == 0) return false;
+              int indegree[MaxVertexNum] = {0};
+              for(int i = 0; i < G.vexnum; i++)
+                  for(ArcNode *p = G.vertices[i].firstarc; p != NULL; p = p->nextarc) indegree[p->adjvex]++;
+              for(int i = 0; i < n; i++){ int u = seq[i];
+                  if(indegree[u] != 0) return false;
+                  for(ArcNode *p = G.vertices[u].firstarc; p != NULL; p = p->nextarc) indegree[p->adjvex]--;
+              }
+              return true;
+          }
+      - type: bullets
+        items:
+          - "按给定序列顺序模拟：每步先查当前顶点入度是否为 0，再把它的后继入度减一"
+          - "不需要自己生成拓扑序再比较；入度表求法与拓扑排序共用同一段"
+
+  - type: content
+    kicker: 参考答案 · 变式题上
+    title: 变式题参考答案：7算13、7算14、7算18（自行对照）
+    blocks:
+      - type: bullets
+        items:
+          - "7算13 DFS 判可达路径：即第 3 页 Pathitoj 思路，从 u 出发 DFS 撞见 v 返回 1；visited 一次性使用，调用前清零"
+          - "7算14 BFS 判可达路径：从 u 层序扩展，撞见 v 返回 1；visited 在入队时标记，DFS 换成队列，判断结构不变"
+          - "7算18 长度 k 的简单路径：与 P5 同一算法，DFS 带 depth 参数，每起点前 visited 复位，k 的范围 1 到 vexnum-1"
+
+  - type: content
+    kicker: 参考答案 · 变式题下
+    title: 变式题参考答案：7算19、7答9、7算25（自行对照）
+    blocks:
+      - type: code
+        text: |
+          void AllPath(ALGraph G, int u, int v, bool visited[], int path[], int d){
+              visited[u] = true; path[d++] = u;        // u 记入当前路径
+              if(u == v){ for(int i = 0; i < d; i++) printf("%d ", path[i]); printf("\n"); }
+              for(ArcNode *p = G.vertices[u].firstarc; p != NULL; p = p->nextarc)
+                  if(!visited[p->adjvex]) AllPath(G, p->adjvex, v, visited, path, d);
+              visited[u] = false;                      // 回溯：让别的路还能经过 u
+          }
+      - type: bullets
+        items:
+          - "7算19 输出 u 到 v 的全部简单路径：找到一条不停机，path 记当前路径、d 记长度；首调前 visited 全 false"
+          - "7答9 写出全部拓扑序列：拿推演那张图，0 1 2 3 4 与 0 2 1 3 4 都合法，判据就是判唯一那页——某轮 1、2 同时入度为 0"
+          - "7算25 DAG 顶点拓扑编号：做一次拓扑排序，按输出先后编号 1 到 n，每条弧自然从编号小的一端指向大的一端"

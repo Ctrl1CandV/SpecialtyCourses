@@ -1,0 +1,323 @@
+meta:
+  id: C2-B-05
+  title: 树算法二：层序与路径
+  stage: B强化
+  instructor: 牙膏学长
+  duration: 45min
+
+slides:
+  - type: cover
+    kicker: 重邮802 数据结构代码课程
+    title: 数据结构强化阶段
+    subtitle: 第5节 树算法二：层序与路径
+    meta: 阶段：强化 ｜ 主讲：牙膏学长 ｜ 预计45分钟 ｜ 资料答疑：伴梦研途QQ群
+
+  - type: content
+    kicker: 引题
+    title: 层序遍历能干什么，last 为什么需要
+    blocks:
+      - type: bullets
+        items:
+          - "层序遍历按层访问：队列一圈一圈往外扩，数据结构基础阶段第7节已经写过"
+          - "它直接能答的问题：树有几层、结点总数是多少"
+          - "它答不了的问题：每一层有多少个结点、哪一层最宽——队列本身不知道一层到哪里结束"
+          - "加一个变量 last：记下当前层最右结点在队列里的下标；出队越过 last，说明本层全部出完，此时队尾 rear 就是下一层最右"
+          - "记住这个机制：所有按层统计的题，都是它的变体"
+          - "先想一步：层序队列里，凭什么判断一层已经出完了？"
+
+  - type: content
+    kicker: 求宽度 · 模板6
+    title: 求树的宽度：四个变量分工，last 在层结束那一刻换
+    blocks:
+      - type: code
+        text: |
+          int Width(BiTree T){
+              if(T == NULL) return 0;
+              int front = 0, rear = -1, last = 0, temp = 0, maxwidth = 0;
+              BiTree Q[MaxSize]; BiTree p;  Q[++rear] = T;
+              while(front <= last){                 // 终止条件用 last
+                  p = Q[front++]; temp++;
+                  if(p->lchild != NULL) Q[++rear] = p->lchild;
+                  if(p->rchild != NULL) Q[++rear] = p->rchild;
+                  if(front > last){ last = rear;    // 本层结束：last 换成队尾
+                      if(temp > maxwidth) maxwidth = temp;
+                      temp = 0; } }
+              return maxwidth;
+          }
+      - type: bullets
+        items:
+          - "思想：宽度就是各层结点个数的最大值；层序加 last 分层，每层数一遍取最大"
+          - "四个变量分工：front 是队头下标、rear 是队尾下标、last 是本层最右结点的下标、temp 是本层计数器"
+          - "不用封装好的循环队列：要拿队列里的下标，封装后拿不到；工具可以降级，改用数组加两个下标"
+          - "last 只在层结束那一刻更新：出队后 front 大于 last，就把 last 换成 rear；在入队时更新是错法"
+          - "复杂度：每个结点入队出队各一次，时间 O(n)，队列空间 O(n)"
+
+  - type: content
+    kicker: 求宽度 · 推演
+    title: 三层树的宽度计算：跟住 last 与 rear 的变化（拿纸跟着画）
+    blocks:
+      - type: image
+        src: assets/diagrams/b5-width-tree.png
+        w: 7.5
+        h: 3.6
+        align: center
+        fit: contain
+      - type: bullets
+        items:
+          - "树形：第1层 1；第2层 2、3；第3层 4、5、6；各层宽度 1、2、3，答案 3"
+          - "初始：1 入队，last 指 1；1 出队，2、3 入队；front 越过 last，本层结束，maxwidth 记 1，last 换成 rear 指 3"
+          - "2 出队，4、5 入队；3 出队，6 入队；front 越过 last，maxwidth 记 2，last 换成 rear 指 6"
+          - "4、5、6 依次出队，再无入队；front 第三次越过 last，maxwidth 记 3，循环停"
+          - "拿纸跟画：每一步写出队后 front、rear、last、temp 四个值，再对照"
+
+  - type: content
+    badge: 真题·2024
+    kicker: 繁荣度 · 模板6
+    title: 繁荣度：求宽度的代码改三处，层号从 1 起
+    blocks:
+      - type: code
+        text: |
+          int prosperity(BiTree T){
+              if(T == NULL) return 0;
+              int front = 0, rear = -1, last = 0, height = 1, width = 0, totalProsper = 0;
+              BiTree Q[MaxSize]; BiTree p;  Q[++rear] = T;
+              while(front <= last){                        // 外层统一用 last
+                  p = Q[front++]; width++;
+                  if(p->lchild != NULL) Q[++rear] = p->lchild;
+                  if(p->rchild != NULL) Q[++rear] = p->rchild;
+                  if(front > last){ totalProsper += height * width;  // 层号乘本层结点数
+                      last = rear; height++; width = 0; } }
+              return totalProsper;
+          }
+      - type: bullets
+        items:
+          - "定义：每一层的结点数乘以该层的层数，全部加起来；层号从 1 起"
+          - "与求宽度同一骨架，只改三处：maxwidth 换成累加器、多一个 height 计数器、层结束加 height 乘 width"
+          - "height 从 1 起：题目定义的层号从 1 起，从 0 起算就全错"
+          - "材料原代码外层条件是 front 小于等于 rear：本题与 last 等价，两个写法建议统一，这里统一成 last"
+          - "从已知算法改三处得到新算法，这种改法练变式还要再用"
+
+  - type: content
+    kicker: 递归携带信息
+    title: 递归中携带额外信息：从判平衡到最长路径
+    blocks:
+      - type: bullets
+        items:
+          - "上一节的判平衡：返回值不够用时，让返回值兼报状态——平衡报高度，不平衡报 -1"
+          - "再进一步：信息放不进返回值，就带一个跨层共享的变量进来"
+          - "本节两个例子：最长路径带 path、maxPath 两个数组和 maxLen；判 BST 带 prev"
+          - "判据一句话：需要每层自己副本的用值传递，需要跨层共享并被改写的用引用"
+          - "先想一步：pathLen 与 maxLen，哪个该用引用？"
+
+  - type: content
+    badge: 真题·2025
+    kicker: 最长路径 · 双数组
+    title: 最长路径：path 记当前，maxPath 记最长
+    blocks:
+      - type: code
+        text: |
+          void longestPath(BiTree node, int path[], int pathLen, int maxPath[], int &maxLen){
+              if(node == NULL) return;
+              path[pathLen++] = node->data;                      // 当前结点入路径
+              if(node->lchild == NULL && node->rchild == NULL){  // 到叶子了
+                  if(pathLen > maxLen){
+                      maxLen = pathLen;
+                      for(int i = 0; i < maxLen; i++) maxPath[i] = path[i];  // 拷当前路径
+                  }
+              }else{
+                  longestPath(node->lchild, path, pathLen, maxPath, maxLen);
+                  longestPath(node->rchild, path, pathLen, maxPath, maxLen); }
+          }
+      - type: bullets
+        items:
+          - "path 记当前正在走的路径，maxPath 记目前最长的那条；两个数组分工不同"
+          - "pathLen 值传递：递归回来后自动恢复，等于 path 退格；maxLen 引用：全局最优，要被子层改写"
+          - "只在叶子处比较并拷贝；在内部结点比较，拿到的不是完整路径"
+          - "调用前 pathLen 与 maxLen 初值都置 0；输出打印 maxPath 前 maxLen 个元素"
+          - "出处：2025 年考过；时间 O(n)，两个数组 O(n)"
+
+  - type: content
+    kicker: 最长路径 · 推演
+    title: 最长路径的递归过程：两个数组的内容变化（拿纸跟着画）
+    blocks:
+      - type: image
+        src: assets/diagrams/b5-longest-tree.png
+        w: 7
+        h: 3.8
+        align: center
+        fit: contain
+      - type: bullets
+        items:
+          - "树形：根 1；2、3；2 的孩子 4、5；4 的左孩子 6；最长路径 1 到 2 到 4 到 6，长 4"
+          - "下压：path 依次写入 1、2、4、6，pathLen 逐层加一；每层的 pathLen 是各自的副本"
+          - "6 是叶子：pathLen 等于 4 大于 maxLen，maxLen 置 4，maxPath 拷成 1、2、4、6"
+          - "关键帧：从 6 退回 4，4 那一层的 pathLen 还是 3，path 里的 6 自动作废——值传递替我们退格"
+          - "再试右边：3 是叶子长 2，5 是叶子长 3，都不更长，maxPath 保持不动"
+
+  - type: content
+    badge: 真题·2024
+    kicker: 判 BST · 思路
+    title: 判 BST：中序加 prev，prev 必须引用
+    blocks:
+      - type: bullets
+        items:
+          - "BST 的性质：中序遍历序列严格递增；判 BST 就是查中序序列是不是严格递增"
+          - "做法：中序遍历时用 prev 记住上一个访问的值，当前值不大于 prev 就不是 BST"
+          - "为什么用中序不用先序：只有中序序列对 BST 是有序的，先序无序"
+          - "prev 必须引用：它跨递归层共享，上一层写完，下一层要读"
+          - "先想一步：prev 的初值写 -1 行不行？树里出现负数会怎样？"
+
+  - type: content
+    kicker: 判 BST · 代码
+    title: 判 BST 的修正版代码：先声明，初值点明假设
+    blocks:
+      - type: code
+        text: |
+          int checkBST(BiTNode *node, int &prev);      // 修正一：先声明再被调用
+
+          int JudgeBST(BiTree T){
+              int prev = INT_MIN;                      // 修正二：初值不隐含"值都大于 -1"
+              return checkBST(T, prev); }
+          int checkBST(BiTNode *node, int &prev){
+              if(node == NULL) return 1;
+              if(!checkBST(node->lchild, prev)) return 0;   // 左子树不是 BST，短路
+              if(node->data <= prev) return 0;              // 中序必须严格递增
+              prev = node->data;
+              return checkBST(node->rchild, prev); }
+      - type: bullets
+        items:
+          - "修正一：checkBST 先声明；材料里 JudgeBST 调用它时它还没声明，课件把声明调前"
+          - "修正二：prev 初值用 INT_MIN；写 -1 隐含所有值都大于 -1，树里有负数就判错"
+          - "题目给定下界时按题目取：如结点值均为正整数，prev 取 0 即可，但答案里要写明假设"
+          - "比较用 小于等于：BST 不允许重复值，相等也判不是；答题把假设写出来是加分项"
+
+  - type: content
+    kicker: 递归建树 · 模板12
+    title: 由先序与中序建树：归入模板 12，只给骨架与边界
+    blocks:
+      - type: code
+        text: |
+          BiTree Build(BiTree &T, int A[], int B[], int preL, int preR, int inL, int inR){
+              if(preL > preR) return NULL;
+              T = (BiTNode*)malloc(sizeof(BiTNode));
+              T->data = A[preL];                     // 先序第一个元素是根
+              int k = inL;
+              while(B[k] != A[preL]) k++;            // 在中序中定位根
+              int leftLen = k - inL;                 // 左子树结点个数
+              Build(T->lchild, A, B, preL+1, preL+leftLen, inL, k-1);
+              Build(T->rchild, A, B, preL+leftLen+1, preR, k+1, inR);
+              return T;
+          }
+      - type: bullets
+        items:
+          - "数据结构基础阶段第7节逐行讲过，这里只复习骨架与四个下标边界，归入模板 12"
+          - "四个下标：先序区间 preL 到 preR，中序区间 inL 到 inR；k 是根在中序里的位置"
+          - "左子树长 leftLen 等于 k 减 inL：先序左段是 preL 加 1 到 preL 加 leftLen"
+          - "最易错：右子树先序起点 preL 加 leftLen 加 1，少加 1 左右就接反"
+          - "变式留作练习：中序加后序建树，根换成后序尾元素，先划右子树再划左子树"
+
+  - type: content
+    kicker: 哈夫曼构造
+    title: 哈夫曼构造：每次取两个最小权合并，只记思想与骨架
+    blocks:
+      - type: code
+        text: |
+          typedef struct{
+              int weight;
+              int parent, lchild, rchild;          // 存下标，0 表示没有
+          }HTNode;                                 // 数组共 2n-1 个结点
+
+          for(int i = n+1; i <= 2*n-1; i++){       // 合并 n-1 次
+              SelectTwoMin(HT, i-1, s1, s2);       // 在 parent==0 中选两个最小
+              HT[s1].parent = HT[s2].parent = i;
+              HT[i].lchild = s1;  HT[i].rchild = s2;
+              HT[i].weight = HT[s1].weight + HT[s2].weight;
+          }
+      - type: bullets
+        items:
+          - "思想：森林里每次取两棵权值最小的树合并，新树权值是两棵之和，重复 n 减 1 次"
+          - "为什么共 2n-1 个结点：n 个叶子，每次合并少一棵树，合并 n-1 次多出 n-1 个内部结点"
+          - "parent 等于 0 表示还没被合并；每轮扫一遍选两个最小，构造是 O(n²)，优先队列可降到 O(n log n)"
+          - "802 以手算为主：考的是手算构造与编码，左右分支标 0 和 1；代码不要求写，这里只记思想与存储结构"
+
+  - type: content
+    kicker: 模板卡
+    title: 本节四张模板卡
+    blocks:
+      - type: table
+        head: [模板, 适用场景, 骨架, 复杂度]
+        rows:
+          - [模板6 层序加 last, "求宽度、繁荣度等一切按层统计", "数组加 front、rear、last；front 越过 last 时换层", "O(n)，队列 O(n)"]
+          - [模板15 中序加 prev, "判 BST、查中序是否有序", "中序递归，prev 引用共享；当前值不大于 prev 返回 0", "O(n)"]
+          - [模板12 递归建树, "由遍历序列重建二叉树", "定根、中序找 k、按 leftLen 划两段递归", "O(n²)，找根扫中序"]
+          - [模板5 递归三件套, "树的高度、结点数、叶子数等统计", "终止基准值、递归左右、合并返回", "O(n)，栈 O(h)"]
+      - type: note
+        text: "考过哪里：模板6——2024 年繁荣度；模板15——2024 年判 BST；模板12——2026 年第 2 题；模板5——2025 年最长路径复用其递归骨架"
+
+  - type: content
+    kicker: 小结
+    title: 五个算法一张表
+    blocks:
+      - type: table
+        head: [算法, 关键技巧, 最容易错的]
+        rows:
+          - [求宽度, "层序加 last，front 越过 last 换层", "在入队时更新 last"]
+          - [繁荣度, "宽度骨架改三处，累加 层号乘宽度", "height 从 0 起"]
+          - [最长路径, "path 与 maxPath 双数组，pathLen 值传递", "在内部结点就比较"]
+          - [判 BST, "中序加 prev，prev 引用共享", "prev 初值写 -1、声明放调用后"]
+          - [建树, "先序首元素定根，leftLen 划区间", "preL 加 leftLen 加 1 算错"]
+          - [哈夫曼, "每次取两个最小权合并", "把编码题当代码题背"]
+
+  - type: content
+    kicker: 课后任务
+    title: 跟练默写两段，变式勾画五题
+    blocks:
+      - type: bullets
+        items:
+          - "**跟练题**：默写求宽度与判 BST；给一棵树手算繁荣度，层号从 1 起"
+          - "**变式题**：题集勾画 6算20（繁茂度）、6算21（定长路径输出）、6答27 与 6算33（先序加中序建树）、6答28（中序加后序建树）、6算46（数据流第 k 大）"
+          - "写不出就回看对应那一页，别直接抄答案；哈夫曼只留手算题，题集 6选33、6选40、6答26"
+      - type: note
+        text: "参考答案在最后两页，课后自行对照"
+
+  - type: content
+    kicker: 参考答案 · 跟练题
+    title: 跟练题参考答案：求宽度与判 BST（自行对照）
+    blocks:
+      - type: code
+        text: |
+          int Width(BiTree T){
+              if(T == NULL) return 0;
+              int front = 0, rear = -1, last = 0, temp = 0, maxwidth = 0;
+              BiTree Q[MaxSize]; BiTree p;  Q[++rear] = T;
+              while(front <= last){  p = Q[front++];  temp++;
+                  if(p->lchild != NULL) Q[++rear] = p->lchild;
+                  if(p->rchild != NULL) Q[++rear] = p->rchild;
+                  if(front > last){ last = rear;
+                      if(temp > maxwidth) maxwidth = temp;
+                      temp = 0; } }
+              return maxwidth; }
+          int JudgeBST(BiTree T){
+              int prev = INT_MIN;  return checkBST(T, prev); }
+          int checkBST(BiTNode *node, int &prev){
+              if(node == NULL) return 1;
+              if(!checkBST(node->lchild, prev)) return 0;
+              if(node->data <= prev) return 0;
+              prev = node->data;
+              return checkBST(node->rchild, prev); }
+      - type: bullets
+        items:
+          - "手算繁荣度：三层树 1；2、3；4、5、6，三层贡献 1×1、2×2、3×3，合计 14"
+          - "判 BST 用修正版：prev 初值 INT_MIN 或题目下界，checkBST 先声明；答题写明假设"
+
+  - type: content
+    kicker: 参考答案 · 变式题
+    title: 变式题参考答案：题集五题（自行对照）
+    blocks:
+      - type: bullets
+        items:
+          - "6算20 繁茂度：繁荣度同族，层序加 last 分层，把累加式换成题目定义"
+          - "6算21 定长路径输出：最长路径变式，pathLen 等于 k 的叶子处输出 path，不必比大小"
+          - "6答27 与 6算33 先序加中序建树：模板 12，盯住 preL 加 leftLen 加 1"
+          - "6答28 中序加后序建树：根是后序尾元素；先划右子树再划左子树，边界同模板 12"
+          - "6算46 数据流第 k 大：维护大小为 k 的小根堆，堆顶即第 k 大；或递归分治"

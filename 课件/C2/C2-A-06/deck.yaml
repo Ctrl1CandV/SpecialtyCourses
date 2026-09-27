@@ -1,0 +1,226 @@
+meta:
+  id: C2-A-06
+  title: 串、数组与广义表
+  stage: A基础
+  instructor: 牙膏学长
+  duration: 35min
+
+slides:
+  - type: cover
+    kicker: 重邮802 数据结构代码课程
+    title: 数据结构基础阶段
+    subtitle: 第6节 串、数组与广义表
+    meta: 阶段：基础 ｜ 主讲：牙膏学长 ｜ 预计35分钟 ｜ 资料答疑：伴梦研途QQ群
+
+  - type: content
+    kicker: 引题
+    title: 这一节考什么、不考什么
+    blocks:
+      - type: bullets
+        items:
+          - "串就是字符数组加一个结束标记 '\\0'，这个在C语言强化阶段讲字符串时埋过"
+          - "802 里串几乎不要求写代码，考的是 KMP 的 next、nextval 手算，和 BF 匹配返回什么"
+          - "数组考地址计算和特殊矩阵压缩存储的下标公式，广义表考 head、tail 求值，都是填空、选择的送分点"
+      - type: note
+        text: "所以这一节串重点讲 next 手算和 BF 思想，堆分配的几个操作只讲易错点；数组和广义表讲清下标换算"
+
+  - type: content
+    kicker: 串 · 存储
+    title: 串的三种存储，一个必须记住的易错点
+    blocks:
+      - type: code
+        text: |
+          typedef struct{ char ch[MaxSize]; int length; }SString;  // 定长顺序存储
+          typedef struct{ char *ch; int length; }String;           // 堆分配存储
+      - type: bullets
+        items:
+          - "定长存储 ch 是数组，堆分配 ch 是指针、要 malloc；本节四个操作都基于堆分配这种"
+          - "易错点：两种定义不能混用。定长的 ch 是数组，不能 free、也不能赋 NULL"
+          - "凡是出现 ch = (char*)malloc(...) 的，它的 ch 必须是指针那种定义；块链存储了解即可"
+
+  - type: content
+    kicker: 串 · 堆分配操作
+    title: strassign：两个数字 len+1 和 i<=len
+    blocks:
+      - type: code
+        text: |
+          int strassign(String &str, char *ch){
+              if(str.ch){ free(str.ch); str.ch = NULL; }     // free 后置 NULL
+              int len = 0;  char *c = ch;
+              while(*c){ len++; c++; }                        // 先数原串长度
+              str.ch = (char*)malloc(sizeof(char)*(len+1));   // +1 给 '\0' 留位
+              if(str.ch == NULL) return 0;
+              c = ch;
+              for(int i = 0; i <= len; i++) str.ch[i] = *c++; // <= 才把 '\0' 拷进去
+              str.length = len;  return 1;                    // 成功返回 1、失败 0
+          }
+      - type: note
+        text: "两个数字要记牢：申请 len+1 是留给结束符 '\\0'；循环写到 i<=len 是为了把 '\\0' 也拷过去"
+
+  - type: content
+    kicker: 串 · 其余操作
+    title: strcompare、concat、substring 的易错点
+    blocks:
+      - type: code
+        text: |
+          bool strcompare(String s1, String s2){
+              for(int i = 0; i < s1.length && i < s2.length; i++)
+                  if(s1.ch[i] != s2.ch[i]) return false;
+              return (s1.length - s2.length) == 0;
+          }
+      - type: bullets
+        items:
+          - "strcompare 名字叫比较，其实是判等：遇第一个不同字符就 false，最后比长度；它不返回大小关系"
+          - "concat 拼接申请 len1+len2+1，第一个循环拷 str1 有效字符（不拷它的 '\\0'），第二个循环多拷一个把 str2 的 '\\0' 当结果结束符"
+          - "substring 取子串先判合法性：pos、len 不能越界，pos+len 不能超过串长"
+
+  - type: content
+    kicker: 串 · BF 匹配
+    title: BF 匹配：i、j、k 三个指针各干什么
+    blocks:
+      - type: code
+        text: |
+          int index(String str, String substr){
+              if(str.length == 0 || substr.length == 0) return 0;
+              int i = 0, j = 0, k = i;
+              while(i < str.length && j < substr.length){
+                  if(str.ch[i] == substr.ch[j]) { i++; j++; }
+                  else { j = 0; i = ++k; }        // 失配：模式串回开头，主串从下一位重来
+              }
+              if(j == substr.length) return k + 1; // 返回位序
+              return 0;
+          }
+      - type: note
+        text: "i 扫主串、j 扫模式串、k 记本轮起点；失配时 j 归零、i 回到 k+1，这就是回溯；最坏 O(nm)"
+
+  - type: content
+    kicker: BF 匹配 · 过程页
+    title: BF 匹配走一趟：主串 ababcab、模式串 abc（拿纸跟画）
+    blocks:
+      - type: image
+        src: assets/diagrams/a6-bf-match.png
+        w: 9
+        h: 2.0
+        align: center
+        fit: contain
+      - type: bullets
+        items:
+          - "① k=0，i=j=0：a=a、b=b 匹配，到第3个主串是 a、模式串是 c，失配"
+          - "② 失配：j 归 0，k 变 1，i 回到 k=1；从主串第2个字符 b 重新和模式串开头 a 比"
+          - "③ b≠a 失配，k 变 2、i 回到 2；主串第3个 a 和模式 a 比，a=a、b=b、c=c 全中"
+          - "④ j 到了模式串长度，匹配成功，返回 k+1=3，也就是模式串从主串第3个位置开始"
+      - type: note
+        text: "你看到 BF 的毛病了：失配后主串指针 i 要退回去重比，已经比过的字符又比一遍，这就是它慢的原因"
+
+  - type: content
+    kicker: KMP 思想
+    title: KMP：让主串指针永不回溯
+    blocks:
+      - type: bullets
+        items:
+          - "BF 慢在主串指针 i 要回溯；KMP 的核心就是让 i 永不回溯，失配时只把模式串的 j 退到 next[j]"
+          - "next[j] 的含义：模式串前 j-1 个字符里，最长的那段'相等前后缀'的长度加 1"
+          - "nextval 是 next 的优化：若模式串第 j 个字符等于第 next[j] 个，退过去还会失配，就直接取 nextval[next[j]]"
+      - type: note
+        text: "802 只考 next 和 nextval 的手算，不要求写 KMP 匹配代码，所以这一节把思想讲透、把手算练熟"
+
+  - type: content
+    kicker: next 手算 · 检查页
+    title: 模式串 abaabc 手算 next 与 nextval（先自己算）
+    blocks:
+      - type: table
+        head: [j, 1, 2, 3, 4, 5, 6]
+        colW: [2.0, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5]
+        rows:
+          - [字符, a, b, a, a, b, c]
+          - [next, 0, 1, 1, 2, 2, 3]
+          - [nextval, 0, 1, 0, 2, 1, 3]
+      - type: note
+        text: "先盖住后两行自己算：next[1]=0、next[2]=1 是规定；其余看前 j-1 个字符的最长相等前后缀长度+1。nextval：字符等于 next 指向的字符就取 nextval[next[j]]，如 j=3 的 a 等于 next[3]=1 位的 a，故 nextval[3]=nextval[1]=0"
+
+  - type: content
+    kicker: 数组 · 地址计算
+    title: 二维数组的地址：行优先与列优先
+    blocks:
+      - type: bullets
+        items:
+          - "行优先（C 语言用这个）：一行一行存。a[i][j] 地址 = 基址 + (i×列数n + j) × 每元素字节数（下标从0起）"
+          - "列优先：一列一列存，把 i、j 的角色换过来，a[i][j] 地址 = 基址 + (j×行数m + i) × 字节数"
+          - "下标若从1起，公式里的 i、j 各减1；三维同理，多乘一层"
+      - type: note
+        text: "这是填空题常考点；在代码里它就是多维数组的存储次序，你记住'行优先=先行后列'就不会代错公式"
+
+  - type: content
+    kicker: 特殊矩阵 · 三对角
+    title: 三对角矩阵压缩：下标公式怎么推
+    blocks:
+      - type: bullets
+        items:
+          - "n 阶三对角矩阵，非零元素集中在 |i-j|<=1 的三条对角线上，一共 3n-2 个，压缩存进一维数组"
+          - "推 a[i][j]（下标从1）的下标 k：数它前面有几个非零元素。第1行2个，第2到 i-1 行每行3个共 3(i-2) 个"
+          - "本行第 i 行从 a[i][i-1] 起，a[i][j] 是本行第 j-i+2 个；加起来 k = 2 + 3(i-2) + (j-i+2) = 2i + j - 2"
+      - type: note
+        text: "对称矩阵、三角矩阵同理，都是'数前面有几个非零元素'；考的是这个推导，不是背公式"
+
+  - type: content
+    kicker: 广义表
+    title: 广义表：head 与 tail
+    blocks:
+      - type: bullets
+        items:
+          - "广义表是 n 个元素的有限序列，元素可以是原子，也可以是一个子表，所以它是递归定义的"
+          - "head 取第一个元素，可以是原子也可以是子表；tail 取除第一个之外剩下的，一定是一个表（带括号）"
+          - "例：head((a,(b,c))) = a；tail((a,(b,c))) = ((b,c))，注意 tail 结果外面还有括号，不是 (b,c)"
+      - type: note
+        text: "head、tail 是填空固定考点，最容易错的就是 tail 忘了加括号；在代码里广义表就是递归定义的结点结构"
+
+  - type: content
+    kicker: 本节小结
+    title: 小结
+    blocks:
+      - type: bullets
+        items:
+          - "串：堆分配 ch 是指针要 malloc、定长是数组不能 free；strassign 记 len+1 与 i<=len；strcompare 是判等不是比大小"
+          - "串匹配：BF 三指针 i、j、k，失配 i 回溯、返回位序 k+1；KMP 让 i 不回溯，考 next、nextval 手算"
+          - "数组：行优先地址 = 基址+(i×列数+j)×字节；三对角矩阵压缩下标 k=2i+j-2（数前面几个非零元素推出来）"
+          - "广义表：head 取第一个元素，tail 取剩下的表、一定带括号"
+      - type: note
+        text: "串和数组、广义表在 802 里都以填空、选择为主，考手算和概念，不考写大段代码"
+
+  - type: content
+    kicker: 课后任务
+    title: 1道跟练 ＋ 1道模仿
+    blocks:
+      - type: bullets
+        items:
+          - "**跟练题**：给模式串 ababaa 手算 next 与 nextval 数组，写出每一位的推导"
+          - "**模仿题**：题集勾画 5答13 同类——求广义表 ((a,b),(c,(d,e))) 的 head 与 tail，以及 tail 之后再取 head"
+      - type: note
+        text: "要求：next/nextval 能逐位说清怎么来的；head/tail 不忘括号。参考答案在本PPT最后两页，课后自行对照"
+
+  - type: content
+    kicker: 参考答案 · 跟练题
+    title: 跟练题参考答案（自行对照）
+    blocks:
+      - type: table
+        head: [j, 1, 2, 3, 4, 5, 6]
+        colW: [2.0, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5]
+        rows:
+          - [字符, a, b, a, b, a, a]
+          - [next, 0, 1, 1, 2, 3, 4]
+          - [nextval, 0, 1, 0, 1, 0, 4]
+      - type: note
+        text: "next[1]=0、next[2]=1 规定；next[j]=前 j-1 个字符最长相等前后缀长度+1。nextval[j]：若第 j 字符等于第 next[j] 字符则取 nextval[next[j]]，否则等于 next[j]"
+
+  - type: content
+    kicker: 参考答案 · 模仿题
+    title: 模仿题参考答案（自行对照）
+    blocks:
+      - type: bullets
+        items:
+          - "广义表 A = ((a,b),(c,(d,e)))"
+          - "head(A) = (a,b)，取第一个元素，它本身是个子表"
+          - "tail(A) = ((c,(d,e)))，取剩下的，外面要加括号，只剩一个元素也是表"
+          - "head(tail(A)) = (c,(d,e))，先取 tail 得到 ((c,(d,e)))，再取它的 head"
+      - type: note
+        text: "关键：tail 的结果一定是表、带括号；head 的结果可能是原子也可能是子表，看第一个元素是什么"

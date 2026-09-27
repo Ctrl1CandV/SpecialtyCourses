@@ -1,0 +1,240 @@
+meta:
+  id: C2-A-08
+  title: 线索二叉树、树与森林
+  stage: A基础
+  instructor: 牙膏学长
+  duration: 40min
+
+slides:
+  - type: cover
+    kicker: 重邮802 数据结构代码课程
+    title: 数据结构基础阶段
+    subtitle: 第8节 线索二叉树、树与森林
+    meta: 阶段：基础 ｜ 主讲：牙膏学长 ｜ 预计40分钟 ｜ 资料答疑：伴梦研途QQ群
+
+  - type: content
+    kicker: 引题
+    title: n 个结点的二叉链表，有多少个空链域
+    blocks:
+      - type: bullets
+        items:
+          - "n 个结点，每个有左右两个链域，一共 2n 个链域"
+          - "非空的链域等于分支数，一棵 n 结点的树有 n-1 条分支，所以非空链域是 n-1 个"
+          - "空链域 = 2n - (n-1) = n+1 个；一棵树里空链域比结点数还多，白白浪费"
+      - type: note
+        text: "线索化的想法就是：把这 n+1 个空链域利用起来，让它们指向前驱和后继，这样找前驱后继就不用再从头遍历"
+
+  - type: content
+    kicker: 线索化 · 结构
+    title: 线索二叉树：加两个 tag 区分孩子和线索
+    blocks:
+      - type: code
+        text: |
+          typedef struct BiThrNode{
+              int data;
+              struct BiThrNode *lchild, *rchild;
+              int ltag, rtag;      // 0 指向孩子，1 指向线索（前驱/后继）
+          }BiThrNode, *BiThrTree;
+      - type: bullets
+        items:
+          - "空链域拿来指前驱后继，但一个链域到底是孩子还是线索，光看指针分不清，所以要配一个 tag"
+          - "ltag=0 时 lchild 指左孩子，ltag=1 时 lchild 指中序前驱；rtag 同理，1 时 rchild 指中序后继"
+          - "tag 的 0 和 1 别记反：0 是孩子，1 是线索"
+
+  - type: content
+    kicker: 中序线索化
+    title: InThread：pre 指针始终指着刚访问过的结点
+    blocks:
+      - type: code
+        text: |
+          void InThread(BiThrTree &p, BiThrTree &pre){
+              if(p != NULL){
+                  InThread(p->lchild, pre);                          // 递归线索化左子树
+                  if(p->lchild == NULL){ p->lchild = pre; p->ltag = 1; }   // 建 p 的前驱线索
+                  if(pre != NULL && pre->rchild == NULL){ pre->rchild = p; pre->rtag = 1; }  // 回填 pre 的后继线索
+                  pre = p;                                           // pre 跟上 p
+                  InThread(p->rchild, pre);                          // 递归线索化右子树
+              }
+          }
+      - type: note
+        text: "pre 指向中序里刚访问过的结点。p 的前驱就是 pre，能马上建；但 pre 的后继是 p，要等遍历到 p 时才回填，所以两个 if 分开写"
+
+  - type: content
+    kicker: 中序线索化 · 过程页
+    title: 一棵 5 结点树的中序线索化（拿纸跟画）
+    blocks:
+      - type: bullets
+        items:
+          - "树：根1，左2右3，2的左4右5；中序是 4 2 5 1 3。pre 初始为 NULL"
+          - "访问4：4无左孩子，4->lchild=pre=NULL、ltag=1；pre是NULL不回填；pre=4"
+          - "访问2：2有左孩子(4)不建前驱线索；pre=4，4无右孩子，回填 4->rchild=2、rtag=1；pre=2"
+          - "访问5：5无左孩子，5->lchild=pre=2、ltag=1；pre=2 有右孩子(5)不回填；pre=5"
+          - "访问1、访问3 同理；最后 3 无后继，收尾把 3->rchild 置 NULL、rtag=1"
+      - type: note
+        text: "你看到线索是怎么一条条建起来又回填的：前驱线索在访问 p 时建，后继线索在处理下一个结点时回填"
+
+  - type: content
+    kicker: 线索化 · 收尾
+    title: CreateInThread：为什么结束后要单独处理 pre
+    blocks:
+      - type: code
+        text: |
+          void CreateInThread(BiThrTree &T){
+              BiThrNode *pre = NULL;
+              if(T){
+                  InThread(T, pre);
+                  if(pre != NULL){ pre->rchild = NULL; pre->rtag = 1; }  // 最后一个结点无后继
+              }
+          }
+      - type: note
+        text: "InThread 走完后，pre 停在中序最后一个结点，它没有后继、右链域还空着，所以收尾时把它置 NULL、rtag 设 1，和前面的约定一致"
+
+  - type: content
+    kicker: 线索树 · 找后继
+    title: Nextnode：找中序后继分两种情况
+    blocks:
+      - type: code
+        text: |
+          BiThrNode *Nextnode(BiThrNode *p){
+              if(p->rtag == 1) return p->rchild;   // 右链域是线索，直接就是后继，O(1)
+              BiThrNode *q = p->rchild;            // 否则有右子树，进右子树
+              while(q->ltag == 0) q = q->lchild;   // 找右子树的最左下结点
+              return q;
+          }
+      - type: note
+        text: "rtag=1 时后继早存好了，一步拿到；rtag=0 时后继是右子树的最左下结点，要走下去，最坏 O(树高)"
+
+  - type: content
+    kicker: 线索树 · 遍历
+    title: Firstnode 与中序线索树的遍历：不用栈
+    blocks:
+      - type: code
+        text: |
+          BiThrNode *Firstnode(BiThrNode *T){      // 中序第一个结点
+              while(T->ltag == 0) T = T->lchild;   // 一路往左下找
+              return T;
+          }
+          // 中序线索树的遍历：
+          for(BiThrNode *p = Firstnode(T); p != NULL; p = Nextnode(p)) visit(p);
+      - type: note
+        text: "从第一个结点开始，不断 Nextnode 往后走，就能中序遍历整棵树——不用栈、不用递归、空间 O(1)，这就是线索化存在的全部理由"
+
+  - type: content
+    kicker: 树 · 存储
+    title: 树的孩子兄弟存储
+    blocks:
+      - type: code
+        text: |
+          typedef struct CSNode{
+              int data;
+              struct CSNode *firstchild, *nextbro;  // 第一个孩子、下一个兄弟
+          }CSNode, *CSTree;
+      - type: bullets
+        items:
+          - "一般的树每个结点孩子数不定，用孩子兄弟表示法：只记第一个孩子和下一个兄弟"
+          - "这个结构和上一节的二叉链表形状一样（都是两个指针），所以一棵树能唯一对应一棵二叉树"
+          - "firstchild 当二叉树的左孩子，nextbro 当右孩子，这是树转二叉树的结构基础"
+
+  - type: content
+    kicker: 树转二叉树
+    title: 树、森林转二叉树：三步画法
+    blocks:
+      - type: bullets
+        items:
+          - "第一步，兄弟之间连线：把同一个父结点的孩子们依次连起来"
+          - "第二步，只留第一个孩子：每个结点只保留它和第一个孩子的连线，抹掉到其他孩子的线"
+          - "第三步，以根为轴顺时针转 45 度：转完第一个孩子成了左子树，兄弟成了右子树"
+      - type: note
+        text: "森林转二叉树：先把每棵树各自转成二叉树，再把后一棵树接到前一棵树根的右子树上，依次连下去"
+
+  - type: content
+    kicker: 树转二叉树 · 过程页
+    title: 一棵三层的树转成二叉树（拿纸跟画）
+    blocks:
+      - type: image
+        src: assets/diagrams/a8-tree-to-binary.png
+        w: 9
+        h: 2.6
+        align: center
+        fit: contain
+      - type: bullets
+        items:
+          - "原树：根 A 有三个孩子 B、C、D；B 有一个孩子 E"
+          - "第一步兄弟连线：B—C—D 连起来；第二步只留第一个孩子：A 只连 B，B 只连 E"
+          - "第三步转 45 度：A 的左孩子是 B、B 的右孩子是 C、C 的右孩子是 D；B 的左孩子是 E"
+          - "结果二叉树：A 左挂 B、B 左挂 E，B 右挂 C、C 右挂 D，兄弟全在右链上"
+      - type: note
+        text: "你抓住一句话：第一个孩子往左、兄弟往右，转出来的二叉树和原树一一对应，不会丢信息"
+
+  - type: content
+    kicker: 遍历对应 · 检查页
+    title: 树的后根遍历，对应二叉树的什么遍历？（先自己想）
+    blocks:
+      - type: table
+        head: [树的遍历, 对应二叉树的遍历]
+        colW: [5.0, 6.5]
+        rows:
+          - [先根遍历, 先序遍历]
+          - [后根遍历, 中序遍历（不是后序！）]
+      - type: note
+        text: "先想：后根遍历（先孩子后自己）对应二叉树的哪种？很多人以为是后序，其实是中序。因为孩子兄弟表示法里，一个结点的孩子都在左子树、兄弟在右子树，后根的“先孩子后自己”落到二叉树上就是“先左子树、再根、再右子树”，正是中序"
+
+  - type: content
+    kicker: 树 · 求度
+    title: 求树的度：孩子兄弟递归加一个全局变量
+    blocks:
+      - type: code
+        text: |
+          int degree = 0;                        // 全局变量，记最大度
+          int Post(CSNode *p){
+              if(p == NULL) return 0;
+              Post(p->firstchild);               // 递归进子树，只为更新全局 degree，返回值丢弃
+              int d = 1 + Post(p->nextbro);      // 自己加后面所有兄弟 = 一个父结点的孩子数
+              degree = max(degree, d);
+              return d;
+          }
+      - type: note
+        text: "两个要点：Post(firstchild) 的返回值丢掉，它只负责递归进子树更新 degree；1+Post(nextbro) 数的是一条兄弟链的长度，正好是那个父结点的度"
+
+  - type: content
+    kicker: 本节小结与课后
+    title: 小结与课后任务
+    blocks:
+      - type: bullets
+        items:
+          - "线索化：利用 n+1 个空链域指前驱后继，ltag/rtag 区分孩子与线索；InThread 靠 pre 建前驱线索、回填后继线索"
+          - "线索树遍历：Firstnode 找起点、Nextnode 找后继，不用栈、空间 O(1)"
+          - "树与森林：孩子兄弟存储，第一个孩子往左、兄弟往右转成二叉树；先根对先序、后根对中序"
+          - "**跟练**：默写 BiThrNode 定义与中序线索化两个函数；给一棵三层的树画先根、后根序列和对应二叉树。**模仿**：题集勾画 6答21 同类，把一棵二叉树还原成森林并画图"
+      - type: note
+        text: "线索化和树森林看似无关，其实共用孩子兄弟这一个结构；参考答案在本PPT最后两页，课后自行对照"
+
+  - type: content
+    kicker: 参考答案 · 跟练题
+    title: 跟练题参考答案（自行对照）
+    blocks:
+      - type: code
+        text: |
+          typedef struct BiThrNode{ int data;
+              struct BiThrNode *lchild, *rchild; int ltag, rtag; }BiThrNode, *BiThrTree;
+          void InThread(BiThrTree &p, BiThrTree &pre){ if(p!=NULL){
+              InThread(p->lchild, pre);
+              if(p->lchild==NULL){ p->lchild=pre; p->ltag=1; }
+              if(pre!=NULL && pre->rchild==NULL){ pre->rchild=p; pre->rtag=1; }
+              pre=p; InThread(p->rchild, pre); } }
+          void CreateInThread(BiThrTree &T){ BiThrNode *pre=NULL;
+              if(T){ InThread(T,pre); if(pre!=NULL){ pre->rchild=NULL; pre->rtag=1; } } }
+      - type: note
+        text: "三层树的先根=根先、后根=根后；对应二叉树按“第一个孩子往左、兄弟往右”画。求度与遍历见本节代码"
+
+  - type: content
+    kicker: 参考答案 · 模仿题
+    title: 模仿题参考答案（自行对照）
+    blocks:
+      - type: bullets
+        items:
+          - "二叉树还原成森林，是树转二叉树的逆过程：根往下的左链是各棵树的根，右链是森林里的后续树"
+          - "具体：从根出发，沿左孩子走下去的每个结点，它的右子树都拆出来作为一棵独立的树"
+          - "拆分规则：结点的左孩子是它在原树里的第一个孩子，右孩子是它的下一个兄弟（属于同一棵树）还是新的一棵树，看它在哪条右链上"
+      - type: note
+        text: "森林叶数 = 二叉树里左指针为空的结点数（题集勾画 6选43 的结论）；还原时抓住“左孩子右兄弟”反过来拆即可"
