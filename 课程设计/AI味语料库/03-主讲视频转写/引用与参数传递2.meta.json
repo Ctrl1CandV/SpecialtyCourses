@@ -1,0 +1,10 @@
+{
+  "video": "C:/Users/11487/Documents/Camtasia/引用与参数传递2.mp4",
+  "duration_sec": 1030.8963125,
+  "language": "zh",
+  "language_probability": 1,
+  "model": "D:/Program Project/SpecialtyCourses/_tmp/models/faster-whisper-large-v3-turbo",
+  "device": "cuda",
+  "segments": 556,
+  "elapsed_sec": 30.0
+}

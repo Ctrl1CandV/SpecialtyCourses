@@ -1,0 +1,10 @@
+{
+  "video": "C:/Users/11487/Documents/Camtasia/分支与循环.mp4",
+  "duration_sec": 2542.3993125,
+  "language": "zh",
+  "language_probability": 1,
+  "model": "D:/Program Project/SpecialtyCourses/_tmp/models/faster-whisper-large-v3-turbo",
+  "device": "cuda",
+  "segments": 1309,
+  "elapsed_sec": 66.8
+}

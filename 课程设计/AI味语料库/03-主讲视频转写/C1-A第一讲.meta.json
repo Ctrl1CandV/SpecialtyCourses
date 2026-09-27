@@ -1,0 +1,10 @@
+{
+  "video": "C:/Users/11487/Documents/Camtasia/C1-A第一讲.mp4",
+  "duration_sec": 1144.2329375,
+  "language": "zh",
+  "language_probability": 1,
+  "model": "D:/Program Project/SpecialtyCourses/_tmp/models/faster-whisper-large-v3-turbo",
+  "device": "cuda",
+  "segments": 512,
+  "elapsed_sec": 29.1
+}

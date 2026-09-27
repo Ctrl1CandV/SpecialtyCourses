@@ -1,0 +1,10 @@
+{
+  "video": "C:/Users/11487/Documents/Camtasia/答题格式与复杂度分析.mp4",
+  "duration_sec": 2242.5368125,
+  "language": "zh",
+  "language_probability": 1,
+  "model": "D:/Program Project/SpecialtyCourses/_tmp/models/faster-whisper-large-v3-turbo",
+  "device": "cuda",
+  "segments": 1144,
+  "elapsed_sec": 61.9
+}

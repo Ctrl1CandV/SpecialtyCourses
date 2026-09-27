@@ -1,0 +1,10 @@
+{
+  "video": "C:/Users/11487/Documents/Camtasia/直播预告.mp4",
+  "duration_sec": 146.773375,
+  "language": "zh",
+  "language_probability": 1,
+  "model": "D:/Program Project/SpecialtyCourses/_tmp/models/faster-whisper-large-v3-turbo",
+  "device": "cuda",
+  "segments": 58,
+  "elapsed_sec": 5.1
+}
