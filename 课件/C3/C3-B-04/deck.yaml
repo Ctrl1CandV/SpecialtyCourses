@@ -1,0 +1,310 @@
+meta:
+  id: C3-B-04
+  title: 图真题
+  stage: B真题
+  instructor: 牙膏学长
+  duration: 45min
+
+slides:
+  - type: cover
+    kicker: 重邮802 数据结构代码课程
+    title: 数据结构题型实战阶段
+    subtitle: 第6节 图真题
+    meta: 阶段：题型实战 ｜ 主讲：牙膏学长 ｜ 预计45分钟 ｜ 资料答疑：伴梦研途QQ群
+
+  - type: content
+    badge: 真题·2026·12分
+    kicker: 2026 判拓扑序列 · 题面
+    title: 题面与关键认识：不需要真的排一遍序
+    blocks:
+      - type: text
+        text: "题面（12分）：给一个由邻接表存储的图，以及一个序列 V1V2...Vn，判断这个序列是不是该图的一个拓扑序列。"
+      - type: bullets
+        items:
+          - "认结构：邻接表，边表字段 nextarc；序列顶点数 n 默认等于 vexnum"
+          - "关键认识：不需要真做一遍拓扑排序再比较——只求入度表，按给定序列的顺序模拟检查即可"
+          - "拓扑序列的充要条件：对每条边 v→u，v 在序列中都排在 u 前面；按序检查'当前入度是否为 0'正是在验证这个条件"
+      - type: note
+        text: "先按暂停自己写；12 分里'不真排序、按给定顺序模拟'这个认识占思想分的大头"
+
+  - type: content
+    kicker: 2026 判拓扑 · 代码
+    title: 入度表加按序模拟：模板13 的验证形态
+    blocks:
+      - type: code
+        text: |
+          bool IsTopoSeq(ALGraph G, int seq[], int n){
+              if(G.vexnum == 0) return false;
+              int indeg[MaxVertexNum] = {0};
+              for(int i=0;i<G.vexnum;i++)                    // 求全部入度
+                  for(ArcNode *p=G.vertices[i].firstarc;p;p=p->nextarc) indeg[p->adjvex]++;
+              for(int i=0;i<n;i++){                          // 按给定顺序模拟
+                  int u = seq[i];
+                  if(indeg[u] != 0) return false;            // 还有前驱没排在它前面
+                  for(ArcNode *p=G.vertices[u].firstarc;p;p=p->nextarc) indeg[p->adjvex]--;
+              }
+              return true;
+          }
+      - type: bullets
+        items:
+          - "选模板13 入度表法；改条件一处——不做'入度0入栈出栈输出'，改成按给定序列顺序检查：入度非 0 即非法，合法就把它的后继入度减 1"
+          - "边界：vexnum==0 返回 false；复杂度时间 O(|V|+|E|) 每个顶点每条边各处理一次、空间 O(|V|)"
+      - type: note
+        text: "写成先排序再比较也能得大部分分，但代码量与时间都大；'按序模拟'是本题思想分的采分点"
+
+  - type: content
+    badge: 真题·2025
+    kicker: 2025 经过k的路径 · 题面
+    title: 题面与拆解：两段独立的可连性问题
+    blocks:
+      - type: text
+        text: "题面：给定一个邻接表表示的连通图，输出从顶点 u 到顶点 v 并经过顶点 k 的一条路径。如果不存在这样的路径输出 -1。图的存储结构题目已给（注意：边表字段名是 next 不是 nextarc，按题目写）。"
+      - type: bullets
+        items:
+          - "认结构①：字段名以题目为准——这道题给的是 next，2026 那道给的是 nextarc，抄题目的"
+          - "认结构②：连通图、邻接表；要求输出一条具体路径，不存在输出 -1"
+          - "拆解：'u 到 v 经过 k' = 'u 能到 k' 且 'k 能到 v'——两段独立的可连性问题，各做一次 DFS"
+      - type: note
+        text: "先按暂停自己写；提示：两段之间 visited 怎么处理，是这道题最大的坑"
+
+  - type: content
+    kicker: 2025 经过k · 代码
+    title: 回溯复位与两段之间的全部复位
+    blocks:
+      - type: code
+        text: |
+          bool checkPath(ALGraph G, int u, int v, bool visited[]){
+              if(u == v) return true;
+              visited[u] = true;
+              for(ArcNode *p=G.vertices[u].firstarc; p; p=p->next)
+                  if(!visited[p->adjvex] && checkPath(G,p->adjvex,v,visited)) return true;
+              visited[u] = false;  return false;         // 走不通，回溯复位
+          }
+          bool IsExistPathGoBy(ALGraph G, int u, int k, int v){
+              if(G.vexnum==0 || G.arcnum==0) return false;
+              bool visited[MaxVertexNum];                 // 固定长度（勘误处置）
+              for(int i=0;i<G.vexnum;i++) visited[i]=false;
+              if(!checkPath(G,u,k,visited)) return false;         // 第一段 u→k
+              for(int i=0;i<G.vexnum;i++) visited[i]=false;       // 两段之间全部复位
+              return checkPath(G,k,v,visited);                    // 第二段 k→v
+          }
+      - type: bullets
+        items:
+          - "选模板7 DFS 回溯；两处复位：递归走不通时 visited[u]=false（回溯），两段之间全部清零"
+          - "**两段之间不复位是最容易丢的分**：第一段用过的标记会让第二段误判'此路不通'，明明存在的路径判成不存在"
+      - type: note
+        text: "材料用变长数组带初始化列表，与伪代码约定不符，课件改固定长度加循环赋值；输出具体路径时再用一个 path 数组随递归记录，思想同一套"
+
+  - type: content
+    badge: 真题·2024
+    kicker: 2024 长度k的路径 · 代码
+    title: 多带一个 depth：递归中携带额外信息
+    blocks:
+      - type: code
+        text: |
+          bool DFS(ALGraph &G, int i, int depth, int k, int visited[]){
+              if(depth == k) return true;                // 走了 k 条边，成功
+              visited[i] = 1;
+              for(ArcNode *e=G.vertices[i].firstarc; e; e=e->next){
+                  int v = e->adjvex;
+                  if(!visited[v] && DFS(G,v,depth+1,k,visited)){ visited[i]=0; return true; }
+              }
+              visited[i] = 0;  return false;             // 回溯复位
+          }
+          bool existsKSimplePath(ALGraph &G, int k){
+              if(k < 1 || k > G.vexnum-1) return false;   // k 的合法范围
+              int visited[MaxVertexNum];
+              for(int i=0;i<G.vexnum;i++){
+                  for(int j=0;j<G.vexnum;j++) visited[j]=0;   // 每个起点前清零
+                  if(DFS(G,i,0,k,visited)) return true;
+              }
+              return false;
+          }
+      - type: bullets
+        items:
+          - "选模板7；改条件一处：递归多带 depth，每往下一层加 1，depth==k 成功——与最长路径的 pathLen 同源"
+          - "k 上界为什么是 vexnum-1：简单路径顶点不重复，k 条边需要 k+1 个不同顶点；每个起点前 visited 全部清零"
+      - type: note
+        text: "题目问'是否存在'，所以找到一条就层层 return true；成功路径上的复位（visited[i]=0）可省，但写上不出错"
+
+  - type: content
+    kicker: 两道路径题对比
+    title: 2025 与 2024：同一个模板7，三处不同
+    blocks:
+      - type: table
+        head: [对比项, 2025 经过k, 2024 长度k]
+        colW: [3.0, 4.3, 4.2]
+        rows:
+          - [起终点, 给定 u、v 与必经点 k, 任意起点，枚举所有顶点]
+          - [携带信息, 两段拆解（u→k、k→v）, depth 参数（走了几条边）]
+          - [停止条件, 到达目标顶点, depth 等于 k]
+          - [visited 复位, 回溯复位＋两段之间全部复位, 回溯复位＋每个起点前清零]
+      - type: bullets
+        items:
+          - "共同点：都是 DFS 回溯，走不通就复位再试别的路"
+          - "差别全在'带什么、何时停、何时清'——这三处正是改条件的清单"
+      - type: note
+        text: "认题训练：题面出现'经过某点'想拆段；出现'长度为 k'想 depth 参数"
+
+  - type: content
+    badge: 真题·2023
+    kicker: 2023 像素距离 · 题面
+    title: 题面与'时间复杂度尽可能低'这个提示
+    blocks:
+      - type: text
+        text: "题面：给定一个 n×m 的矩形位图，每个像素不是白色就是黑色，至少有一个白色。两像素间距离是曼哈顿距离 |i1-i2|+|j1-j2|。设计一个时间复杂度尽可能低的算法，计算每个像素与其最近白像素的距离。输入 n、m 与 n 行 01 串（1 为白），输出 n 行距离。"
+      - type: bullets
+        items:
+          - "认结构：二维 01 数组；'最近白像素'是对每个黑像素问一次最短距离——无权网格图的最短距离就是 BFS"
+          - "朴素做法：对每个黑像素各做一次 BFS，O(n²m²)——'时间尽可能低'这个提示就是在排除它"
+      - type: note
+        text: "先按暂停自己想：有没有办法一次 BFS 算出所有像素的距离？这是当年最难的一道，突破口是一个'反过来'"
+
+  - type: content
+    kicker: 2023 像素距离 · 突破口
+    title: 多源 BFS：反过来从所有白像素同时扩散
+    blocks:
+      - type: bullets
+        items:
+          - "反过来想：不是每个黑像素去找白像素，而是**所有白像素同时往外扩散**——每个黑像素第一次被扩散到时的层号，就是它到最近白像素的距离"
+          - "与普通 BFS 只差第一步：所有白像素先全部入队且 dist 置 0，其余 dist 置 -1 表示未访问；然后逐层扩散，dist[邻居] = dist[当前] + 1"
+          - "为什么正确：BFS 逐层扩散，第一次到达一定是最近的那个源——多个源同时起跑，谁先到算谁的"
+          - "两个技巧：dist 的 -1 兼作 visited，省一个数组；队列存一维编号 i*m+j（材料的队列只存一个 int），取出时除与模还原坐标"
+      - type: note
+        text: "时间 O(nm) 每个像素入队出队各一次；思想段就把'反过来扩散'写清楚——这是本题思想分的全部"
+
+  - type: content
+    kicker: 像素距离 · 过程页
+    title: 3×4 位图的逐层扩散（拿纸跟画）
+    blocks:
+      - type: image
+        src: assets/diagrams/b7-bfs.png
+        w: 9
+        h: 2.5
+        align: center
+        fit: contain
+      - type: bullets
+        items:
+          - "第 0 层：所有白像素（值为 1 的格子）dist=0 全部入队——图上第 1 格"
+          - "第 1 层：白像素的四邻黑像素 dist=1 入队；第 2 层：再外一圈 dist=2——逐层扩散，每格标出队列内容"
+          - "每个黑像素第一次被访问时的 dist 就是答案；已访问（dist≠-1）的格子不再入队"
+      - type: note
+        text: "跟着图把每层的 dist 数组写出来，与最终距离矩阵对照；越界与已访问两个 continue 是代码里仅有的两个判断"
+
+  - type: content
+    kicker: 2023 像素距离 · 代码
+    title: 完整代码（补写版）与边界
+    blocks:
+      - type: code
+        text: |
+          int dir[4][2] = {{-1,0},{1,0},{0,-1},{0,1}};      // 上下左右
+          void PixelDist(int g[][MaxM], int dist[][MaxM], int n, int m){
+              SqQueue Q; InitQueue(Q);
+              for(int i=0;i<n;i++) for(int j=0;j<m;j++){    // 第一步：白像素全入队
+                  if(g[i][j]==1){ dist[i][j]=0; EnQueue(Q, i*m+j); }
+                  else dist[i][j]=-1;                       // -1 兼作未访问
+              }
+              while(!IsEmpty(Q)){                           // 第二步：逐层扩散
+                  int cur; DeQueue(Q,cur);  int x=cur/m, y=cur%m;
+                  for(int d=0;d<4;d++){
+                      int nx=x+dir[d][0], ny=y+dir[d][1];
+                      if(nx<0||nx>=n||ny<0||ny>=m||dist[nx][ny]!=-1) continue;
+                      dist[nx][ny]=dist[x][y]+1;  EnQueue(Q, nx*m+ny);
+                  }
+              }
+          }
+      - type: bullets
+        items:
+          - "边界：四方向越界判断；题目保证至少一个白像素，队列不会一开始就空；n 或 m 为 0 时循环不进"
+          - "复杂度：时间 O(nm) 每像素入队出队各一次；空间 O(nm) 队列最坏存一层"
+      - type: note
+        text: "评分点：写成'对每个黑像素做 BFS'思想分能拿一部分，但复杂度分全丢；'反过来扩散'这五个字值大半的思想分"
+
+  - type: content
+    kicker: 四题评分点
+    title: 四道题的评分点与复杂度汇总
+    blocks:
+      - type: table
+        head: [题, 模板, 复杂度, 最容易丢的分]
+        colW: [2.8, 1.6, 2.6, 4.5]
+        rows:
+          - [2026 判拓扑, 13, O(V+E)/O(V), 真去排序了，没写按序模拟的认识]
+          - [2025 经过k, 7, O(V+E)/O(V), 两段之间 visited 没复位]
+          - [2024 长度k, 7, 最坏指数/V, k 上界没判、起点前没清零]
+          - [2023 像素距离, 8多源, O(nm)/O(nm), 没想到反向扩散，写成 n²m²]
+      - type: bullets
+        items:
+          - "图题的通用采分习惯：思想段写清存储与遍历选择，复杂度段给'每顶点每边各处理一次'这类理由"
+      - type: note
+        text: "2025 的 O(V+E) 指单次 DFS；最坏要回溯全部路径时更高，答题写单次代价并说明即可"
+
+  - type: content
+    kicker: 选讲 · 2022
+    title: 2022 最小半径生成树：难题的两个方向
+    blocks:
+      - type: bullets
+        items:
+          - "题面：从根到叶子的最大距离称为树的半径，给定无向连通图，找出半径最小的生成树"
+          - "方向一（好写）：枚举每个顶点作根做 BFS 生成树，BFS 的最大层号就是该根的半径，取最小——O(n(n+e))；依据是 BFS 树里每个顶点到根的距离就是最短距离"
+          - "方向二：Floyd 求全源最短路径，每个顶点算离心率 max（到所有点的距离），离心率最小的顶点是图的中心，以它为根做 BFS 树——O(n³)"
+      - type: note
+        text: "这道题难度高、材料无解答：考场策略是先用方向一写，时间不够可以先跳过——它的核心动作（BFS 生成树、Floyd）都已在强化阶段第7节讲过，剩下的是组合"
+
+  - type: content
+    kicker: 本节小结
+    title: 小结：图题认题的三个信号
+    blocks:
+      - type: bullets
+        items:
+          - "信号一'验证序列'→模板13 入度表，按序模拟不真排序；信号二'经过某点/长度k'→模板7 DFS 回溯，拆段或带 depth"
+          - "信号三'最短距离/尽可能低'→模板8 BFS，多源就全部源点先入队"
+          - "图题的三个固定坑：字段名以题目为准（next 与 nextarc）、visited 的复位时机、每个起点前清零"
+      - type: note
+        text: "图是七年真题第二大项（5 道）；这四道加选讲覆盖了全部形态"
+
+  - type: content
+    kicker: 课后任务
+    title: 1道真题重写 ＋ 1组变式
+    blocks:
+      - type: bullets
+        items:
+          - "**真题重写**：2023 像素距离图，计时 30 分钟（本题最难，给足时间），思想段必须写出'反向扩散'的理由"
+          - "**变式题**：题集勾画 7算18（长度 k 的简单路径，课上原题重写）、7算19（u 到 v 的所有简单路径，要输出全部）、7答9（写出全部拓扑序列）、7选28（拓扑序列个数）"
+          - "**自编变式**：把像素距离图改成八连通（斜向也算相邻），代码改哪里？——dir 数组从 4 个方向扩成 8 个，其余一字不改"
+      - type: note
+        text: "参考答案在本PPT最后两页，课后自行对照。下一节查找排序真题与程序阅读题"
+
+  - type: content
+    kicker: 参考答案 · 真题重写
+    title: 2023 像素距离参考答案（自行对照）
+    blocks:
+      - type: code
+        text: |
+          int dir[4][2]={{-1,0},{1,0},{0,-1},{0,1}};
+          void PixelDist(int g[][MaxM], int dist[][MaxM], int n, int m){
+              SqQueue Q; InitQueue(Q);
+              for(int i=0;i<n;i++) for(int j=0;j<m;j++){
+                  if(g[i][j]==1){ dist[i][j]=0; EnQueue(Q,i*m+j); }
+                  else dist[i][j]=-1; }
+              while(!IsEmpty(Q)){
+                  int cur; DeQueue(Q,cur); int x=cur/m, y=cur%m;
+                  for(int d=0;d<4;d++){ int nx=x+dir[d][0], ny=y+dir[d][1];
+                      if(nx<0||nx>=n||ny<0||ny>=m||dist[nx][ny]!=-1) continue;
+                      dist[nx][ny]=dist[x][y]+1; EnQueue(Q,nx*m+ny); } }
+          }
+      - type: note
+        text: "思想段：对所有白像素同时做多源 BFS，逐层扩散，每个像素首次被访问的层号即最近距离；O(nm)/O(nm)"
+
+  - type: content
+    kicker: 参考答案 · 变式题
+    title: 变式题参考答案（自行对照）
+    blocks:
+      - type: bullets
+        items:
+          - "7算18 长度 k 的简单路径：与课上 2024 题同码，输出路径则加 path 数组随递归记录、成功时打印"
+          - "7算19 u 到 v 的所有简单路径：DFS 回溯不短路——找到一条先输出，继续复位试别的路，直到全部走完"
+          - "7答9 全部拓扑序列：入度表法加回溯——每轮把所有入度 0 的顶点各试一次，递归后恢复入度，枚举全部合法顺序"
+          - "7选28 拓扑序列个数：在 7答9 的枚举上计数；序列唯一当且仅当每轮入度 0 的顶点恰好一个"
+          - "八连通变式：dir 扩为 8 个方向（加四个斜向），越界与已访问判断不变，dist 含义仍是曼哈顿意义下的 BFS 层数（八邻域）"
+      - type: note
+        text: "'输出所有'与'判断存在'的差别只在短路：存在型找到就 return，全部型不 return 继续回溯"

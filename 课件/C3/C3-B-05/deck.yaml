@@ -1,0 +1,280 @@
+meta:
+  id: C3-B-05
+  title: 查找排序真题＋程序阅读题
+  stage: B真题
+  instructor: 牙膏学长
+  duration: 45min
+
+slides:
+  - type: cover
+    kicker: 重邮802 数据结构代码课程
+    title: 数据结构题型实战阶段
+    subtitle: 第7节 查找排序真题＋程序阅读题
+    meta: 阶段：题型实战 ｜ 主讲：牙膏学长 ｜ 预计45分钟 ｜ 资料答疑：伴梦研途QQ群
+
+  - type: content
+    badge: 真题·2021
+    kicker: 2021 双调序列 · 题面
+    title: 题面与'尽可能高效'这个提示（先按暂停自己写）
+    blocks:
+      - type: text
+        text: "题面：一个先递增后递减的序列称为双调序列，请设计一个尽可能高效的算法，找到由 n 个数组成的双调序列中最大的关键值。"
+      - type: bullets
+        items:
+          - "认结构：数组、先升后降、峰值唯一；'尽可能高效'四个字就是在说——扫一遍 O(n) 不合格，要 O(logn)"
+          - "选模板：模板9 折半框架改判定；有序（局部有序）里找特定位置，就是折半的地盘"
+          - "改条件的核心：把'与 key 比大小'换成'看 mid 在上升段还是下降段'"
+      - type: note
+        text: "先按暂停自己写；提示：mid 处比较的对象不是 key，是它的左右邻居"
+
+  - type: content
+    kicker: 2021 双调 · 判定推导
+    title: 判定条件怎么推：mid 的三种处境
+    blocks:
+      - type: bullets
+        items:
+          - "处境一 A[mid-1] > A[mid]：mid 在下降段——峰值在左边，但 **mid 左边那个可能就是峰值**，所以 right = mid（把 mid 留在区间里）"
+          - "处境二 A[mid+1] > A[mid]：mid 在上升段——峰值在右边，mid 自己一定不是峰值，所以 left = mid + 1（排除 mid）"
+          - "处境三 两边都不满足：左邻居不比它大、右邻居也不比它大，mid 自己就是峰值，直接返回 A[mid]"
+      - type: note
+        text: "right=mid 与 left=mid+1 的不对称是这一类题的通用难点：mid 可能是答案时不能排除它，一定不是答案时才排除"
+
+  - type: content
+    kicker: 2021 双调 · 代码
+    title: 完整代码与边界
+    blocks:
+      - type: code
+        text: |
+          int binary_search(int A[], int n){
+              if(n <= 0) return -1;
+              int left = 0, right = n - 1, mid;
+              while(left < right){
+                  mid = (left + right) / 2;
+                  if(mid>=1 && A[mid-1]>A[mid]) right = mid;         // 下降段，峰在左
+                  else if(mid<n-1 && A[mid+1]>A[mid]) left = mid+1;  // 上升段，峰在右
+                  else return A[mid];                                 // mid 就是峰
+              }
+              return A[left];
+          }
+      - type: bullets
+        items:
+          - "边界两处：mid>=1 防止读 A[-1]；mid<n-1 防止读 A[n]——序列端点也可能是峰值（纯递减时峰在 A[0]）"
+          - "循环终止 left==right，返回 A[left]；复杂度时间 O(logn) 每轮区间减半、空间 O(1)"
+          - "**最容易丢的分**：把 right=mid 写成 right=mid-1——峰值恰好是 mid 时被排除，漏解"
+      - type: note
+        text: "评分点：思想段写清'用折半框架，判定条件改为比较 mid 与邻居'；不对称的理由写一句就是采分点"
+
+  - type: content
+    badge: 真题·2020
+    kicker: 2020 逆序对 · 题面
+    title: 题面与 n≤30000 这个提示
+    blocks:
+      - type: text
+        text: "题面：一个序列由 n（n≤30000）个不大于 200 的正整数构成，设计一个时间复杂度尽可能小的算法求其逆序对个数。"
+      - type: bullets
+        items:
+          - "认结构：数组；逆序对定义——i<j 且 A[i]>A[j] 的 (i,j) 对数"
+          - "n≤30000 就是在排除 O(n²)：三万的平方是九亿，超时；O(nlogn) 是四十多万，可以"
+          - "选模板：模板10 归并加计数——强化阶段第10节讲过完整推导，这里直接用它解题"
+      - type: note
+        text: "'值不大于200'也是个提示：计数数组也能做，但归并法更通用、是模板，主推归并"
+
+  - type: content
+    kicker: 2020 逆序对 · 关键一行
+    title: 在 Merge 里加一行：count += mid - i + 1
+    blocks:
+      - type: code
+        text: |
+          int merge(int A[], int temp[], int left, int mid, int right){
+              for(int k=left;k<=right;k++) temp[k]=A[k];      // 先复制到辅助表
+              int i=left, j=mid+1, k=left, count=0;
+              while(i<=mid && j<=right){
+                  if(temp[i]<=temp[j]) A[k++]=temp[i++];
+                  else{ count += mid-i+1;  A[k++]=temp[j++]; }   // 关键一行
+              }
+              while(i<=mid) A[k++]=temp[i++];
+              while(j<=right) A[k++]=temp[j++];
+              return count;
+          }
+      - type: bullets
+        items:
+          - "改条件就一处：右半元素被选中时，左半从 i 到 mid 全部大于它且下标在前，一次加 mid-i+1 个逆序对"
+          - "递归结构：MergeSort 返回 左半count + 右半count + 合并count，每层只管跨段的那部分"
+          - "写成 count++ 是最常见错：只算了一对，漏了左半剩下的全部"
+      - type: note
+        text: "先复制到 temp 再合并，避免边合并边覆盖；复杂度时间 O(nlogn)、空间 O(n)"
+
+  - type: content
+    kicker: 逆序对 · 过程页
+    title: 六元素归并加计数：count 怎么分层累加（拿纸跟画）
+    blocks:
+      - type: diagram
+        diagram: array
+        cells: [3, 1, 4, 2, 6, 5]
+        indices: true
+        w: 7.5
+        h: 1.2
+        align: center
+      - type: bullets
+        items:
+          - "递归拆：[3,1,4] 与 [2,6,5]，再拆到单元素，两两合并"
+          - "左半内部：合并 [3] 与 [1,4] 时，3>1 触发 count += 1；右半内部：合并 [6,5] 时 6>5 触发 count += 1"
+          - "顶层合并 [1,3,4] 与 [2,5,6]：取 2 时左半剩 3、4 都比 2 大，count += mid-i+1 = 2"
+          - "总 count = 1 + 1 + 2 = 4；验证：逆序对是 (3,1)、(3,2)、(4,2)、(6,5)，正好 4 对"
+      - type: note
+        text: "你跟着把每层合并的 i、j、count 标出来——每层只管跨段对，子层算好的直接加起来，这就是递归结构的价值"
+
+  - type: content
+    kicker: Top-K 变式
+    title: Top-K 的两种解法与选择依据
+    blocks:
+      - type: table
+        head: [解法, 做法, 时间, 适用]
+        colW: [2.2, 5.0, 2.0, 2.3]
+        rows:
+          - [小根堆, 维护大小 k 的小根堆，扫一遍数组，比堆顶大就换堆顶再调整, O(nlogk), 数据流、n 极大]
+          - [快排划分, Partition 后看枢轴位置，只递归含第 k 大的那一侧, 平均O(n)最坏O(n²), 一次性数组要平均最快]
+      - type: bullets
+        items:
+          - "第 k 大用小根堆（堆顶是候选里最小的）、第 k 小用大根堆——堆的类型别记反"
+          - "题集勾画 6算46（数据流第 k 大）用堆、10答14（前 k 大最小比较次数）考选择依据"
+      - type: note
+        text: "选择依据一句话：数据一边来一边问，用堆；数组一次给全要平均最快，用划分"
+
+  - type: content
+    kicker: 程序阅读题 · 全景
+    title: 程序阅读题约 20 分：三类考法（已按三年真题核对）
+    blocks:
+      - type: table
+        head: [考法, 三年真题分布, 考什么]
+        colW: [2.8, 5.2, 3.5]
+        rows:
+          - [一 挖空补全, 2026阅读1、2025阅读2/3/4、2024阅读3/4（6题，最多）, 补循环边界、指针移动、递归参数、返回条件]
+          - [二 片段排序, 2024阅读2（1题）, 把打乱的代码段按正确顺序排]
+          - [三 功能与复杂度, 2025阅读1、2024阅读1/5（3题，常与前两类复合）, 说功能、算复杂度并给理由]
+      - type: bullets
+        items:
+          - "规律：阅读题考的全是学过的结构代码——链表队列、双链表、选择排序、拓扑、DFS 生成树"
+          - "所以第一步永远是认结构：读懂题目给的定义（字段名、有无头结点、下标起点），空就好填了"
+      - type: note
+        text: "20 分 4—5 小题，形式固定；三类考法各有套路，下面三页一类一页"
+
+  - type: content
+    kicker: 考法一 · 挖空补全
+    title: 挖空补全的四步做法
+    blocks:
+      - type: bullets
+        items:
+          - "第一步，读函数名、参数与返回值，猜整体功能——名字里就写着（DFSTree 就是 DFS 生成树）"
+          - "第二步，标出所有变量并说出各自含义：指针指向什么、下标从几起、visited 记什么"
+          - "第三步，看空格的位置定候选：循环条件空→想终止条件；赋值空→想指针移动或状态更新；调用空→想递归参数怎么变"
+          - "第四步，回代验证：把答案代进去走一个小例子，跑通了才算完"
+      - type: note
+        text: "常考的四类空：循环边界（i<n 还是 i<=n）、指针移动（p=p->next）、递归调用的参数、返回条件"
+
+  - type: content
+    kicker: 考法二 · 片段排序
+    title: 片段排序的三步做法
+    blocks:
+      - type: bullets
+        items:
+          - "第一步，找入口片段：含变量声明与初始化的那段一定在最前"
+          - "第二步，找依赖关系：哪一段用到了另一段定义的变量，被依赖的在前——按数据流排"
+          - "第三步，验证：按排好的顺序走一遍小例子；输出或返回的片段一定在最后"
+      - type: note
+        text: "口诀：声明初始化在最前，输出返回在最后，中间按'谁用谁先'排"
+
+  - type: content
+    kicker: 考法三 · 功能与复杂度
+    title: 功能与复杂度分析的写法
+    blocks:
+      - type: bullets
+        items:
+          - "功能的写法：用'这个函数做什么'的完整句式——例如'把链表逆置并返回新表头'；只写'处理链表'不给分"
+          - "复杂度的写法：一句结论加一句理由——'双层循环，外层 n 次内层平均 n/2 次，所以 O(n²)'；只写 O(n²) 不给理由会扣分"
+          - "递归代码说功能：先看终止条件（n=0 或 1 时返回什么），再看递归体（规模怎么缩小、返回值怎么合并）——正是递归三件套的读法"
+      - type: note
+        text: "这与基础阶段第1节的答题三件套一致：结论+理由，缺一扣分"
+
+  - type: content
+    kicker: 三类考法 · 真题例子
+    title: 各配一道真题：2026阅读1、2024阅读2、2024阅读5
+    blocks:
+      - type: code
+        text: |
+          void DFSTree(ALGraph G, int v) {          // 2026阅读1（3分）
+              visited[v] = true;
+              ArcNode *p = ____①____;
+              while (p != NULL) {
+                  if (!visited[p->adjvex]) ____②____;
+                  printf("Tree edge: %d -> %d\n", v, p->adjvex);
+                  p = p->nextarc;
+              }
+          }
+          // ① G.vertices[v].firstarc   ② DFSTree(G, p->adjvex)
+      - type: bullets
+        items:
+          - "①是赋值空→想'从哪开始扫邻居'：顶点表的第一条边；②是调用空→想递归参数：对未访问邻接点递归，递归边就是生成树的树边"
+          - "2024阅读2 片段排序：s 插入 p 之前——入口段是'存后继'，然后改指针，最后接回，按数据流排"
+          - "2024阅读5 描述递归功能：终止条件+递归体读法，一句'计算并返回××'的完整句式"
+      - type: note
+        text: "三道例子正好一类一道；回代验证：①②代进去，DFS 生成树的小例子跑一遍"
+
+  - type: content
+    kicker: 本节小结
+    title: 小结：两道算法题与三类阅读题
+    blocks:
+      - type: bullets
+        items:
+          - "双调序列：模板9 折半改判定，判定是'看 mid 与邻居'，不对称的 right=mid 是采分点"
+          - "逆序对：模板10 归并加计数，关键一行 count += mid-i+1，n≤30000 排除平方算法"
+          - "程序阅读题三类考法各有套路：挖空四步、片段三步、功能复杂度'结论+理由'——第一步永远是认结构"
+      - type: note
+        text: "17 道算法真题到此全部讲完；下一节冲刺总结：决策树、易错七条、17题回顾表、考场策略"
+
+  - type: content
+    kicker: 课后任务
+    title: 1道真题重写 ＋ 1组变式
+    blocks:
+      - type: bullets
+        items:
+          - "**真题重写**：2020 逆序对，计时 20 分钟，按三件套书写，关键一行的理由写进思想段"
+          - "**变式题**：题集勾画 10算26（有序数组合并，逆序对的前置）、6算46（数据流第 k 大，用小根堆）、10答14（前 k 大的最小比较次数）"
+          - "**阅读题练习**：10答10（读排序代码算执行次数，考法三）、2答9 与 2答10（读代码说功能与纠错，考法一与三）"
+      - type: note
+        text: "参考答案在本PPT最后两页，课后自行对照。阅读题的练习材料就是三年真题的 9 道，全部按三类套路走一遍"
+
+  - type: content
+    kicker: 参考答案 · 真题重写
+    title: 2020 逆序对参考答案（自行对照）
+    blocks:
+      - type: code
+        text: |
+          int reverseCoupleCount(int A[], int n){
+              int temp[n];  for(int i=0;i<n;i++) temp[i]=0;
+              return MergeSort(A, temp, 0, n-1);
+          }
+          int MergeSort(int A[], int temp[], int left, int right){
+              if(left >= right) return 0;
+              int mid=(left+right)/2, count=0;
+              count += MergeSort(A,temp,left,mid);
+              count += MergeSort(A,temp,mid+1,right);
+              count += merge(A,temp,left,mid,right);
+              return count;
+          }
+      - type: note
+        text: "merge 函数见本节代码合集；思想段写'归并时右半元素先出，左半剩余元素全部与它构成逆序对，一次累加 mid-i+1'；O(nlogn)/O(n)"
+
+  - type: content
+    kicker: 参考答案 · 变式题
+    title: 变式题参考答案（自行对照）
+    blocks:
+      - type: bullets
+        items:
+          - "10算26 有序数组合并：二路归并 Merge，三指针加两个收尾循环——逆序对的前置动作"
+          - "6算46 数据流第 k 大：小根堆维护 k 个最大候选，新元素比堆顶大就换堆顶再下沉调整；堆顶即第 k 大，O(nlogk)"
+          - "10答14 前 k 大的最小比较次数：选择类思路，n-k 次淘汰赛加堆调整；结论按教材的说法写并给理由"
+          - "10答10 读排序代码算执行次数：考法三套路——标变量、数基本语句执行次数、结论加理由"
+          - "2答9、2答10 读代码说功能与纠错：考法一与三复合——先猜功能再逐行核，纠错找'该判空没判、该复位没复'的位置"
+      - type: note
+        text: "阅读题对答案的标准：功能一句话句式完整、复杂度有理由、填空回代验证过"

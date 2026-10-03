@@ -1,0 +1,254 @@
+meta:
+  id: C3-B-02
+  title: 链表真题二：改动链的结构
+  stage: B真题
+  instructor: 牙膏学长
+  duration: 45min
+
+slides:
+  - type: cover
+    kicker: 重邮802 数据结构代码课程
+    title: 数据结构题型实战阶段
+    subtitle: 第4节 链表真题二：改动链的结构
+    meta: 阶段：题型实战 ｜ 主讲：牙膏学长 ｜ 预计45分钟 ｜ 资料答疑：伴梦研途QQ群
+
+  - type: content
+    kicker: 本节导引
+    title: 三道题的共同动作：断链、改、接回（模板3）
+    blocks:
+      - type: bullets
+        items:
+          - "2022 多项式分解（一条环链拆成两条）、2023 循环段倒置（局部区间逆置再接环，12分）、2020 双向循环改造（偶数位结点摘下来插到尾部）"
+          - "共同动作是模板3 断链拼接：断之前记住接口，改完接回；比上一节'顺着链走'难一档"
+          - "改指针的题一律先画改前改后两张图再写代码——C语言强化阶段练的'画图再写'在这里是保命动作"
+      - type: note
+        text: "三道题空间全是 O(1)：改结构不等于新建结点，'利用原结点空间'是这类题的默认约束"
+
+  - type: content
+    badge: 真题·2022
+    kicker: 2022 多项式分解 · 题面
+    title: 题面与'利用原结点空间'这个约束（先按暂停自己写）
+    blocks:
+      - type: text
+        text: "题面：设计一个算法，将一个用循环链表表示的稀疏多项式分解成两个多项式，使这两个多项式中各自仅含奇次项或偶次项，并要求利用原链表中的结点空间构成这两个链表。结点定义题目已给：typedef struct PolyNode{ float coef; int exp; struct PolyNode *next; }PolyNode;"
+      - type: bullets
+        items:
+          - "认结构①：循环链表（终止条件 p != L，不是 p != NULL）；结点两个域——系数 coef、指数 exp"
+          - "认结构②：'利用原结点空间'意味着数据结点不许新 malloc，只能新建两个头结点——违反这条直接扣思想分"
+          - "认结构③：判断依据是 exp 的奇偶，不是 coef"
+      - type: note
+        text: "先按暂停自己写；这道题材料没有解答，课程给的补写版已按真题原文核对"
+
+  - type: content
+    kicker: 2022 多项式分解 · 改条件
+    title: 拆表加头插：只新建两个头结点
+    blocks:
+      - type: code
+        text: |
+          void SplitPoly(PolyNode *L, PolyNode *&odd, PolyNode *&even){
+              odd=(PolyNode*)malloc(sizeof(PolyNode));  odd->next=odd;   // 两个新头结点各自成环
+              even=(PolyNode*)malloc(sizeof(PolyNode)); even->next=even;
+              PolyNode *p=L->next, *temp;
+              while(p != L){                          // 循环链表终止：回到头结点
+                  temp = p->next;                     // 先存后继
+                  if(p->exp % 2 == 0){ p->next=even->next; even->next=p; }
+                  else               { p->next=odd->next;  odd->next=p;  }
+                  p = temp;
+              }
+              free(L);                                // 原头结点已无用
+          }
+      - type: bullets
+        items:
+          - "选模板：拆表加头插（模板1 的变体）；改条件两处——判断依据换成 exp 奇偶、摘结点前先存后继"
+          - "头插会反序：题目没明确要求保持原顺序，两种都给分；若要求保序改尾插并维护两个 rear，答题时说明一句"
+      - type: note
+        text: "时间 O(n) 每结点处理一次；空间 O(1) 只新建两个头结点——这个 O(1) 正是'利用原空间'的体现，写进答案"
+
+  - type: content
+    badge: 真题·2023·12分
+    kicker: 2023 循环段倒置 · 题面
+    title: 题面与认结构：第 i 到第 m 个结点构成环
+    blocks:
+      - type: text
+        text: "题面（12分）：已知 L 为链表的头结点地址，表中共有 m（m>3）个结点，从表中第 i（1<i<m）个结点起到第 m 个结点构成一个循环部分链表。试设计一个时间复杂度为 O(n) 的算法 PattemInvertL(LinkList L, int i, int m)，将这部分循环链表中所有结点顺序完全倒置。给出算法思想和代码。"
+      - type: bullets
+        items:
+          - "认结构①：L 是头结点，第 1 到 i-1 个是普通链，第 i 到 m 个结点首尾成环（am 的 next 指回 ai）"
+          - "认结构②：函数签名题目给死了 PattemInvertL(LinkList L, int i, int m)，照抄"
+          - "认结构③：'时间 O(n)'排除了重新建结点的做法——只能改指针"
+      - type: note
+        text: "先按暂停自己写，这是七年真题里分值最高的链表题之一；给你三分钟"
+
+  - type: content
+    kicker: 2023 循环段倒置 · 四步法
+    title: 定位、局部头插、接环：模板1 用在区间上
+    blocks:
+      - type: bullets
+        items:
+          - "选模板：模板1 头插法，但只在局部区间上用；配模板3 的'记住接口'"
+          - "改条件①：先走 i-1 步定位到区间前驱 head——头插的目标是 head->next 而不是 L->next"
+          - "改条件②：循环次数是 m-i+1 次（j 从 i-1 数到 m-1）；p 与 rear 都从第 i 个结点出发，rear 记住区间起点——它倒置后变成尾"
+          - "改条件③：循环结束后接环一句 rear->next = head->next，把新的尾接回新的头，环才恢复"
+      - type: note
+        text: "三处改动全部来自题面条件：'第 i 个起'→定位；'循环部分链表'→接环；'完全倒置'→头插"
+
+  - type: content
+    kicker: 循环段倒置 · 过程页
+    title: m=6、i=3：环 a3→a4→a5→a6→a3 的倒置（拿纸跟画）
+    blocks:
+      - type: diagram
+        diagram: linkedlist
+        nodes: [a3, a4, a5, a6]
+        head: false
+        circular: true
+        w: 7.5
+        h: 1.3
+        align: center
+      - type: bullets
+        items:
+          - "① 定位：head 走 i-1=2 步停在 a2（区间前驱）；p = rear = head->next = a3"
+          - "② 头插 4 次（m-i+1）：每次摘 p 插到 head 后面；4 次之后 head 后依次是 a6→a5→a4→a3"
+          - "③ 接环：rear 还是 a3（倒置后它成了尾），rear->next = head->next 即 a3->next = a6"
+          - "④ 结果环：a6→a5→a4→a3→a6，与原来的 a3→a4→a5→a6→a3 方向完全相反"
+      - type: note
+        text: "整个过程没有新建结点、没有断链丢失：head 始终是锚点，rear 始终是接口——这就是'记住接口'的价值"
+
+  - type: content
+    kicker: 2023 循环段倒置 · 代码
+    title: 完整代码与边界
+    blocks:
+      - type: code
+        text: |
+          void PattemInvertL(LinkList L, int i, int m){
+              if(L == NULL || i <= 1 || i >= m) return;    // 边界：i 的合法范围 1<i<m
+              LNode *head = L;  int j = 0;
+              while(j < i - 1){ head = head->next; j++; }  // 定位区间前驱
+              LNode *p = head->next, *rear = head->next, *temp;
+              while(j < m){                                // 头插 m-i+1 次
+                  temp = p;  p = p->next;
+                  temp->next = head->next;  head->next = temp;
+                  j++;
+              }
+              rear->next = head->next;                     // 接环
+          }
+      - type: bullets
+        items:
+          - "边界：L 为 NULL、i<=1（区间从第一个数据结点起就没有'前驱'可锚）、i>=m（区间不足两个结点）直接返回"
+          - "复杂度：O(m) 定位与头插各走一趟，满足题目 O(n) 要求；空间 O(1)"
+          - "**最容易丢的分**：接环那句 rear->next = head->next——漏了整个链就断了；其次是循环次数边界（j 从 i-1 数到 m-1）"
+      - type: note
+        text: "12 分构成约：思想 3、代码 7、复杂度 2；思想段的采分点是'头插法在局部区间上用+最后接环'"
+
+  - type: content
+    badge: 真题·2020
+    kicker: 2020 双向循环改造 · 题面
+    title: 题面与目标序列：奇数位在前，偶数位逆序在后
+    blocks:
+      - type: text
+        text: "题面：将带头结点的双向循环链表 L=(a1,a2,a3,...,an) 改造为 L=(a1,a3,...,an,...,a4,a2)。"
+      - type: bullets
+        items:
+          - "认结构①：带头结点的**双向**循环链表——每个结点 prior 与 next 两个指针，改一次结构要动四条指针"
+          - "认结构②：目标序列读法——奇数位按原序在前，偶数位按原序的**逆序**在后（...a4,a2）"
+          - "认结构③：head->prior 就是尾结点（双向循环链表的性质），它是插入锚点"
+      - type: note
+        text: "先按暂停自己写；提示：偶数位结点依次摘下来插到尾部，后插的离尾结点近，自然形成偶数位逆序"
+
+  - type: content
+    kicker: 2020 双向循环改造 · 思路
+    title: 每轮摘一个偶数位结点插到尾部
+    blocks:
+      - type: bullets
+        items:
+          - "选模板：模板3 断链拼接（摘、移、插）；p 从 a1 开始，每轮 q = p->next 是偶数位结点，摘下来插到 rear 之后"
+          - "rear = head->prior 是原尾结点 an，**全程固定不动**：每轮把 q 插在 an 与'上一个已插结点'之间，后插的离 an 近，偶数位自然逆序"
+          - "p 跳到 q 原来的下一个（temp）继续；终止条件 p != rear 且 p->next != rear——p 走到尾或 q 已经是尾就停"
+          - "n<3 时不用改造（没有偶数位可移），开头的 if 一次拦三种情况"
+      - type: note
+        text: "以 n=6 验证：三轮摘 a2、a4 插尾，得 a1,a3,a5,a6,a4,a2——奇数位原序在前、偶数位逆序在后，正是目标"
+
+  - type: content
+    kicker: 2020 双向循环改造 · 代码
+    title: 四条指针逐条走：先摘干净，再接到尾
+    blocks:
+      - type: code
+        text: |
+          void transformList(DLinkList &head){
+              if(head==NULL || head->next==head || head->next->next==head) return;
+              DNode *rear = head->prior, *p = head->next, *q, *temp;
+              while(p != rear && p->next != rear){
+                  q = p->next;  temp = q->next;
+                  p->next = temp;  temp->prior = p;          // ①② 把 q 摘干净
+                  q->next = rear->next;  q->prior = rear;    // ③ q 认 rear 做前驱
+                  rear->next->prior = q;  rear->next = q;    // ④ 头结点与 q 互指
+                  p = temp;
+              }
+          }
+      - type: bullets
+        items:
+          - "四条指针两组：①②摘（p 与 temp 互接，q 脱离原位置）；③④插（q 接到 rear 后，rear->next 是头结点，所以④里改的是头结点的 prior）"
+          - "次序原则与双链表插入同一条：先把外部接好，最后动接口处——漏任何一条，环就断"
+          - "复杂度：时间 O(n) 每个偶数位结点处理一次；空间 O(1)"
+      - type: note
+        text: "材料原文类型名写 LinkList 但用了 prior 字段，按双向链表理解（课件写 DLinkList/DNode）；答题时抄题目给的类型名"
+
+  - type: content
+    kicker: 三题评分点对比
+    title: 三道题最容易丢的分
+    blocks:
+      - type: table
+        head: [题, 分值, 最容易丢的分]
+        colW: [3.5, 1.5, 6.5]
+        rows:
+          - [2022 多项式分解, 约10, 新 malloc 了数据结点，违反'利用原结点空间']
+          - [2023 循环段倒置, 12, 漏接环那句 rear->next=head->next，链断了]
+          - [2020 双向循环改造, 约10, 四条指针漏一条，环断了]
+      - type: bullets
+        items:
+          - "三题的共同丢分模式：改结构的题，'接口'没记住或没接回——所以先画改前改后两张图"
+          - "三题空间全是 O(1)，复杂度段写 O(1) 并给理由'只改指针不新建数据结点'"
+      - type: note
+        text: "改结构类真题的通用检查动作：写完代码问一句'有没有哪个结点没有人指向它了'——有就是漏了一句赋值"
+
+  - type: content
+    kicker: 本节小结与课后
+    title: 小结与课后任务
+    blocks:
+      - type: bullets
+        items:
+          - "三道题全是模板3 家族：多项式分解是'拆'（一条环链拆两条）、循环段倒置是'局部逆+接环'、双向改造是'摘+插尾'；共同保命动作是断链前记住接口"
+          - "**真题重写**：2023 循环段倒置，计时 25 分钟，按三件套书写，接环那句写完自己检查一遍"
+          - "**变式题**：题集勾画 2算42（多项式分解原题）、2算41（多项式求导，同样拆表+利用原空间）、2算31（一遍遍历填 prior 改双向循环）、2算27（单链表交集且利用 A 的空间）"
+      - type: note
+        text: "参考答案在本PPT最后两页，课后自行对照。下一节树真题：判BST、繁荣度、最长路径、建树"
+
+  - type: content
+    kicker: 参考答案 · 真题重写
+    title: 2023 循环段倒置参考答案（自行对照）
+    blocks:
+      - type: code
+        text: |
+          void PattemInvertL(LinkList L, int i, int m){
+              if(L==NULL || i<=1 || i>=m) return;
+              LNode *head=L;  int j=0;
+              while(j < i-1){ head=head->next; j++; }
+              LNode *p=head->next, *rear=head->next, *temp;
+              while(j < m){ temp=p; p=p->next;
+                  temp->next=head->next; head->next=temp; j++; }
+              rear->next=head->next;
+          }
+      - type: note
+        text: "思想段：定位区间前驱 head，对区间内 m-i+1 个结点逐个摘下单插到 head 之后（头插天然反序），rear 记住区间起点（倒置后为尾），最后接环；O(m)/O(1)"
+
+  - type: content
+    kicker: 参考答案 · 变式题
+    title: 变式题参考答案（自行对照）
+    blocks:
+      - type: bullets
+        items:
+          - "2算42 多项式分解：与课上 SplitPoly 同法；对照点——判断依据、只建两个头结点、原头结点 free"
+          - "2算41 多项式求导：遍历中改 coef=coef*exp、exp=exp-1，exp 变 0 的项摘除并 free——拆表变删除，仍是模板4 前驱跟随"
+          - "2算31 一遍遍历填 prior：p 走一趟，p->next->prior = p，最后把头结点的 prior 接到尾、尾的 next 接头——四条指针里补两条"
+          - "2算27 交集且利用 A 的空间：双指针同步走（两表都递增），相等就保留在 A、不等就删；B 的结点全部 free——模板4 的条件删除变体"
+      - type: note
+        text: "识别要点：'利用原空间'一律想到只建头结点+摘结点；'改造/重排'一律先画改前改后两张图"

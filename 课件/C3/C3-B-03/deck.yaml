@@ -1,0 +1,304 @@
+meta:
+  id: C3-B-03
+  title: 树真题
+  stage: B真题
+  instructor: 牙膏学长
+  duration: 45min
+
+slides:
+  - type: cover
+    kicker: 重邮802 数据结构代码课程
+    title: 数据结构题型实战阶段
+    subtitle: 第5节 树真题
+    meta: 阶段：题型实战 ｜ 主讲：牙膏学长 ｜ 预计45分钟 ｜ 资料答疑：伴梦研途QQ群
+
+  - type: content
+    kicker: 本节导引
+    title: 四道树真题的共同难点：递归中携带什么额外信息
+    blocks:
+      - type: table
+        head: [真题, 携带的信息, 模板]
+        colW: [3.8, 5.2, 2.5]
+        rows:
+          - [2024 判BST, 一个 prev 值（引用传递）, 模板15]
+          - [2024 繁荣度, 层号 height 与本层计数 width, 模板6]
+          - [2025 最长路径, path 与 maxPath 两个数组, 模板5变体]
+          - [2026 建树, 四个下标边界 preL/preR/inL/inR, 模板12]
+      - type: bullets
+        items:
+          - "树题的遍历骨架都会写，拉开差距的是'除了遍历还要带什么'——带一个值、带两个数组、带四个下标"
+          - "拿到树题先问：答案能不能由左右子树拼出来？不能，就想想要携带什么全局信息"
+      - type: note
+        text: "四道题按'携带信息'分类讲，这个分类本身就是本节的教学目标"
+
+  - type: content
+    badge: 真题·2024
+    kicker: 2024 判BST · 题面
+    title: 题面与第一认识：BST 的中序序列严格递增
+    blocks:
+      - type: text
+        text: "题面：编写代码及思想，判断一棵树是否为二叉排序树，结构体题目已给：typedef struct BiTNode{ int data; struct BiTNode *lchild, *rchild; }BiTNode, *BiTree;"
+      - type: bullets
+        items:
+          - "认结构：普通二叉链表，字段与材料一致；返回 1 是、0 不是"
+          - "第一认识：BST 的中序序列严格递增——所以判 BST 不用每个结点跟全树比，中序走一遍比较相邻两个值就够"
+          - "选模板：模板15 中序加 prev"
+      - type: note
+        text: "先按暂停自己写；提示：prev 要跨递归层共享，想想它该怎么传"
+
+  - type: content
+    kicker: 2024 判BST · 代码
+    title: prev 为什么用引用、初值为什么不能用 -1
+    blocks:
+      - type: code
+        text: |
+          int checkBST(BiTNode *node, int &prev);        // 先声明（材料漏了）
+          int JudgeBST(BiTree T){
+              int prev = INT_MIN;                        // 修正：不能写 -1
+              return checkBST(T, prev);
+          }
+          int checkBST(BiTNode *node, int &prev){
+              if(node == NULL) return 1;
+              if(!checkBST(node->lchild, prev)) return 0;   // 左子树短路
+              if(node->data <= prev) return 0;              // 必须严格大于
+              prev = node->data;
+              return checkBST(node->rchild, prev);
+          }
+      - type: bullets
+        items:
+          - "prev 必须引用：它是跨递归层共享的状态，值传递每层各有一份副本，比较就失效了"
+          - "初值 -1 的坑：隐含'所有结点值大于 -1'，树里有负数或 0 就错——用 INT_MIN，或答案里写明'设结点值均为正整数，prev 初值取 0'"
+          - "严格递增用 <=：BST 不允许相等值，node->data <= prev 就返回 0"
+      - type: note
+        text: "时间 O(n) 每结点访问一次，空间 O(树高) 递归栈；左子树失败直接短路返回，不再看右边"
+
+  - type: content
+    badge: 真题·2024
+    kicker: 2024 繁荣度 · 改三处
+    title: 繁荣度：从求宽度改三处就得到
+    blocks:
+      - type: code
+        text: |
+          int prosperity(BiTree T){
+              if(T == NULL) return 0;
+              int front=0, rear=-1, last=0;
+              BiTree Q[MaxSize], p;  Q[++rear] = T;
+              int total=0, width=0, height=1;             // 改①②：累加器+层号
+              while(front <= rear){
+                  p = Q[front++];  width++;
+                  if(p->lchild) Q[++rear] = p->lchild;
+                  if(p->rchild) Q[++rear] = p->rchild;
+                  if(front > last){                        // 本层出完
+                      total += height * width;             // 改③：累加层号×层宽
+                      last = rear;  height++;  width = 0;
+                  }
+              }
+              return total;
+          }
+      - type: bullets
+        items:
+          - "题目定义：繁荣度 = 每层结点数 × 该层层数，全部求和；选模板6 层序加 last 分层"
+          - "从求宽度改三处：maxwidth 换成累加器 total、加 height 计数器从 1 起、每层结算时 total += height×width——这就是'改条件'的标准示范"
+      - type: note
+        text: "边界：空树返回 0；height 从 1 起要与题目'层数'的定义一致（根在第 1 层）；时间 O(n)、空间 O(n) 队列"
+
+  - type: content
+    badge: 真题·2025
+    kicker: 2025 最长路径 · 题面与代码
+    title: 最长路径：pathLen 值传递、maxLen 引用的分工
+    blocks:
+      - type: text
+        text: "题面：给定一棵二叉树，输出从根结点到叶子结点的最长路径，打印路径的结点值，并输出该路径的长度。题目已给 BiTNode 定义与两个函数签名 longestPath、findLongestPath——先看题目给了什么，签名里参数的传递方式就是提示。"
+      - type: code
+        text: |
+          void longestPath(BiTree node, int path[], int pathLen, int maxPath[], int &maxLen){
+              if(node == NULL) return;
+              path[pathLen++] = node->data;               // 当前结点进路径
+              if(node->lchild==NULL && node->rchild==NULL){   // 到叶子才结算
+                  if(pathLen > maxLen){ maxLen = pathLen;
+                      for(int i=0;i<maxLen;i++) maxPath[i]=path[i]; }
+              }else{
+                  longestPath(node->lchild,  path, pathLen, maxPath, maxLen);
+                  longestPath(node->rchild, path, pathLen, maxPath, maxLen);
+              }
+          }
+      - type: note
+        text: "核心设计：pathLen 值传递——每层有自己的副本，从左子树递归回来自动恢复，不用手动回退；maxLen 引用——要被子层改写。两个要求'输出长度'与'打印结点值'都要做，漏一个丢分"
+
+  - type: content
+    kicker: 最长路径 · 过程页
+    title: 最长路径的递归：pathLen 怎么自动恢复（拿纸跟画）
+    blocks:
+      - type: image
+        src: assets/diagrams/b4-tree7.png
+        w: 6.5
+        h: 2.2
+        align: center
+        fit: contain
+      - type: bullets
+        items:
+          - "用这棵 7 结点的树走：根1 左2 右3，2 的左4 右5，3 的左6 右7；三条根到叶路径 1-2-4、1-2-5、1-3-6、1-3-7 长度都是 3"
+          - "递归到 4：path=[1,2,4]、pathLen=3，叶子结算 maxLen=3、maxPath 拷贝 [1,2,4]"
+          - "回到 2 这一层：pathLen 是值传递的副本，还是 2——自动恢复，不用写 pathLen--；递归进 5 时 path[2]=5 覆盖掉 4"
+          - "若 maxLen 也是值传递，叶子处的更新出了那层就丢了——所以必须引用"
+      - type: note
+        text: "'值传递自动恢复'正是C语言强化阶段引用与传参那一节的知识在真题里的直接应用；时间 O(n)、空间 O(树高)加两个 O(n) 数组"
+
+  - type: content
+    badge: 真题·2026·10分
+    kicker: 2026 建树 · 题面
+    title: 题面与认结构：A[1..n] 下标从 1 起
+    blocks:
+      - type: text
+        text: "题面（10分）：设一棵二叉树中结点的值互不相同，其先序序列和中序序列分别存于两个一维数组 A[1...n] 和 B[1...n] 中，试编写算法建立该二叉树的二叉链表。"
+      - type: bullets
+        items:
+          - "认结构①：**下标从 1 起**——这是题目给的基准，与课程材料 0 起不同，四个边界全部按 1 起算"
+          - "认结构②：'结点值互不相同'是能在中序里唯一定位根的前提——这个条件不说，算法就不成立，思想段要点一句"
+          - "选模板：模板12 递归建树区间划分；四步——定根、中序定位 k、算 leftLen、切两段递归"
+      - type: note
+        text: "先按暂停自己写，10 分的题给你四分钟；四个下标边界是最容易错一个的地方"
+
+  - type: content
+    kicker: 建树 · 过程页
+    title: 先序 1 2 4 5 3、中序 4 2 5 1 3：区间划分（拿纸跟画）
+    blocks:
+      - type: diagram
+        diagram: array
+        cells: ["", 1, 2, 4, 5, 3]
+        indices: true
+        highlight: [1]
+        pointers:
+          - label: preL
+            index: 1
+            position: above
+        w: 7
+        h: 1.4
+        align: center
+      - type: diagram
+        diagram: array
+        cells: ["", 4, 2, 5, 1, 3]
+        indices: true
+        highlight: [4]
+        w: 7
+        h: 1.4
+        align: center
+      - type: bullets
+        items:
+          - "① 根是先序第一个 A[1]=1；在中序里定位 k=4（B[4]=1）"
+          - "② leftLen = k - inL = 4 - 1 = 3：左子树 3 个结点（中序 4 2 5），右子树 1 个（中序 3）"
+          - "③ 切先序：左子树先序 A[2..4]=2 4 5，右子树先序 A[5..5]=3；递归建左右"
+          - "④ 左子树里根是 2、中序定位后 2 的左是 4 右是 5——建出来正是上面那棵树"
+      - type: note
+        text: "上图是先序（高亮根）、下图是中序（高亮根的位置 k）；四个边界 preL/preR/inL/inR 随递归不断缩小，preL>preR 时返回 NULL"
+
+  - type: content
+    kicker: 2026 建树 · 代码
+    title: 完整代码：leftLen 是切两段的桥梁
+    blocks:
+      - type: code
+        text: |
+          BiTree Build(BiTree &T, int A[], int B[], int preL, int preR, int inL, int inR){
+              if(preL > preR) return NULL;                 // 区间为空即空子树
+              T = (BiTNode*)malloc(sizeof(BiTNode));
+              T->data = A[preL];                           // 先序首元素是根
+              int k = inL;
+              while(B[k] != A[preL]) k++;                  // 中序定位根
+              int leftLen = k - inL;                       // 左子树结点个数
+              Build(T->lchild,  A,B, preL+1, preL+leftLen,   inL, k-1);
+              Build(T->rchild, A,B, preL+leftLen+1, preR, k+1, inR);
+              return T;
+          }
+      - type: bullets
+        items:
+          - "四个边界：左子树先序 preL+1 到 preL+leftLen、中序 inL 到 k-1；右子树先序 preL+leftLen+1 到 preR、中序 k+1 到 inR——最容易错一个，草稿上先画两个数组标边界再写"
+          - "复杂度：时间 O(n²)——每层定位根要在中序里扫一遍；空间 O(n) 递归栈"
+          - "加分思路一句：用哈希表存'中序值到下标'的映射，定位降到 O(1)、总体 O(n)——写进答案的思想段末尾"
+      - type: note
+        text: "10 分构成约：思想 2—3、代码 5—6、复杂度 1—2；边界写错一个，递归建出来的树就错半边"
+
+  - type: content
+    kicker: 四题评分点
+    title: 四道题最容易丢的分
+    blocks:
+      - type: table
+        head: [题, 模板, 最容易丢的分]
+        colW: [3.3, 2.2, 6.0]
+        rows:
+          - [2024 判BST, 15, prev 初值 -1 的假设没声明；prev 没用引用]
+          - [2024 繁荣度, 6, height 起点与题目层数定义不一致]
+          - [2025 最长路径, 5变体, 输出长度与打印结点值只做了一个]
+          - [2026 建树, 12, 四个下标边界错一个；忘说'值互不相同'的前提]
+      - type: bullets
+        items:
+          - "四题共同的采分习惯：把'携带的信息'写进思想段——判BST带prev、繁荣度带层号、最长路径带双数组、建树带四边界"
+      - type: note
+        text: "复杂度汇总：判BST O(n)/O(树高)；繁荣度 O(n)/O(n)；最长路径 O(n)/O(树高)+两数组；建树 O(n²)/O(n)"
+
+  - type: content
+    kicker: 一题多解与汇总
+    title: 一题多解：每题至少知道第二条路
+    blocks:
+      - type: bullets
+        items:
+          - "判BST 另解：中序遍历存进数组再检查是否严格递增——空间 O(n)，思路更直白，考场上想不起 prev 引用版就写这个"
+          - "繁荣度另解：递归按层统计——多传一个层号参数与一个每层计数数组，代码短但要多一个 O(层数) 数组"
+          - "最长路径另解：先求树高 h，再找'路径长度等于 h'的一条——两趟递归，不用双数组但要多写一个求高度"
+          - "建树另解：后序+中序（根在后序最后）、层序+中序（配合队列逐层定根）——定根位置变了，区间划分不变"
+      - type: note
+        text: "答题写一种即可；知道第二条路的价值是考场上第一条卡住时能换"
+
+  - type: content
+    kicker: 本节小结
+    title: 小结：树题先问'携带什么信息'
+    blocks:
+      - type: bullets
+        items:
+          - "四道题四个携带：prev 值（引用）、层号与层宽（last 结算）、path 与 maxPath（值传递自动恢复）、四个下标边界（leftLen 桥梁）"
+          - "认题路径：树题 → 先问答案能否由左右子树拼出 → 能，模板5 三件套；不能，想携带什么 → 中序有序性用模板15、按层统计用模板6、序列建树用模板12"
+      - type: note
+        text: "这四道题覆盖 2024—2026 三年的全部树题；树是七年真题第三大项（4 道），全部在这四道题的形态里"
+
+  - type: content
+    kicker: 课后任务
+    title: 1道真题重写 ＋ 1组变式
+    blocks:
+      - type: bullets
+        items:
+          - "**真题重写**：2026 先序中序建树，计时 25 分钟，要求四个下标边界全对、思想段写出'值互不相同'的前提"
+          - "**变式题**：题集勾画 6答28（中序加后序建树，改定根位置）、6答29（层序加中序建树，难一档）、6算21（输出长度等于 k 的所有路径）、6算20（繁茂度，繁荣度同族）、9算7（判 BST 另一版本）"
+      - type: note
+        text: "参考答案在本PPT最后两页，课后自行对照。下一节图真题：判拓扑、经过k的路径、长度k的路径、像素距离图"
+
+  - type: content
+    kicker: 参考答案 · 真题重写
+    title: 2026 建树参考答案（自行对照）
+    blocks:
+      - type: code
+        text: |
+          BiTree Build(BiTree &T, int A[], int B[], int preL, int preR, int inL, int inR){
+              if(preL > preR) return NULL;
+              T = (BiTNode*)malloc(sizeof(BiTNode));  T->data = A[preL];
+              int k = inL;  while(B[k] != A[preL]) k++;
+              int leftLen = k - inL;
+              Build(T->lchild,  A,B, preL+1, preL+leftLen, inL, k-1);
+              Build(T->rchild, A,B, preL+leftLen+1, preR, k+1, inR);
+              return T;
+          }
+          // 调用：Build(T, A, B, 1, n, 1, n)   注意题目下标 1 起
+      - type: note
+        text: "三件套思想段：先序首元素为根、中序定位划分左右、leftLen 切先序、递归；复杂度 O(n²)/O(n)，哈希表可优化到 O(n)"
+
+  - type: content
+    kicker: 参考答案 · 变式题
+    title: 变式题参考答案（自行对照）
+    blocks:
+      - type: bullets
+        items:
+          - "6答28 中序+后序建树：定根改成后序最后一个 B[preR]；中序定位 k 与 leftLen 的算法不变"
+          - "6答29 层序+中序建树：层序第一个是根；用队列逐层处理，每个结点在中序里定位后把左右子段的层序首元素入队"
+          - "6算21 输出长度等于 k 的所有路径：模板5变体，path 数组加 pathLen，到叶子且 pathLen==k 时输出——与最长路径同一骨架改判定"
+          - "6算20 繁茂度：与繁荣度同族，结算式按题目定义改（如层号平方×结点数）"
+          - "9算7 判BST：模板15；对照点——prev 引用、初值假设、严格递增用 <="
+      - type: note
+        text: "建树类的变式只改'定根位置'与'序列切分'两处；路径类的变式只改'结算条件'"

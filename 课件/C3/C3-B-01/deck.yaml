@@ -1,0 +1,286 @@
+meta:
+  id: C3-B-01
+  title: 链表真题一：顺着链走
+  stage: B真题
+  instructor: 牙膏学长
+  duration: 45min
+
+slides:
+  - type: cover
+    kicker: 重邮802 数据结构代码课程
+    title: 数据结构题型实战阶段
+    subtitle: 第3节 链表真题一：顺着链走
+    meta: 阶段：题型实战 ｜ 主讲：牙膏学长 ｜ 预计45分钟 ｜ 资料答疑：伴梦研途QQ群
+
+  - type: content
+    kicker: 本节导引
+    title: 三道题的共同点：顺着链走，不改链的结构
+    blocks:
+      - type: bullets
+        items:
+          - "2025 倒数第 k（走一趟找位置）、2021 有序链表三问（走一趟做三件事）、2026 约瑟夫环（绕环走并摘结点）"
+          - "难度递增：倒数第 k 一个动作 → 三问三个动作共享一次遍历 → 约瑟夫环建环、定位、报数、摘结点四个动作"
+          - "每道题固定四步：认结构、选模板、改条件、补边界；讲评重点是改了哪几处与最容易丢哪一分"
+      - type: note
+        text: "链表是七年真题的第一大项（6 道）；这三道全部建立在'走链'与'摘结点'两个基本动作上"
+
+  - type: content
+    badge: 真题·2025
+    kicker: 2025 倒数第k · 题面
+    title: 题面与认结构（先按暂停自己写）
+    blocks:
+      - type: text
+        text: "题面：给定一个单链表，找到倒数第 k 个元素。如果找到该元素，打印该元素的值并返回 1，否则返回 0。结点定义题目已给：typedef struct node{ int data; struct node *next; }LNode, *LinkList;"
+      - type: bullets
+        items:
+          - "认结构①：字段名 data、next 与课程材料一致，直接用"
+          - "认结构②：题目没说有头结点——按带头结点写（p、q 都从 L 出发）仍然正确，因为两个指针的差值关系与头结点无关；答题开头声明一句'设带头结点'"
+          - "认结构③：要求'找到打印并返回1，否则返回0'，返回值语义题目定死了"
+      - type: note
+        text: "先按暂停，自己按四步写一遍再往下听"
+
+  - type: content
+    kicker: 2025 倒数第k · 选模板改条件
+    title: 模板2 快慢指针，改两处
+    blocks:
+      - type: code
+        text: |
+          int findK(LinkList L, int k){
+              LNode *p = L, *q = L;                       // 都从头结点出发
+              while(k != 0 && q != NULL){ q = q->next; k--; }   // q 先走 k 步
+              if(q == NULL) return 0;                     // 改动②：k 超过表长
+              while(q != NULL){ q = q->next; p = p->next; }     // 同步走
+              printf("%d", p->data);                      // 改动①：找到要打印
+              return 1;
+          }
+      - type: bullets
+        items:
+          - "选模板：倒数第 k——模板2 快慢指针，q 先走 k 步再同步，q 到表尾时 p 恰好落后 k 个"
+          - "改条件①：题目要求'找到就打印'，返回前加 printf；改条件②：'否则返回0'，q 先走 k 步的过程中变 NULL 就是 k 超表长"
+          - "p、q 都从 L（头结点）出发是关键：头结点算一个位置，正好抵消掉，p 停下的位置就是倒数第 k 个数据结点"
+      - type: note
+        text: "算法原理（差值关系为什么成立）见数据结构强化阶段第1节，这里不重推"
+
+  - type: content
+    kicker: 2025 倒数第k · 评分点
+    title: 边界、复杂度与最容易丢的分
+    blocks:
+      - type: bullets
+        items:
+          - "边界：k 超过表长返回 0（q 先走时变 NULL）；空表 L->next==NULL 时 q 第一步就变 NULL，同样走返回 0 分支；k 按题意是正整数"
+          - "复杂度：时间 O(n) 只走一趟，空间 O(1) 两个指针——各配一句理由写进答案"
+          - "**最容易丢的分**：k 超过表长返回 0 这个分支，很多人只写主流程，边界分支整段没有，代码分扣 1—2 分"
+      - type: note
+        text: "一题多解：辅助栈法（模板14）全部压栈弹 k 次，空间 O(n)；要'输出倒数 k 个全部元素'时栈更自然。答题写一种即可，学有余力注一句'另解辅助栈'"
+
+  - type: content
+    badge: 真题·2021
+    kicker: 2021 有序链表 · 题面
+    title: 一道题三问，共享'表有序'这个条件
+    blocks:
+      - type: text
+        text: "题面：一个正整数序列组成的有序单链表，针对以下三个问题设计时间和空间复杂度最小的算法：① 确定序列中比正整数 x 大的数有几个（相同数值只计一次）；② 将比 x 小的数按递减次序排列；③ 将比 x 大的正偶数从链表中删除。"
+      - type: bullets
+        items:
+          - "认结构：带头结点的**有序**单链表、正整数——'有序'是三问共用的关键条件"
+          - "第一问用有序：值相同的结点必然相邻，'只计一次'只要跟上一个计入值比较"
+          - "第二问用有序：比 x 小的一段必然从表头开始连续分布，找到这段的尾就找到了断点"
+      - type: note
+        text: "先按暂停自己写三问；三问共约 12 分，第二问占一半以上"
+
+  - type: content
+    kicker: 2021 第一问
+    title: 比 x 大的数有几个：before 记住上一个计入值
+    blocks:
+      - type: code
+        text: |
+          int biggerCount(LinkList L, int x){
+              int before = -1, count = 0;
+              LNode *p = L->next;
+              while(p != NULL){
+                  int value = p->data;
+                  if(value > x && value != before){ count++; before = value; }
+                  p = p->next;
+              }
+              return count;
+          }
+      - type: bullets
+        items:
+          - "选模板：顺着走并统计，一趟遍历；改条件就一处——'相同值只计一次'翻译成 value != before"
+          - "before 的作用：表有序，相同值相邻，只要当前值不等于上一个**计入过**的值才计数并更新 before"
+          - "为什么不用 visited 数组：值域没给范围，而且有序性已经保证相同值相邻，一个变量就够——这就是'时间空间最小'的答案"
+      - type: note
+        text: "时间 O(n) 一趟，空间 O(1)；这一问约 3 分，是送分的，别在'只计一次'上丢"
+
+  - type: content
+    kicker: 2021 第二问
+    title: 比 x 小的按递减排列：断链、头插、接回（本节最难）
+    blocks:
+      - type: code
+        text: |
+          void reverseSmaller(LinkList &L, int x){
+              if(L==NULL || L->next==NULL || L->next->data>=x) return;
+              LNode *p = L;
+              while(p->next!=NULL && p->next->data<x) p=p->next;  // 找最后一个比x小的
+              LNode *q=p->next, *rear=L->next, *temp;
+              p->next=NULL;  p=rear->next;              // 断链；rear 是原第一个
+              while(p!=NULL){ temp=p; p=p->next;
+                  temp->next=L->next; L->next=temp; }   // 头插逆置
+              rear->next=q;                             // 原第一个成了尾，接回剩余
+          }
+      - type: bullets
+        items:
+          - "三步就是模板3 断链拼接：找到比 x 小那段的尾 p、断链、把这段头插逆置、接回"
+          - "**rear 记住原第一个结点**是本题的题眼：逆置后它变成这一段的尾，接回时靠它；不记住就要重新找尾，空间或时间就超了"
+          - "开头的 if 是边界：空表、单结点、第一个就大于等于 x（没有比 x 小的段）都直接返回"
+      - type: note
+        text: "时间 O(n) 两趟（找尾一趟、逆置一趟），空间 O(1)；这一问约 6 分，三问里最难，断链前记住接口是通用动作"
+
+  - type: content
+    kicker: 2021 第三问
+    title: 删除比 x 大的正偶数：模板4 条件删除
+    blocks:
+      - type: code
+        text: |
+          void removeBiggerEven(LinkList &L, int x){
+              LNode *p = L, *temp;
+              while(p->next != NULL){
+                  int value = p->next->data;
+                  if(value > x && value % 2 == 0){
+                      temp = p->next;
+                      p->next = temp->next;  free(temp);
+                  }else p = p->next;      // 只有不删除时才移动 p
+              }
+          }
+      - type: bullets
+        items:
+          - "选模板：模板4 条件删除前驱跟随；改条件一处——判断换成 value>x 且 value%2==0"
+          - "这个写法让 p 直接当前驱（检查的是 p->next），删除后 p 不动，下一个待检查结点自然紧跟 p"
+          - "材料解答里那句注释值得背：**只有不删除下一个元素的时候才移动 p**"
+      - type: note
+        text: "时间 O(n)，空间 O(1)；先 free 再取值是经典错，顺序永远是取值、改指针、再 free"
+
+  - type: content
+    kicker: 2021 三问 · 评分点
+    title: 三问的评分点：为什么第二问最难
+    blocks:
+      - type: table
+        head: [问, 模板, 最容易丢的分]
+        colW: [3.2, 3.3, 5.0]
+        rows:
+          - [① 计数, 一趟遍历+before, 相同值只计一次没翻译成 value!=before]
+          - [② 递减重排, 模板3 断链拼接, 断链前没记住 rear，接不回去]
+          - [③ 条件删除, 模板4 前驱跟随, 删除后还移动 p，跳过下一个结点]
+      - type: bullets
+        items:
+          - "三问共约 12 分：第一问约 3、第二问约 6、第三问约 3——第二问同时要做断链、逆置、接回三个动作，占一半"
+          - "答题策略：三问独立给分，第二问写不完也先把第一、三问写满"
+      - type: note
+        text: "三问共享'有序'条件的认识写进思想段，是思想分的采分点"
+
+  - type: content
+    badge: 真题·2026·8分
+    kicker: 2026 约瑟夫环 · 题面
+    title: 题面与认结构：这道题不带头结点
+    blocks:
+      - type: text
+        text: "题面（8分）：有 n 个人围成一个圈，编号 1~n。从第 s 个人开始报数，数到 m 的人出列，出列后的下一个人继续从 1 开始报数，重复直到圈中剩下最后一个人，返回其编号。"
+      - type: bullets
+        items:
+          - "认结构：循环单链表模拟，模板11；**题目没有头结点**——head 直接存 1 号，与课程默认'带头结点'不同，答题开头声明'不设头结点，首结点即 1 号'"
+          - "改条件三处：① 建环时 data 存编号 1~n；② 报数起点是第 s 个不是第 1 个，建完环先定位到 s 且 pre 跟随；③ 数到 m 出列，内层走 m-1 步"
+      - type: note
+        text: "先按暂停自己写；四步法里'认结构'这一步在这道题上就是 2 分的思想分来源"
+
+  - type: content
+    kicker: 约瑟夫环 · 过程页
+    title: n=5、s=1、m=3：建环、定位、报数（拿纸跟画）
+    blocks:
+      - type: diagram
+        diagram: linkedlist
+        nodes: [1, 2, 3, 4, 5]
+        head: false
+        circular: true
+        w: 8.5
+        h: 1.3
+        align: center
+      - type: bullets
+        items:
+          - "① 建环：1 号当 head，依次接 2~5 号，最后 r->next=head 成环；pre 初始指 r（尾结点）"
+          - "② 定位：s=1，p 已经在 1 号，不用走；若 s=3 则 p 走两步、pre 跟随"
+          - "③ 报数出列：从 1 报起，数到 3 是 3 号出列（pre->next 跨过、free、p 重取）；再从 4 号报 1，数到 3 是 1 号出列……直到 p->next==p 只剩一个"
+          - "只剩一个的判定 p->next==p：自己指向自己；n=5、m=3 最后剩 4 号"
+      - type: note
+        text: "pre 必须全程跟随：摘结点必须知道前驱；报数 m-1 步与摘除是内循环+三句"
+
+  - type: content
+    kicker: 约瑟夫环 · 完整代码
+    title: 完整代码、边界与复杂度
+    blocks:
+      - type: code
+        text: |
+          int Josephus(int n, int s, int m){
+              LNode *head=(LNode*)malloc(sizeof(LNode)); head->data=1; LNode *r=head;
+              for(int i=2;i<=n;i++){ LNode *p=(LNode*)malloc(sizeof(LNode));
+                  p->data=i; r->next=p; r=p; }
+              r->next=head;                                    // 成环
+              LNode *p=head, *pre=r;
+              while(p->data!=s){ pre=p; p=p->next; }             // 定位第 s 个
+              while(p->next!=p){                                 // 只剩一个时停
+                  for(int i=1;i<m;i++){ pre=p; p=p->next; }      // 报 m-1 步
+                  pre->next=p->next; free(p); p=pre->next;       // 摘除
+              }
+              return p->data;
+          }
+      - type: bullets
+        items:
+          - "边界：m=1 时内循环不走、每轮直接摘当前结点；s 按题意在 1~n 内，若可能超范围可走 (s-1)%n 步（加分处理，不写不扣分）"
+          - "复杂度：时间 O(nm)——n 个人各出列一次、每次报数走 m 步；空间 O(n)——建了 n 个结点"
+          - "**最容易丢的分**：'从第 s 个开始'这个条件，很多人默认从 1 号开始报；其次是复杂度写不出 O(nm) 的理由"
+      - type: note
+        text: "8 分构成约：思想 2、代码 4—5、复杂度 1—2；出列后 free 是代码分的细节采分点"
+
+  - type: content
+    kicker: 本节小结与课后
+    title: 小结与课后任务
+    blocks:
+      - type: bullets
+        items:
+          - "三道题一个共同动作：走链。倒数第 k 用差值、三问用有序、约瑟夫环用环——认结构时把'有序/环/无头结点'这些条件圈出来，它们就是改条件的清单"
+          - "**真题重写**：2026 约瑟夫环，计时 20 分钟，按三件套书写（含结构声明那一句）"
+          - "**变式题**：题集勾画 2算6（倒数第 k 原题对照自己的写法）、2算30（无头指针循环链表删前驱）、2算37（双向循环链表奇偶重排，下一节预热）"
+      - type: note
+        text: "参考答案在本PPT最后两页，课后自行对照。下一节链表真题二：改动链的结构"
+
+  - type: content
+    kicker: 参考答案 · 真题重写
+    title: 2026 约瑟夫环参考答案（自行对照）
+    blocks:
+      - type: code
+        text: |
+          int Josephus(int n, int s, int m){
+              LNode *head=(LNode*)malloc(sizeof(LNode)); head->data=1;
+              LNode *r=head;
+              for(int i=2;i<=n;i++){ LNode *p=(LNode*)malloc(sizeof(LNode));
+                  p->data=i; r->next=p; r=p; }
+              r->next=head;  LNode *p=head, *pre=r;
+              while(p->data!=s){ pre=p; p=p->next; }
+              while(p->next!=p){
+                  for(int i=1;i<m;i++){ pre=p; p=p->next; }
+                  pre->next=p->next; free(p); p=pre->next; }
+              return p->data;
+          }
+      - type: note
+        text: "三件套书写：思想段写'循环单链表模拟，不带头结点，定位到 s 后报 m-1 步摘除'；复杂度段写 O(nm)/O(n) 各一句理由"
+
+  - type: content
+    kicker: 参考答案 · 变式题
+    title: 变式题参考答案（自行对照）
+    blocks:
+      - type: bullets
+        items:
+          - "2算6 倒数第 k：与课上 findK 同法；对照点——q 先走 k 步时判 NULL、返回值语义按题目"
+          - "2算30 无头指针循环链表删前驱：模板11 变体，无头指针时先绕环一周找到尾结点当'前驱起点'，终止条件 p!=L 换成绕回起点"
+          - "2算37 双向循环链表奇偶重排：模板3 断链拼接在双链表上的应用，每轮摘偶数位结点插到尾部，一次改四条指针（下一节 2020 真题同族）"
+      - type: note
+        text: "识别要点：报模板编号 → 圈出题目条件 → 一个条件对应一处改动"

@@ -1,0 +1,273 @@
+meta:
+  id: C3-A-02
+  title: 树图查找排序骨架
+  stage: A骨架
+  instructor: 牙膏学长
+  duration: 35min
+
+slides:
+  - type: cover
+    kicker: 重邮802 数据结构代码课程
+    title: 数据结构题型实战阶段
+    subtitle: 第2节 树图查找排序骨架
+    meta: 阶段：题型实战 ｜ 主讲：牙膏学长 ｜ 预计35分钟 ｜ 资料答疑：伴梦研途QQ群
+
+  - type: content
+    kicker: 骨架六 · 模板5
+    title: 递归三件套：终止、缩小、返回
+    blocks:
+      - type: code
+        text: |
+          int 某统计(BiTree T){
+              if(T == NULL) return 基准值;          // 终止
+              左 = 某统计(T->lchild);                // 缩小
+              右 = 某统计(T->rchild);
+              return 合并(左, 右, 本结点);           // 返回
+          }
+      - type: bullets
+        items:
+          - "题面特征：求高度、结点数、叶子数、判平衡、求镜像——凡是'整棵树的答案能由左右子树的答案拼出来'就用它"
+          - "三个实例只差两行：终止返回什么（高度返 0、叶子数在叶子处返 1）、怎么合并（max+1 或相加）"
+          - "重要变体'遍历中维护全局变量'：答案不由返回值拼出，而是递归途中更新全局量——2025 最长路径、求树的度都是这个变体"
+      - type: note
+        text: "拿到树题第一问：答案能不能由左右子树拼出来？能，套三件套；不能，想想要带什么全局信息"
+
+  - type: content
+    kicker: 骨架七 · 模板6
+    title: 层序加 last 分层：按层结算
+    blocks:
+      - type: code
+        text: |
+          int last = 0;                       // 本层最后一个结点在队列里的位置
+          while(front <= rear){
+              p = Q[front++];  本层计数++;
+              孩子入队;
+              if(front > last){               // 本层全部出队
+                  结算本层(层号, 本层计数);
+                  last = rear;  层号++;  本层计数 = 0;
+              }
+          }
+      - type: bullets
+        items:
+          - "题面特征：求宽度、繁荣度、按层统计——凡是'一层一层结算'的题"
+          - "核心一句 if(front > last)：队头越过了本层最后一个，说明本层出完了，结算并把 last 更新为当前队尾"
+          - "改条件示范：求宽度把结算改成取 max；2024 繁荣度改成累加 层号×本层个数——从已知算法改三处就是新题"
+      - type: note
+        text: "last 的初值与更新时机是这个骨架唯一的难点，画一个三层树的队列走一遍就清楚了"
+
+  - type: content
+    kicker: 骨架八 · 模板15
+    title: 中序加 prev：有序性校验
+    blocks:
+      - type: code
+        text: |
+          int check(BiTNode *node, int &prev){
+              if(node == NULL) return 1;
+              if(!check(node->lchild, prev)) return 0;   // 左子树短路
+              if(node->data <= prev) return 0;           // 当前值必须严格大于前一个
+              prev = node->data;
+              return check(node->rchild, prev);
+          }
+      - type: bullets
+        items:
+          - "题面特征：判 BST、有序性校验——BST 的中序序列严格递增，所以中序遍历时比较相邻两个值就够"
+          - "prev 必须用引用：它是跨递归层共享的状态，值传递每层各有一份就失效了"
+          - "prev 初值是坑：写 -1 隐含'所有值大于 -1'，树里有负数就错——用 INT_MIN，或在答案里写明'设结点值均为正整数'"
+      - type: note
+        text: "2024 年真题考过判 BST；这个'中序+一个游走变量'的形态还会出现在各种有序性校验的变体里"
+
+  - type: content
+    kicker: 骨架九 · 模板12
+    title: 递归建树：区间划分四步
+    blocks:
+      - type: code
+        text: |
+          BiTree Build(int A[], int B[], int preL, int preR, int inL, int inR){
+              if(preL > preR) return NULL;               // 区间为空
+              根 = A[preL];                               // 先序第一个是根
+              在中序 B[inL..inR] 里定位根的位置 k;
+              leftLen = k - inL;                          // 左子树结点个数
+              左 = Build(A, B, preL+1, preL+leftLen, inL, k-1);
+              右 = Build(A, B, preL+leftLen+1, preR, k+1, inR);
+          }
+      - type: bullets
+        items:
+          - "题面特征：由遍历序列构造二叉树——先序+中序、后序+中序、层序+中序都行，唯独没有中序不行（分不清左右）"
+          - "定根看哪里：先序看第一个、后序看最后一个；再用中序把序列切成左右两段"
+          - "四个下标边界最容易错一个：leftLen 是桥梁，用它把另一个序列也切成两段"
+      - type: note
+        text: "2026 年 10 分真题；认结构时看清题目数组下标从几起——2026 那道题是 A[1..n]，1 起"
+
+  - type: content
+    kicker: 骨架十 · 模板7
+    title: DFS 回溯：visited 标记与复位
+    blocks:
+      - type: code
+        text: |
+          bool dfs(图, int u, 目标, bool visited[]){
+              if(u == 目标) return true;
+              visited[u] = true;                    // 进：标记
+              for(每个邻居 v)
+                  if(!visited[v] && dfs(图, v, 目标, visited)) return true;
+              visited[u] = false;                   // 退：复位（回溯）
+              return false;
+          }
+      - type: bullets
+        items:
+          - "题面特征：找路径、经过某点、所有简单路径、长度 k 的路径——图有环，不标记会绕圈"
+          - "复位的时机：这条路走不通、要退回去试别的路之前复位；找到答案直接 return true 时可以不复位"
+          - "多段搜索之间必须全部复位：2025 真题'u 到 v 经过 k'拆成 u→k 与 k→v 两段，两段之间不清 visited 会误判"
+      - type: note
+        text: "与'判连通'的区别：判连通一次性标记从不复位，找路径必须回溯复位——两种写法并排记"
+
+  - type: content
+    kicker: 骨架十一 · 模板8
+    title: BFS 分层与多源 BFS
+    blocks:
+      - type: code
+        text: |
+          // 分层：队列 + last 结算层号（与骨架七同一机制）
+          // 多源版只差第一步：
+          for(每个源点 s){ dist[s] = 0; 入队(s); }     // 全部源点先入队
+          while(队不空){
+              u = 出队;
+              for(每个邻居 v) if(dist[v] == -1){ dist[v] = dist[u] + 1; 入队(v); }
+          }
+      - type: bullets
+        items:
+          - "题面特征：无权图最短步数、距离图、像素距离——BFS 逐层扩散的性质保证第一次到达就是最短"
+          - "多源与单源只差第一步：所有源点先全部入队且 dist 置 0，其余完全一样"
+          - "dist 数组可以兼作 visited：-1 表示未访问，省一个数组；入队时就标记，不是出队时"
+      - type: note
+        text: "2023 像素距离图（多源 BFS）是当年最难的题，突破口就一句话：反过来从所有白像素同时扩散"
+
+  - type: content
+    kicker: 骨架十二 · 模板9
+    title: 折半框架改判定
+    blocks:
+      - type: code
+        text: |
+          while(left < right){
+              mid = (left + right) / 2;
+              if(判定(mid) 说明答案在左半（含 mid）) right = mid;
+              else left = mid + 1;
+          }
+          return A[left];
+      - type: bullets
+        items:
+          - "题面特征：双调序列峰值、旋转数组找位置、第一个满足条件的位置——有序或局部有序里找一个特定位置"
+          - "改的就是判定条件：折半查找判定是'与 key 比大小'，双调峰值判定是'看 mid 在上升段还是下降段'"
+          - "right=mid 与 left=mid+1 的不对称是通用难点：mid 可能是答案时不能排除它（right=mid），一定不是答案时才排除（left=mid+1）"
+      - type: note
+        text: "2021 双调序列真题；'尽可能高效'四个字就是在暗示 O(logn) 折半，别扫一遍"
+
+  - type: content
+    kicker: 骨架十三 · 模板10
+    title: 归并加计数
+    blocks:
+      - type: code
+        text: |
+          while(i <= mid && j <= right){
+              if(temp[i] <= temp[j]) A[k++] = temp[i++];
+              else{
+                  count += mid - i + 1;        // 关键一行
+                  A[k++] = temp[j++];
+              }
+          }
+      - type: bullets
+        items:
+          - "题面特征：逆序对、跨越两半的统计——凡是'一对元素分属左右两半'的计数都可能在归并里顺手算掉"
+          - "关键一行的道理：右半元素被选中时，左半从 i 到 mid 的全部元素都比它大且下标在前，一次加 mid-i+1 个"
+          - "写成 count++ 是最常见错：只算了一对，漏了左半剩下的全部"
+      - type: note
+        text: "2020 逆序对真题；题目给 n≤30000 就是在排除 O(n²) 双重循环"
+
+  - type: content
+    kicker: 骨架十四 · 模板14
+    title: 辅助栈逆序：要倒着处理就先压栈
+    blocks:
+      - type: bullets
+        items:
+          - "题面特征：判回文、倒数第 k、非递归后序遍历——凡是'需要倒着处理'而结构只能顺着走时，用栈把顺序翻过来"
+          - "三个标准用法：前半压栈后半比对（判回文）、全压栈弹 k 次（倒数第 k）、双栈逆序（非递归后序）"
+          - "强化阶段第3、4节讲透了，这里只报卡：看到'倒着'想栈"
+      - type: note
+        text: "它常作为其他题的第二解法出现，答题时写'另解：辅助栈'能展示一题多解"
+
+  - type: content
+    kicker: 骨架十五 · 模板13
+    title: 入度表法：拓扑与判环
+    blocks:
+      - type: bullets
+        items:
+          - "三步：求全部顶点的入度 → 入度为 0 的入栈、出栈输出、后继入度减 1、减到 0 再入栈 → 输出的顶点数少于总数说明有环"
+          - "题面特征：拓扑排序、验证拓扑序列、判环"
+          - "验证序列不需要真排序：按给定顺序模拟，每检查一个顶点看它当前入度是否为 0，不为 0 就说明它的前驱没排在它前面"
+          - "强化阶段第6节讲过求入度的代码：遍历所有顶点的边表，指向谁谁的入度加一"
+      - type: note
+        text: "2026 年 12 分真题考验证拓扑序列，思想分的大头就是'不真排序、按给定顺序模拟'这个认识"
+
+  - type: content
+    kicker: 决策表
+    title: 三问定模板：结构、操作、约束
+    blocks:
+      - type: table
+        head: [问一：什么结构, 候选模板]
+        colW: [4.0, 7.5]
+        rows:
+          - [单链表, 模板1、2、3、4、14]
+          - [双链表 / 循环链表, 模板3、11]
+          - [二叉树, 模板5、6、12、15]
+          - [图（矩阵或邻接表）, 模板7、8、13]
+          - [数组, 模板9、10]
+      - type: bullets
+        items:
+          - "问二 做什么操作：走一遍并统计→5、6、8；改结构→1、3、4；找位置或值→2、9；验证序列→13；倒着处理→14"
+          - "问三 有什么约束：原地 O(1)→排除辅助数组解法；时间尽可能低→排除 O(n²)，想折半或归并；利用原结点空间→不许新 malloc；经过某点或某长度→模板7 加参数"
+      - type: note
+        text: "三问之后报出模板编号，再按四步法往下走；这张表第8节课会长成一棵决策树"
+
+  - type: content
+    kicker: 小结与课后
+    title: 小结与课后任务
+    blocks:
+      - type: bullets
+        items:
+          - "九个骨架收齐：树四个（5、6、15、12）、图两个（7、8）、查找排序两个（9、10）、加辅助栈14与入度表13，与上一节链表五个合成 15 张卡"
+          - "**默写题**：九个骨架各写一遍核心几行，并写出对应的模板编号"
+          - "**识别题**：五道题面（题集勾画 6算20 繁茂度、7算18 长度k的简单路径、9算7 判BST、10算26 有序数组合并、2算32 拆表），只报模板编号与改动点，不写代码"
+      - type: note
+        text: "参考答案在本PPT最后两页，课后自行对照。下一节开始真题精讲：链表真题一"
+
+  - type: content
+    kicker: 参考答案 · 默写题
+    title: 默写题参考答案（自行对照）
+    blocks:
+      - type: code
+        text: |
+          模板5 : if(T==NULL) return 基准值; 左右递归; return 合并;
+          模板6 : if(front>last){ 结算本层; last=rear; }
+          模板15: 中序里 if(当前<=prev) return 0; prev=当前;（prev 用引用）
+          模板12: 根=A[preL]; 中序定位k; leftLen=k-inL; 递归两段
+          模板7 : visited[u]=true; 递归邻居; 走不通则 visited[u]=false;
+          模板8 : 多源先把全部源点入队 dist=0; 逐层 dist[v]=dist[u]+1
+          模板9 : while(left<right){ if(判定) right=mid; else left=mid+1; }
+          模板10: 右半先出时 count += mid-i+1
+          模板13: 求入度 → 按序检查入度为0 → 减后继入度
+          模板14: 要倒着处理先压栈（判回文/倒数第k/双栈后序）
+      - type: note
+        text: "默写标准：合上资料能写出核心几行并报出模板编号"
+
+  - type: content
+    kicker: 参考答案 · 识别题
+    title: 识别题参考答案（自行对照）
+    blocks:
+      - type: bullets
+        items:
+          - "6算20 繁茂度：模板6 层序加 last——改动点：结算从取 max 改成累加 层号×本层个数"
+          - "7算18 长度k的简单路径：模板7 DFS 回溯——改动点：递归多带一个 depth 参数，depth==k 时成功；k 上界 vexnum-1"
+          - "9算7 判BST：模板15 中序加 prev——改动点：prev 用引用、初值处理负数假设"
+          - "10算26 有序数组合并：二路归并 Merge——改动点：三指针加两个收尾循环；若问逆序对则加模板10 的计数行"
+          - "2算32 拆表：模板1 头插的变体——改动点：按奇偶（或其他条件）分别头插到两个新链，利用原结点空间只建头结点"
+      - type: note
+        text: "识别标准：30 秒内报出模板编号与改动点；这五道正是后面五节真题课的预热形态"
