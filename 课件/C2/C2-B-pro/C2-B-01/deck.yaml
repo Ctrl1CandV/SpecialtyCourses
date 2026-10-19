@@ -1,0 +1,454 @@
+# C2-B-01 优化版：按安全区重新排版，补入三张逐步演示页。
+meta:
+  id: C2-B-01
+  title: 导学＋线性表算法一
+  stage: B强化
+  instructor: 牙膏学长
+  duration: 45min
+slides:
+- type: cover
+  kicker: 重邮802 数据结构代码课程
+  title: 数据结构强化阶段
+  subtitle: 第1节 导学＋线性表算法一
+  meta: 阶段：强化 ｜ 主讲：牙膏学长 ｜ 预计45分钟 ｜ 资料答疑：伴梦研途QQ群
+- type: content
+  badge: 课段导学
+  kicker: 课段导学 · 位置
+  title: 这个课段管算法分析题的30分
+  blocks:
+  - type: table
+    head:
+    - 802题型
+    - 分值
+    - 这个课段怎么帮你拿
+    rows:
+    - - 程序阅读题
+      - 约20分
+      - 读指针代码判断结果，改指针是基本功
+    - - 算法分析题
+      - 3题30分
+      - 每节4到7个模板，认得出、写得出、算得对复杂度
+  - type: bullets
+    items:
+    - 基础阶段给你零件：每个结构的定义、初始化、增删查；强化阶段把零件组装成能上考场的算法
+    - 学完的标志：对着没见过的表、树、图、查找、排序问题，说出套哪个模板、按五步写出代码、给出复杂度
+    - 上一阶段的内容默认你会：本节从头用到尾的带头结点单链表，定义见数据结构基础阶段第3节
+- type: content
+  badge: 课段导学
+  kicker: 课段导学 · 目录
+  title: 强化阶段十节课的目录
+  blocks:
+  - type: table
+    head:
+    - 节次
+    - 主题
+    - 拿走什么
+    rows:
+    - - 第1节
+      - 导学＋线性表算法一
+      - 逆置、倒数第k、条件删除、交换相邻
+    - - 第2节
+      - 线性表算法二
+      - 归并成递减、重排、约瑟夫环
+    - - 第3节
+      - 栈队应用与串匹配
+      - 括号匹配、后缀表达式、KMP
+    - - 第4—5节
+      - 树算法
+      - 递归三件套、判完全平衡、哈夫曼
+    - - 第6—7节
+      - 图算法
+      - 遍历应用、拓扑、生成树与最短路
+    - - 第8—10节
+      - 查找与排序
+      - 哨兵折半、BST、快排堆排、归并比较
+- type: content
+  badge: 课段导学
+  kicker: 课段导学 · 怎么听
+  title: 读指针代码，先认清入口、当前结点和边界
+  blocks:
+  - type: bullets
+    size: 16
+    items:
+    - 本节使用带头结点的单链表：L 保留表头，L->next 才是第一个数据结点。
+    - p 常指向当前正在处理的结点；pre 留在它前面；q 可以暂存还要继续走的后继。
+    - 普通单链表走到 NULL 结束，循环单链表走回 L 结束。代码里的终止条件要和结构对应。
+    - 写完后，从头结点顺着 next 走一遍，检查结果链是否完整。
+- type: content
+  badge: 正课开始
+  kicker: 方法论
+  title: 改链前，先确认后面还要用哪个地址
+  blocks:
+  - type: bullets
+    size: 16
+    items:
+    - 逆置时，头插会覆盖当前结点的 next；所以先把原后继保存在 p，再改连接。
+    - 删除时，保留前驱 pre；当前结点摘掉后，从 pre->next 取下一个待检查结点。
+    - 双链表交换时，先把两端接好，再改 p、q 之间的连接；否则会丢掉旧地址。
+- type: content
+  kicker: 原地逆置 · 模板1
+  title: 原地逆置：断成空表，逐个头插回去
+  blocks:
+  - type: code
+    text: "void InvertedList(LinkList &L){\n    if(L == NULL || L->next == NULL) return;\n    LNode *p = L->next, *temp;\n\
+      \    L->next = NULL;                       // 先断成空表\n    while(p != NULL){\n        temp = p;                      \
+      \   // 摘下当前结点\n        p = p->next;                      // 先存后继，否则下一步找不到\n        temp->next = L->next; L->next = temp;\
+      \   // 两句头插\n    }\n}\n"
+    size: 12
+  - type: bullets
+    items:
+    - 思想：把头结点后的链整个断开，成空表加一串待处理结点，逐个用头插法插回，头插天然反序
+    - 循环里四行有次序：先摘下、再存后继、最后两句头插
+    - 空间 O(1)：没有新开结点；时间 O(n)：每个结点摘下重接一次
+  layout: split
+  leftWidth: 7.25
+  columnLabels:
+  - 代码
+  - 读代码时留意
+  columns:
+  - - type: code
+      text: "void InvertedList(LinkList &L){\n    if(L == NULL || L->next == NULL) return;\n    LNode *p = L->next, *temp;\n\
+        \    L->next = NULL;                       // 先断成空表\n    while(p != NULL){\n        temp = p;                    \
+        \     // 摘下当前结点\n        p = p->next;                      // 先存后继，否则下一步找不到\n        temp->next = L->next; L->next\
+        \ = temp;   // 两句头插\n    }\n}\n"
+      size: 12
+  - - type: bullets
+      items:
+      - 思想：把头结点后的链整个断开，成空表加一串待处理结点，逐个用头插法插回，头插天然反序
+      - 循环里四行有次序：先摘下、再存后继、最后两句头插
+      - 空间 O(1)：没有新开结点；时间 O(n)：每个结点摘下重接一次
+      size: 14
+- type: content
+  kicker: 逆置推演
+  title: 普通逆置：断链后逐个头插（点击看结点如何变化）
+  blocks: []
+- type: content
+  kicker: 原地逆置 · 循环版
+  title: 循环单链表逆置：终止条件换 p 不等于 L，结尾接环
+  blocks:
+  - type: code
+    text: "void InvertedList(LinkList &L){\n    if(L == NULL || L->next == NULL) return;\n    LNode *p = L->next, *temp, *rear\
+      \ = p;   // rear 记下原首元\n    L->next = NULL;\n    while(p != L){                          // 与普通版差①：终止条件\n        temp\
+      \ = p; p = p->next;\n        temp->next = L->next; L->next = temp;\n    }\n    rear->next = L;                     \
+      \    // 差②：把环接回去\n}\n"
+    size: 12
+  - type: diagram
+    diagram: linkedlist
+    nodes:
+    - A
+    - B
+    - C
+    head: true
+    headLabel: L
+    circular: true
+    w: 3.6
+    h: 0.92
+    align: center
+  - type: bullets
+    items:
+    - 两处差异：走到 L 停止；最后 rear->next = L 接回环。
+    - rear 是原首元结点，逆置后成为尾结点。
+  layout: split
+  leftWidth: 7.25
+  columnLabels:
+  - 代码
+  - 读代码时留意
+  columns:
+  - - type: code
+      text: "void InvertedList(LinkList &L){\n    if(L == NULL || L->next == NULL) return;\n    LNode *p = L->next, *temp,\
+        \ *rear = p;   // rear 记下原首元\n    L->next = NULL;\n    while(p != L){                          // 与普通版差①：终止条件\n  \
+        \      temp = p; p = p->next;\n        temp->next = L->next; L->next = temp;\n    }\n    rear->next = L;         \
+        \                // 差②：把环接回去\n}\n"
+      size: 12
+  - - type: diagram
+      diagram: linkedlist
+      nodes:
+      - A
+      - B
+      - C
+      head: true
+      headLabel: L
+      circular: true
+      w: 3.6
+      h: 0.92
+      align: center
+    - type: bullets
+      items:
+      - 两处差异：走到 L 停止；最后 rear->next = L 接回环。
+      - rear 是原首元结点，逆置后成为尾结点。
+      size: 14
+- type: content
+  badge: 真题·2025
+  kicker: 倒数第k · 方法一
+  title: 快慢指针：q 先走 k 步，再两个人一起走
+  blocks:
+  - type: code
+    text: "int findK(LinkList &L, int k){\n    if(k <= 0) return 0;\n    LNode *p = L, *q = L;\n    while(k != 0 && q != NULL){\
+      \ q = q->next; k--; }   // q 先走 k 步\n    if(q == NULL) return 0;                            // k 超过表长\n    while(q !=\
+      \ NULL){ q = q->next; p = p->next; }      // 两个一起走\n    printf(\"%d\", p->data);\n    return 1;\n}\n"
+    size: 12
+  - type: bullets
+    items:
+    - 思想：q 先走 k 步，然后 p 与 q 同步走，q 到表尾时 p 恰好落后 k 个结点
+    - p 与 q 都从头结点 L 出发：头结点算一个位置正好抵消，p 指的才是倒数第 k 个数据结点
+    - 一趟 O(n)、空间 O(1)；k 超过表长时 q 先变成 NULL，返回 0
+  layout: split
+  leftWidth: 7.25
+  columnLabels:
+  - 代码
+  - 读代码时留意
+  columns:
+  - - type: code
+      text: "int findK(LinkList &L, int k){\n    if(k <= 0) return 0;\n    LNode *p = L, *q = L;\n    while(k != 0 && q !=\
+        \ NULL){ q = q->next; k--; }   // q 先走 k 步\n    if(q == NULL) return 0;                            // k 超过表长\n   \
+        \ while(q != NULL){ q = q->next; p = p->next; }      // 两个一起走\n    printf(\"%d\", p->data);\n    return 1;\n}\n"
+      size: 12
+  - - type: bullets
+      items:
+      - 思想：q 先走 k 步，然后 p 与 q 同步走，q 到表尾时 p 恰好落后 k 个结点
+      - p 与 q 都从头结点 L 出发：头结点算一个位置正好抵消，p 指的才是倒数第 k 个数据结点
+      - 一趟 O(n)、空间 O(1)；k 超过表长时 q 先变成 NULL，返回 0
+      size: 14
+- type: content
+  kicker: 倒数第k · 方法二
+  title: 辅助栈：全部压栈再弹 k 次，两法对比
+  blocks:
+  - type: code
+    text: "int findK(LinkList &L, int k){\n    SqStack S; InitStack(S);\n    LNode *p = L->next;\n    while(p != NULL){ Push(S,\
+      \ p); p = p->next; }   // 全部进栈\n    int i = 0;\n    while(!IsEmpty(S) && i < k){ Pop(S, p); i++; } // 弹 k 次\n    if(i\
+      \ == k){ printf(\"%d\", p->data); return 1; }\n    else return 0;\n}\n"
+    size: 12
+  - type: table
+    head:
+    - 方法
+    - 时间
+    - 空间
+    - 什么时候用
+    rows:
+    - - 快慢指针
+      - O(n)
+      - O(1)
+      - 只要倒数第 k 个
+    - - 辅助栈
+      - O(n)
+      - O(n)
+      - 倒数第 k 到倒数第 1 全输出这类变体
+  layout: split
+  leftWidth: 7.25
+  columnLabels:
+  - 代码
+  - 读代码时留意
+  columns:
+  - - type: code
+      text: "int findK(LinkList &L, int k){\n    SqStack S; InitStack(S);\n    LNode *p = L->next;\n    while(p != NULL){\
+        \ Push(S, p); p = p->next; }   // 全部进栈\n    int i = 0;\n    while(!IsEmpty(S) && i < k){ Pop(S, p); i++; } // 弹 k\
+        \ 次\n    if(i == k){ printf(\"%d\", p->data); return 1; }\n    else return 0;\n}\n"
+      size: 12
+  - - type: table
+      head:
+      - 方法
+      - 时间
+      - 空间
+      - 什么时候用
+      rows:
+      - - 快慢指针
+        - O(n)
+        - O(1)
+        - 只要倒数第 k 个
+      - - 辅助栈
+        - O(n)
+        - O(n)
+        - 倒数第 k 到倒数第 1 全输出这类变体
+- type: content
+  badge: 真题·2021
+  kicker: 条件删除 · 模板4
+  title: 条件删除：pre 跟着 p 走，删完 p 从 pre 后面重新取
+  blocks:
+  - type: code
+    text: "void DeleteIf(LinkList &L, int x){          // 删除所有大于 x 的结点\n    LNode *pre = L, *p = L->next, *temp;\n    while(p\
+      \ != NULL){\n        if(p->data > x){\n            temp = p; pre->next = p->next;  // 先摘链\n            free(temp);\n\
+      \            p = pre->next;                  // pre 不动，p 重新取\n        }else{ pre = p; p = p->next; }     // 不删才一起走\n\
+      \    }\n}\n"
+    size: 12
+  - type: bullets
+    items: &id001
+    - 单链表没有前驱指针，删 p 必须记住前驱 pre；摘链顺序是先改 pre 的 next，再 free
+    - 删完 pre 不动，p 从 pre 的 next 重新取：下一个待检查的结点紧跟在 pre 后面
+    - 删掉后还写 pre 等于 p，就跳过了下一个待检查的结点
+  layout: split
+  leftWidth: 7.25
+  columnLabels:
+  - 代码
+  - 读代码时留意
+  columns:
+  - - type: code
+      text: "void DeleteIf(LinkList &L, int x){          // 删除所有大于 x 的结点\n    LNode *pre = L, *p = L->next, *temp;\n    while(p\
+        \ != NULL){\n        if(p->data > x){\n            temp = p; pre->next = p->next;  // 先摘链\n            free(temp);\n\
+        \            p = pre->next;                  // pre 不动，p 重新取\n        }else{ pre = p; p = p->next; }     // 不删才一起走\n\
+        \    }\n}\n"
+      size: 12
+  - - type: bullets
+      items: *id001
+      size: 14
+- type: content
+  kicker: 条件删除推演
+  title: 条件删除：pre 留在原位，p 接着检查（点击看结点如何变化）
+  blocks: []
+- type: content
+  kicker: 交换相邻 · 双链表
+  title: 交换相邻结点：外部连接先接好，再改内部
+  blocks: []
+- type: content
+  kicker: 模板卡
+  title: 本节四张模板卡
+  blocks:
+  - type: table
+    head:
+    - 模板
+    - 适用场景
+    - 骨架
+    - 复杂度
+    rows:
+    - - 模板1 头插法
+      - 逆置、建表、归并成递减
+      - 摘下、存后继、两句头插
+      - O(n) 与 O(1)
+    - - 模板2 快慢指针
+      - 倒数第 k、找中点
+      - q 先走 k 步再同步走
+      - O(n) 与 O(1)
+    - - 模板4 条件删除
+      - 按条件删一批结点
+      - pre 跟随，删完 p 重新取
+      - O(n) 与 O(1)
+    - - 模板14 辅助栈逆序
+      - 倒数第 k 及输出变体
+      - 全部压栈再弹 k 次
+      - O(n) 与 O(n)
+  - type: note
+    text: 考过哪里：模板1——2023循环段倒置、2022多项式分解、2021比x小者递减排列；模板2——2025年、408统考2019年
+- type: content
+  kicker: 小结与课后任务
+  title: 四个算法一张表，两道课后题
+  blocks:
+  - type: table
+    head:
+    - 算法
+    - 关键动作
+    - 最容易错的
+    rows:
+    - - 原地逆置
+      - 断成空表、逐个头插
+      - 忘了先存后继
+    - - 循环逆置
+      - 终止条件 p 不等于 L、rear 接环
+      - 照抄 p 不等于 NULL 死循环
+    - - 倒数第k
+      - q 先走 k 步再同步
+      - 起点不是 L 会差一位
+    - - 条件删除
+      - pre 跟随、删完 p 重取
+      - 删完 pre 错动跳结点
+    - - 交换相邻
+      - 六条赋值、⑤⑥最后
+      - ⑤⑥提前旧值丢失
+  - type: bullets
+    items:
+    - '**跟练题**：默写原地逆置（普通版）与快慢指针求倒数第 k'
+    - '**变式题**：题集 2算12（删除区间内结点），把条件删除改为区间判断'
+  - type: note
+    text: 参考答案在 PPT 最后两页，课后自行对照
+  layout: split
+  leftWidth: 7.25
+  columnLabels:
+  - 本节速查
+  - 课后练习
+  columns:
+  - - type: table
+      head:
+      - 算法
+      - 关键动作
+      - 最容易错的
+      rows:
+      - - 原地逆置
+        - 断成空表、逐个头插
+        - 忘了先存后继
+      - - 循环逆置
+        - 终止条件 p 不等于 L、rear 接环
+        - 照抄 p 不等于 NULL 死循环
+      - - 倒数第k
+        - q 先走 k 步再同步
+        - 起点不是 L 会差一位
+      - - 条件删除
+        - pre 跟随、删完 p 重取
+        - 删完 pre 错动跳结点
+      - - 交换相邻
+        - 六条赋值、⑤⑥最后
+        - ⑤⑥提前旧值丢失
+      rowH: 0.39
+  - - type: bullets
+      items:
+      - '**跟练题**：默写原地逆置（普通版）与快慢指针求倒数第 k'
+      - '**变式题**：题集 2算12（删除区间内结点），把条件删除改为区间判断'
+      size: 13
+    - type: note
+      text: 参考答案在 PPT 最后两页，课后自行对照
+      size: 12
+- type: content
+  kicker: 参考答案 · 跟练题
+  title: 跟练题参考答案（自行对照）
+  blocks:
+  - type: code
+    text: "void InvertedList(LinkList &L){\n    LNode *p = L->next, *temp;  L->next = NULL;\n    while(p != NULL){ temp =\
+      \ p;  p = p->next;\n        temp->next = L->next;  L->next = temp; }\n}\nint findK(LinkList &L, int k){\n    LNode *p\
+      \ = L, *q = L;\n    while(k != 0 && q != NULL){ q = q->next; k--; }\n    if(q == NULL) return 0;\n    while(q != NULL){\
+      \ q = q->next; p = p->next; }\n    printf(\"%d\", p->data);  return 1;\n}\n"
+    size: 11
+  - type: bullets
+    items:
+    - 逆置关键：先断成空表、先存后继再头插；空间 O(1)、时间 O(n)
+    - 快慢指针关键：p、q 都从头结点 L 出发；一趟 O(n)
+  layout: split
+  leftWidth: 7.25
+  columnLabels:
+  - ''
+  - 核对要点
+  columns:
+  - - type: code
+      text: "void InvertedList(LinkList &L){\n    LNode *p = L->next, *temp;  L->next = NULL;\n    while(p != NULL){ temp\
+        \ = p;  p = p->next;\n        temp->next = L->next;  L->next = temp; }\n}\nint findK(LinkList &L, int k){\n    LNode\
+        \ *p = L, *q = L;\n    while(k != 0 && q != NULL){ q = q->next; k--; }\n    if(q == NULL) return 0;\n    while(q !=\
+        \ NULL){ q = q->next; p = p->next; }\n    printf(\"%d\", p->data);  return 1;\n}\n"
+      size: 11
+  - - type: bullets
+      items:
+      - 逆置关键：先断成空表、先存后继再头插；空间 O(1)、时间 O(n)
+      - 快慢指针关键：p、q 都从头结点 L 出发；一趟 O(n)
+      size: 14
+- type: content
+  kicker: 参考答案 · 变式题
+  title: 变式题参考答案（自行对照）
+  blocks:
+  - type: bullets
+    items:
+    - 2算12 删除区间内结点：条件删除同族，把判断改为 data 大于 mink 且小于 maxk
+  - type: code
+    text: "void DeleteRange(LinkList &L, int mink, int maxk){\n    LNode *pre = L, *p = L->next, *temp;\n    while(p != NULL){\n\
+      \        if(p->data > mink && p->data < maxk){\n            temp = p;  pre->next = p->next;  free(temp);\n         \
+      \   p = pre->next;\n        }else{ pre = p;  p = p->next; }\n    }\n}\n"
+    size: 12
+  layout: split
+  leftWidth: 7.25
+  columnLabels:
+  - 代码
+  - 读代码时留意
+  columns:
+  - - type: code
+      text: "void DeleteRange(LinkList &L, int mink, int maxk){\n    LNode *pre = L, *p = L->next, *temp;\n    while(p !=\
+        \ NULL){\n        if(p->data > mink && p->data < maxk){\n            temp = p;  pre->next = p->next;  free(temp);\n\
+        \            p = pre->next;\n        }else{ pre = p;  p = p->next; }\n    }\n}\n"
+      size: 12
+  - - type: bullets
+      items:
+      - 2算12 删除区间内结点：条件删除同族，把判断改为 data 大于 mink 且小于 maxk
+      size: 14

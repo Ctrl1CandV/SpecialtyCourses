@@ -1,0 +1,434 @@
+meta:
+  id: C2-B-02
+  title: 线性表算法二
+  stage: B强化
+  instructor: 牙膏学长
+  duration: 45min
+slides:
+- type: cover
+  kicker: 重邮802 数据结构代码课程
+  title: 数据结构强化阶段
+  subtitle: 第2节 线性表算法二
+  meta: 阶段：强化 ｜ 主讲：牙膏学长 ｜ 预计45分钟 ｜ 资料答疑：伴梦研途QQ群
+- type: content
+  kicker: 引题
+  title: 本节主要练习链表结点的重新连接
+  blocks:
+  - type: bullets
+    items:
+    - 上一节练了链表指针的基本操作；本节把这些操作放进完整题目中，练习归并、重排和环中删除
+    - 归并：把两条递增链表合并为一条递减链表
+    - 重排：找中点、逆置后半段，再交替连接前后两段
+    - 约瑟夫环：把链表首尾相接，按报数顺序删除结点
+    - 多项式奇偶分解：按指数奇偶拆分结点，不新建数据结点
+    - 推演时可以在纸上标记结点和 next 指向，检查是否断链或漏结点
+- type: content
+  kicker: 归并 · 模板1
+  title: 归并两个递增表为递减表：双指针比较，摘小者头插
+  blocks:
+  - type: code
+    text: "void mergeDesc(LinkList &A, LinkList &B){\n    LNode *pa=A->next, *pb=B->next, *t;\n    A->next=NULL;\n    while(pa && pb){\n\
+      \        if(pa->data < pb->data){ t=pa; pa=pa->next; }\n        else { t=pb; pb=pb->next; }\n        t->next=A->next; A->next=t;\n\
+      \    }\n    while(pa){ t=pa; pa=pa->next; t->next=A->next; A->next=t; }\n    while(pb){ t=pb; pb=pb->next; t->next=A->next; A->next=t;\
+      \ }\n    free(B);\n}"
+    size: 11
+  - type: bullets
+    items:
+    - 每轮摘下较小结点并头插；头插本身就会形成递减表。
+    - 两表任一为空就停止比较，剩余结点继续头插；时间 O(n)，额外空间 O(1)。
+  layout: split
+  leftWidth: 8.0
+  columns:
+  - - type: code
+      text: "void mergeDesc(LinkList &A, LinkList &B){\n    LNode *pa=A->next, *pb=B->next, *t;\n    A->next=NULL;\n    while(pa &&\
+        \ pb){\n        if(pa->data < pb->data){ t=pa; pa=pa->next; }\n        else { t=pb; pb=pb->next; }\n        t->next=A->next;\
+        \ A->next=t;\n    }\n    while(pa){ t=pa; pa=pa->next; t->next=A->next; A->next=t; }\n    while(pb){ t=pb; pb=pb->next; t->next=A->next;\
+        \ A->next=t; }\n    free(B);\n}"
+      size: 11
+  - - type: bullets
+      items:
+      - 每轮摘下较小结点并头插；头插本身就会形成递减表。
+      - 两表任一为空就停止比较，剩余结点继续头插；时间 O(n)，额外空间 O(1)。
+      size: 13
+- type: content
+  kicker: 归并对比
+  title: 递增版与递减版只差一处：尾插换成头插
+  blocks:
+  - type: table
+    head:
+    - 版本
+    - 插入方式
+    - 要不要rear
+    - 归并结果
+    rows:
+    - - 递增版
+      - 尾插
+      - 要维护 rear
+      - 从小到大
+    - - 递减版
+      - 头插
+      - 不要 rear
+      - 从大到小
+    rowH: 0.4
+  - type: bullets
+    items:
+    - 两版都按双指针比较并处理剩余结点；递增用尾插，递减用头插。
+    - 先归并再整体逆置也正确，但多走一趟；直接头插少一次遍历。
+- type: content
+  kicker: 归并推演
+  title: 1、3、5 与 2、4、6 归并成 6、5、4、3、2、1（逐步演示）
+  blocks:
+  - type: diagram
+    diagram: linkedlist
+    nodes:
+    - '6'
+    - '5'
+    - '4'
+    - '3'
+    - '2'
+    - '1'
+    head: true
+    headLabel: la
+    w: 10
+    h: 1.3
+    align: center
+  - type: bullets
+    items:
+    - 初始：pa 指 1，pb 指 2，la 的头结点之后已置空，当作新表
+    - 1 对 2：摘 1 头插，la 指向 1；pa 移到 3
+    - 3 对 2：摘 2 头插，la 指向 2 指向 1；pb 移到 4
+    - 3 对 4：摘 3，la 前成 3、2、1；5 对 4：摘 4，la 前成 4、3、2、1
+    - 5 对 6：摘 5，la 前成 5、4、3、2、1；pa 走空，pb 剩 6，进收尾循环
+    - 摘 6 头插：la 指向 6 指向 5 指向 4 指向 3 指向 2 指向 1，归并完成
+- type: content
+  badge: 真题·408
+  kicker: 重排 · 第一步
+  title: 快慢指针找中点：slow 停在前半段末尾
+  blocks:
+  - type: code
+    text: "LNode *findMiddle(LNode *head){\n    if(head == NULL || head->next == NULL) return NULL;\n    LNode *slow = head->next, *fast\
+      \ = head->next;\n    while(fast->next != NULL && fast->next->next != NULL){\n        slow = slow->next;\n        fast = fast->next->next;\n\
+      \    }\n    return slow;\n}"
+    size: 10.5
+  - type: bullets
+    items: &id001
+    - fast 每次走两步，slow 每次走一步；循环条件保证 fast 的两步都在表内。
+    - 偶数结点时 slow 停在前半段末尾；奇数结点时停在中点。
+    - slow->next 是后半段起点，后续在这里断开、逆置，再与前半段交替连接。
+    size: 14
+  layout: split
+  leftWidth: 7.1
+  columns:
+  - - type: code
+      text: "LNode *findMiddle(LNode *head){\n    if(head == NULL || head->next == NULL) return NULL;\n    LNode *slow = head->next,\
+        \ *fast = head->next;\n    while(fast->next != NULL && fast->next->next != NULL){\n        slow = slow->next;\n        fast\
+        \ = fast->next->next;\n    }\n    return slow;\n}"
+      size: 10.5
+  - - type: bullets
+      items: *id001
+      size: 14
+- type: content
+  kicker: 重排 · 第二三步
+  title: 头插逆置后半段，再交替插入：an 排到 a2 前面
+  blocks:
+  - type: code
+    text: "void reorder(LinkList L){\n    LNode *slow=L->next, *fast=slow->next;\n    while(fast && fast->next){ slow=slow->next; fast=fast->next->next;\
+      \ }\n    LNode *first=L->next, *second=slow->next; slow->next=NULL;\n    LNode *rev=NULL, *t;\n    while(second){ t=second->next;\
+      \ second->next=rev; rev=second; second=t; }\n    LNode *p=first, *q=rev;\n    while(q){\n        t=q->next; q->next=p->next; p->next=q;\n\
+      \        p=q->next; q=t;\n    }\n}"
+    size: 11
+  - type: bullets
+    items:
+    - 这是 408 统考 2019 的重排真题；课上拆解找中点、逆置后半段和交替插入三步。
+    - 改链时先保存两侧后继，再插入；时间 O(n)，额外空间 O(1)。
+  layout: split
+  leftWidth: 8.0
+  columns:
+  - - type: code
+      text: "void reorder(LinkList L){\n    LNode *slow=L->next, *fast=slow->next;\n    while(fast && fast->next){ slow=slow->next;\
+        \ fast=fast->next->next; }\n    LNode *first=L->next, *second=slow->next; slow->next=NULL;\n    LNode *rev=NULL, *t;\n    while(second){\
+        \ t=second->next; second->next=rev; rev=second; second=t; }\n    LNode *p=first, *q=rev;\n    while(q){\n        t=q->next;\
+        \ q->next=p->next; p->next=q;\n        p=q->next; q=t;\n    }\n}"
+      size: 11
+  - - type: bullets
+      items:
+      - 这是 408 统考 2019 的重排真题；课上拆解找中点、逆置后半段和交替插入三步。
+      - 改链时先保存两侧后继，再插入；时间 O(n)，额外空间 O(1)。
+      size: 13
+  badge: 408真题
+- type: content
+  kicker: 重排推演
+  title: 六个结点 a1 到 a6 的三步重排（逐步演示）
+  blocks:
+  - type: diagram
+    diagram: linkedlist
+    nodes:
+    - a1
+    - a6
+    - a2
+    - a5
+    - a3
+    - a4
+    head: true
+    headLabel: head
+    w: 10
+    h: 1.3
+    align: center
+  - type: bullets
+    items:
+    - 第一步：slow、fast 从 a1 出发，fast 越界时 slow 停在 a3，a3 的 next 就是后半段
+    - 第二步：断开 a3 之后，a4、a5、a6 头插逆置成 a6 指向 a5 指向 a4
+    - 第三步第1轮：a6 插到 a1 后，first 到 a2，second 到 a5
+    - 第2轮：a5 插到 a2 后，first 到 a3，second 到 a4
+    - 第3轮：a4 插到 a3 后，second 为空，循环停
+    - 结果：a1、a6、a2、a5、a3、a4；插入前先保存 first、second 各自的后继地址
+- type: content
+  badge: 真题·2026
+  kicker: 约瑟夫环 · 模板11
+  title: 循环单链表模拟报数：不带头结点，直接拿 1 号当起点
+  blocks:
+  - type: code
+    text: "int Josephus(int n, int s, int m){\n    if(n<=0 || m<=0 || s<1 || s>n) return -1;\n    LNode *head=(LNode*)malloc(sizeof(LNode)),\
+      \ *r=head; head->data=1;\n    for(int i=2;i<=n;i++){ LNode *t=(LNode*)malloc(sizeof(LNode)); t->data=i; r->next=t; r=t; }\n  \
+      \  r->next=head;\n    LNode *p=head, *pre=r;\n    while(p->data!=s){ pre=p; p=p->next; }\n    while(p->next!=p){\n        for(int\
+      \ i=1;i<m;i++){ pre=p; p=p->next; }\n        pre->next=p->next; free(p); p=pre->next;\n    }\n    int survivor=p->data; free(p);\
+      \ return survivor;\n}"
+    size: 11
+  - type: bullets
+    items:
+    - 不带头结点，p 指当前报数者，pre 指它的前驱；第 s 人定位后，每轮前进 m-1 次。
+    - 示例 n=5、s=1、m=3 时，删除顺序为 3、1、5、2，最后留下 4。
+  layout: split
+  leftWidth: 8.0
+  columns:
+  - - type: code
+      text: "int Josephus(int n, int s, int m){\n    if(n<=0 || m<=0 || s<1 || s>n) return -1;\n    LNode *head=(LNode*)malloc(sizeof(LNode)),\
+        \ *r=head; head->data=1;\n    for(int i=2;i<=n;i++){ LNode *t=(LNode*)malloc(sizeof(LNode)); t->data=i; r->next=t; r=t; }\n\
+        \    r->next=head;\n    LNode *p=head, *pre=r;\n    while(p->data!=s){ pre=p; p=p->next; }\n    while(p->next!=p){\n       \
+        \ for(int i=1;i<m;i++){ pre=p; p=p->next; }\n        pre->next=p->next; free(p); p=pre->next;\n    }\n    int survivor=p->data;\
+        \ free(p); return survivor;\n}"
+      size: 11
+  - - type: bullets
+      items:
+      - 不带头结点，p 指当前报数者，pre 指它的前驱；第 s 人定位后，每轮前进 m-1 次。
+      - 摘除后从 pre->next 继续；p->next==p 表示只剩一人。时间 O(nm)，空间 O(n)。
+      size: 13
+- type: content
+  kicker: 约瑟夫环推演
+  title: n 等于 5、s 等于 1、m 等于 3 的报数过程（逐步演示）
+  blocks:
+  - type: bullets
+    items:
+    - 示例：n=5、s=1、m=3；每轮数到第3人删除，从其后继继续。
+    - 删除顺序：3 → 1 → 5 → 2，最后留下 4。
+    - pre 始终停在 p 前面；删除后让 pre->next 接管新的 p。
+    size: 15
+- type: content
+  badge: 真题·2022
+  kicker: 多项式分解 · 模板1
+  title: 稀疏多项式按奇偶次项分解：只新建两个头结点
+  blocks:
+  - type: code
+    text: "void SplitPoly(PolyNode *L, PolyNode *&odd, PolyNode *&even){\n    odd  = (PolyNode*)malloc(sizeof(PolyNode));  odd->next\
+      \  = odd;   // 新头结点，自成环\n    even = (PolyNode*)malloc(sizeof(PolyNode));  even->next = even;\n    PolyNode *p = L->next, *temp;\n\
+      \    while(p != L){                               // 循环链表终止：回到 L\n        temp = p->next;                          // 先存后继，改指针后还能找下一个\n\
+      \        if(p->exp % 2 == 0){ p->next = even->next; even->next = p; }  // 偶次项\n        else{ p->next = odd->next; odd->next =\
+      \ p; }                     // 奇次项\n        p = temp;\n    }\n    free(L);                                     // 原头结点已无用\n}\n"
+    size: 11
+  - type: bullets
+    items:
+    - 两条链分别保留偶次项和奇次项；每个结点按指数奇偶头插到对应链表。
+    - 复用原数据结点，只新建两个头结点；若题目要求保持原序，应改用尾插。
+  layout: split
+  leftWidth: 8.0
+  columns:
+  - - type: code
+      text: "void SplitPoly(PolyNode *L, PolyNode *&odd, PolyNode *&even){\n    odd  = (PolyNode*)malloc(sizeof(PolyNode));  odd->next\
+        \  = odd;   // 新头结点，自成环\n    even = (PolyNode*)malloc(sizeof(PolyNode));  even->next = even;\n    PolyNode *p = L->next, *temp;\n\
+        \    while(p != L){                               // 循环链表终止：回到 L\n        temp = p->next;                          // 先存后继，改指针后还能找下一个\n\
+        \        if(p->exp % 2 == 0){ p->next = even->next; even->next = p; }  // 偶次项\n        else{ p->next = odd->next; odd->next\
+        \ = p; }                     // 奇次项\n        p = temp;\n    }\n    free(L);                                     // 原头结点已无用\n\
+        }\n"
+      size: 11
+  - - type: bullets
+      items:
+      - 两条链分别保留偶次项和奇次项；每个结点按指数奇偶头插到对应链表。
+      - 复用原数据结点，只新建两个头结点；若题目要求保持原序，应改用尾插。
+      size: 13
+- type: content
+  kicker: 指针次序专题
+  title: 双链表插删与交换相邻：先接外部，再改自身
+  blocks:
+  - type: table
+    head:
+    - 操作
+    - 赋值条数
+    - 次序要点
+    rows:
+    - - 双链表插入
+      - 四条
+      - 先设置新结点的 prior 和 next，再更新前后结点
+    - - 双链表删除
+      - 三条
+      - 先连接前驱和后继，再释放被删结点
+    - - 交换相邻两结点
+      - 六条
+      - 先保存两侧邻接结点，最后更新两结点之间的指针
+    rowH: 0.36
+  - type: bullets
+    items:
+    - 覆盖 next 或 prior 前，先确认后续语句还可以访问需要连接的结点。
+    - 插删的基础写法见 C2-A；本节只复习交换时旧指针的使用次序。
+- type: content
+  kicker: 模板卡
+  title: 本节四张模板卡
+  blocks:
+  - type: table
+    head:
+    - 模板
+    - 适用场景
+    - 骨架
+    - 复杂度
+    rows:
+    - - 模板1 头插法
+      - 逆置、建表、归并成递减、拆表
+      - 摘下、存后继、两句头插
+      - O(n) 与 O(1)
+    - - 模板2 快慢指针
+      - 倒数第k、找中点
+      - 快的走两步慢的走一步，快越界慢过半
+      - O(n) 与 O(1)
+    - - 模板3 断链拼接三步走
+      - 重排类多动作组合
+      - 找中点、逆置后半、交替插入
+      - O(n) 与 O(1)
+    - - 模板11 循环链表模拟
+      - 报数出列、轮转问题
+      - 建环、定位s维护pre、报数摘结点
+      - O(nm) 与 O(n)
+  - type: note
+    text: 题源注记：本题取自 408 统考 2019，作为找中点、逆置后半段、交替插入的综合例题；不计入 802 真题覆盖。
+- type: content
+  kicker: 小结与课后任务
+  title: 四个算法一张表，两道题集练习
+  blocks:
+  - type: table
+    head:
+    - 算法
+    - 关键动作
+    - 最容易错的
+    rows:
+    - - 归并成递减
+      - 双指针比较、摘小者头插
+      - 用尾插做递减版；忘收尾循环
+    - - 重排
+      - 找中点、逆置后半、交替插入
+      - 交替时忘先存两个 next
+    - - 约瑟夫环
+      - 建环、定位s、报数摘结点
+      - 定位时没维护 pre；判剩一个写错
+    - - 多项式分解
+      - 摘结点按奇偶头插进两条新链
+      - 新malloc数据结点；忘先存后继
+  - type: bullets
+    items:
+    - '**跟练题**：默写归并两个递增表为递减表、约瑟夫环'
+    - '**题集练习**：2算37（双向循环链表奇偶重排）、2算27（求交集并利用 A 的空间）'
+  - type: note
+    text: 参考答案在 PPT 最后三页，课后自行对照
+  layout: split
+  leftWidth: 7.2
+  columns:
+  - - type: table
+      head:
+      - 算法
+      - 关键动作
+      - 最容易错的
+      rows:
+      - - 归并成递减
+        - 双指针比较、摘小者头插
+        - 用尾插做递减版；忘收尾循环
+      - - 重排
+        - 找中点、逆置后半、交替插入
+        - 交替时忘先存两个 next
+      - - 约瑟夫环
+        - 建环、定位s、报数摘结点
+        - 定位时没维护 pre；判剩一个写错
+      - - 多项式分解
+        - 摘结点按奇偶头插进两条新链
+        - 新malloc数据结点；忘先存后继
+      rowH: 0.34
+  - - type: bullets
+      items:
+      - '**跟练题**：默写归并两个递增表为递减表、约瑟夫环'
+      - '**题集练习**：2算37（双向循环链表奇偶重排）、2算27（求交集并利用 A 的空间）'
+      size: 12.5
+    - type: note
+      text: 参考答案在 PPT 最后三页，课后自行对照
+      size: 11.5
+- type: content
+  kicker: 参考答案 · 跟练一
+  title: 跟练一参考答案：归并两个递增表为递减表
+  blocks:
+  - type: code
+    text: "void mergeDesc(LinkList &A, LinkList &B){\n    LNode *pa=A->next, *pb=B->next, *t;\n    A->next=NULL;\n    while(pa && pb){\n\
+      \        if(pa->data < pb->data){ t=pa; pa=pa->next; }\n        else { t=pb; pb=pb->next; }\n        t->next=A->next; A->next=t;\n\
+      \    }\n    while(pa){ t=pa; pa=pa->next; t->next=A->next; A->next=t; }\n    while(pb){ t=pb; pb=pb->next; t->next=A->next; A->next=t;\
+      \ }\n    free(B);\n}"
+    size: 11
+  - type: bullets
+    items:
+    - 关键：头插自然反序；判空用 ||；两个收尾循环；free(lb)
+    - 时间 O(n)，空间 O(1)
+  layout: split
+  leftWidth: 8.0
+  columns:
+  - - type: code
+      text: "void mergeDesc(LinkList &A, LinkList &B){\n    LNode *pa=A->next, *pb=B->next, *t;\n    A->next=NULL;\n    while(pa &&\
+        \ pb){\n        if(pa->data < pb->data){ t=pa; pa=pa->next; }\n        else { t=pb; pb=pb->next; }\n        t->next=A->next;\
+        \ A->next=t;\n    }\n    while(pa){ t=pa; pa=pa->next; t->next=A->next; A->next=t; }\n    while(pb){ t=pb; pb=pb->next; t->next=A->next;\
+        \ A->next=t; }\n    free(B);\n}"
+      size: 11
+  - - type: bullets
+      items:
+      - 关键：头插自然反序；判空用 ||；两个收尾循环；free(lb)
+      - 时间 O(n)，空间 O(1)
+      size: 13
+- type: content
+  kicker: 参考答案 · 跟练二
+  title: 跟练二参考答案：约瑟夫环
+  blocks:
+  - type: code
+    text: "int Josephus(int n, int s, int m){\n    if(n<=0 || m<=0 || s<1 || s>n) return -1;\n    LNode *head=(LNode*)malloc(sizeof(LNode)),\
+      \ *r=head; head->data=1;\n    for(int i=2;i<=n;i++){ LNode *t=(LNode*)malloc(sizeof(LNode)); t->data=i; r->next=t; r=t; }\n  \
+      \  r->next=head;\n    LNode *p=head, *pre=r;\n    while(p->data!=s){ pre=p; p=p->next; }\n    while(p->next!=p){\n        for(int\
+      \ i=1;i<m;i++){ pre=p; p=p->next; }\n        pre->next=p->next; free(p); p=pre->next;\n    }\n    int survivor=p->data; free(p);\
+      \ return survivor;\n}"
+    size: 11
+  - type: bullets
+    items:
+    - 关键：不带头结点；定位第 s 个时维护 pre；剩一个的判定是 p 的 next 等于 p
+    - 时间 O(nm)，空间 O(n)
+  layout: split
+  leftWidth: 8.0
+  columns:
+  - - type: code
+      text: "int Josephus(int n, int s, int m){\n    if(n<=0 || m<=0 || s<1 || s>n) return -1;\n    LNode *head=(LNode*)malloc(sizeof(LNode)),\
+        \ *r=head; head->data=1;\n    for(int i=2;i<=n;i++){ LNode *t=(LNode*)malloc(sizeof(LNode)); t->data=i; r->next=t; r=t; }\n\
+        \    r->next=head;\n    LNode *p=head, *pre=r;\n    while(p->data!=s){ pre=p; p=p->next; }\n    while(p->next!=p){\n       \
+        \ for(int i=1;i<m;i++){ pre=p; p=p->next; }\n        pre->next=p->next; free(p); p=pre->next;\n    }\n    int survivor=p->data;\
+        \ free(p); return survivor;\n}"
+      size: 11
+  - - type: bullets
+      items:
+      - 关键：不带头结点；定位第 s 个时维护 pre；剩一个的判定是 p 的 next 等于 p
+      - 时间 O(nm)，空间 O(n)
+      size: 13
+- type: content
+  kicker: 参考答案 · 题集练习
+  title: 题集练习参考答案（自行对照）
+  blocks:
+  - type: bullets
+    items:
+    - 2算37（2020真题）：带头结点双向循环链表按奇偶位置拆成两条链，先存后继再改指针，次序见第12页
+    - 2算27：双指针比较求交集，相等的结点摘下，利用 A 的头结点和结点空间接成结果表，不新malloc

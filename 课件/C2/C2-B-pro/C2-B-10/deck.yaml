@@ -1,0 +1,465 @@
+meta:
+  id: C2-B-10
+  title: 排序算法二：选择、归并与比较
+  stage: B强化
+  instructor: 牙膏学长
+  duration: 45min
+slides:
+- type: cover
+  kicker: 重邮802 数据结构代码课程
+  title: 数据结构强化阶段
+  subtitle: 第10节 排序算法二：选择、归并与比较
+  meta: 阶段：强化 ｜ 主讲：牙膏学长 ｜ 预计45分钟 ｜ 资料答疑：伴梦研途QQ群
+- type: content
+  kicker: 简单选择
+  title: 简单选择：哨兵位存的是下标，不是值
+  blocks:
+  - &id001
+    type: code
+    text: "void SelectSort(SqList &L){                   // 数据存 L.data[1..length]\n    for(int i = 1; i < L.length; i++){\n        L.data[0]\
+      \ = i;                        // 哨兵位存当前最小值的下标\n        for(int j = i+1; j <= L.length; j++)\n            if(L.data[j] < L.data[L.data[0]])\
+      \ L.data[0] = j;\n        if(L.data[0] != i){ int tmp = L.data[i];\n            L.data[i] = L.data[L.data[0]];  L.data[L.data[0]]\
+      \ = tmp; }\n    }\n}\n"
+    size: 11
+  - type: bullets
+    items: &id002
+    - A[0] 存当前最小值的下标 i；比较时用 L.data[L.data[0]] 取对应值。
+    - 最后一趟只剩一个元素，不必再找最小值；找到最小值时仍须扫描到 length。
+    size: 12.5
+  - &id003
+    type: note
+    text: 时间 O(n²)、空间 O(1)；交换可能改变相同值的相对次序，因此不稳定。
+    size: 11
+  layout: split
+  leftWidth: 7.2
+  columns:
+  - - *id001
+  - - type: bullets
+      items: *id002
+      size: 12.5
+    - *id003
+- type: content
+  kicker: 堆排序 · 定义
+  title: 大根堆：父结点与孩子的下标关系
+  blocks:
+  - &id004
+    type: image
+    src: assets/diagrams/b10-heap.png
+    w: 6.25
+    h: 2.35
+    align: center
+    fit: contain
+  - type: bullets
+    items: &id005
+    - i 的左孩子为 2i，右孩子为 2i+1，父结点为 ⌊i/2⌋。
+    - 大根堆要求父结点不小于孩子；堆顶是当前最大值。
+    size: 13
+  - &id006
+    type: note
+    text: 排序先建堆，再反复交换堆顶与末尾、缩小范围并调整。
+    size: 11
+  layout: split
+  leftWidth: 6.7
+  columns:
+  - - *id004
+  - - type: bullets
+      items: *id005
+      size: 13
+    - *id006
+- type: content
+  kicker: 堆排序 · HeapAdjust
+  title: HeapAdjust 逐行：哨兵存待下沉结点，选较大的孩子
+  blocks:
+  - type: code
+    text: "void HeapAdjust(int arr[], int k, int len){   // 把 arr[k] 往下沉到合适位置\n    arr[0] = arr[k];                          // 哨兵存待下沉的结点\n\
+      \    for(int i = 2*k; i <= len; i *= 2){       // i 从 k 的左孩子起，每轮翻倍到下一层\n        if(i < len && arr[i+1] > arr[i]) i++; // 选较大的孩子（i<len\
+      \ 防越界）\n        if(arr[0] >= arr[i]) break;           // 已不小于孩子，到位\n        arr[k] = arr[i];                      // 大孩子上移\n \
+      \       k = i;                                // 继续往下比\n    }\n    arr[k] = arr[0];                          // 哨兵里的值落到最终位置\n\
+      }\n"
+    size: 12
+  - type: bullets
+    items:
+    - 四个关键点：① i*=2 是往下一层不是逐个遍历；② i<len 防止只有左孩子时读 arr[i+1] 越界；③ arr[0]>=arr[i] 就 break（大根堆只要求父不小于子）；④ 循环结束哨兵值落位
+  - type: note
+    text: 时间 O(logn)（树高）；题集 10选22、10选30 可用于练习下标关系和结点下沉过程
+  layout: split
+  leftWidth: 8.0
+  columns:
+  - - type: code
+      text: "void HeapAdjust(int arr[], int k, int len){   // 把 arr[k] 往下沉到合适位置\n    arr[0] = arr[k];                          // 哨兵存待下沉的结点\n\
+        \    for(int i = 2*k; i <= len; i *= 2){       // i 从 k 的左孩子起，每轮翻倍到下一层\n        if(i < len && arr[i+1] > arr[i]) i++; // 选较大的孩子（i<len\
+        \ 防越界）\n        if(arr[0] >= arr[i]) break;           // 已不小于孩子，到位\n        arr[k] = arr[i];                      // 大孩子上移\n\
+        \        k = i;                                // 继续往下比\n    }\n    arr[k] = arr[0];                          // 哨兵里的值落到最终位置\n\
+        }\n"
+      size: 11
+  - - type: bullets
+      items:
+      - 四个关键点：① i*=2 是往下一层不是逐个遍历；② i<len 防止只有左孩子时读 arr[i+1] 越界；③ arr[0]>=arr[i] 就 break（大根堆只要求父不小于子）；④ 循环结束哨兵值落位
+      size: 13
+    - type: note
+      text: 时间 O(logn)（树高）；题集 10选22、10选30 可用于练习下标关系和结点下沉过程
+      size: 12
+- type: content
+  kicker: HeapAdjust · 过程页
+  title: 七元素数组调整 k=2：下沉过程（拿纸跟画）
+  blocks:
+  - type: diagram
+    diagram: array
+    cells:
+    - ''
+    - 1
+    - 3
+    - 5
+    - 7
+    - 9
+    - 8
+    - 6
+    indices: true
+    highlight:
+    - 2
+    - 5
+    w: 9.5
+    h: 1.3
+    align: center
+  - type: bullets
+    items:
+    - 数组 1、3、5、7、9、8、6（下标1到7），调整 k=2（值为3）：哨兵 arr[0]=3，i 从 2k=4 起
+    - i=4：arr[4]=7，i<len 且 arr[5]=9>7，i++ 到 5（选较大的孩子9）；arr[0]=3 >= 9？否，arr[2]=9 上移，k=5
+    - i=10 > len=7 退出，arr[5]=arr[0]=3 落位 → 数组变成 1、9、5、7、3、8、6
+  - type: note
+    text: 你跟着标：3 从位置2沉到位置5，9 从位置5升到位置2；每轮 i 翻倍就是往下走一层
+- type: content
+  kicker: 堆排序 · 建堆与主循环
+  title: 建堆为什么从 len/2 开始，排序主循环
+  blocks:
+  - &id007
+    type: code
+    text: "void HeapSort(int arr[], int len){\n    if(arr == NULL || len <= 1) return;\n    for(int i = len/2; i > 0; i--) HeapAdjust(arr,\
+      \ i, len);  // 建堆\n    while(len > 1){\n        int tmp = arr[1]; arr[1] = arr[len]; arr[len] = tmp; // 堆顶与末尾交换\n        HeapAdjust(arr,\
+      \ 1, --len);                           // 剩下 len-1 个重调\n    }\n}\n"
+    size: 11
+  - type: bullets
+    items: &id008
+    - len/2 是最后一个非叶结点；更大的下标都是叶子，不需调整。
+    - 从 len/2 倒序下沉，处理父结点时两棵子树已是堆。
+    - 排序每轮交换根与末尾，len 减1后重新调整根。
+    size: 12.5
+  - &id009
+    type: note
+    text: 时间 O(nlogn)、空间 O(1)、不稳定。
+    size: 11
+  layout: split
+  leftWidth: 7.2
+  columns:
+  - - *id007
+  - - type: bullets
+      items: *id008
+      size: 12.5
+    - *id009
+- type: content
+  kicker: 二路归并 · Merge
+  title: Merge：三个指针、两个收尾循环、取等号保稳定
+  blocks:
+  - type: code
+    text: "void Merge(SqList &L, SqList &T, int low, int mid, int high){\n    int p = low, q = mid+1, k = low;\n    while(p <= mid &&\
+      \ q <= high){\n        if(L.data[p] <= L.data[q]) T.data[k++] = L.data[p++];  // 取等号保稳定\n        else T.data[k++] = L.data[q++];\n\
+      \    }\n    while(p <= mid) T.data[k++] = L.data[p++];    // 收尾两个循环\n    while(q <= high) T.data[k++] = L.data[q++];\n    for(int\
+      \ i = low; i <= high; i++) L.data[i] = T.data[i];  // 拷回\n}\n"
+    size: 12
+  - type: bullets
+    items:
+    - 三个指针：p 扫左半段 [low,mid]、q 扫右半段 [mid+1,high]、k 写辅助表 T；谁小取谁，取完一段另一段整体收尾
+    - <= 保证稳定性：相等时先取左半段的，相同值的相对次序不变——写成 < 就不稳定了
+  - type: note
+    text: 两个收尾循环不能只写一个：p 与 q 谁没走完就接谁；最后把 T 拷回 L 的 [low,high]
+  layout: split
+  leftWidth: 8.0
+  columns:
+  - - type: code
+      text: "void Merge(SqList &L, SqList &T, int low, int mid, int high){\n    int p = low, q = mid+1, k = low;\n    while(p <= mid\
+        \ && q <= high){\n        if(L.data[p] <= L.data[q]) T.data[k++] = L.data[p++];  // 取等号保稳定\n        else T.data[k++] = L.data[q++];\n\
+        \    }\n    while(p <= mid) T.data[k++] = L.data[p++];    // 收尾两个循环\n    while(q <= high) T.data[k++] = L.data[q++];\n    for(int\
+        \ i = low; i <= high; i++) L.data[i] = T.data[i];  // 拷回\n}\n"
+      size: 11
+  - - type: bullets
+      items:
+      - 三个指针：p 扫左半段 [low,mid]、q 扫右半段 [mid+1,high]、k 写辅助表 T；谁小取谁，取完一段另一段整体收尾
+      - <= 保证稳定性：相等时先取左半段的，相同值的相对次序不变——写成 < 就不稳定了
+      size: 13
+    - type: note
+      text: 两个收尾循环不能只写一个：p 与 q 谁没走完就接谁；最后把 T 拷回 L 的 [low,high]
+      size: 12
+- type: content
+  kicker: 二路归并 · MergeSort
+  title: MergeSort 递归式与复杂度推导
+  blocks:
+  - type: code
+    text: "void MergeSort(SqList &L, SqList &T, int low, int high){\n    if(low < high){\n        int mid = (low + high) / 2;\n    \
+      \    MergeSort(L, T, low, mid);        // 排左半\n        MergeSort(L, T, mid+1, high);     // 排右半\n        Merge(L, T, low, mid,\
+      \ high);      // 合并\n    }\n}\n"
+    size: 12
+  - type: bullets
+    items:
+    - 递归式 T(n)=2T(n/2)+O(n)：用基础阶段第1节教的逐层累加——每层合并总代价 O(n)，共 logn 层，所以 O(nlogn)
+    - 时间与初始序列无关（不管乱不乱都要合并 logn 层）；空间 O(n) 是辅助表 T；稳定
+  - type: note
+    text: 这个递归式与快排的平均情况同形，但归并的最坏也是 O(nlogn)，快排最坏会退化到 O(n²)
+  layout: split
+  leftWidth: 8.0
+  columns:
+  - - type: code
+      text: "void MergeSort(SqList &L, SqList &T, int low, int high){\n    if(low < high){\n        int mid = (low + high) / 2;\n  \
+        \      MergeSort(L, T, low, mid);        // 排左半\n        MergeSort(L, T, mid+1, high);     // 排右半\n        Merge(L, T, low,\
+        \ mid, high);      // 合并\n    }\n}\n"
+      size: 11
+  - - type: bullets
+      items:
+      - 递归式 T(n)=2T(n/2)+O(n)：用基础阶段第1节教的逐层累加——每层合并总代价 O(n)，共 logn 层，所以 O(nlogn)
+      - 时间与初始序列无关（不管乱不乱都要合并 logn 层）；空间 O(n) 是辅助表 T；稳定
+      size: 13
+    - type: note
+      text: 这个递归式与快排的平均情况同形，但归并的最坏也是 O(nlogn)，快排最坏会退化到 O(n²)
+      size: 12
+- type: content
+  kicker: 逆序对 · 模板10
+  title: 逆序对：补全 merge 函数，统计跨段计数
+  blocks:
+  - &id010
+    type: code
+    text: |
+      // A[left..mid] 与 A[mid+1..right] 已分别有序
+      int merge(int A[], int temp[], int left, int mid, int right){
+          for(int t = left; t <= right; t++) temp[t] = A[t];
+          int i = left, j = mid + 1, k = left, count = 0;
+          while(i <= mid && j <= right){
+              if(temp[i] <= temp[j]) A[k++] = temp[i++];
+              else{
+                  count += mid - i + 1; // 左段剩余元素都大于 temp[j]
+                  A[k++] = temp[j++];
+              }
+          }
+          while(i <= mid) A[k++] = temp[i++];
+          while(j <= right) A[k++] = temp[j++];
+          return count;
+      }
+    size: 11
+  - &id011
+    type: bullets
+    items:
+    - 先复制当前区间；i、j 扫描左右有序段，k 指向写回位置。
+    - 右段元素较小时，左段从 i 到 mid 都与它构成逆序对；merge 返回跨段数量，MergeSort 再加上左右子段的数量。
+    size: 15
+  layout: split
+  leftWidth: 7.6
+  columns:
+  - - *id010
+  - - *id011
+- type: content
+  kicker: 逆序对 · 过程页
+  title: 六元素归并加计数逐步（拿纸跟画）
+  blocks:
+  - type: diagram
+    diagram: array
+    cells:
+    - 2
+    - 4
+    - 6
+    - 1
+    - 3
+    - 5
+    indices: true
+    highlight:
+    - 1
+    w: 7
+    h: 1.2
+    align: center
+  - type: bullets
+    items:
+    - 左右有序段：[2,4,6] 与 [1,3,5]；分别用 i、j 指向当前比较位置。
+    - 取1时左段剩3个数，count 加3；取3时左段剩4、6，count 再加2。
+    - 取5时左段剩6，再加1；结果为1、2、3、4、5、6，跨段共6对。
+  - type: note
+    text: 动画每击呈现一个右段元素先输出的时刻；内部逆序对由递归累加。
+- type: content
+  kicker: 基数与外部排序
+  title: 基数排序与外部排序：认清处理的问题
+  blocks:
+  - type: table
+    head:
+    - 方法
+    - 适用场景
+    - 本课要求
+    rows:
+    - - 基数排序
+      - 关键字可按位分组的整数/字符串
+      - 会看一趟分配与收集
+    - - 外部排序
+      - 数据量超过内存、需磁盘归并
+      - 多路归并减少趟数；败者树加快选最小
+    rowH: 0.55
+  - type: note
+    text: 本页不展开代码：多路归并减少趟数，败者树加快选最小，置换选择生成较长初始段，最佳归并树减少总读写量。
+    size: 13
+- type: content
+  kicker: 排序比较 · 必背表
+  title: 排序算法比较与选择（上）：O(n²) 组
+  blocks:
+  - type: table
+    head:
+    - 算法
+    - 平均时间
+    - 最坏时间
+    - 空间
+    - 稳定性
+    colW:
+    - 2.2
+    - 2.2
+    - 2.2
+    - 1.6
+    - 1.8
+    rows:
+    - - 直接插入
+      - O(n²)
+      - O(n²)
+      - O(1)
+      - 稳定
+    - - 折半插入
+      - O(n²)
+      - O(n²)
+      - O(1)
+      - 稳定
+    - - 希尔
+      - 约O(n^1.3)
+      - O(n²)
+      - O(1)
+      - 不稳定
+    - - 冒泡
+      - O(n²)
+      - O(n²)
+      - O(1)
+      - 稳定
+    - - 简单选择
+      - O(n²)
+      - O(n²)
+      - O(1)
+      - 不稳定
+  - type: note
+    text: 选择依据：要稳定且 n 小用插入；冒泡加 swapped 优化后最好 O(n)
+- type: content
+  kicker: 排序比较 · 必背表
+  title: 排序算法比较与选择（下）：O(nlogn) 组
+  blocks:
+  - type: table
+    head:
+    - 算法
+    - 平均时间
+    - 最坏时间
+    - 空间
+    - 稳定性
+    colW:
+    - 2.1
+    - 2.2
+    - 2.2
+    - 1.5
+    - 1.8
+    rowH: 0.43
+    rows:
+    - - 快速
+      - O(nlogn)
+      - O(n²)
+      - O(logn)
+      - 否
+    - - 堆排序
+      - O(nlogn)
+      - O(nlogn)
+      - O(1)
+      - 否
+    - - 二路归并
+      - O(nlogn)
+      - O(nlogn)
+      - O(n)
+      - 是
+    - - 基数
+      - O(d(n+r))
+      - O(d(n+r))
+      - O(r)
+      - 是
+  - type: bullets
+    items:
+    - 快排看平均速度；堆排序保证最坏 O(nlogn)；要稳定可用归并。链表不适合快排与堆排序。
+    size: 13
+- type: content
+  kicker: 模板卡与课段小结
+  title: C2-B 回顾与 C3 学习安排
+  blocks:
+  - type: table
+    head:
+    - 模板
+    - 适用场景
+    - 骨架
+    - 复杂度
+    colW:
+    - 2.2
+    - 3.8
+    - 4.0
+    - 1.5
+    rows:
+    - - 模板10 归并+计数
+      - 逆序对等统计类（2020 真题）
+      - Merge 时右半元素先出，count += 左半剩余个数
+      - O(nlogn)
+  - type: bullets
+    items:
+    - C2-B 十节课涵盖线性表、栈与队列、树、图、查找和排序，介绍各类常见算法及其关键状态变化
+    - C3 将通过具体题目练习读清题目条件、调整算法步骤、补全输出并核对边界与复杂度
+  - type: note
+    text: 本阶段学习的算法框架可作为复习索引；C3 将通过具体题目补足题意分析、输出要求与边界处理
+- type: content
+  kicker: 课后任务
+  title: 堆排序跟练与插入建堆拓展
+  blocks:
+  - type: bullets
+    items:
+    - '**跟练题**：默写 HeapAdjust 与建堆主循环、Merge；给序列 87、45、78、32、17、65、53、9、122 写出建大根堆的结果与前两趟堆排序的结果'
+    - '**拓展题**：10算12，从已有大根堆逐个插入新关键字并上滤；与本节自底向上建堆的下滤方法不同'
+  - type: note
+    text: 默写要求：合上资料能写出 HeapAdjust、建堆主循环与 Merge；参考答案在本PPT最后两页，课后自行对照
+- type: content
+  kicker: 参考答案 · 跟练题
+  title: 跟练题参考答案（自行对照）
+  blocks:
+  - type: bullets
+    items:
+    - 序列 87、45、78、32、17、65、53、9、122（n=9）建大根堆：从 i=4 开始逐个 HeapAdjust，结果堆顶 122，数组为 122、87、78、45、17、65、53、9、32
+    - 第一趟：堆顶 122 与末尾 32 交换，122 就位，剩 8 个重调 → 堆顶 87；第二趟：87 与末尾交换就位 → 堆顶 78
+    - HeapAdjust、建堆主循环与 Merge 代码见本节代码合集
+  - type: note
+    text: 建堆从 len/2=4 开始（下标5到9都是叶子）；每趟把当前最大值送到末尾，前两趟就位的是 122、87
+- type: content
+  kicker: 参考答案 · 插入建堆拓展
+  title: 10算12 插入建堆参考代码
+  blocks:
+  - &id012
+    type: code
+    text: |
+      // H[1..len] 是大根堆，假设数组还有空位
+      void InsertMaxHeap(int H[], int &len, int x){
+          int i = ++len;
+          while(i > 1 && H[i/2] < x){
+              H[i] = H[i/2];
+              i /= 2;
+          }
+          H[i] = x;
+      }
+    size: 14
+  - &id013
+    type: bullets
+    items:
+    - 新关键字先放到末尾，再沿父结点上移；父结点不小于新值时停止。
+    - 单次插入 O(log n)；与自底向上建堆的 O(n) 不同，不能混为一种建堆过程。
+    size: 15
+  layout: split
+  leftWidth: 7.1
+  columns:
+  - - *id012
+  - - *id013
