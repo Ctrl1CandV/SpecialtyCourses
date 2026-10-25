@@ -1,0 +1,48 @@
+{
+  "status": "已完成：归档校验后删除指定模拟卷临时目录",
+  "targets": [
+    {
+      "path": "_tmp/exam_format_revision",
+      "files": 31,
+      "bytes": 3696321
+    },
+    {
+      "path": "_tmp/exam_production",
+      "files": 121,
+      "bytes": 11022618
+    },
+    {
+      "path": "_tmp/exam_quality_v3",
+      "files": 38,
+      "bytes": 953282
+    },
+    {
+      "path": "_tmp/exam_revision",
+      "files": 7,
+      "bytes": 475594
+    },
+    {
+      "path": "_tmp/exam_revision_v4",
+      "files": 45,
+      "bytes": 2479033
+    },
+    {
+      "path": "_tmp/exam_revision_v5",
+      "files": 31,
+      "bytes": 1052550
+    },
+    {
+      "path": "_tmp/exam_final",
+      "files": 307,
+      "bytes": 12672679
+    }
+  ],
+  "archive_index": "验算归档索引.json",
+  "preserved": [
+    "原始真题、笔记、题库和课程文件",
+    "阶段设计快照及复核源文件",
+    "_tmp中非模拟卷的其他工作目录"
+  ],
+  "removed_bytes": 32352077,
+  "completed_date": "2026-10-25"
+}

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg
+  PUBLIC '-//W3C//DTD SVG 1.0//EN'
+  'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'>
+<svg width="336" height="169" preserveAspectRatio="xMinYMin meet" viewBox="0 0 336 169" xmlns="http://www.w3.org/2000/svg" version="1.0" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<title>...</title>
+	<desc>...</desc>
+	<clipPath id="clip">
+		<rect x="0" y="0" width="336" height="169"/>
+	</clipPath>
+	<g id="group" transform="scale(1,-1) translate(0,-169)" style="clip-path: url(#clip)">
+		<g transform="">
+			<path d="M 57.2616,144.775624 L 40.7384,129.224376 Z" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 1.1;"/>
+			<rect x="35.9609883109451" y="140.01019991962085" width="11.0" height="13.0" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="38.9609883109451" y="142.01019991962085" style="font-family: ExamSong; font-size: 10px;fill: rgb(14%,20%,26%); stroke:none;" transform="translate(0,284) scale(1,-1)">0</text>
+			<path d="M 76.857824,147.890436 L 123.142176,126.109564 Z" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 1.1;"/>
+			<rect x="99.18376739962868" y="141.95300572421093" width="11.0" height="13.0" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="102.18376739962868" y="143.95300572421093" style="font-family: ExamSong; font-size: 10px;fill: rgb(14%,20%,26%); stroke:none;" transform="translate(0,287) scale(1,-1)">1</text>
+			<path d="M 125.2616,112.775624 L 108.7384,97.224376 Z" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 1.1;"/>
+			<rect x="103.9609883109451" y="108.01019991962083" width="11.0" height="13.0" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="106.9609883109451" y="110.01019991962083" style="font-family: ExamSong; font-size: 10px;fill: rgb(14%,20%,26%); stroke:none;" transform="translate(0,220) scale(1,-1)">0</text>
+			<path d="M 144.857824,115.890436 L 191.142176,94.109564 Z" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 1.1;"/>
+			<rect x="167.18376739962866" y="109.95300572421094" width="11.0" height="13.0" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="170.18376739962866" y="111.95300572421094" style="font-family: ExamSong; font-size: 10px;fill: rgb(14%,20%,26%); stroke:none;" transform="translate(0,223) scale(1,-1)">1</text>
+			<path d="M 193.2616,80.775624 L 176.7384,65.224376 Z" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 1.1;"/>
+			<rect x="171.9609883109451" y="76.01019991962083" width="11.0" height="13.0" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="174.9609883109451" y="78.01019991962083" style="font-family: ExamSong; font-size: 10px;fill: rgb(14%,20%,26%); stroke:none;" transform="translate(0,156) scale(1,-1)">0</text>
+			<path d="M 212.857824,83.890436 L 259.142176,62.109564 Z" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 1.1;"/>
+			<rect x="235.18376739962866" y="77.95300572421094" width="11.0" height="13.0" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="238.18376739962866" y="79.95300572421094" style="font-family: ExamSong; font-size: 10px;fill: rgb(14%,20%,26%); stroke:none;" transform="translate(0,159) scale(1,-1)">1</text>
+			<path d="M 261.2616,48.775624 L 244.7384,33.224376 Z" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 1.1;"/>
+			<rect x="239.9609883109451" y="44.01019991962083" width="11.0" height="13.0" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="242.9609883109451" y="46.01019991962083" style="font-family: ExamSong; font-size: 10px;fill: rgb(14%,20%,26%); stroke:none;" transform="translate(0,92) scale(1,-1)">0</text>
+			<path d="M 278.7384,48.775624 L 295.2616,33.224376 Z" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 1.1;"/>
+			<rect x="289.0390116890549" y="44.01019991962083" width="11.0" height="13.0" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="292.0390116890549" y="46.01019991962083" style="font-family: ExamSong; font-size: 10px;fill: rgb(14%,20%,26%); stroke:none;" transform="translate(0,92) scale(1,-1)">1</text>
+			<circle cx="66.0" cy="153" r="13" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 1.2; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="61.0" y="149.2" style="font-family: ExamSong; font-size: 10px;fill: rgb(14%,20%,26%); stroke:none;" transform="translate(0,298) scale(1,-1)">44</text>
+			<circle cx="32.0" cy="121" r="13" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 1.2; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="22.0" y="117.2" style="font-family: ExamSong; font-size: 10px;fill: rgb(14%,20%,26%); stroke:none;" transform="translate(0,234) scale(1,-1)">E:20</text>
+			<circle cx="134.0" cy="121" r="13" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 1.2; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="129.0" y="117.2" style="font-family: ExamSong; font-size: 10px;fill: rgb(14%,20%,26%); stroke:none;" transform="translate(0,234) scale(1,-1)">24</text>
+			<circle cx="100.0" cy="89" r="13" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 1.2; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="92.5" y="85.2" style="font-family: ExamSong; font-size: 10px;fill: rgb(14%,20%,26%); stroke:none;" transform="translate(0,170) scale(1,-1)">D:9</text>
+			<circle cx="202.0" cy="89" r="13" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 1.2; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="197.0" y="85.2" style="font-family: ExamSong; font-size: 10px;fill: rgb(14%,20%,26%); stroke:none;" transform="translate(0,170) scale(1,-1)">15</text>
+			<circle cx="168.0" cy="57" r="13" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 1.2; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="160.5" y="53.2" style="font-family: ExamSong; font-size: 10px;fill: rgb(14%,20%,26%); stroke:none;" transform="translate(0,106) scale(1,-1)">C:7</text>
+			<circle cx="270.0" cy="57" r="13" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 1.2; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="267.5" y="53.2" style="font-family: ExamSong; font-size: 10px;fill: rgb(14%,20%,26%); stroke:none;" transform="translate(0,106) scale(1,-1)">8</text>
+			<circle cx="236.0" cy="25" r="13" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 1.2; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="228.5" y="21.2" style="font-family: ExamSong; font-size: 10px;fill: rgb(14%,20%,26%); stroke:none;" transform="translate(0,42) scale(1,-1)">A:3</text>
+			<circle cx="304.0" cy="25" r="13" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 1.2; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="296.5" y="21.2" style="font-family: ExamSong; font-size: 10px;fill: rgb(14%,20%,26%); stroke:none;" transform="translate(0,42) scale(1,-1)">B:5</text>
+		</g>
+	</g>
+</svg>

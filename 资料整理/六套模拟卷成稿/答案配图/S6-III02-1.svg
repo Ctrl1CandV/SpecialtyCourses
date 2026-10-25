@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg
+  PUBLIC '-//W3C//DTD SVG 1.0//EN'
+  'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'>
+<svg width="450" height="160" preserveAspectRatio="xMinYMin meet" viewBox="0 0 450 160" xmlns="http://www.w3.org/2000/svg" version="1.0" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<title>...</title>
+	<desc>...</desc>
+	<clipPath id="clip">
+		<rect x="0" y="0" width="450" height="160"/>
+	</clipPath>
+	<g id="group" transform="scale(1,-1) translate(0,-160)" style="clip-path: url(#clip)">
+		<g transform="">
+			<path d="M 151.15415,121.891304 L 108.84585,83.108696 Z" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 1.1;"/>
+			<path d="M 168.84585,121.891304 L 211.15415,83.108696 Z" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 1.1;"/>
+			<path d="M 100,63 L 100,32 Z" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 1.1;"/>
+			<path d="M 220,63 L 220,32 Z" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 1.1;"/>
+			<path d="M 355,118 L 355,87 Z" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 1.1;"/>
+			<circle cx="160" cy="130" r="12" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 1.2; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="157.25" y="126.2" style="font-family: ExamSong; font-size: 11px;fill: rgb(14%,20%,26%); stroke:none;" transform="translate(0,252) scale(1,-1)">A</text>
+			<circle cx="100" cy="75" r="12" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 1.2; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="97.25" y="71.2" style="font-family: ExamSong; font-size: 11px;fill: rgb(14%,20%,26%); stroke:none;" transform="translate(0,142) scale(1,-1)">B</text>
+			<circle cx="100" cy="20" r="12" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 1.2; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="97.25" y="16.2" style="font-family: ExamSong; font-size: 11px;fill: rgb(14%,20%,26%); stroke:none;" transform="translate(0,32) scale(1,-1)">C</text>
+			<circle cx="220" cy="75" r="12" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 1.2; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="217.25" y="71.2" style="font-family: ExamSong; font-size: 11px;fill: rgb(14%,20%,26%); stroke:none;" transform="translate(0,142) scale(1,-1)">D</text>
+			<circle cx="220" cy="20" r="12" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 1.2; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="217.25" y="16.2" style="font-family: ExamSong; font-size: 11px;fill: rgb(14%,20%,26%); stroke:none;" transform="translate(0,32) scale(1,-1)">E</text>
+			<circle cx="355" cy="130" r="12" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 1.2; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="352.25" y="126.2" style="font-family: ExamSong; font-size: 11px;fill: rgb(14%,20%,26%); stroke:none;" transform="translate(0,252) scale(1,-1)">F</text>
+			<circle cx="355" cy="75" r="12" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 1.2; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="352.25" y="71.2" style="font-family: ExamSong; font-size: 11px;fill: rgb(14%,20%,26%); stroke:none;" transform="translate(0,142) scale(1,-1)">G</text>
+		</g>
+	</g>
+</svg>

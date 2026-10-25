@@ -1,0 +1,174 @@
+{
+  "paper": 3,
+  "version": "2026-10-25-student-v6",
+  "questions": [
+    {
+      "id": "S3-I01",
+      "section": "I",
+      "number": 1,
+      "points": 5,
+      "content": "设 `n` 是 `int` 范围内的正整数。阅读程序；复杂度针对 `countOps(n)` 的一次调用。\n\n```c\n#include <stdio.h>\n\nunsigned long long countOps(int n) {\n    unsigned long long count = 0;\n    for (long long i = 1; i <= n; i *= 2) {\n        for (int j = n; j >= 1; --j) {\n            ++count;\n        }\n    }\n    return count;\n}\n\nint main(void) {\n    int sample = 8;\n    unsigned long long result = countOps(sample);\n    printf(\"n=%d, count=%llu\\n\", sample, result);\n    return 0;\n}\n```\n\n当 `n=8` 时，外层 `i` 依次为 ______（1分），`count=______`（1分）。若 `n=2^k`（k≥0），外层执行 ______ 次（1分）；以 n 为自变量，`countOps(n)` 的时间复杂度为 ______（2分）。"
+    },
+    {
+      "id": "S3-I02",
+      "section": "I",
+      "number": 2,
+      "points": 5,
+      "content": "带头结点的单链表按 `key` 升序做简单选择排序，`tag` 仅用于辨认同键记录。比较相等时保留先遇到的结点作为 `best`；交换整个记录，不交换指针。补全程序。\n\n```c\n#include <stddef.h>\n#include <stdio.h>\ntypedef struct Node {\n    int key;\n    char tag;\n    struct Node *next;\n} Node;\n\nvoid selectionSort(Node *head) {\n    for (Node *p = __1__; p != NULL; p = p->next) {\n        Node *best = p;\n        for (Node *q = __2__; q != NULL; q = q->next) {\n            if (__3__) best = q;\n        }\n        if (best != p) {\n            int key = p->key;\n            char tag = p->tag;\n            p->key = best->key;\n            p->tag = best->tag;\n            best->key = key;\n            best->tag = tag;\n        }\n    }\n}\nint main(void) {\n    Node nodes[4] = {\n        {4, 'a', NULL}, {2, '-', NULL},\n        {4, 'b', NULL}, {1, '-', NULL}\n    };\n    for (int i = 0; i < 3; ++i) nodes[i].next = &nodes[i + 1];\n    Node head = {0, '-', &nodes[0]};\n    selectionSort(&head);\n    for (Node *p = head.next; p != NULL; p = p->next)\n        printf(\"(%d,%c) \", p->key, p->tag);\n    putchar('\\n');\n    return 0;\n}\n```\n\n填代码空 `__1__`（1分）、`__2__`（1分）、`__3__`（1分）；写出程序打印的含 `tag` 记录序列 ______（1分），以及 n 个数据结点时 `selectionSort` 的最坏时间复杂度 ______（1分）。"
+    },
+    {
+      "id": "S3-I03",
+      "section": "I",
+      "number": 3,
+      "points": 5,
+      "content": "带头结点的链式队列中，`front` 指向头结点，`rear` 指向尾结点；空队列时二者指向同一结点。`init` 成功后调用以下程序。补全三个空。\n\n```c\n#include <stdio.h>\n#include <stdlib.h>\ntypedef struct Node { int data; struct Node *next; } Node;\ntypedef struct { Node *front, *rear; } Queue;\n\nint init(Queue *q) {\n    Node *h = malloc(sizeof *h);\n    if (h == NULL) return 0;\n    h->next = NULL;\n    q->front = q->rear = h;\n    return 1;\n}\nint enq(Queue *q, int x) {\n    Node *p = malloc(sizeof *p);\n    if (p == NULL) return 0;\n    p->data = x; p->next = NULL;\n    __1__;\n    q->rear = p;\n    return 1;\n}\nint deq(Queue *q, int *out) {\n    Node *p = q->front->next;\n    if (p == NULL) return 0;\n    *out = p->data;\n    q->front->next = p->next;\n    if (q->rear == p) __2__;\n    free(p);\n    return 1;\n}\nint empty(const Queue *q) { return __3__; }\nint main(void) {\n    Queue q; int x;\n    if (!init(&q)) return 1;\n    if (!enq(&q, 4) || !enq(&q, 7)) return 1;\n    deq(&q, &x);\n    if (!enq(&q, 9)) return 1;\n    printf(\"%d %d\\n\", x, q.front->next->data);\n    while (!empty(&q)) deq(&q, &x);\n    free(q.front);\n    return 0;\n}\n```\n\n填 `__1__`（1分）、`__2__`（1分）、`__3__`（1分）；写出打印的两个整数 ______（1分）；队列非空时一次 `enq` 或 `deq` 的时间复杂度为 ______（1分）。"
+    },
+    {
+      "id": "S3-I04",
+      "section": "I",
+      "number": 4,
+      "points": 5,
+      "content": "无向图以邻接矩阵表示；顶点与邻点均按编号递增遍历。补全程序。\n\n```c\n#include <stdio.h>\nenum { V = 4 };\nint g[V][V] = {\n    {0, 1, 1, 0}, {1, 0, 1, 0},\n    {1, 1, 0, 0}, {0, 0, 0, 0}\n};\nint seen[V] = {0};\nvoid dfs(int u) {\n    seen[u] = 1;\n    for (int v = 0; v < V; ++v) {\n        if (__1__) {\n            printf(\"%d->%d \", u, v);\n            __2__;\n        }\n    }\n}\nint visitForest(void) {\n    int components = 0;\n    for (int u = 0; u < V; ++u) {\n        if (__3__) {\n            ++components;\n            printf(\"C%d: \", components);\n            dfs(u);\n            putchar('\\n');\n        }\n    }\n    return components;\n}\nint main(void) {\n    int total = visitForest();\n    printf(\"components=%d\\n\", total);\n    return 0;\n}\n```\n\n填代码空 `__1__`（1分）、`__2__`（1分）、`__3__`（1分）。推广到 V 个顶点、仍用邻接矩阵遍历全部顶点时，`visitForest` 的时间复杂度为 ______（2分）。"
+    },
+    {
+      "id": "S3-II01",
+      "section": "II",
+      "number": 1,
+      "points": 3,
+      "content": "容量为 7 的循环队列以 `front` 指向队首、`rear` 指向下一入队位置，另用 `count` 记录元素数。初始三者均为 0；依次入队 2、4、6、8，出队两次，再入队 10、12、14。此时 `front=______`（1分），`rear=______`（1分），`count=______`（1分）。"
+    },
+    {
+      "id": "S3-II02",
+      "section": "II",
+      "number": 2,
+      "points": 3,
+      "content": "一棵二进制 Huffman 树的每个非叶结点恰有两个孩子，所有字符只在叶结点。若整棵树共有 53 个结点，则叶结点共有 ______ 个（3分）。"
+    },
+    {
+      "id": "S3-II03",
+      "section": "II",
+      "number": 3,
+      "points": 3,
+      "content": "互异元素 1、2、3、4、5、6 按此顺序依次入同一个空栈，入栈、出栈可交替进行，直到全部元素出栈。若第一个出栈元素为 4，则可能的完整出栈序列共有 ______ 种（3分）。"
+    },
+    {
+      "id": "S3-II04",
+      "section": "II",
+      "number": 4,
+      "points": 3,
+      "content": "模式串 `P=ababbab` 从 1 编号。采用下列 KMP 约定：`next[1]=0`；对 j>1，`next[j]` 等于 P 的前 j−1 个字符中“最长真前缀且同时为后缀”的长度加 1；无非空匹配时该长度为 0。写出 `next[1..7]=______`（3分）。"
+    },
+    {
+      "id": "S3-II05",
+      "section": "II",
+      "number": 5,
+      "points": 3,
+      "content": "后缀表达式 `8 3 2 + * 9 5 - / 6 +` 中各记号以空格分隔，运算符均为双目运算符，`/` 表示除法（本题每次除法均可整除）。按从左到右的顺序，用栈对该表达式求值，最终结果为 ______（3分）。"
+    },
+    {
+      "id": "S3-II06",
+      "section": "II",
+      "number": 6,
+      "points": 3,
+      "content": "一棵非空树有 4 个度为 3 的结点、3 个度为 2 的结点、2 个度为 1 的结点，没有度超过 3 的结点。度为 0 的结点有 ______ 个（3分）。"
+    },
+    {
+      "id": "S3-II07",
+      "section": "II",
+      "number": 7,
+      "points": 3,
+      "content": "有 n≥2 个顶点的简单有向图若强连通，至少需要 ______ 条弧（3分）。"
+    },
+    {
+      "id": "S3-II08",
+      "section": "II",
+      "number": 8,
+      "points": 3,
+      "content": "一片森林有 27 个结点、4 棵树，则森林中的边共有 ______ 条（3分）。"
+    },
+    {
+      "id": "S3-II09",
+      "section": "II",
+      "number": 9,
+      "points": 3,
+      "content": "小根堆用从 1 起编号的数组存为 `(1,4,2,9,7,6)`。插入键 0 并逐层上滤后，数组内容为 ______（3分）。"
+    },
+    {
+      "id": "S3-II10",
+      "section": "II",
+      "number": 10,
+      "points": 3,
+      "content": "用二叉链表存储一棵有 23 个结点的非空二叉树，每个结点各有一个左孩子指针和一个右孩子指针。指向 `NULL` 的孩子指针共有 ______ 个（3分）。"
+    },
+    {
+      "id": "S3-III01",
+      "section": "III",
+      "number": 1,
+      "points": 10,
+      "content": "一棵二叉树的结点互异，先序序列为 `M,F,C,H,T,Q,W`，中序序列为 `C,F,H,M,Q,T,W`。规定中序线索化后，结点原本为空的左指针指向中序前驱，原本为空的右指针指向中序后继；不存在前驱或后继时指向 `NULL`。\n\n（1）画出该二叉树，标明每个结点的左、右孩子。（4分）\n\n（2）写出该树的后序序列。（2分）\n\n（3）中序线索化后，分别写出 C 的左指针、H 的右指针、Q 的左指针、W 的右指针所指向的结点（或 `NULL`）。（4分）"
+    },
+    {
+      "id": "S3-III02",
+      "section": "III",
+      "number": 2,
+      "points": 10,
+      "content": "将互异整数 `30,20,40,10,25,22` 依次插入空的普通二叉排序树（BST）；另从空树按同一顺序做 AVL 插入。树结点的左右孩子须分别标清。\n\n（1）画出六个键插入后的普通 BST。（2分）\n\n（2）写出 AVL 插入 22 后首次失衡的结点及应做的旋转次序。（2分）\n\n（3）画出调整后的 AVL 树。（3分）\n\n（4）分别写出两棵树中成功查找 22 所经过的键序列，并给出各自的比较次数。（3分）"
+    },
+    {
+      "id": "S3-III03",
+      "section": "III",
+      "number": 3,
+      "points": 10,
+      "content": "字符 A、B、C、D、E、F、G、H 的出现概率依次为 `0.07,0.19,0.02,0.06,0.32,0.03,0.21,0.10`，总和为 1。按每次合并两棵最小权树的方法构造二进制 Huffman 树；不要求写具体码字。\n\n（1）依次写出七次合并产生的新权值。（4分）\n\n（2）求 Huffman 编码的平均码长，单位为 bit/字符。（3分）\n\n（3）若八种字符统一用 3 位定长编码，平均码长是多少？两种编码相差多少 bit/字符？（2分）\n\n（4）所得 Huffman 树的总结点数是多少？（1分）"
+    },
+    {
+      "id": "S3-III04",
+      "section": "III",
+      "number": 4,
+      "points": 10,
+      "content": "长度为 11 的散列表槽号为 0～10，`H(k)=k mod 11`，冲突时从散列地址向后循环线性探测。将键 `22,33,14,25,36,47` 依次插入空表。成功查找只在找到目标键时停止；失败查找在遇到首个空槽时停止。所有已插入键等可能被成功查找；失败查询的初始散列地址 0～10 等可能。\n\n（1）按槽号 0～10 写出插入后的散列表，空槽记为“空”。（4分）\n\n（2）按插入顺序写出六个键成功查找各自需要的探测次数，并求成功平均查找长度 ASL。（3分）\n\n（3）按初始地址 0～10 的顺序写出失败查找的探测次数，并求失败 ASL。（3分）"
+    },
+    {
+      "id": "S3-III05",
+      "section": "III",
+      "number": 5,
+      "points": 10,
+      "content": "无向带权图的顶点为 A、B、C、D、E，全部边如下。等权边按表中从左到右的顺序处理。\n\n| 边 | AB | AC | BC | BD | CD | DE | CE |\n|---|---:|---:|---:|---:|---:|---:|---:|\n| 权 | 1 | 1 | 1 | 2 | 2 | 3 | 4 |\n\n（1）按 Kruskal 算法，逐条写出从开始到选满 4 条树边为止每条已检查边的“入树”或“因成环略过”结果。（5分）\n\n（2）写出所得最小生成树的边集与总权值。（2分）\n\n（3）从 A 开始按 Prim 算法选边，等权时按上表边次序选，写出 4 条边的入树次序。（3分）"
+    },
+    {
+      "id": "S3-III06",
+      "section": "III",
+      "number": 6,
+      "points": 10,
+      "content": "升序顺序表的七个互异关键字依次为 `3,8,11,18,21,27,30`，下标为 1～7。折半查找每轮取 `mid=⌊(low+high)/2⌋`，成功查找的比较次数为所经结点数；七个关键字被查询的概率相同。\n\n（1）画出这七个关键字的折半查找判定树，标清左右孩子。（4分）\n\n（2）求成功查找的平均查找长度 ASL。（3分）\n\n（3）查找 21 时，依次与哪些关键字比较？（2分）\n\n（4）查找 25 失败时共比较几次？（1分）"
+    },
+    {
+      "id": "S3-III07",
+      "section": "III",
+      "number": 7,
+      "points": 10,
+      "content": "对记录按整数关键字升序做自底向上的稳定二路归并排序。初始序列为 `(8a,3,7,1,8b,2,6,4)`，字母 a、b 标记两条同键记录。第一趟把相邻的长度为 1 的有序段两两归并，第二趟归并相邻的长度为 2 的有序段，第三趟归并相邻的长度为 4 的有序段。每次归并比较到相等关键字时，先取左段的记录。\n\n（1）写出第一趟结束后的完整记录序列。（3分）\n（2）写出第二趟结束后的完整记录序列。（3分）\n（3）写出第三趟结束后的完整记录序列。（4分）"
+    },
+    {
+      "id": "S3-IV01",
+      "section": "IV",
+      "number": 1,
+      "points": 8,
+      "content": "三条不带头结点的单链表分别按整数 `key` 非递减排列，各链可以为空，且三链互不共享结点。设计 `mergeThree`，只重连原有结点，返回合并后非递减单链表的首结点；若有相等关键字，它们之间的先后次序不限。全部为空时返回 `NULL`，不得新建或释放数据结点。\n\n```c\ntypedef struct Node { int key; struct Node *next; } Node;\nNode *mergeThree(Node *a, Node *b, Node *c);\n```\n\n请写出算法的基本思想、C语言实现，并分析时间复杂度和辅助空间复杂度。"
+    },
+    {
+      "id": "S3-IV02",
+      "section": "IV",
+      "number": 2,
+      "points": 10,
+      "content": "二叉树结点含布尔字段 `mark`。设计 `longestMarkedPath`，在所有“从根到叶且沿途至少有一个 `mark` 为真结点”的路径中，输出一条结点数最多的路径；有多条等长路径时任选一条。调用者提供容量至少为树高的 `out` 数组和有效的 `len` 指针；成功时将根到叶的结点指针依次放入 `out`，通过 `*len` 返回路径结点数并返回 `true`；空树或无合格路径时令 `*len=0` 且返回 `false`。不得修改树。\n\n```c\n#include <stdbool.h>\ntypedef struct Node {\n    int data;\n    bool mark;\n    struct Node *left, *right;\n} Node;\nbool longestMarkedPath(const Node *root, const Node *out[], int *len);\n```\n\n请写出算法的基本思想、C语言实现，并分析时间复杂度和辅助空间复杂度。"
+    },
+    {
+      "id": "S3-IV03",
+      "section": "IV",
+      "number": 3,
+      "points": 12,
+      "content": "无向简单图用邻接矩阵 `g` 表示，顶点编号为 `0..V−1`，`1≤V≤12`；`g[u][v]` 为 1 当且仅当两点相邻。给定合法顶点 `s、t` 和整数 `k`（`0≤k≤V−1`），设计 `countPaths`，返回从 s 到 t、恰经过 k 条边且不重复顶点的简单路径条数。顶点序列不同的路径分别计数；当 s=t 且 k=0 时，单顶点路径计为 1 条。图不应被修改。\n\n```c\nint countPaths(const int g[12][12], int V, int s, int t, int k);\n```\n\n请写出算法的基本思想、C语言实现，并分析时间复杂度和辅助空间复杂度。"
+    }
+  ]
+}

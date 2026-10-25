@@ -1,0 +1,1884 @@
+{
+  "version": "2026-10-25-final-v6",
+  "status": "144题独立交叉复核通过",
+  "reviewed_questions": 144,
+  "unresolved_findings": 0,
+  "answers_visual_pages": 72,
+  "student_pages_checked_this_round": 14,
+  "limitations": [
+    "难度与用时尚未经限时实测",
+    "考纲来源边界见审查依据/来源说明.md",
+    "随机测试非全部输入的形式证明"
+  ],
+  "questions": [
+    {
+      "id": "S1-I01",
+      "status": "pass",
+      "checks": [
+        "逐层展开 span=1,2,4,8，核 15 次执行、outSum=47 与 O(n)",
+        "题面与答案逐项对照，分值和小问完整"
+      ],
+      "findings": [],
+      "reviewer": "repo_quality（独立交叉复核）",
+      "title": "循环访问次数与复杂度",
+      "question_sha256": "e923264b6913e9581245d01915c875a0183751f3ec1c5c9c63fd8697f79362e9",
+      "innovation": false
+    },
+    {
+      "id": "S1-I02",
+      "status": "pass",
+      "checks": [
+        "逐指针复原前驱插入后的链关系和两次打印结果",
+        "题面与答案逐项对照，分值和小问完整"
+      ],
+      "findings": [],
+      "reviewer": "repo_quality（独立交叉复核）",
+      "title": "单链表指定结点前插补码",
+      "question_sha256": "caf3cb6b7b109813b2fb091799fb90de3a495cf02ccfb714bf7ae52e5fa42451",
+      "innovation": false
+    },
+    {
+      "id": "S1-I03",
+      "status": "pass",
+      "checks": [
+        "逐步追踪循环单链队列入队、单结点出队与 rear 状态",
+        "题面与答案逐项对照，分值和小问完整"
+      ],
+      "findings": [],
+      "reviewer": "repo_quality（独立交叉复核）",
+      "title": "循环单链队列补码",
+      "question_sha256": "d35f180206c2485faabefbc9c56844b220241f42d1b81d1eccf28e75055e56e7",
+      "innovation": false
+    },
+    {
+      "id": "S1-I04",
+      "status": "pass",
+      "checks": [
+        "空树、叶结点、非叶结点递归归纳，并核示例三次输出",
+        "题面与答案逐项对照，分值和小问完整"
+      ],
+      "findings": [],
+      "reviewer": "repo_quality（独立交叉复核）",
+      "title": "递归统计二叉树叶数",
+      "question_sha256": "07e2b0955f5fb20402d649bb8d5955bb997fcbfd1473f3375a244633a505f4ba",
+      "innovation": false
+    },
+    {
+      "id": "S1-II01",
+      "status": "pass",
+      "checks": [
+        "按栈规则独立重建中缀对应后缀式",
+        "题面与答案逐项对照，分值和小问完整"
+      ],
+      "findings": [
+        "旧版 PDF 曾印出字面 **；作者已改为普通标签，最终第2页复看通过。"
+      ],
+      "reviewer": "repo_quality（独立交叉复核）",
+      "title": "中缀表达式转后缀",
+      "question_sha256": "72620515df829c43b57cb5675820ec66d4b80228cb99e76b55fbce9e00250bb9",
+      "innovation": false
+    },
+    {
+      "id": "S1-II02",
+      "status": "pass",
+      "checks": [
+        "行优先地址偏移 14×4=56 独立计算",
+        "题面与答案逐项对照，分值和小问完整"
+      ],
+      "findings": [],
+      "reviewer": "repo_quality（独立交叉复核）",
+      "title": "二维数组行优先地址",
+      "question_sha256": "9724daf094dbcd064ef7292867dc0f6fe4fbeae395493e91e9ddac2fb9ba2ab7",
+      "innovation": false
+    },
+    {
+      "id": "S1-II03",
+      "status": "pass",
+      "checks": [
+        "按留空槽循环队列定义重算长度与满条件",
+        "题面与答案逐项对照，分值和小问完整"
+      ],
+      "findings": [],
+      "reviewer": "repo_quality（独立交叉复核）",
+      "title": "循环队列长度与满条件",
+      "question_sha256": "8c6e819e729e94b591e91a7ffb0cc30a61ac03935aea195219a843b2487f55fe",
+      "innovation": false
+    },
+    {
+      "id": "S1-II04",
+      "status": "pass",
+      "checks": [
+        "按题给 π 与 next 定义直接逐前后缀检查",
+        "题面与答案逐项对照，分值和小问完整"
+      ],
+      "findings": [],
+      "reviewer": "repo_quality（独立交叉复核）",
+      "title": "KMP next数值",
+      "question_sha256": "bbdca81857c3094339cd54d5b7351f19499deb2ead0091896f21437b13fb733c",
+      "innovation": false
+    },
+    {
+      "id": "S1-II05",
+      "status": "pass",
+      "checks": [
+        "按广义表 Tail 后取 Head 的层级独立展开",
+        "题面与答案逐项对照，分值和小问完整"
+      ],
+      "findings": [],
+      "reviewer": "repo_quality（独立交叉复核）",
+      "title": "广义表Head与Tail",
+      "question_sha256": "391d351d1ee06cada3b36603577b23cbcf1a7116c991ce3928d0bf018c5d4a3a",
+      "innovation": false
+    },
+    {
+      "id": "S1-II06",
+      "status": "pass",
+      "checks": [
+        "按前5层31结点及第5层4叶构造最大结点数55",
+        "题面与答案逐项对照，分值和小问完整"
+      ],
+      "findings": [],
+      "reviewer": "repo_quality（独立交叉复核）",
+      "title": "完全二叉树结点上界",
+      "question_sha256": "6b6c68bc8489f12304817e3c8e9b7dfb3ca72a4ab08f12ce92b7566a191304b0",
+      "innovation": false
+    },
+    {
+      "id": "S1-II07",
+      "status": "pass",
+      "checks": [
+        "穷举全部42个合法出栈序列，首个为3的有9个",
+        "题面与答案逐项对照，分值和小问完整"
+      ],
+      "findings": [],
+      "reviewer": "repo_quality（独立交叉复核）",
+      "title": "限制首个弹出元素的出栈序列数",
+      "question_sha256": "b66d8b4f087e0a13cd90bc8427252612aae4d3093ba4a9c346781ef3882a8d60",
+      "innovation": false
+    },
+    {
+      "id": "S1-II08",
+      "status": "pass",
+      "checks": [
+        "按 AVL 插入和旋转复原满平衡7结点树",
+        "题面与答案逐项对照，分值和小问完整"
+      ],
+      "findings": [],
+      "reviewer": "repo_quality（独立交叉复核）",
+      "title": "AVL插入后的平衡因子计数",
+      "question_sha256": "341cea0713cd0aa14e12b9b1012f25fa2787e657898105dc37b53a9bc426e0c7",
+      "innovation": false
+    },
+    {
+      "id": "S1-II09",
+      "status": "pass",
+      "checks": [
+        "上滤 85 的两次父子位置判断，核左孩子70",
+        "题面与答案逐项对照，分值和小问完整"
+      ],
+      "findings": [],
+      "reviewer": "repo_quality（独立交叉复核）",
+      "title": "大根堆插入上滤",
+      "question_sha256": "d58b55239877112aafaf972fd34ebaa6afb8f1b9839db71391ee72ce932710dd",
+      "innovation": false
+    },
+    {
+      "id": "S1-II10",
+      "status": "pass",
+      "checks": [
+        "折半查找最深成功结点及容量界限复核",
+        "题面与答案逐项对照，分值和小问完整"
+      ],
+      "findings": [],
+      "reviewer": "repo_quality（独立交叉复核）",
+      "title": "折半成功比较上界",
+      "question_sha256": "276f0ca7299de3ea3bddef3956889c3a261e7870449ab826201e803ecb5e4ff3",
+      "innovation": false
+    },
+    {
+      "id": "S1-III01",
+      "status": "pass",
+      "checks": [
+        "先中序分割重建，再独立核后序及 C/G 线索；配图孩子关系一致",
+        "题面与答案逐项对照，分值和小问完整"
+      ],
+      "findings": [],
+      "reviewer": "repo_quality（独立交叉复核）",
+      "title": "遍历重建与中序线索",
+      "question_sha256": "52051a17f7002e7c534568afb527723c52baccda4ad7bf020290a1c16dab52c3",
+      "innovation": false
+    },
+    {
+      "id": "S1-III02",
+      "status": "pass",
+      "checks": [
+        "最小堆重建合并序、码字和 WPL=91；配图码边一致",
+        "题面与答案逐项对照，分值和小问完整"
+      ],
+      "findings": [],
+      "reviewer": "repo_quality（独立交叉复核）",
+      "title": "Huffman构造与编码",
+      "question_sha256": "8367af5ec17b04e0a95cc53df19bf0fc1755f6f5ac520e8202fe2826e70adb0a",
+      "innovation": false
+    },
+    {
+      "id": "S1-III03",
+      "status": "pass",
+      "checks": [
+        "独立线性探测脚本核全表、成功探测与11起点失败探测",
+        "题面与答案逐项对照，分值和小问完整"
+      ],
+      "findings": [],
+      "reviewer": "repo_quality（独立交叉复核）",
+      "title": "线性探测散列表与ASL",
+      "question_sha256": "801866a335688225f693b42952c8a5bd4760e987a0216d5e3bd006145728a72f",
+      "innovation": false
+    },
+    {
+      "id": "S1-III04",
+      "status": "pass",
+      "checks": [
+        "按下取整 mid 递归建判定树，重算 ASL=29/10 和27轨迹；配图一致",
+        "题面与答案逐项对照，分值和小问完整"
+      ],
+      "findings": [],
+      "reviewer": "repo_quality（独立交叉复核）",
+      "title": "折半判定树与查找长度",
+      "question_sha256": "4ea8627cf0a38623334c516e11fbea1ba317141b174ba8a1cfc17758f6eb40da",
+      "innovation": false
+    },
+    {
+      "id": "S1-III05",
+      "status": "pass",
+      "checks": [
+        "独立按 Prim 割边与 Kruskal 并查集核入树顺序和权和16",
+        "题面与答案逐项对照，分值和小问完整"
+      ],
+      "findings": [],
+      "reviewer": "repo_quality（独立交叉复核）",
+      "title": "Prim与Kruskal生成树",
+      "question_sha256": "54d6a2ae58afcfa1253ef4dbbf0c50cff2ac0021b4798fba30d4b2ff94be9c61",
+      "innovation": false
+    },
+    {
+      "id": "S1-III06",
+      "status": "pass",
+      "checks": [
+        "逐次 BST/AVL 插入复原 LR、RL 与最终树；两张配图一致",
+        "题面与答案逐项对照，分值和小问完整"
+      ],
+      "findings": [],
+      "reviewer": "repo_quality（独立交叉复核）",
+      "title": "BST与AVL插入构造",
+      "question_sha256": "b6897c4a07019bf75181749c98d92c2f3017d326606d619f95bd7889b9ba1954",
+      "innovation": false
+    },
+    {
+      "id": "S1-III07",
+      "status": "pass",
+      "checks": [
+        "用题给挖坑代码和独立下滤器逐步模拟两数组",
+        "题面与答案逐项对照，分值和小问完整"
+      ],
+      "findings": [],
+      "reviewer": "repo_quality（独立交叉复核）",
+      "title": "快速划分与建小根堆",
+      "question_sha256": "ad63eba349f834d66ee8fb6fd67806b8fb2af63f7fbcf299492113233009ff83",
+      "innovation": false
+    },
+    {
+      "id": "S1-IV01",
+      "status": "pass",
+      "checks": [
+        "独立 GCC C11 严格编译；300组有序链表随机差集与 B 不变 oracle",
+        "题面与答案逐项对照，分值和小问完整"
+      ],
+      "findings": [],
+      "reviewer": "repo_quality（独立交叉复核）",
+      "title": "有序链表原结点差集",
+      "question_sha256": "5c4d4af795ce1e7a06f73161752347c954933962267b01fa08562becb950f8db",
+      "innovation": false
+    },
+    {
+      "id": "S1-IV02",
+      "status": "pass",
+      "checks": [
+        "独立 GCC C11 严格编译；400棵随机含负权树核最优和、合法根叶路径及长度",
+        "题面与答案逐项对照，分值和小问完整"
+      ],
+      "findings": [
+        "独立复核提出 int 返回值范围歧义；题面已明确路径和在 int 范围内，当前契约通过。"
+      ],
+      "reviewer": "repo_quality（独立交叉复核）",
+      "title": "根叶路径最大权值和",
+      "question_sha256": "1a085890f5164132342ac28c310a4717795aafad28efb7dc01ca2d14184b7881",
+      "innovation": false
+    },
+    {
+      "id": "S1-IV03",
+      "status": "pass",
+      "checks": [
+        "独立 GCC C11 严格编译；400张随机无向图用禁点 BFS 对照路径存在性和简单路径契约",
+        "题面与答案逐项对照，分值和小问完整"
+      ],
+      "findings": [],
+      "reviewer": "repo_quality（独立交叉复核）",
+      "title": "避开禁用顶点的图路径",
+      "question_sha256": "04345aa57b2125ee38c9897786678824c94c35f6878ebc181a9f24680f4a803c",
+      "innovation": false
+    },
+    {
+      "id": "S2-I01",
+      "status": "pass",
+      "checks": [
+        "由 M(n)=2M(n-1)+1 展开 n=3 移动7次，核 O(2^n)",
+        "题面与答案逐项对照，分值和小问完整"
+      ],
+      "findings": [],
+      "reviewer": "repo_quality（独立交叉复核）",
+      "title": "汉诺塔递归次数与复杂度",
+      "question_sha256": "4b04b20249dce07742bd383b688d56d11293f736b35a5fd3e071bf164d24102c",
+      "innovation": false
+    },
+    {
+      "id": "S2-I02",
+      "status": "pass",
+      "checks": [
+        "逐指针复原双向相邻结点交换和示例前后打印",
+        "题面与答案逐项对照，分值和小问完整"
+      ],
+      "findings": [],
+      "reviewer": "repo_quality（独立交叉复核）",
+      "title": "双向链表相邻结点交换补码",
+      "question_sha256": "fea168cd35acba58aab326de3acd106c54b338e9683e80fffb7ac363e748cabd",
+      "innovation": false
+    },
+    {
+      "id": "S2-I03",
+      "status": "pass",
+      "checks": [
+        "核两栈相邻满条件、右栈先减后写和先取后增",
+        "题面与答案逐项对照，分值和小问完整"
+      ],
+      "findings": [],
+      "reviewer": "repo_quality（独立交叉复核）",
+      "title": "共享双栈边界与进出栈补码",
+      "question_sha256": "552a46cb0b52c44d1fa3931eb59ee1b70c98266d11edc5425e979a4e9117e5d4",
+      "innovation": false
+    },
+    {
+      "id": "S2-I04",
+      "status": "pass",
+      "checks": [
+        "空/单叶/链状树检查高度哨兵和示例输出",
+        "题面与答案逐项对照，分值和小问完整"
+      ],
+      "findings": [],
+      "reviewer": "repo_quality（独立交叉复核）",
+      "title": "平衡树求高代码补全",
+      "question_sha256": "551f1d9fc9225a5fcfc565e70f7158f28a8e193538cf5dda3a1e49050e5bfed2",
+      "innovation": false
+    },
+    {
+      "id": "S2-II01",
+      "status": "pass",
+      "checks": [
+        "按先弹右操作数规则独立算后缀表达式14",
+        "题面与答案逐项对照，分值和小问完整"
+      ],
+      "findings": [],
+      "reviewer": "repo_quality（独立交叉复核）",
+      "title": "后缀表达式求值",
+      "question_sha256": "03d12576392744b9f05fb3ff372a28ca9b5b8453124192013ec9e55d714df0d1",
+      "innovation": false
+    },
+    {
+      "id": "S2-II02",
+      "status": "pass",
+      "checks": [
+        "穷举4元素合法出栈序列共14个",
+        "题面与答案逐项对照，分值和小问完整"
+      ],
+      "findings": [],
+      "reviewer": "repo_quality（独立交叉复核）",
+      "title": "栈弹出序列数",
+      "question_sha256": "e6fe35c169364750d44ec320dd694f97fb40a5f41375548fe9f4272866aa8fd0",
+      "innovation": false
+    },
+    {
+      "id": "S2-II03",
+      "status": "pass",
+      "checks": [
+        "按题给 front/rear 约定重算队长3与 rear=2",
+        "题面与答案逐项对照，分值和小问完整"
+      ],
+      "findings": [],
+      "reviewer": "repo_quality（独立交叉复核）",
+      "title": "循环队列指针更新",
+      "question_sha256": "90115564a65ab237429a6ced5c9d9a684c5a22bee53c1c8f42d2599c22ca4030",
+      "innovation": false
+    },
+    {
+      "id": "S2-II04",
+      "status": "pass",
+      "checks": [
+        "逐前后缀核 aaaaab 的 next[6]=5 与 π(6)=0",
+        "题面与答案逐项对照，分值和小问完整"
+      ],
+      "findings": [],
+      "reviewer": "repo_quality（独立交叉复核）",
+      "title": "KMP next与前缀函数",
+      "question_sha256": "f75a02cba2dbbde7ef68a08aa6ce8707a367ef912d88f6e051142d06e5a5e1f4",
+      "innovation": false
+    },
+    {
+      "id": "S2-II05",
+      "status": "pass",
+      "checks": [
+        "行优先三维数组偏移17元素、68字节重算",
+        "题面与答案逐项对照，分值和小问完整"
+      ],
+      "findings": [],
+      "reviewer": "repo_quality（独立交叉复核）",
+      "title": "三维数组行优先寻址",
+      "question_sha256": "ff5de820b58466f1d650cfb2971c343b5d9004964d6d0b5b57bf4128bdd52121",
+      "innovation": false
+    },
+    {
+      "id": "S2-II06",
+      "status": "pass",
+      "checks": [
+        "以森林边数=结点数-根数核3棵",
+        "题面与答案逐项对照，分值和小问完整"
+      ],
+      "findings": [],
+      "reviewer": "repo_quality（独立交叉复核）",
+      "title": "森林树数与边数",
+      "question_sha256": "bfe6af45a6f88497049313c78ca60facdeaacb0a67a5f442785f9ffc29ca5365",
+      "innovation": false
+    },
+    {
+      "id": "S2-II07",
+      "status": "pass",
+      "checks": [
+        "用2n指针与n-1孩子边核 n+1 空指针",
+        "题面与答案逐项对照，分值和小问完整"
+      ],
+      "findings": [],
+      "reviewer": "repo_quality（独立交叉复核）",
+      "title": "二叉链表空指针计数",
+      "question_sha256": "a09e40aeadf5c64c6c919ede3c55a49e905124c9468d75fbebd0165b90d97bcd",
+      "innovation": false
+    },
+    {
+      "id": "S2-II08",
+      "status": "pass",
+      "checks": [
+        "下取整中点建16结点判定树，核最大成功比较5次",
+        "题面与答案逐项对照，分值和小问完整"
+      ],
+      "findings": [],
+      "reviewer": "repo_quality（独立交叉复核）",
+      "title": "折半成功比较上界",
+      "question_sha256": "0ffa920ad0586cf50a394322233a35334ba32288c599eef117a617ab4ddd1568",
+      "innovation": false
+    },
+    {
+      "id": "S2-II09",
+      "status": "pass",
+      "checks": [
+        "逐层上滤12核最终下标3及比较2次",
+        "题面与答案逐项对照，分值和小问完整"
+      ],
+      "findings": [],
+      "reviewer": "repo_quality（独立交叉复核）",
+      "title": "小根堆插入比较次数",
+      "question_sha256": "42951f1fc65879cd77f9a7189211f97bdf662c880a28c2639dae2657365be9f0",
+      "innovation": false
+    },
+    {
+      "id": "S2-II10",
+      "status": "pass",
+      "checks": [
+        "严格二叉树 L=I+1 与 L+I=15 核叶数8",
+        "题面与答案逐项对照，分值和小问完整"
+      ],
+      "findings": [],
+      "reviewer": "repo_quality（独立交叉复核）",
+      "title": "严格二叉Huffman树叶数",
+      "question_sha256": "948266ce9a70b513d89707bcc4d525181d886c4f3ae734f10a951f8530309826",
+      "innovation": false
+    },
+    {
+      "id": "S2-III01",
+      "status": "pass",
+      "checks": [
+        "按孩子兄弟规则独立生成孩子表、先后根、边数；配图一致",
+        "题面与答案逐项对照，分值和小问完整"
+      ],
+      "findings": [],
+      "reviewer": "repo_quality（独立交叉复核）",
+      "title": "森林孩子兄弟表示与遍历",
+      "question_sha256": "b214b90b049249c33d2ddfda5129e93543fe84a90ac0ddfac353fadbedbd6d87",
+      "innovation": false
+    },
+    {
+      "id": "S2-III02",
+      "status": "pass",
+      "checks": [
+        "递归折半建树并穷举9个失败间隙深度；配图一致",
+        "题面与答案逐项对照，分值和小问完整"
+      ],
+      "findings": [],
+      "reviewer": "repo_quality（独立交叉复核）",
+      "title": "折半判定树与成功失败ASL",
+      "question_sha256": "d03606591e1a787614ea22eeccd7ca1bbf299106102fe45ea55262afcb49d244",
+      "innovation": false
+    },
+    {
+      "id": "S2-III03",
+      "status": "pass",
+      "checks": [
+        "独立哈希 oracle 核两法全表、成功/失败 ASL 与拉链比较定义",
+        "题面与答案逐项对照，分值和小问完整"
+      ],
+      "findings": [],
+      "reviewer": "repo_quality（独立交叉复核）",
+      "title": "开放定址与拉链散列",
+      "question_sha256": "4ce86f32b9c92496e7860af76b259029ca31cbdcd786e3f991feb813aab80aef",
+      "innovation": false
+    },
+    {
+      "id": "S2-III04",
+      "status": "pass",
+      "checks": [
+        "独立最短路重算 Dijkstra 轮次、最终距离及 A→E 路径",
+        "题面与答案逐项对照，分值和小问完整"
+      ],
+      "findings": [],
+      "reviewer": "repo_quality（独立交叉复核）",
+      "title": "Dijkstra逐轮最短路径",
+      "question_sha256": "430b25a9817f5137bc2f9657147d2bf52dc7a76cbb997c9b5648afbae0994c70",
+      "innovation": false
+    },
+    {
+      "id": "S2-III05",
+      "status": "pass",
+      "checks": [
+        "独立拓扑正反递推 ve/vl，核唯一关键路径和工期8",
+        "题面与答案逐项对照，分值和小问完整"
+      ],
+      "findings": [],
+      "reviewer": "repo_quality（独立交叉复核）",
+      "title": "AOE关键路径计算",
+      "question_sha256": "3bd501019620d77a1dc5e231bcaa03e82afa6159b27175e5da2285f7a1d77541",
+      "innovation": false
+    },
+    {
+      "id": "S2-III06",
+      "status": "pass",
+      "checks": [
+        "最小堆独立重建 Huffman 合并、码字和 WPL=86；配图一致",
+        "题面与答案逐项对照，分值和小问完整"
+      ],
+      "findings": [],
+      "reviewer": "repo_quality（独立交叉复核）",
+      "title": "Huffman树构造与WPL",
+      "question_sha256": "728c94fa264b8ac63a88cecbca291bbb19401a09d00cb4070da554c025df8b3c",
+      "innovation": false
+    },
+    {
+      "id": "S2-III07",
+      "status": "pass",
+      "checks": [
+        "独立插入排序状态及挖坑划分脚本核四小问",
+        "题面与答案逐项对照，分值和小问完整"
+      ],
+      "findings": [],
+      "reviewer": "repo_quality（独立交叉复核）",
+      "title": "直接插入排序与快速排序一趟划分",
+      "question_sha256": "b538fb1a5a4459c867d47ce0fd5e9224d76f9f5988f6cf36d5dff282ff34b920",
+      "innovation": false
+    },
+    {
+      "id": "S2-IV01",
+      "status": "pass",
+      "checks": [
+        "独立 GCC C11 严格编译；400组随机正负链核稳定分组与边界",
+        "题面与答案逐项对照，分值和小问完整"
+      ],
+      "findings": [
+        "旧版答案缺 NULL 所需标准头；作者已补 <stddef.h>，当前独立编译通过。"
+      ],
+      "reviewer": "repo_quality（独立交叉复核）",
+      "title": "单链表稳定负数分段",
+      "question_sha256": "5437bdcbfb37fd22bae33886fb1f42d2183ce434f7a5a3ef55952ab080e3f4d5",
+      "innovation": false
+    },
+    {
+      "id": "S2-IV02",
+      "status": "pass",
+      "checks": [
+        "独立 GCC C11 严格编译；400棵随机树核逐结点叶数及空树",
+        "题面与答案逐项对照，分值和小问完整"
+      ],
+      "findings": [
+        "旧版答案缺 NULL 所需标准头；作者已补 <stddef.h>，当前独立编译通过。"
+      ],
+      "reviewer": "repo_quality（独立交叉复核）",
+      "title": "二叉树各子树叶数",
+      "question_sha256": "17e6d90c291465e37b843b8cf5139100dab39c8858633d57b023348e65708856",
+      "innovation": false
+    },
+    {
+      "id": "S2-IV03",
+      "status": "pass",
+      "checks": [
+        "独立 GCC C11 严格编译；500张随机图用 BFS 距离 oracle 核 k<0/s=t/路径限长",
+        "题面与答案逐项对照，分值和小问完整"
+      ],
+      "findings": [
+        "旧版答案缺 NULL 所需标准头；作者已补 <stddef.h>，当前独立编译通过。"
+      ],
+      "reviewer": "repo_quality（独立交叉复核）",
+      "title": "至多k边的简单图路径",
+      "question_sha256": "8e95742b7a588bbfbf353fe5518c25cb607255e777c20b985c6368fdb73c4fdf",
+      "innovation": false
+    },
+    {
+      "id": "S3-I01",
+      "status": "pass",
+      "checks": [
+        "按倍增外层1/2/4/8与每轮8次内层独立计算32；补空后GCC严格编译运行。"
+      ],
+      "findings": [],
+      "reviewer": "/root/project_map",
+      "title": "倍增外循环的频度与复杂度",
+      "question_sha256": "d59ba6cfeec7a145808b5047a08cf339282ef70dbaaaa9d3247fd61e418e079e",
+      "innovation": false
+    },
+    {
+      "id": "S3-I02",
+      "status": "pass",
+      "checks": [
+        "逐轮交换整条(key,tag)记录，重算同键4b先于4a；补空代码编译运行。"
+      ],
+      "findings": [],
+      "reviewer": "/root/project_map",
+      "title": "链表选择排序关键代码补全",
+      "question_sha256": "19b4b25722399ae52a8048f49fc0eb10f416fffffa288cde8148e5764b64c419",
+      "innovation": false
+    },
+    {
+      "id": "S3-I03",
+      "status": "pass",
+      "checks": [
+        "跟踪头尾在入4、入7、出4、入9各步状态；编译运行得到4 7。"
+      ],
+      "findings": [],
+      "reviewer": "/root/project_map",
+      "title": "链式队列入出队代码补全",
+      "question_sha256": "9fbe786203e20eb99fecfa5e0858f619c120b7f56712670b147ebb3f21b80136",
+      "innovation": false
+    },
+    {
+      "id": "S3-I04",
+      "status": "pass",
+      "checks": [
+        "按矩阵编号顺序追DFS树边与两个连通分量；补空后编译运行。"
+      ],
+      "findings": [],
+      "reviewer": "/root/project_map",
+      "title": "DFS森林树边代码补全",
+      "question_sha256": "14175ef36d00299af5e009ba8b9fb2fa2745e066dd27a7a9af7e7bc194c99878",
+      "innovation": false
+    },
+    {
+      "id": "S3-II01",
+      "status": "pass",
+      "checks": [
+        "逐项模拟循环队列入4、出2、再入3，核front/rear/count=2/0/5。"
+      ],
+      "findings": [],
+      "reviewer": "/root/project_map",
+      "title": "循环队列操作后指针状态",
+      "question_sha256": "2d686db9a2806a34b2e36fcb966cc4a97e348b6cb67eb43bfad3fb7b8f38889b",
+      "innovation": false
+    },
+    {
+      "id": "S3-II02",
+      "status": "pass",
+      "checks": [
+        "由严格二叉树结点式N=2L−1独立求L=27。"
+      ],
+      "findings": [],
+      "reviewer": "/root/project_map",
+      "title": "Huffman树总结点反推叶数",
+      "question_sha256": "a1e68bcb69bcad33e1ea127507f86872f4883aea60e50b0f0414c531034fa8d6",
+      "innovation": false
+    },
+    {
+      "id": "S3-II03",
+      "status": "pass",
+      "checks": [
+        "以入栈位置、栈状态递归枚举首弹4的完整序列，去重计14。"
+      ],
+      "findings": [],
+      "reviewer": "/root/project_map",
+      "title": "首出4的栈序列数量",
+      "question_sha256": "4883812794087b27db65ea4dcdeec4893ca173808ce4af73ed0dd75e7a5205a0",
+      "innovation": false
+    },
+    {
+      "id": "S3-II04",
+      "status": "pass",
+      "checks": [
+        "对ababbab每个前缀逐位求最长真前后缀，再按1基定义换算next。"
+      ],
+      "findings": [],
+      "reviewer": "/root/project_map",
+      "title": "KMP next数组计算",
+      "question_sha256": "01f5077bb57857947132ae5d3dc2079d825da9217b2c62937e0555cd67a06ac2",
+      "innovation": false
+    },
+    {
+      "id": "S3-II05",
+      "status": "pass",
+      "checks": [
+        "用操作数栈按记号求3+2、8×5、9−5、40÷4及最终16。"
+      ],
+      "findings": [],
+      "reviewer": "/root/project_map",
+      "title": "后缀表达式求值",
+      "question_sha256": "e141fef60d7a779b71e29458ffbc0b055ec05e2d75b04a3448eecdf490caf363",
+      "innovation": false
+    },
+    {
+      "id": "S3-II06",
+      "status": "pass",
+      "checks": [
+        "按结点度数求边数20及结点总数21，扣已知非叶9得叶12。"
+      ],
+      "findings": [],
+      "reviewer": "/root/project_map",
+      "title": "树的度数与叶子数",
+      "question_sha256": "d6824da55c4ecdc40840eeecbfe352f17c19a0909510e55684c5c4f0c93e0478",
+      "innovation": false
+    },
+    {
+      "id": "S3-II07",
+      "status": "pass",
+      "checks": [
+        "用各点出度至少1给下界n，用有向Hamilton环构造达到。"
+      ],
+      "findings": [],
+      "reviewer": "/root/project_map",
+      "title": "强连通图最少弧数",
+      "question_sha256": "144bb64c2c59d08e6d2b172c566177308fdafd21a5a82cba574035b17e355f3c",
+      "innovation": false
+    },
+    {
+      "id": "S3-II08",
+      "status": "pass",
+      "checks": [
+        "逐树汇总E=N−T，代入27−4=23。"
+      ],
+      "findings": [],
+      "reviewer": "/root/project_map",
+      "title": "森林边数计算",
+      "question_sha256": "fa3f8e48f1f1aefd5c7bb8d0df9b2c035361f971f8e8735c07cf303f70eea334",
+      "innovation": false
+    },
+    {
+      "id": "S3-II09",
+      "status": "pass",
+      "checks": [
+        "按1基下标7→3→1逐层上滤0，重算完整堆。"
+      ],
+      "findings": [],
+      "reviewer": "/root/project_map",
+      "title": "小根堆插入后的数组",
+      "question_sha256": "e5f7418edbadf1bd9dbc9ff35ce386a8f2cde22b479f30b38a536c2a0c9edf01",
+      "innovation": false
+    },
+    {
+      "id": "S3-II10",
+      "status": "pass",
+      "checks": [
+        "计算46个孩子指针减22条树边，得24空指针。"
+      ],
+      "findings": [],
+      "reviewer": "/root/project_map",
+      "title": "二叉链表空指针数",
+      "question_sha256": "6a21241ad42ea4c07ef80696ac2deb6830bacc045a27a77fc30a95e1c299e3aa",
+      "innovation": false
+    },
+    {
+      "id": "S3-III01",
+      "status": "pass",
+      "checks": [
+        "由先序/中序左右段独立重建满二叉树，推后序和四个线索；对照配图树结构。"
+      ],
+      "findings": [],
+      "reviewer": "/root/project_map",
+      "title": "二叉树双序重建与中序线索",
+      "question_sha256": "56a695d32b8441c09e7997c70ebdbfccbe703e2950dd7e0937cc0c4a58506cd9",
+      "innovation": false
+    },
+    {
+      "id": "S3-III02",
+      "status": "pass",
+      "checks": [
+        "分别逐键建BST和AVL，重算22的LR旋转、两棵树与查找路径；对照两张配图。"
+      ],
+      "findings": [],
+      "reviewer": "/root/project_map",
+      "title": "BST与AVL构造及查找轨迹",
+      "question_sha256": "011d5ef17199887fabc7fe4dff3bebddd54a60845a91b6e6ad5f300028c80d7f",
+      "innovation": false
+    },
+    {
+      "id": "S3-III03",
+      "status": "pass",
+      "checks": [
+        "按最小堆独立合并百分比权值7次，合并权和261即平均码长2.61。"
+      ],
+      "findings": [],
+      "reviewer": "/root/project_map",
+      "title": "Huffman合并与平均码长",
+      "question_sha256": "f596cb2cdd56d933cf6f9386b7eb3d4bb4e8890db43c0e53b6ce3d9c48856f96",
+      "innovation": false
+    },
+    {
+      "id": "S3-III04",
+      "status": "pass",
+      "checks": [
+        "按22/33/14/25/36/47独立线性探测构表，逐键成功与11个起址失败探测计数。"
+      ],
+      "findings": [],
+      "reviewer": "/root/project_map",
+      "title": "线性探测构表与成功失败ASL",
+      "question_sha256": "6ebdcb8d0677abc98b6e820b3af15f1abc35883402c068149bf9e786e0419766",
+      "innovation": false
+    },
+    {
+      "id": "S3-III05",
+      "status": "pass",
+      "checks": [
+        "Kruskal按给定等权次序做并查集判环；Prim从A逐轮查跨边，均得权7。"
+      ],
+      "findings": [],
+      "reviewer": "/root/project_map",
+      "title": "Kruskal与Prim选边过程",
+      "question_sha256": "f175f290d68c0f97ee77534a329ae30263f92949accd96d5269be8cc41246860",
+      "innovation": false
+    },
+    {
+      "id": "S3-III06",
+      "status": "pass",
+      "checks": [
+        "按1基中点4/2/6构判定树，逐键统计深度与21、25两次查找；对照配图。"
+      ],
+      "findings": [],
+      "reviewer": "/root/project_map",
+      "title": "折半判定树与成功ASL",
+      "question_sha256": "b219a87a7963e9ef18a6ec98bd8d7a48ea0d34b3999724ba6ec92284b43e3edd",
+      "innovation": false
+    },
+    {
+      "id": "S3-III07",
+      "status": "pass",
+      "checks": [
+        "按宽度1、2、4分别稳定归并8a和8b，核三趟完整记录次序。"
+      ],
+      "findings": [],
+      "reviewer": "/root/project_map",
+      "title": "稳定二路归并排序逐趟记录",
+      "question_sha256": "29c1f35de227e4e1d1bab612e5b171baf538783d3e3e64c5fbed26ce249b39ac",
+      "innovation": false
+    },
+    {
+      "id": "S3-IV01",
+      "status": "pass",
+      "checks": [
+        "正式C代码独立GCC -Werror编译；1000组随机三有序链含空链/重复键，核原结点集合与升序。"
+      ],
+      "findings": [],
+      "reviewer": "/root/project_map",
+      "title": "固定三条有序链表归并",
+      "question_sha256": "e1496183391956c8a41d6441220970f11aa6845aeb8d55910908035d743521a9",
+      "innovation": false
+    },
+    {
+      "id": "S3-IV02",
+      "status": "pass",
+      "checks": [
+        "正式C代码独立编译；1000棵随机标记树与独立根叶枚举对拍，核输出指针路径。"
+      ],
+      "findings": [],
+      "reviewer": "/root/project_map",
+      "title": "带标记条件的最长根叶路径",
+      "question_sha256": "90d234071eb1140e69b033d479154952378f45e812ca965853f022357b5135ff",
+      "innovation": false
+    },
+    {
+      "id": "S3-IV03",
+      "status": "pass",
+      "checks": [
+        "正式C代码独立编译；1000张随机图穷举所有s/t/k和简单路径，逐项比计数。"
+      ],
+      "findings": [],
+      "reviewer": "/root/project_map",
+      "title": "定长简单路径计数",
+      "question_sha256": "8c4f2ee99b4a163b9e4a4f123d6250d044d60ef85dcbfd24218c87d73c77b64c",
+      "innovation": false
+    },
+    {
+      "id": "S4-I01",
+      "status": "pass",
+      "checks": [
+        "逐层手算6次递归调用、5次比较与返回16；原程序GCC严格编译运行。"
+      ],
+      "findings": [],
+      "reviewer": "/root/project_map",
+      "title": "递归前缀最小值程序阅读",
+      "question_sha256": "321f428efd644b2cc663657178b70c2386a0f0eec218c0c8f92de17fe447240c",
+      "innovation": false
+    },
+    {
+      "id": "S4-I02",
+      "status": "pass",
+      "checks": [
+        "逐段追A交B的保留/释放/前进分支；三个空补全后GCC严格语法编译。"
+      ],
+      "findings": [],
+      "reviewer": "/root/project_map",
+      "title": "有序链表交集代码补全",
+      "question_sha256": "48b01b31c982e012b540d95a1a2aac60b3d8aab8f481b64bf015e80d3171a5b0",
+      "innovation": false
+    },
+    {
+      "id": "S4-I03",
+      "status": "pass",
+      "checks": [
+        "检查count=4判满、rear模4前进和deq减count；补空后编译运行。"
+      ],
+      "findings": [],
+      "reviewer": "/root/project_map",
+      "title": "计数型循环队列代码补全",
+      "question_sha256": "4ea8db0c214cdd44a534f7e0396548c39abf8203b55fb52ac7df39eb033a4bcc",
+      "innovation": false
+    },
+    {
+      "id": "S4-I04",
+      "status": "pass",
+      "checks": [
+        "按孩子关系枚举4/5/7三片叶；补空后编译运行输出3。"
+      ],
+      "findings": [],
+      "reviewer": "/root/project_map",
+      "title": "叶结点计数代码补全",
+      "question_sha256": "3608b40cea62a9fc3eea45a6597c9f10c5fa8d7493c871c1d24e15aeb3a92d6f",
+      "innovation": false
+    },
+    {
+      "id": "S4-II01",
+      "status": "pass",
+      "checks": [
+        "递归树叶数n、总结点2n−1和最大深度log₂n+1分别求时间/空间。"
+      ],
+      "findings": [],
+      "reviewer": "/root/project_map",
+      "title": "二分递归的时间与递归栈空间",
+      "question_sha256": "e2d13de798a7e83884526f3b8e937f77c5c6cd75ce96f157657f249c2a94c158",
+      "innovation": true
+    },
+    {
+      "id": "S4-II02",
+      "status": "pass",
+      "checks": [
+        "按行主序偏移2×6+3=15，4字节元素求地址1060。"
+      ],
+      "findings": [],
+      "reviewer": "/root/project_map",
+      "title": "二维数组元素地址",
+      "question_sha256": "000de77d23fbefcf389a5db9a4f2055d797897f9238635b452ec456b9e895386",
+      "innovation": false
+    },
+    {
+      "id": "S4-II03",
+      "status": "pass",
+      "checks": [
+        "独立模拟目标出栈序列3,2,4,1,5，跟踪首次压入数和最大栈高。"
+      ],
+      "findings": [],
+      "reviewer": "/root/project_map",
+      "title": "出栈序列的最小容量填空",
+      "question_sha256": "27a36348d3ee20c0c8e65aad247544e68872885fb9f7a7b9ede5c7cd48ce4a5c",
+      "innovation": false
+    },
+    {
+      "id": "S4-II04",
+      "status": "pass",
+      "checks": [
+        "对abacaba前六段逐位求π并换算题定next[1..7]。"
+      ],
+      "findings": [],
+      "reviewer": "/root/project_map",
+      "title": "KMP next数组计算",
+      "question_sha256": "1aef37cdc9497a050cdee683ebc8b937127c7de86a1111d09d75fc327ea63d83",
+      "innovation": false
+    },
+    {
+      "id": "S4-II05",
+      "status": "pass",
+      "checks": [
+        "层层计算Tail、Head、Head，辨认c为原子。"
+      ],
+      "findings": [],
+      "reviewer": "/root/project_map",
+      "title": "嵌套Head/Tail值与类型",
+      "question_sha256": "6144d02b0b8bcdc1121a0d6060c5f0e5988c01b8766f41a625b6f7b591f139d4",
+      "innovation": false
+    },
+    {
+      "id": "S4-II06",
+      "status": "pass",
+      "checks": [
+        "由严格二叉Huffman树N=2L−1代入L=17得33。"
+      ],
+      "findings": [],
+      "reviewer": "/root/project_map",
+      "title": "Huffman树叶数推总节点",
+      "question_sha256": "7d55e1ee04276ea1111b0b8aaedebe4ad40a1c3a471625617cf0f3dc4a365f99",
+      "innovation": false
+    },
+    {
+      "id": "S4-II07",
+      "status": "pass",
+      "checks": [
+        "入度/出度各至少1给弧数下界n；到达下界时各入度均1。"
+      ],
+      "findings": [],
+      "reviewer": "/root/project_map",
+      "title": "强连通最少弧数与入度",
+      "question_sha256": "bf5f24ef4cb918104ffb5ab6121e04262f6e6492e5fd3dea83d9a07c8cb77337",
+      "innovation": false
+    },
+    {
+      "id": "S4-II08",
+      "status": "pass",
+      "checks": [
+        "按折半判定树最大层数核600键的最坏成功比较10次。"
+      ],
+      "findings": [],
+      "reviewer": "/root/project_map",
+      "title": "600元素折半查找上界",
+      "question_sha256": "51fa16d800ed86ca5dd1d5b85fb0e794de41bc8c7eb5f407734adce3d2be47e8",
+      "innovation": false
+    },
+    {
+      "id": "S4-II09",
+      "status": "pass",
+      "checks": [
+        "新键1从下标8经4、2、1上滤，核整堆顺序。"
+      ],
+      "findings": [],
+      "reviewer": "/root/project_map",
+      "title": "小根堆插入结果",
+      "question_sha256": "eaf40fa331261cee7ec8ac56d5f0f4f3625afcb0e37b3d05e82fc32b17f76103",
+      "innovation": false
+    },
+    {
+      "id": "S4-II10",
+      "status": "pass",
+      "checks": [
+        "按森林E=N−T求16，再添互不连接树核树数4。"
+      ],
+      "findings": [],
+      "reviewer": "/root/project_map",
+      "title": "森林边数与树数",
+      "question_sha256": "8b0af7d887857ba7ae02b4398e9577f29975f6ad3faefa989d6b910a9456b8fc",
+      "innovation": false
+    },
+    {
+      "id": "S4-III01",
+      "status": "pass",
+      "checks": [
+        "独立转换中缀为后缀，模拟前六记号的栈[8,8]及峰值3。"
+      ],
+      "findings": [],
+      "reviewer": "/root/project_map",
+      "title": "表达式转后缀与求值",
+      "question_sha256": "c5905ca1481f70dbd15cf08676b864d509020fdc5c967acc5b90e6383dc41bdd",
+      "innovation": true
+    },
+    {
+      "id": "S4-III02",
+      "status": "pass",
+      "checks": [
+        "按墓碑查找与首墓碑回用规则逐槽模拟，核最终31在4号槽。"
+      ],
+      "findings": [],
+      "reviewer": "/root/project_map",
+      "title": "墓碑散列表探测与复用",
+      "question_sha256": "070d0060324b7aa0c3aa68c4e22eb19efd0f7701d113238cb207c5cd71a6b807",
+      "innovation": true
+    },
+    {
+      "id": "S4-III03",
+      "status": "pass",
+      "checks": [
+        "按孩子表重算中序D B E A F C G，逐叶查前驱后继和B的右孩子标志。"
+      ],
+      "findings": [],
+      "reviewer": "/root/project_map",
+      "title": "中序线索树前驱后继",
+      "question_sha256": "a6c4a1513311b621dac7b75b26230d61e48c31c896e8980232f437bc38a40799",
+      "innovation": false
+    },
+    {
+      "id": "S4-III04",
+      "status": "pass",
+      "checks": [
+        "逐轮手算Dijkstra暂定距离、前驱和0→4权10路径。"
+      ],
+      "findings": [],
+      "reviewer": "/root/project_map",
+      "title": "Dijkstra候选距离与路径",
+      "question_sha256": "272c4222d8512aef4d7a1e264c1fa81a615147954871935fad4632b93da4829b",
+      "innovation": false
+    },
+    {
+      "id": "S4-III05",
+      "status": "pass",
+      "checks": [
+        "正向ve及逆向vl独立计算；逐活动算时差并枚举两条工期8关键路径。"
+      ],
+      "findings": [],
+      "reviewer": "/root/project_map",
+      "title": "AOE事件时间和关键路径",
+      "question_sha256": "baa7a56568a727ab94691021e3feacf9bbab17165dc5c2c25c44bf45b7c0a49d",
+      "innovation": false
+    },
+    {
+      "id": "S4-III06",
+      "status": "pass",
+      "checks": [
+        "逐键构BST与AVL，重算45引发RL、最终结构和两树ASL；对照配图。"
+      ],
+      "findings": [],
+      "reviewer": "/root/project_map",
+      "title": "BST与AVL构造及成功ASL",
+      "question_sha256": "39ed3e264f96536cc45895cb85bbc06b128dea3d4a4aeb450bc0846f22a19be2",
+      "innovation": false
+    },
+    {
+      "id": "S4-III07",
+      "status": "pass",
+      "checks": [
+        "以最小堆合并5次求WPL227，按合并树追F/A码长1/4与定长差73。"
+      ],
+      "findings": [],
+      "reviewer": "/root/project_map",
+      "title": "Huffman合并、WPL与码长",
+      "question_sha256": "2b0386861cdc4b3f62bb30e89137817ea00feecafa499ed56768fce3e6cb0037",
+      "innovation": false
+    },
+    {
+      "id": "S4-IV01",
+      "status": "pass",
+      "checks": [
+        "正式C代码独立GCC -Werror编译；1000组随机环形链含空/全删/删尾/保序与计数验证。"
+      ],
+      "findings": [],
+      "reviewer": "/root/project_map",
+      "title": "循环链表区间删除",
+      "question_sha256": "a97a35021a0bb8810f2725c87565bb8ddaa220ecbd36ae535dfaa0746006a5a8",
+      "innovation": false
+    },
+    {
+      "id": "S4-IV02",
+      "status": "pass",
+      "checks": [
+        "正式C代码独立编译；1000棵随机BST对全部键暴力比较最近距离及并列取小，含空树。"
+      ],
+      "findings": [],
+      "reviewer": "/root/project_map",
+      "title": "BST最近关键字查找",
+      "question_sha256": "146bf6671fff77ac9a660fc16c77926d1c5079ce932715c7d34e90abdb9d930e",
+      "innovation": false
+    },
+    {
+      "id": "S4-IV03",
+      "status": "pass",
+      "checks": [
+        "正式C代码独立编译；1000张随机加权图失效MST边，与重新Kruskal求MST总权/断连结果对拍。"
+      ],
+      "findings": [],
+      "reviewer": "/root/project_map",
+      "title": "单条树边失效后的最小生成树修复",
+      "question_sha256": "c526561be2225728d3e2195b366ad1960d6703133427ed11453e82246db216c5",
+      "innovation": true
+    },
+    {
+      "id": "S5-I01",
+      "status": "content_pass",
+      "checks": [
+        "代入递推 F(1)=0、F(n)=2F(n/2)+n，独算 F(8)=24",
+        "逐层循环总量 n、非基例层 log₂n，时间 O(n log n)",
+        "填空后 C11 编译并运行三组调用",
+        "题面各分值点合计与该题总分一致"
+      ],
+      "findings": [],
+      "reviewer": "exam_audit（独立交叉复核）",
+      "title": "分治代码的返回值与复杂度",
+      "question_sha256": "fed8f443c22540daef0cfe01eeb7f03e39c4132e9b782c15347b831c08951ee6",
+      "innovation": false
+    },
+    {
+      "id": "S5-I02",
+      "status": "content_pass",
+      "checks": [
+        "逐步检查删除偶数后的 pre/p 更新与释放，输出 3 5 7",
+        "时间 O(n)、额外空间 O(1)，C11 填空编译运行",
+        "题面各分值点合计与该题总分一致"
+      ],
+      "findings": [],
+      "reviewer": "exam_audit（独立交叉复核）",
+      "title": "单链表删除偶数结点代码补全",
+      "question_sha256": "1a97fcabde6eb46c474d38c0e6e7f3172247e5d555247018a72e1c823d0b4e2a",
+      "innovation": false
+    },
+    {
+      "id": "S5-I03",
+      "status": "content_pass",
+      "checks": [
+        "验证共享栈左右边界、相邻满条件与栈1空条件",
+        "push/pop 均 O(1)，填空 C11 编译运行输出 72",
+        "题面各分值点合计与该题总分一致"
+      ],
+      "findings": [],
+      "reviewer": "exam_audit（独立交叉复核）",
+      "title": "共享栈边界代码补全",
+      "question_sha256": "75beea597236198cf8a5def2f231110b1dcf1618aa5c2541cf50d5f9dbd719fb",
+      "innovation": false
+    },
+    {
+      "id": "S5-I04",
+      "status": "content_pass",
+      "checks": [
+        "对 7、18、29、3 模 11 后线性探测，核初址与环形更新",
+        "单次至多 m 次探测；填空 C11 编译运行表项",
+        "题面各分值点合计与该题总分一致"
+      ],
+      "findings": [],
+      "reviewer": "exam_audit（独立交叉复核）",
+      "title": "线性探测散列表插入代码补全",
+      "question_sha256": "fe4eac48232312cca8252458dc629ec3c8509e146f0bf684916222ac7b930110",
+      "innovation": true
+    },
+    {
+      "id": "S5-II01",
+      "status": "content_pass",
+      "checks": [
+        "独立执行两趟冒泡，核两次数组与 5+3=8 次交换",
+        "题面各分值点合计与该题总分一致"
+      ],
+      "findings": [],
+      "reviewer": "exam_audit（独立交叉复核）",
+      "title": "冒泡排序两趟轨迹与交换次数",
+      "question_sha256": "26360091e1aab3f2a840ebd6b20f7606750f7f62be034ca9e7e05ac8acd45a1a",
+      "innovation": false
+    },
+    {
+      "id": "S5-II02",
+      "status": "content_pass",
+      "checks": [
+        "按括号/除乘加优先级重新转后缀 a b c d e / − * +",
+        "题面各分值点合计与该题总分一致"
+      ],
+      "findings": [],
+      "reviewer": "exam_audit（独立交叉复核）",
+      "title": "中缀表达式转后缀表达式",
+      "question_sha256": "47d92785425a3256a98313b97d2d7fb88db51d585a4b7a88960a9f81d06f5d1d",
+      "innovation": false
+    },
+    {
+      "id": "S5-II03",
+      "status": "content_pass",
+      "checks": [
+        "分别核留空槽与 count 判满，两种最大容量 m−1 与 m",
+        "题面各分值点合计与该题总分一致"
+      ],
+      "findings": [],
+      "reviewer": "exam_audit（独立交叉复核）",
+      "title": "循环队列两种满判的容量",
+      "question_sha256": "0de864c5e89a813058710bf74ec4839394f7a1f32779b2a18ef22bd25f647fdd",
+      "innovation": false
+    },
+    {
+      "id": "S5-II04",
+      "status": "content_pass",
+      "checks": [
+        "按题设一基 next 定义枚举 j=1..7 的最长真前后缀",
+        "题面各分值点合计与该题总分一致"
+      ],
+      "findings": [],
+      "reviewer": "exam_audit（独立交叉复核）",
+      "title": "给定约定下的KMP next数组",
+      "question_sha256": "86496533c83a8fa44d9a310f84db63b57c4e97a1c76ba59c13add7727dd85f06",
+      "innovation": false
+    },
+    {
+      "id": "S5-II05",
+      "status": "content_pass",
+      "checks": [
+        "以地址差 46 字节=23 个元素，解 2c+3=23",
+        "题面各分值点合计与该题总分一致"
+      ],
+      "findings": [],
+      "reviewer": "exam_audit（独立交叉复核）",
+      "title": "由地址反推二维数组列数",
+      "question_sha256": "91c7a2e821b507f6c65d5d77491344fc540415889aeada74631a22a0db47ea13",
+      "innovation": false
+    },
+    {
+      "id": "S5-II06",
+      "status": "content_pass",
+      "checks": [
+        "用 n₂=n₀−1 独算 8+3+7=18",
+        "题面各分值点合计与该题总分一致"
+      ],
+      "findings": [],
+      "reviewer": "exam_audit（独立交叉复核）",
+      "title": "叶结点与一度结点反推总数",
+      "question_sha256": "cd78e9f276a304d9e97f5f2049b6e28699d11cc6c1375e5edb748ca8da6cc27b",
+      "innovation": false
+    },
+    {
+      "id": "S5-II07",
+      "status": "content_pass",
+      "checks": [
+        "穷举六顶点 720 个排列按七条弧过滤，得到 16 种",
+        "题面各分值点合计与该题总分一致"
+      ],
+      "findings": [],
+      "reviewer": "exam_audit（独立交叉复核）",
+      "title": "六顶点有交叉约束的拓扑序计数",
+      "question_sha256": "e985acbf6a148f58d08ba9551b9cfc3a2bfeb7348df3caa90b2d9428af40025d",
+      "innovation": true
+    },
+    {
+      "id": "S5-II08",
+      "status": "content_pass",
+      "checks": [
+        "按下中点闭区间逐轮模拟，访问下标 8、12、14、13",
+        "题面各分值点合计与该题总分一致"
+      ],
+      "findings": [],
+      "reviewer": "exam_audit（独立交叉复核）",
+      "title": "折半查找比较轨迹",
+      "question_sha256": "ae025a0819edefc5b7d74a7ac952ecd2ada64a528464a20654cfae9c159b28ed",
+      "innovation": false
+    },
+    {
+      "id": "S5-II09",
+      "status": "content_pass",
+      "checks": [
+        "独立堆上滤模拟，核完整数组 2、7、3、10、9、8、5",
+        "题面各分值点合计与该题总分一致"
+      ],
+      "findings": [],
+      "reviewer": "exam_audit（独立交叉复核）",
+      "title": "小根堆插入后的数组",
+      "question_sha256": "ad75b7b87d60bba9ca959c82edfd9c32bb87435e666b8b7da4fa6c87dfe62b65",
+      "innovation": false
+    },
+    {
+      "id": "S5-II10",
+      "status": "content_pass",
+      "checks": [
+        "严格二叉树 2L−1=217，解 L=109",
+        "题面各分值点合计与该题总分一致"
+      ],
+      "findings": [],
+      "reviewer": "exam_audit（独立交叉复核）",
+      "title": "Huffman树结点与叶数",
+      "question_sha256": "e956c51ddc2f943e660abac981d52b1bda30e8ab72bba4840048817e7c36f0c5",
+      "innovation": false
+    },
+    {
+      "id": "S5-III01",
+      "status": "content_pass",
+      "checks": [
+        "从先/中序独立重建七结点树，复算后序和 D/F 中序相邻项",
+        "矢量树图边集、孩子表与遍历一致",
+        "题面各分值点合计与该题总分一致"
+      ],
+      "findings": [],
+      "reviewer": "exam_audit（独立交叉复核）",
+      "title": "二叉树双序重建与线索位置",
+      "question_sha256": "ea3e199660969950a711c12d1815563c6b108f796c8466530ed436522fcca8a8",
+      "innovation": false
+    },
+    {
+      "id": "S5-III02",
+      "status": "content_pass",
+      "checks": [
+        "按 1..10 下中点递归建判定树；57 与 60 均访问 31→66→42→57",
+        "层数加权和 29、ASL=29/10；矢量图与孩子表一致",
+        "题面各分值点合计与该题总分一致"
+      ],
+      "findings": [],
+      "reviewer": "exam_audit（独立交叉复核）",
+      "title": "折半查找判定树与平均查找长度",
+      "question_sha256": "99866087e5b4b48b421457770da24fc07e4b35ee63070bc5d61a9cb1282fb9b3",
+      "innovation": false
+    },
+    {
+      "id": "S5-III03",
+      "status": "content_pass",
+      "checks": [
+        "独立优先队列重算旧/新合并权和 WPL 143/170",
+        "从旧矢量树码长核 A 长度5、沿旧树新 WPL=178；两矢量图频率/码长核对",
+        "题面各分值点合计与该题总分一致"
+      ],
+      "findings": [],
+      "reviewer": "exam_audit（独立交叉复核）",
+      "title": "频率变化后的Huffman码代价",
+      "question_sha256": "bbc21439e7c3cee005e841cad6d148eae13115ab0cbd74f577ff46ab124616a2",
+      "innovation": true
+    },
+    {
+      "id": "S5-III04",
+      "status": "content_pass",
+      "checks": [
+        "按给定序列独立插 BST，核后序与失败路径 40→60→50",
+        "层数加权和17、ASL=17/7；矢量图孩子关系一致",
+        "题面各分值点合计与该题总分一致"
+      ],
+      "findings": [],
+      "reviewer": "exam_audit（独立交叉复核）",
+      "title": "二叉排序树构造、遍历与ASL",
+      "question_sha256": "fe8ed320418016bbb529f9c1118980f68218285ffad105df17b44215e443a0ab",
+      "innovation": false
+    },
+    {
+      "id": "S5-III05",
+      "status": "content_pass",
+      "checks": [
+        "按 d(k)=1+(k mod10) 独立模拟每项探测地址和 11 槽表",
+        "成功探测和12、ASL=12/7",
+        "题面各分值点合计与该题总分一致"
+      ],
+      "findings": [],
+      "reviewer": "exam_audit（独立交叉复核）",
+      "title": "双散列构造与成功ASL",
+      "question_sha256": "6f55a6667a7cd5ab14bf95feeb7e6994f8962a4cedb21d02ee8fbe7ba20715ea",
+      "innovation": false
+    },
+    {
+      "id": "S5-III06",
+      "status": "content_pass",
+      "checks": [
+        "独立按邻点升序分别运行 DFS/BFS，核访问序、树边",
+        "三个分量，7−3=4 条森林树边",
+        "题面各分值点合计与该题总分一致"
+      ],
+      "findings": [],
+      "reviewer": "exam_audit（独立交叉复核）",
+      "title": "不连通图的DFS/BFS及生成森林",
+      "question_sha256": "ac7a2527438ed1bb7d80c568ca8599e795c4fac326d194654ab168e2b3f56bae",
+      "innovation": false
+    },
+    {
+      "id": "S5-III07",
+      "status": "content_pass",
+      "checks": [
+        "以稳定排序程序分别作第二→第一、第一→第二两种排序",
+        "核三阶段标识序列和同键原相对次序",
+        "题面各分值点合计与该题总分一致"
+      ],
+      "findings": [],
+      "reviewer": "exam_audit（独立交叉复核）",
+      "title": "多关键字稳定排序的趟序",
+      "question_sha256": "54425299fb346ba238c410e1446dfcd435543ee3561cc1156ba8d3c8b3f7b3cd",
+      "innovation": true
+    },
+    {
+      "id": "S5-IV01",
+      "status": "content_pass",
+      "checks": [
+        "审查每段删到最后一个原结点、free 后不再访问与空表",
+        "C11 -Werror 编译；4000 个随机已排序链表与独立结果比较",
+        "时间 O(n)、辅助空间 O(1)",
+        "题面各分值点合计与该题总分一致"
+      ],
+      "findings": [],
+      "reviewer": "exam_audit（独立交叉复核）",
+      "title": "有序链表保留同键最后原结点",
+      "question_sha256": "10a3f6ece42ca06ff542bab2f40379ae21f1605f989762055da69413db912d3f",
+      "innovation": false
+    },
+    {
+      "id": "S5-IV02",
+      "status": "content_pass",
+      "checks": [
+        "验证当前零入度逐项消费的充要条件以及 k=0",
+        "C11 -Werror 编译；5000 个随机 DAG/前缀与独立前驱约束 oracle 比较",
+        "时间 O(V+E)、入度副本 O(V)",
+        "题面各分值点合计与该题总分一致"
+      ],
+      "findings": [],
+      "reviewer": "exam_audit（独立交叉复核）",
+      "title": "拓扑序前缀合法性",
+      "question_sha256": "6466368a59d5d2ff801f8cb6f59ecd63b5ab5dfb61508e61519f9881937b647a",
+      "innovation": false
+    },
+    {
+      "id": "S5-IV03",
+      "status": "content_pass",
+      "checks": [
+        "审查空树高度−1、经根路径 left+right+2 与全局 best",
+        "C11 -Werror 编译；5000 棵随机树对所有结点对 BFS 直径比较",
+        "时间 O(n)、递归栈 O(h)",
+        "题面各分值点合计与该题总分一致"
+      ],
+      "findings": [],
+      "reviewer": "exam_audit（独立交叉复核）",
+      "title": "二叉树最长简单路径长度",
+      "question_sha256": "8a17502a76657fc061d0e726d30f018bb102b14abcd9e41e5af54767995b56a2",
+      "innovation": true
+    },
+    {
+      "id": "S6-I01",
+      "status": "content_pass",
+      "checks": [
+        "按 x=2 连续平方实际得到 4、16、256、65536，count=4",
+        "循环次数随 log log n 增长、额外空间 O(1)；C11 编译运行",
+        "题面各分值点合计与该题总分一致"
+      ],
+      "findings": [],
+      "reviewer": "exam_audit（独立交叉复核）",
+      "title": "反复平方循环的时间复杂度",
+      "question_sha256": "52ec19df3101f33df15e75880bc85f65e550077f746506f0bdb88e4e0c7bae64",
+      "innovation": false
+    },
+    {
+      "id": "S6-I02",
+      "status": "content_pass",
+      "checks": [
+        "检查 a/b 任一非空循环、同键先摘 A 后头插产生非递增链",
+        "时间 O(m+n)；填空 C11 编译运行输出 4 3 3 3 2 1",
+        "题面各分值点合计与该题总分一致"
+      ],
+      "findings": [],
+      "reviewer": "exam_audit（独立交叉复核）",
+      "title": "有序链表逆序归并代码补全",
+      "question_sha256": "5b0c81f68afe6b5697a1104c188c54446cfa1129d40afe5e7340e26b0c715cba",
+      "innovation": false
+    },
+    {
+      "id": "S6-I03",
+      "status": "content_pass",
+      "checks": [
+        "层开始固定 size(q)、同时左右空判叶，样例叶层权和可复算",
+        "每结点一次出队，时间 O(N)；外部队列接口下 C11 语法编译",
+        "题面各分值点合计与该题总分一致"
+      ],
+      "findings": [],
+      "reviewer": "exam_audit（独立交叉复核）",
+      "title": "分层叶数加权代码补全",
+      "question_sha256": "3e6ff4c292e5689e7f158f5fe9e5e21debaeacd343ac0c2f644c23ad677d450c",
+      "innovation": false
+    },
+    {
+      "id": "S6-I04",
+      "status": "content_pass",
+      "checks": [
+        "验证 Kahn 队列非空条件与 --indeg==0 的唯一入队时机",
+        "每顶点/弧至多处理一次，O(V+E)；外部队列接口下 C11 语法编译",
+        "题面各分值点合计与该题总分一致"
+      ],
+      "findings": [],
+      "reviewer": "exam_audit（独立交叉复核）",
+      "title": "Kahn拓扑判定代码补全",
+      "question_sha256": "29d08b7b37ff618e1c0df25d2af2f5113b3123990c0dd976ae22f67829ea801c",
+      "innovation": false
+    },
+    {
+      "id": "S6-II01",
+      "status": "content_pass",
+      "checks": [
+        "按 (rear−front+7) mod7 复算队列占四槽",
+        "题面各分值点合计与该题总分一致"
+      ],
+      "findings": [],
+      "reviewer": "exam_audit（独立交叉复核）",
+      "title": "循环队列指针差求元素数",
+      "question_sha256": "1ceb200db20f4383bf6ec2e9ed6a72a74361b57123f8efb906e77cd38c5e98c7",
+      "innovation": false
+    },
+    {
+      "id": "S6-II02",
+      "status": "content_pass",
+      "checks": [
+        "行主序偏移 2×5+3=13 个 int，100+52=152",
+        "题面各分值点合计与该题总分一致"
+      ],
+      "findings": [],
+      "reviewer": "exam_audit（独立交叉复核）",
+      "title": "二维数组行主序地址",
+      "question_sha256": "733ff3d89b16fc32e86680c44526175fbf15501b691d881aecbf2feb7753fd39",
+      "innovation": false
+    },
+    {
+      "id": "S6-II03",
+      "status": "content_pass",
+      "checks": [
+        "独立枚举四个元素合法栈排列，首项为3恰3种",
+        "题面各分值点合计与该题总分一致"
+      ],
+      "findings": [],
+      "reviewer": "exam_audit（独立交叉复核）",
+      "title": "指定首项的出栈序列数",
+      "question_sha256": "cb1f21d45b9ea14f2e4367847d05f6fb8defe1facdb35b0f846b96f349429464",
+      "innovation": false
+    },
+    {
+      "id": "S6-II04",
+      "status": "content_pass",
+      "checks": [
+        "分别从起点0/1/2 逐字符模拟，匹配0、2，比较3+1+3=7",
+        "题面各分值点合计与该题总分一致"
+      ],
+      "findings": [],
+      "reviewer": "exam_audit（独立交叉复核）",
+      "title": "朴素模式匹配的比较次数",
+      "question_sha256": "4e46906f6b59c2f4ecf81bc6db27a33e2efac3643003fd5165fb647828fddb1b",
+      "innovation": true
+    },
+    {
+      "id": "S6-II05",
+      "status": "content_pass",
+      "checks": [
+        "按 Head/Tail 定义依次取 ((c,d),e) 的首元素",
+        "题面各分值点合计与该题总分一致"
+      ],
+      "findings": [],
+      "reviewer": "exam_audit（独立交叉复核）",
+      "title": "广义表Head/Tail运算",
+      "question_sha256": "a8b165d193bbcc22e9814a3e683e70eae9389052bfa80654eb14992d0370874d",
+      "innovation": false
+    },
+    {
+      "id": "S6-II06",
+      "status": "content_pass",
+      "checks": [
+        "6 个非叶结点的孩子链加森林根链，共7个空 right",
+        "题面各分值点合计与该题总分一致"
+      ],
+      "findings": [],
+      "reviewer": "exam_audit（独立交叉复核）",
+      "title": "森林转换后右空指针数",
+      "question_sha256": "db8050928b797d327d32efcd636ed0603653f704d395f5f0b3f8fea5cbe536c4",
+      "innovation": false
+    },
+    {
+      "id": "S6-II07",
+      "status": "content_pass",
+      "checks": [
+        "完全树前四层满15结点，第4层右侧2叶限定第5层至多12结点",
+        "题面各分值点合计与该题总分一致"
+      ],
+      "findings": [],
+      "reviewer": "exam_audit（独立交叉复核）",
+      "title": "完全二叉树指定层叶数与最大规模",
+      "question_sha256": "8ccf7483f3f87a7c45f71f07155c22c6ec879e70ce9298ccf845a5befca0a57e",
+      "innovation": false
+    },
+    {
+      "id": "S6-II08",
+      "status": "content_pass",
+      "checks": [
+        "独立堆上滤模拟，完整结果 1、7、2、9、8、6、4",
+        "题面各分值点合计与该题总分一致"
+      ],
+      "findings": [],
+      "reviewer": "exam_audit（独立交叉复核）",
+      "title": "小根堆插入后的数组",
+      "question_sha256": "cfa667f6e6ffba5b8f9c803c8d0dda1fc85a400ad313aa3baef623b820e117d3",
+      "innovation": false
+    },
+    {
+      "id": "S6-II09",
+      "status": "content_pass",
+      "checks": [
+        "双指针域 2n 减 n−1 条边，得 n+1=19",
+        "题面各分值点合计与该题总分一致"
+      ],
+      "findings": [],
+      "reviewer": "exam_audit（独立交叉复核）",
+      "title": "二叉链表空指针域个数",
+      "question_sha256": "0d67241961c5c1f8c8bf3aa72f22bb7d02751457052b904ef99f604292971375",
+      "innovation": false
+    },
+    {
+      "id": "S6-II10",
+      "status": "content_pass",
+      "checks": [
+        "折半决策树容量 2⁷−1<180≤2⁸−1，最深8次",
+        "题面各分值点合计与该题总分一致"
+      ],
+      "findings": [],
+      "reviewer": "exam_audit（独立交叉复核）",
+      "title": "折半查找最多成功比较次数",
+      "question_sha256": "e4634a0b13de8bcc5868583682d82c69d61ad882d8161b89e3f0de0c8df398f1",
+      "innovation": false
+    },
+    {
+      "id": "S6-III01",
+      "status": "content_pass",
+      "checks": [
+        "独立优先队列合并 8、15、24、33、57，WPL=137",
+        "从矢量树逐枝读 0/1，六个码字及码长与正文一致",
+        "题面各分值点合计与该题总分一致"
+      ],
+      "findings": [],
+      "reviewer": "exam_audit（独立交叉复核）",
+      "title": "Huffman树构造、编码与WPL",
+      "question_sha256": "00b0b7470b4b44bb74a65e8d63c218f5a1c36110f14bb067769701ce7a3a0962",
+      "innovation": false
+    },
+    {
+      "id": "S6-III02",
+      "status": "content_pass",
+      "checks": [
+        "按孩子兄弟指针还原 A、F 两棵树并复算后根序 C B E D A G F",
+        "森林深3、二叉树深4；矢量森林五条亲子边与正文一致",
+        "题面各分值点合计与该题总分一致"
+      ],
+      "findings": [],
+      "reviewer": "exam_audit（独立交叉复核）",
+      "title": "孩子兄弟表示还原森林与遍历",
+      "question_sha256": "9d0d46ac43d591c7c1dedaff5f50298bc02307392f9a62b82ff2e5b8e96df40b",
+      "innovation": false
+    },
+    {
+      "id": "S6-III03",
+      "status": "content_pass",
+      "checks": [
+        "按下中点独立得到 25@6、33@9、28@7 与访问区间",
+        "完整 11 下标判定树深度和33，ASL=3；矢量图一致",
+        "题面各分值点合计与该题总分一致"
+      ],
+      "findings": [],
+      "reviewer": "exam_audit（独立交叉复核）",
+      "title": "由比较轨迹逆推折半查找判定树",
+      "question_sha256": "05f74b64151c6f4e16f861439960544dbdd4c13414251cda06e4ee328a55ff30",
+      "innovation": true
+    },
+    {
+      "id": "S6-III04",
+      "status": "content_pass",
+      "checks": [
+        "按插入序列分别独立建普通 BST 与逐次 AVL 旋转",
+        "普通/AVL/折半三图逐节点核对；深度和18、17、17",
+        "题面各分值点合计与该题总分一致"
+      ],
+      "findings": [],
+      "reviewer": "exam_audit（独立交叉复核）",
+      "title": "BST、AVL与折半判定树的构造",
+      "question_sha256": "a5c738686d424f2bd0f36be175737aee28d9712a9c990ae4fd6c66bb16e623d5",
+      "innovation": false
+    },
+    {
+      "id": "S6-III05",
+      "status": "content_pass",
+      "checks": [
+        "独立拓扑正逆推 ve/vl=0,2,3,6,7,9",
+        "八活动 e/l、两条关键路径与工期9逐项核对",
+        "题面各分值点合计与该题总分一致"
+      ],
+      "findings": [],
+      "reviewer": "exam_audit（独立交叉复核）",
+      "title": "AOE事件活动时刻与关键路径",
+      "question_sha256": "69c9316d8db0d4755bfacbaf38963b958d65be26d93015544d418f9c5cb0e165",
+      "innovation": false
+    },
+    {
+      "id": "S6-III06",
+      "status": "content_pass",
+      "checks": [
+        "独立 Kruskal 得 MST 权8；Dijkstra 得 A 源距离2、3、6、7",
+        "核给出的最短路径树四边都实现对应最短距离且总权9",
+        "题面各分值点合计与该题总分一致"
+      ],
+      "findings": [],
+      "reviewer": "exam_audit（独立交叉复核）",
+      "title": "同图最小生成树与最短路径树",
+      "question_sha256": "f35f0913e3e3b26c47b5f69450377fb6169ad3d895613bc8d3c93807582cee40",
+      "innovation": true
+    },
+    {
+      "id": "S6-III07",
+      "status": "content_pass",
+      "checks": [
+        "独立线性探测构建11槽表，逐项探测1、2、3、4、1、1、2",
+        "成功 ASL=14/7=2",
+        "题面各分值点合计与该题总分一致"
+      ],
+      "findings": [],
+      "reviewer": "exam_audit（独立交叉复核）",
+      "title": "线性探测散列表构造与成功ASL",
+      "question_sha256": "fdf685f33b3b8b749882f94afcbbc2ea824771a5a5be7cae8cf736584ee48b73",
+      "innovation": false
+    },
+    {
+      "id": "S6-IV01",
+      "status": "content_pass",
+      "checks": [
+        "核双链按严格递增扫描、等键双 free、余链接尾和空链",
+        "C11 -Werror 编译；4000 组随机有序链与独立对称差比较",
+        "时间 O(m+n)、辅助空间 O(1)",
+        "题面各分值点合计与该题总分一致"
+      ],
+      "findings": [],
+      "reviewer": "exam_audit（独立交叉复核）",
+      "title": "有序单链表对称差",
+      "question_sha256": "d935cdf75ae2f7caba31a73333165c2e1b14e9baaac809f5381a243a9be4360c",
+      "innovation": false
+    },
+    {
+      "id": "S6-IV02",
+      "status": "content_pass",
+      "checks": [
+        "核先/中序分段、左/右/根写出与 n=0 不写",
+        "C11 -Werror 编译；5000 棵随机树遍历数组与独立后序比较",
+        "最坏扫描 O(n²)、递归栈 O(h)",
+        "题面各分值点合计与该题总分一致"
+      ],
+      "findings": [],
+      "reviewer": "exam_audit（独立交叉复核）",
+      "title": "先中序直接写后序序列",
+      "question_sha256": "0f91f09e8aaa4aebd030fdb109f7a9ea655f888558f8b82f19145cbae59d8190",
+      "innovation": false
+    },
+    {
+      "id": "S6-IV03",
+      "status": "content_pass",
+      "checks": [
+        "核自环、旧序正向、逆向时 v→u 可达性三分类",
+        "C11 -Werror 编译；5000 个随机 DAG/新增弧与独立 BFS 判环 oracle 比较",
+        "时间 O(V+E)、三个数组 O(V)",
+        "题面各分值点合计与该题总分一致"
+      ],
+      "findings": [],
+      "reviewer": "exam_audit（独立交叉复核）",
+      "title": "增弧后的拓扑序与环分类",
+      "question_sha256": "81926b392493456a02e02fef86815636f937e3d1c93b8fe543502b57cfe92968",
+      "innovation": true
+    }
+  ]
+}

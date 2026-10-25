@@ -1,0 +1,30 @@
+{
+  "version": "2026-10-22-r5",
+  "说明": "经本轮人工确认的task/data/answer_blueprint哈希。更改题目后须同时审查核验输入和预期结果，不能只重绑定使旧核验过关。",
+  "design_hashes": {
+    "S1-III02": "cb7e2210c2c812de0a54640677c7f4241470a4b7076afd1868a1d1ad2c0849a0",
+    "S1-III03": "f86a9b5a2038907acfce0b398dbba5d1bd43b1877e48a8eb7dd0bb3383b7f259",
+    "S2-IV03": "e03517c0bbf9f0edea5f2d20c88f1fd3236bdadbf5c1f5e82ac255c98551abf3",
+    "S3-III01": "9b39e523821ed87eeb885bb8d7ae928d7a71e5fadd5046a2aee265ff3466eb92",
+    "S3-IV03": "2d69f214c362d992bd11c874a3488b11e3e86b351de8acd0df4227adb1fdd4c3",
+    "S4-III07": "361e8667a972adaca06cf5428fe201ead238a5a6ebe2609bdd189a5ded04a9e7",
+    "S5-III07": "d30c760fce683cca7c997877689e88e57e0c0b69b6e1c992176b5715f8d5edba",
+    "S5-IV01": "9bca8177dd262146af62d72d248eda63a82d65eaeb6a788a7e41a87a0cd30350",
+    "S5-IV02": "6442e53933f60dff6e2b16ed16187c5dc6a133159bac2bc4d1cd26d337bf8142",
+    "S5-IV03": "df85c06d1c648ab77e283cccd034e6002fca3ad45f6b1ac5718eac43a132246d",
+    "S6-III01": "3f9c57fb6e4c046d5345310decfcf5d8279f18aee0d4dd583d7660c13da2ed57",
+    "S6-III03": "cd4b5444ca0c2b478ea819042d3b6c9c709b638e39fd57f791f6745259cc72b9",
+    "S6-III05": "2d3ce870f16f73f9681362fae52cf0663db3b3676365d21654c15fca5fae3ca4",
+    "S6-IV01": "a0768935bba8500b2cb049e2907165c09c1e6e9ca9d048d85f51068389a4a048",
+    "S6-IV02": "a6dd9cbadeead0276c77a3387923749f626c15569464f5c7faeb857277be408e",
+    "S6-IV03": "fef6e792c4f40ee01258e59ff933e5daf32bb8e2e784b4c831286d6f851f08f2"
+  },
+  "本轮重审说明": {
+    "S1-III02": "原始五权、A改为6与原码长不变；明确成员配对而非权值变化，fixture数值仍对应。",
+    "S2-IV03": "路径契约与DFS原型未变，答案骨架采用更宽松而安全的最坏上界；小图穷举仍对应。",
+    "S3-IV03": "新增各链互不共享结点前提，原型的各列表本来独立；125组归并检查仍对应。",
+    "S5-III07": "纠正一般数值有序结论；保留记录身份fixture，并增加10000双元素输入对照检查，一般性另按位序不变量论证。"
+  },
+  "本轮题型修订说明": "本轮重写I/II；本文件绑定的16个III/IV题位数学任务、数据与答案骨架签名均保持不变。IV仅明确C语言接口或操作开销。此记录不验证前两部分新题。",
+  "本轮内容复查说明": "第3版24道阅读扩充语境、若干题面约定修正；S3-IV01新增逆置辅助函数实现要求，不在本文件绑定中。现有16个综合/算法种子签名逐一验证未变。"
+}

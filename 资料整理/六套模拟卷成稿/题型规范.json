@@ -1,0 +1,122 @@
+{
+  "version": "2026-10-25-format-v6",
+  "authority": "用户2026-10-22明确确认题数分值；真题资料/真题24-25.pdf用于题型与作答方式校准",
+  "reference": "真题资料/真题24-25.pdf",
+  "reference_status": "2024、2025回忆修订版。两年第二部分均为填空；2025第一部分为1道复杂度分析和3道代码补全。样本未标各题分值，题数有年度差异。",
+  "total_points": 150,
+  "duration_minutes": 180,
+  "numbering": "各大题内从1开始编号",
+  "answers": "2026-10-25用户已授权编写全部答案，最终交付前须经过独立子进程审查。",
+  "sections": {
+    "I": {
+      "name": "一、程序阅读题",
+      "count": 4,
+      "points": [
+        5,
+        5,
+        5,
+        5
+      ],
+      "response": "第1题复杂度分析；第2至4题以补全代码为主"
+    },
+    "II": {
+      "name": "二、填空题",
+      "count": 10,
+      "points": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "response": "直接填写数值、公式、序列、结构或明确术语，无选择项"
+    },
+    "III": {
+      "name": "三、综合应用题",
+      "count": 7,
+      "points": [
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10
+      ],
+      "response": "构造、计算、填写表格、执行过程；不设原因解释或性质证明小问"
+    },
+    "IV": {
+      "name": "四、算法设计与分析题",
+      "count": 3,
+      "points": [
+        8,
+        10,
+        12
+      ],
+      "response": "清楚任务描述，统一要求基本思想、C语言实现、时间与辅助空间复杂度；本轮不另设小问"
+    }
+  },
+  "reference_sha256": "f3eb9c3a1311e5c7f74d0ac61f3d53592e8d9551193114af7c9f8c517307fb39",
+  "layout": {
+    "authority": "用户本轮要求增加应用题和代码题的作答空间",
+    "I": "每题独立页，题后作答区至少20mm；扩充有效代码语境",
+    "II": "每页5题，各题另留空行",
+    "III": "每题独立页，题后作答区至少85mm",
+    "IV": "每题独立题面页及230mm续答页，题面页另有至少30mm作答区",
+    "figures": "给定树图补示意图；要求构造的结果图仅出现在答案。"
+  },
+  "paper_profiles": {
+    "1": "保守卷",
+    "2": "保守卷",
+    "3": "保守卷",
+    "4": "适度创新卷",
+    "5": "适度创新卷",
+    "6": "适度创新卷"
+  },
+  "content_policy": {
+    "authority": "用户2026-10-22分层要求及2026-10-25逐题反馈，详见规划12、14号文件",
+    "strong_references": "2024—2026本校802真题原资料；外校和408不作为强参考",
+    "conservative_papers": [
+      1,
+      2,
+      3
+    ],
+    "moderate_innovation_papers": [
+      4,
+      5,
+      6
+    ],
+    "innovation_slot_cap": 4,
+    "cap_note": "编辑上限，非用户固定比例；卷五本轮新增散列程序阅读迁移，允许5个明确拓展位。",
+    "complexity_fill_cap": {
+      "conservative": 0,
+      "moderate_innovation": 1
+    },
+    "naive_matching_total_cap": 1,
+    "algorithm_subquestions_this_revision": 0,
+    "untaught_notation_excluded": [
+      "Θ",
+      "Theta",
+      "紧渐近界"
+    ],
+    "conservative_sorting_excluded": [
+      "Shell排序",
+      "希尔排序",
+      "基数排序"
+    ],
+    "paper6_completion_blank_cap": 3,
+    "innovation_slot_caps": {
+      "1": 4,
+      "2": 4,
+      "3": 4,
+      "4": 4,
+      "5": 5,
+      "6": 4
+    }
+  }
+}

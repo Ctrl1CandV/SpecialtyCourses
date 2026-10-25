@@ -1,0 +1,32 @@
+{
+  "scope": "重庆邮电大学802，2024—2026本地原PDF；物理页码从1开始",
+  "sources": {
+    "2024": {"path": "真题资料/真题24-25.pdf", "pdf_pages": [1, 6], "nature": "本地真题资料"},
+    "2025": {"path": "真题资料/真题24-25.pdf", "pdf_pages": [7, 13], "nature": "本地真题资料"},
+    "2026": {"path": "真题资料/26重邮208数据结构真题回忆版.pdf", "pdf_pages": [1, 7], "nature": "回忆版；文件名208，与真题资料/重邮2026年802真题答案.pdf的802命名不一致，但内容题序可互证"}
+  },
+  "sections": {
+    "2024": {"I": {"count": 5, "pages": [2, 4], "tasks": ["循环复杂度", "单链表指定结点前插", "有序链表合并", "拓扑排序补码", "递归数叶"]}, "II": {"count": 9, "pages": [5], "tasks": ["环队列长度", "中缀转后缀", "KMP next", "Huffman叶数", "AVL平衡因子", "数组地址", "森林转换", "完全二叉树规模"]}, "III": {"count": 6, "pages": [5, 6], "tasks": ["排序执行", "散列表与ASL", "树遍历重建与线索化", "Floyd", "Huffman构造编码", "BST/折半/AVL与ASL"]}, "IV": {"count": 3, "pages": [6], "tasks": ["BST判定", "图中指定长度路径", "二叉树分层统计量"]}},
+    "2025": {"I": {"count": 4, "pages": [8, 10], "tasks": ["汉诺塔复杂度", "双向链表结点交换", "循环单链队列", "单链表选择排序"]}, "II": {"count": 10, "pages": [10, 11], "tasks": ["递归冒泡复杂度", "栈输出数", "数组地址", "Huffman叶数", "后缀式求值", "森林计数", "广义表Head/Tail", "KMP next", "度4树叶数", "小根堆插入"]}, "III": {"count": 6, "pages": [11, 12], "tasks": ["BST重建/线索/森林", "双散列与ASL", "Huffman构造编码", "折半判定树与ASL", "BFS/DFS/Prim/Kruskal", "AOE关键路径"]}, "IV": {"count": 3, "pages": [13], "tasks": ["链表倒数第k", "最长根叶路径", "图经指定顶点路径"]}},
+    "2026": {"I": {"count": 5, "pages": [1, 4], "tasks": ["DFS生成树", "共享双栈", "有序链表交集", "递归复杂度（候选版本不确定）", "平衡树求高"]}, "II": {"count": 10, "pages": [4], "tasks": ["后缀式求值", "环队列指针", "数组地址", "栈弹出序列", "强连通图最少边", "树空指针", "链表插入复杂度", "折半最坏比较次数", "广义表Head/Tail（原式缺失）", "堆插入比较次数"]}, "III": {"count": 8, "pages": [5, 6], "count_note": "回忆稿列8个题号；部分图题关系及具体数据不全", "tasks": ["树遍历重建/森林", "散列表开放定址/拉链及ASL", "BST/AVL", "最短路", "AOE关键路径", "Dijkstra", "Huffman构造编码（权值缺失）", "折半判定树与ASL"]}, "IV": {"count": 3, "pages": [6, 7], "tasks": ["约瑟夫", "先中序重建树", "拓扑序列校验"]}}
+  },
+  "task_families": [
+    {"id": "hash_build_asl", "frequency": "3/3", "evidence": [{"year": 2024, "pages": [5], "section": "III", "task": "线性探测构造与成功/失败ASL"}, {"year": 2025, "pages": [11], "section": "III", "task": "双散列构造与成功ASL"}, {"year": 2026, "pages": [5], "section": "III", "task": "线性探测、拉链法与成功/失败ASL"}]},
+    {"id": "huffman_construct_code", "frequency": "3/3", "evidence": [{"year": 2024, "pages": [6], "section": "III"}, {"year": 2025, "pages": [12], "section": "III"}, {"year": 2026, "pages": [6], "section": "III", "caveat": "回忆稿权值缺失"}]},
+    {"id": "tree_traversal_representation", "frequency": "3/3", "evidence": [{"year": 2024, "pages": [5], "section": "III"}, {"year": 2025, "pages": [11], "section": "III"}, {"year": 2026, "pages": [5], "section": "III"}], "caveat": "具体重建、线索、森林子任务并非各自3/3"},
+    {"id": "bst_avl", "frequency": "3/3", "evidence": [{"year": 2024, "pages": [6], "section": "III"}, {"year": 2025, "pages": [11], "section": "III"}, {"year": 2026, "pages": [5], "section": "III"}]},
+    {"id": "binary_search_tree_asl", "frequency": "3/3", "evidence": [{"year": 2024, "pages": [6], "section": "III"}, {"year": 2025, "pages": [12], "section": "III"}, {"year": 2026, "pages": [6], "section": "III"}]},
+    {"id": "array_address_fill", "frequency": "3/3", "evidence": [{"year": 2024, "pages": [5], "section": "II"}, {"year": 2025, "pages": [11], "section": "II"}, {"year": 2026, "pages": [4], "section": "II"}]},
+    {"id": "stack_queue_fill", "frequency": "3/3", "evidence": [{"year": 2024, "pages": [5], "section": "II"}, {"year": 2025, "pages": [11], "section": "II"}, {"year": 2026, "pages": [4], "section": "II"}]},
+    {"id": "postfix_fill", "frequency": "3/3", "evidence": [{"year": 2024, "pages": [5], "section": "II", "task": "中缀转后缀"}, {"year": 2025, "pages": [11], "section": "II", "task": "后缀求值"}, {"year": 2026, "pages": [4], "section": "II", "task": "后缀求值"}]},
+    {"id": "tree_count_fill", "frequency": "3/3", "evidence": [{"year": 2024, "pages": [5], "section": "II"}, {"year": 2025, "pages": [11], "section": "II"}, {"year": 2026, "pages": [4], "section": "II"}]},
+    {"id": "kmp_next_fill", "frequency": "2/3", "evidence": [{"year": 2024, "pages": [5], "section": "II"}, {"year": 2025, "pages": [11], "section": "II"}]},
+    {"id": "generalized_head_tail_fill", "frequency": "2/3", "evidence": [{"year": 2025, "pages": [11], "section": "II"}, {"year": 2026, "pages": [4], "section": "II", "caveat": "原式缺失"}]},
+    {"id": "heap_insert_fill", "frequency": "2/3", "evidence": [{"year": 2025, "pages": [11], "section": "II"}, {"year": 2026, "pages": [4], "section": "II"}]},
+    {"id": "shortest_path_iii", "frequency": "2/3", "evidence": [{"year": 2024, "pages": [6], "section": "III", "task": "Floyd"}, {"year": 2026, "pages": [5, 6], "section": "III", "task": "最短路/Dijkstra；个别原数据缺失"}]},
+    {"id": "aoe_iii", "frequency": "2/3", "evidence": [{"year": 2025, "pages": [12], "section": "III"}, {"year": 2026, "pages": [5], "section": "III", "caveat": "原图部分数据缺失"}]},
+    {"id": "sorting_steps_iii", "frequency": "1/3", "evidence": [{"year": 2024, "pages": [5], "section": "III"}]},
+    {"id": "mst_iii", "frequency": "1/3", "evidence": [{"year": 2025, "pages": [12], "section": "III"}]}
+  ],
+  "cautions": ["3/3是三年资料中的观察，不是下年必考概率", "2026回忆稿残缺处不补全推断", "同章不同作答任务不算同型", "保守卷执行用户固定4/10/7/3题数及20/30/70/30分值，不机械照搬各年题数", "库导出真题-2024-填空4误标为三对角矩阵；原PDF物理p5实为Huffman树1247结点求叶数，不能沿用错误库映射"]
+}

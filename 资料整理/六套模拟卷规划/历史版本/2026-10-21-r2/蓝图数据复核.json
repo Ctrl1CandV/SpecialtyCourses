@@ -1,0 +1,516 @@
+{
+  "version": "2026-10-21-r2",
+  "kind": "设计数据与算法原型核验",
+  "limitations": "硬编码fixture与题面对应关系仍须人工逐项核对；任务/数据/答案蓝图哈希仅阻止无审查变更。未验证全部144题、最终选项、配图、C代码内存语义或真实作答耗时；穷举小输入不代替一般正确性证明。",
+  "count": 20,
+  "covered_ids": [
+    "S1-III02",
+    "S1-III03",
+    "S2-IV03",
+    "S3-III01",
+    "S3-IV03",
+    "S4-III07",
+    "S5-III07",
+    "S5-IV01",
+    "S5-IV02",
+    "S5-IV03",
+    "S6-III01",
+    "S6-III03",
+    "S6-III05",
+    "S6-IV01",
+    "S6-IV02",
+    "S6-IV03"
+  ],
+  "records": [
+    {
+      "id": "S1-III02",
+      "name": "频率扰动：两个最优成本与旧码新成本",
+      "inputs": "3,5,7,9,20；A改6；旧码长4,4,3,2,1",
+      "result": [
+        [
+          8,
+          15,
+          24,
+          44
+        ],
+        91,
+        103,
+        [
+          11,
+          16,
+          27,
+          47
+        ],
+        101
+      ],
+      "passed": true,
+      "design_hash": "948842483a21fd9ca7e7eb1e24f9f324db6f5af9e42993746a44c1124f891d22"
+    },
+    {
+      "id": "S1-III03",
+      "name": "线性探测独立构表",
+      "inputs": {
+        "keys": [
+          14,
+          25,
+          36,
+          5,
+          16
+        ],
+        "m": 11
+      },
+      "result": {
+        "table": [
+          null,
+          null,
+          null,
+          14,
+          25,
+          36,
+          5,
+          16,
+          null,
+          null,
+          null
+        ],
+        "success": [
+          1,
+          2,
+          3,
+          2,
+          3
+        ],
+        "failure": [
+          1,
+          1,
+          1,
+          6,
+          5,
+          4,
+          3,
+          2,
+          1,
+          1,
+          1
+        ],
+        "ASL": [
+          "11/5",
+          "26/11"
+        ]
+      },
+      "passed": true,
+      "design_hash": "f86a9b5a2038907acfce0b398dbba5d1bd43b1877e48a8eb7dd0bb3383b7f259"
+    },
+    {
+      "id": "S2-IV03",
+      "name": "回溯原型与所有简单顶点排列交叉比较",
+      "inputs": "4顶点全部64无向图，u0/w1/v3，k=-1..4",
+      "result": 384,
+      "passed": true,
+      "design_hash": "1ca7cd5359a95604f056687a8350901aabdc074a3c3a449c24908ea70d80f824"
+    },
+    {
+      "id": "S3-III01",
+      "name": "三对角逐单元枚举",
+      "inputs": "n=6，行主序0基",
+      "result": [
+        16,
+        11,
+        [
+          5,
+          5
+        ]
+      ],
+      "passed": true,
+      "design_hash": "9b39e523821ed87eeb885bb8d7ae928d7a71e5fadd5046a2aee265ff3466eb92"
+    },
+    {
+      "id": "S3-IV03",
+      "name": "堆归并原型与身份排序交叉核对",
+      "inputs": "三链，空/重复/负键，共125组",
+      "result": 125,
+      "passed": true,
+      "design_hash": "e1e6221e2a811da6013cb9c747e7c40f9404e8507a9b3ac553c925b0ecd8820c"
+    },
+    {
+      "id": "S4-III07",
+      "name": "逐位译码与截断余串",
+      "inputs": "001100001101；及删最后一位",
+      "result": [
+        [
+          "BDAEC",
+          ""
+        ],
+        [
+          "BDAE",
+          "0"
+        ]
+      ],
+      "passed": true,
+      "design_hash": "361e8667a972adaca06cf5428fe201ead238a5a6ebe2609bdd189a5ded04a9e7"
+    },
+    {
+      "id": "S5-III07",
+      "name": "稳定分配与个位桶LIFO的身份顺序",
+      "inputs": [
+        [
+          "21a",
+          21
+        ],
+        [
+          "12",
+          12
+        ],
+        [
+          "21b",
+          21
+        ],
+        [
+          "11",
+          11
+        ],
+        [
+          "22",
+          22
+        ],
+        [
+          "10",
+          10
+        ]
+      ],
+      "result": [
+        [
+          "10",
+          "21a",
+          "21b",
+          "11",
+          "12",
+          "22"
+        ],
+        [
+          "10",
+          "11",
+          "12",
+          "21a",
+          "21b",
+          "22"
+        ],
+        [
+          "10",
+          "11",
+          "21b",
+          "21a",
+          "22",
+          "12"
+        ],
+        [
+          "10",
+          "11",
+          "12",
+          "21b",
+          "21a",
+          "22"
+        ]
+      ],
+      "passed": true,
+      "design_hash": "3bb1619d19fad728ceb56162a6737537ef47b17866e88f59adfecdf5c92df86f"
+    },
+    {
+      "id": "S5-IV01",
+      "name": "双指针原型与下标对穷举",
+      "inputs": "长度0..6，值-2..2，K=-5..5",
+      "result": 5082,
+      "passed": true,
+      "design_hash": "9bca8177dd262146af62d72d248eda63a82d65eaeb6a788a7e41a87a0cd30350"
+    },
+    {
+      "id": "S5-IV02",
+      "name": "前缀算法与全部拓扑排列交叉比较",
+      "inputs": "3顶点全部64有向无自环图，含非法前缀",
+      "result": 1280,
+      "passed": true,
+      "design_hash": "6442e53933f60dff6e2b16ed16187c5dc6a133159bac2bc4d1cd26d337bf8142"
+    },
+    {
+      "id": "S5-IV03",
+      "name": "最长路径不经过整树根的端点实例",
+      "inputs": "R(L(A(C,E),B(D,F)),空)",
+      "result": [
+        4,
+        "C",
+        "D"
+      ],
+      "passed": true,
+      "design_hash": "df85c06d1c648ab77e283cccd034e6002fca3ad45f6b1ac5718eac43a132246d"
+    },
+    {
+      "id": "S5-IV03",
+      "name": "空树与单结点",
+      "inputs": "空；X",
+      "result": [
+        [
+          0,
+          null,
+          null
+        ],
+        [
+          0,
+          "X",
+          "X"
+        ]
+      ],
+      "passed": true,
+      "design_hash": "df85c06d1c648ab77e283cccd034e6002fca3ad45f6b1ac5718eac43a132246d"
+    },
+    {
+      "id": "S6-III01",
+      "name": "π表逐位朴素前后缀核对",
+      "inputs": "abaaba",
+      "result": [
+        0,
+        0,
+        1,
+        1,
+        2,
+        3
+      ],
+      "passed": true,
+      "design_hash": "3f9c57fb6e4c046d5345310decfcf5d8279f18aee0d4dd583d7660c13da2ed57"
+    },
+    {
+      "id": "S6-III01",
+      "name": "按子串枚举交叉核对重叠匹配",
+      "inputs": "P=abaaba，T1=abaabaab，T2=aaba",
+      "result": [
+        1,
+        4,
+        7
+      ],
+      "passed": true,
+      "design_hash": "3f9c57fb6e4c046d5345310decfcf5d8279f18aee0d4dd583d7660c13da2ed57"
+    },
+    {
+      "id": "S6-III01",
+      "name": "块末状态与成功后边界",
+      "inputs": "已匹配长度接口",
+      "result": [
+        5,
+        3
+      ],
+      "passed": true,
+      "design_hash": "3f9c57fb6e4c046d5345310decfcf5d8279f18aee0d4dd583d7660c13da2ed57"
+    },
+    {
+      "id": "S6-III03",
+      "name": "下标判定树及均匀ASL",
+      "inputs": "闭区间1..11，mid向下",
+      "result": [
+        [
+          1,
+          2,
+          4,
+          4
+        ],
+        "3",
+        [
+          9,
+          7
+        ]
+      ],
+      "passed": true,
+      "design_hash": "cd4b5444ca0c2b478ea819042d3b6c9c709b638e39fd57f791f6745259cc72b9"
+    },
+    {
+      "id": "S6-III05",
+      "name": "AOE两次正反拓扑计算",
+      "inputs": [
+        [
+          0,
+          1,
+          2
+        ],
+        [
+          0,
+          2,
+          3
+        ],
+        [
+          1,
+          3,
+          4
+        ],
+        [
+          2,
+          3,
+          1
+        ],
+        [
+          2,
+          4,
+          4
+        ],
+        [
+          3,
+          5,
+          3
+        ],
+        [
+          4,
+          5,
+          2
+        ],
+        [
+          1,
+          4,
+          1
+        ]
+      ],
+      "result": [
+        {
+          "ve": [
+            0,
+            2,
+            3,
+            6,
+            7,
+            9
+          ],
+          "vl": [
+            0,
+            2,
+            3,
+            6,
+            7,
+            9
+          ],
+          "critical": [
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              3
+            ],
+            [
+              2,
+              4
+            ],
+            [
+              3,
+              5
+            ],
+            [
+              4,
+              5
+            ]
+          ]
+        },
+        {
+          "ve": [
+            0,
+            2,
+            3,
+            7,
+            7,
+            10
+          ],
+          "vl": [
+            0,
+            3,
+            3,
+            7,
+            8,
+            10
+          ],
+          "critical": [
+            [
+              0,
+              2
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              3,
+              5
+            ]
+          ]
+        }
+      ],
+      "passed": true,
+      "design_hash": "2d3ce870f16f73f9681362fae52cf0663db3b3676365d21654c15fca5fae3ca4"
+    },
+    {
+      "id": "S6-IV01",
+      "name": "逆向归并原型与排序结果交叉比较",
+      "inputs": "长度0..3，各值-1,0,1，含全重复与空输入",
+      "result": 400,
+      "passed": true,
+      "design_hash": "a0768935bba8500b2cb049e2907165c09c1e6e9ca9d048d85f51068389a4a048"
+    },
+    {
+      "id": "S6-IV02",
+      "name": "不建树遍历转换样例",
+      "inputs": [
+        [
+          0,
+          1,
+          3,
+          4,
+          2,
+          5
+        ],
+        [
+          3,
+          1,
+          4,
+          0,
+          5,
+          2
+        ]
+      ],
+      "result": [
+        3,
+        4,
+        1,
+        5,
+        2,
+        0
+      ],
+      "passed": true,
+      "design_hash": "a6dd9cbadeead0276c77a3387923749f626c15569464f5c7faeb857277be408e"
+    },
+    {
+      "id": "S6-IV02",
+      "name": "空、单结点和单右链边界",
+      "inputs": "pre/in分别空、[0]、[0,1,2]",
+      "result": [
+        [],
+        [
+          0
+        ],
+        [
+          2,
+          1,
+          0
+        ]
+      ],
+      "passed": true,
+      "design_hash": "a6dd9cbadeead0276c77a3387923749f626c15569464f5c7faeb857277be408e"
+    },
+    {
+      "id": "S6-IV03",
+      "name": "增边三类判据与全部顶点排列交叉比较",
+      "inputs": "64个按拓扑位置生成的DAG×24种顶点重标号×16条可能新弧，含自环和已有弧",
+      "result": 24576,
+      "passed": true,
+      "design_hash": "fef6e792c4f40ee01258e59ff933e5daf32bb8e2e784b4c831286d6f851f08f2"
+    }
+  ]
+}

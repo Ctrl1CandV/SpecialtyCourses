@@ -1,0 +1,427 @@
+{
+  "paper": 3,
+  "version": "2026-10-25-answer-v1",
+  "questions": [
+    {
+      "id": "S3-I01",
+      "content": "各空依次为：`1、2、4、8`；`32`；`k+1`；`O(n log n)`。\n\n内层每轮执行 8 次，外层对样例执行 4 轮。一般 `n=2^k` 时，外层取值从 `2^0` 到 `2^k`，共 `k+1` 轮，故操作次数为 `n(k+1)`。",
+      "references": [
+        {
+          "path": "知识笔记/重邮数据结构.md",
+          "location": "绪论／算法效率的度量",
+          "use": "循环次数与渐近复杂度"
+        },
+        {
+          "path": "真题资料/真题24-25.pdf",
+          "location": "物理第28页，2025程序阅读第1题答案",
+          "use": "复杂度答题格式"
+        }
+      ],
+      "checks": [
+        "按 i=1,2,4,8 实际列出4轮；每轮内层8次。"
+      ]
+    },
+    {
+      "id": "S3-I02",
+      "content": "`__1__ = head->next`；`__2__ = p->next`；`__3__ = q->key < best->key`。\n\n打印：`(1,-) (2,-) (4,b) (4,a)`；最坏时间复杂度：`O(n²)`。首轮把最后的 `(1,-)` 与 `(4,a)` 整记录互换，因此原来后面的 `(4,b)` 排在 `(4,a)` 前；选第一个同键最小结点也不能保证此交换式选择排序稳定。",
+      "references": [
+        {
+          "path": "知识笔记/代码总结.md",
+          "location": "排序／选择排序／简单选择排序",
+          "use": "选择最小记录的循环骨架"
+        },
+        {
+          "path": "真题资料/真题24-25.pdf",
+          "location": "物理第30页，2025程序阅读第4题答案",
+          "use": "同类排序填代码方法"
+        }
+      ],
+      "checks": [
+        "手工模拟首轮整记录交换及后续轮次；比较循环次数为二次量级。"
+      ]
+    },
+    {
+      "id": "S3-I03",
+      "content": "`__1__ = q->rear->next = p`；`__2__ = q->rear = q->front`；`__3__ = q->front == q->rear`。\n\n打印：`4 7`；单次 `enq` 或 `deq` 均为 `O(1)`。头结点始终保留；删掉最后一个数据结点时必须把 `rear` 复位到头结点。",
+      "references": [
+        {
+          "path": "知识笔记/重邮数据结构.md",
+          "location": "栈队和数组／队列的链式存储结构",
+          "use": "带头结点链队列的首尾指针"
+        },
+        {
+          "path": "真题资料/真题24-25.pdf",
+          "location": "物理第29页，2025程序阅读链队列答案",
+          "use": "链队列代码处理"
+        }
+      ],
+      "checks": [
+        "依序模拟入4、7，出4，再入9；检查空队列时首尾同指头结点。"
+      ]
+    },
+    {
+      "id": "S3-I04",
+      "content": "`__1__ = g[u][v] && !seen[v]`；`__2__ = dfs(v)`；`__3__ = !seen[u]`；时间复杂度 `O(V²)`。\n\n每个顶点只进入 `dfs` 一次，但每次都要扫描邻接矩阵的一整行，共 `V` 行；外层找各连通分量根的开销被 `V²` 包含。样例会识别 `{0,1,2}` 与 `{3}` 两个分量。",
+      "references": [
+        {
+          "path": "知识笔记/重邮数据结构.md",
+          "location": "图／深度优先遍历搜索、性能分析",
+          "use": "邻接矩阵DFS遍历"
+        },
+        {
+          "path": "真题资料/真题24-25.pdf",
+          "location": "物理第37页，2025综合图题答案",
+          "use": "图遍历过程格式"
+        }
+      ],
+      "checks": [
+        "按顶点升序跟踪 visited，确认每个顶点仅递归一次、矩阵每行扫描一次。"
+      ]
+    },
+    {
+      "id": "S3-II01",
+      "content": "依次填 `2`、`0`、`5`。四次入队后 rear=4；两次出队后 front=2、count=2；再入三次使 rear=(4+3) mod 7=0、count=5。",
+      "references": [
+        {
+          "path": "知识笔记/重邮数据结构.md",
+          "location": "栈队和数组／循环队列",
+          "use": "front、rear、count的更新"
+        }
+      ],
+      "checks": [
+        "逐步追踪7次入队与2次出队；结果满足 count=(rear-front+7) mod 7。"
+      ]
+    },
+    {
+      "id": "S3-II02",
+      "content": "填 `27`。严格二叉树中叶数为内部结点数加1；设叶数 L，则总数为 `2L−1=53`。",
+      "references": [
+        {
+          "path": "知识笔记/重邮数据结构.md",
+          "location": "树与二叉树／哈夫曼树",
+          "use": "Huffman树的结点数性质"
+        }
+      ],
+      "checks": [
+        "以总数2L−1反算并代回53。"
+      ]
+    },
+    {
+      "id": "S3-II03",
+      "content": "填 `14`。首次出栈4意味着此前必须按序压入1、2、3、4并立即弹出4；其后对栈中3、2、1及待入的5、6按合法入出栈次序分支枚举，得到14个完整序列。",
+      "references": [
+        {
+          "path": "知识笔记/重邮数据结构.md",
+          "location": "栈队和数组／栈",
+          "use": "合法出栈序列约束"
+        }
+      ],
+      "checks": [
+        "递归穷举6元素所有132种合法出栈序列，其中首项为4的恰有14种。"
+      ]
+    },
+    {
+      "id": "S3-II04",
+      "content": "填 `0,1,1,2,3,1,2`。对 j=1..7，前 j−1 字符的最长真前后缀长度依次为“不适用、0、0、1、2、0、1”，按给定约定加1（首项固定0）。",
+      "references": [
+        {
+          "path": "知识笔记/重邮数据结构.md",
+          "location": "串／KMP算法／next数组与KMP的精髓",
+          "use": "next定义与前后缀"
+        }
+      ],
+      "checks": [
+        "逐个枚举 P 前缀的真前后缀并套用题设1起编号约定。"
+      ]
+    },
+    {
+      "id": "S3-II05",
+      "content": "填 `16`。后缀式先算 `3 2 + = 5`，得 `8×5=40`；再算 `9 5 − = 4`，得 `40÷4=10`，最后 `10+6=16`。",
+      "references": [
+        {
+          "path": "知识笔记/重邮数据结构.md",
+          "location": "栈队和数组／表达式求值／后缀表达式求值",
+          "use": "后缀式栈求值"
+        },
+        {
+          "path": "真题资料/真题24-25.pdf",
+          "location": "物理第31页，2025填空题后缀式答案",
+          "use": "同类求值格式"
+        }
+      ],
+      "checks": [
+        "独立按操作数栈依次执行五个运算，最终栈仅余16。"
+      ]
+    },
+    {
+      "id": "S3-II06",
+      "content": "填 `12`。出边数为 `4×3+3×2+2×1=20`，总结点数21；已知非叶结点9个，所以叶结点12个。",
+      "references": [
+        {
+          "path": "知识笔记/重邮数据结构.md",
+          "location": "树与二叉树／树的性质",
+          "use": "边数与各度结点计数"
+        }
+      ],
+      "checks": [
+        "验证21个结点有20条边，叶数12。"
+      ]
+    },
+    {
+      "id": "S3-II07",
+      "content": "填 `n`。每个顶点至少有一条出弧，故弧数至少 n；一个覆盖全部 n 个顶点的有向环恰用 n 条弧并强连通。",
+      "references": [
+        {
+          "path": "知识笔记/重邮数据结构.md",
+          "location": "图／基本概念与术语",
+          "use": "强连通与入出度"
+        }
+      ],
+      "checks": [
+        "下界由每点出度≥1推出，构造有向环达到下界。"
+      ]
+    },
+    {
+      "id": "S3-II08",
+      "content": "填 `23`。每棵树的边数等于其结点数减1，因此森林总边数为 `27−4=23`。",
+      "references": [
+        {
+          "path": "知识笔记/重邮数据结构.md",
+          "location": "树与二叉树／树与森林",
+          "use": "森林边数公式"
+        },
+        {
+          "path": "真题资料/真题24-25.pdf",
+          "location": "物理第32页，2025填空森林题答案",
+          "use": "同类计数"
+        }
+      ],
+      "checks": [
+        "用 E=V−树数 代入。"
+      ]
+    },
+    {
+      "id": "S3-II09",
+      "content": "填 `(0,4,1,9,7,6,2)`。新键0先占7号位，与3号位的2交换，再与1号位的1交换。",
+      "references": [
+        {
+          "path": "知识笔记/重邮数据结构.md",
+          "location": "排序／堆排序",
+          "use": "小根堆插入上滤"
+        },
+        {
+          "path": "真题资料/真题24-25.pdf",
+          "location": "物理第33页，2025填空堆题答案",
+          "use": "同类调整"
+        }
+      ],
+      "checks": [
+        "按数组1起编号核对上滤路径7→3→1及每个父结点≤子结点。"
+      ]
+    },
+    {
+      "id": "S3-II10",
+      "content": "填 `24`。二叉链表共有 `2n` 个孩子指针，其中非空指针恰为树边数 `n−1`，空指针数为 `2n−(n−1)=n+1=24`。",
+      "references": [
+        {
+          "path": "知识笔记/重邮数据结构.md",
+          "location": "树与二叉树／二叉树的重要性质",
+          "use": "二叉链表空指针计数"
+        }
+      ],
+      "checks": [
+        "代入 n=23，核对46个指针中22个非空。"
+      ]
+    },
+    {
+      "id": "S3-III01",
+      "content": "（1）原树如下；横向标注分别是左、右孩子：\n\n```text\n        M\n       / \\\n      F   T\n     / \\ / \\\n    C  H Q  W\n```\n\n（2）后序：`C,H,F,Q,W,T,M`。\n\n（3）中序是 `C,F,H,M,Q,T,W`，所以 C 的空左指针→`NULL`；H 的空右指针→`M`；Q 的空左指针→`M`；W 的空右指针→`NULL`。题中仅询问原本为空的指针，实际孩子指针仍保持原孩子。",
+      "references": [
+        {
+          "path": "知识笔记/重邮数据结构.md",
+          "location": "树与二叉树／由遍历序列构造二叉树、线索二叉树",
+          "use": "先中序重建与前驱后继"
+        },
+        {
+          "path": "真题资料/真题24-25.pdf",
+          "location": "物理第20页，2024综合树题答案",
+          "use": "树结构与遍历答案格式"
+        }
+      ],
+      "checks": [
+        "先序首项定位根M，中序分割左右子树；复核前序、中序、后序及四条线索。"
+      ]
+    },
+    {
+      "id": "S3-III02",
+      "content": "（1）普通 BST：\n\n```text\n       30\n      /  \\\n     20   40\n    /  \\\n   10  25\n       /\n      22\n```\n\n（2）插入22后，向上回溯首次失衡的结点是 `30`，属于 **LR** 型：先对其左孩子20左旋，再对30右旋。\n\n（3）AVL 调整后：\n\n```text\n       25\n      /  \\\n     20   30\n    / \\     \\\n   10  22    40\n```\n\n（4）普通 BST 查找22：`30→20→25→22`，比较4次；AVL 查找22：`25→20→22`，比较3次。",
+      "references": [
+        {
+          "path": "知识笔记/重邮数据结构.md",
+          "location": "查找／二叉排序树BST、平衡二叉树AVL",
+          "use": "插入、LR旋转和查找路径"
+        },
+        {
+          "path": "真题资料/真题24-25.pdf",
+          "location": "物理第36页，2025综合BST／AVL题答案",
+          "use": "树形与比较次数格式"
+        }
+      ],
+      "checks": [
+        "分别插入6键并复核两树中序均为10,20,22,25,30,40；AVL各结点平衡因子绝对值≤1。"
+      ]
+    },
+    {
+      "id": "S3-III03",
+      "content": "（1）按百分数权值写，七次合并为：`2+3=5`，`5+6=11`，`7+10=17`，`11+17=28`，`19+21=40`，`28+32=60`，`40+60=100`。新权值依次为 **5、11、17、28、40、60、100**（百分数）。\n\n（2）WPL 等于各次新权值之和，`(5+11+17+28+40+60+100)/100 = 2.61 bit/字符`。\n\n（3）3位定长编码平均 `3 bit/字符`；比 Huffman 多 `3−2.61=0.39 bit/字符`。\n\n（4）8个叶、每个内部结点有两个孩子，内部结点7个，总结点数 **15**。",
+      "references": [
+        {
+          "path": "知识笔记/重邮数据结构.md",
+          "location": "树与二叉树／哈夫曼树及哈夫曼编码",
+          "use": "最小权合并、WPL与结点数"
+        },
+        {
+          "path": "真题资料/真题24-25.pdf",
+          "location": "物理第22页，2024综合Huffman答案",
+          "use": "合并与码长格式"
+        }
+      ],
+      "checks": [
+        "用整数百分数最小堆复算七次合并；加权路径长度为261/100。"
+      ]
+    },
+    {
+      "id": "S3-III04",
+      "content": "（1）插入后槽位：\n\n| 槽号 | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |\n|---|---:|---:|---|---:|---:|---:|---:|---|---|---|---|\n| 键 | 22 | 33 | 空 | 14 | 25 | 36 | 47 | 空 | 空 | 空 | 空 |\n\n（2）按 `22,33,14,25,36,47` 的成功探测次数为 `1,2,1,2,3,4`，所以 `ASL成功=13/6≈2.167`。\n\n（3）初址 `0..10` 的失败探测次数依次为 `3,2,1,5,4,3,2,1,1,1,1`，故 `ASL失败=24/11≈2.182`。例如从3出发连续查3、4、5、6、7，遇7号空槽才停，计5次。",
+      "references": [
+        {
+          "path": "知识笔记/重邮数据结构.md",
+          "location": "查找／散列查找与ASL",
+          "use": "循环线性探测与成功失败ASL"
+        },
+        {
+          "path": "真题资料/真题24-25.pdf",
+          "location": "物理第34–35页，2025综合散列表答案",
+          "use": "散列表和ASL列法"
+        }
+      ],
+      "checks": [
+        "逐键插入并逐一模拟6个成功起点、11个失败初址；探测次数和分别为13与24。"
+      ]
+    },
+    {
+      "id": "S3-III05",
+      "content": "（1）Kruskal 按表序检查到选满4条边：\n\n| 检查边 | AB | AC | BC | BD | CD | DE |\n|---|---|---|---|---|---|---|\n| 结果 | 入树 | 入树 | 因成环略过 | 入树 | 因成环略过 | 入树 |\n\n`CE` 尚未轮到，不必检查。\n\n（2）最小生成树边集 `{AB,AC,BD,DE}`，总权值 `1+1+2+3=7`。\n\n（3）Prim 从 A 起，等权按表序，入树次序：`AB→AC→BD→DE`。",
+      "references": [
+        {
+          "path": "知识笔记/重邮数据结构.md",
+          "location": "图／最小生成树／Prim算法、Kruskal算法",
+          "use": "两种生成树过程"
+        },
+        {
+          "path": "真题资料/真题24-25.pdf",
+          "location": "物理第37页，2025综合图题答案",
+          "use": "生成树过程格式"
+        }
+      ],
+      "checks": [
+        "按权值及表序模拟两算法；Kruskal第4条入树边为DE，Prim每步跨已选集选最小。"
+      ]
+    },
+    {
+      "id": "S3-III06",
+      "content": "（1）折半判定树：\n\n```text\n        18\n       /  \\\n      8    27\n     / \\  / \\\n    3  11 21 30\n```\n\n（2）各层结点数1、2、4，故 `ASL成功=(1×1+2×2+4×3)/7=17/7≈2.429`。\n\n（3）查找21的比较顺序：`18→27→21`。\n\n（4）查找25时比较 `18→27→21`，然后进入空区间，故比较 **3** 次。",
+      "references": [
+        {
+          "path": "知识笔记/重邮数据结构.md",
+          "location": "查找／折半查找／判定树",
+          "use": "中点选择、ASL与失败路径"
+        },
+        {
+          "path": "真题资料/真题24-25.pdf",
+          "location": "物理第36页，2025综合折半查找答案",
+          "use": "判定树与ASL格式"
+        }
+      ],
+      "checks": [
+        "每层mid=floor((low+high)/2)复核七结点；成功深度和17；失败25仅访问三个非空结点。"
+      ]
+    },
+    {
+      "id": "S3-III07",
+      "content": "（1）第一趟（长度1段两两归并）：`(3,8a,1,7,2,8b,4,6)`。\n\n（2）第二趟（长度2段两两归并）：`(1,3,7,8a,2,4,6,8b)`。\n\n（3）第三趟（长度4段归并）：`(1,2,3,4,6,7,8a,8b)`。两个键8相等时先取左段的8a，故保持稳定次序。",
+      "references": [
+        {
+          "path": "知识笔记/重邮数据结构.md",
+          "location": "排序／二路归并排序",
+          "use": "各趟归并与稳定性"
+        },
+        {
+          "path": "知识笔记/代码总结.md",
+          "location": "排序／二路归并排序",
+          "use": "归并的比较方式"
+        }
+      ],
+      "checks": [
+        "按段长1、2、4逐趟手算；第三趟核对8a在8b之前。"
+      ]
+    },
+    {
+      "id": "S3-IV01",
+      "content": "**基本思想。** 三个游标分别指向三条未处理链表的首结点。每次取非空游标中键最小的原结点，摘下并接到结果尾部。键相同时任选一条；最后把结果尾结点的 `next` 设为 `NULL`。\n\n```c\n#include <stddef.h>\ntypedef struct Node { int key; struct Node *next; } Node;\n\nNode *mergeThree(Node *a, Node *b, Node *c) {\n    Node *head = NULL;\n    Node **tailNext = &head;\n    while (a != NULL || b != NULL || c != NULL) {\n        Node **pick = NULL;\n        if (a != NULL) pick = &a;\n        if (b != NULL && (pick == NULL || b->key < (*pick)->key))\n            pick = &b;\n        if (c != NULL && (pick == NULL || c->key < (*pick)->key))\n            pick = &c;\n        Node *p = *pick;\n        *pick = p->next;\n        *tailNext = p;\n        tailNext = &p->next;\n    }\n    *tailNext = NULL;\n    return head;\n}\n```\n\n令三表结点总数为 N。每个结点取出、接入一次，时间 `O(N)`；仅用固定个数指针，辅助空间 `O(1)`。全部为空时返回 `NULL`。\n\n**建议评分（8分）：** 正确的三路最小值选择与重连思想2分；完整C实现、空链和尾端处理5分；时间与辅助空间1分。",
+      "references": [
+        {
+          "path": "知识笔记/代码总结.md",
+          "location": "线性表／链表／经典算法／归并两个递增表",
+          "use": "有序链表归并方法"
+        },
+        {
+          "path": "知识笔记/重邮数据结构.md",
+          "location": "线性表／链表",
+          "use": "链表指针重连"
+        }
+      ],
+      "checks": [
+        "C11编译；空/单链/并列键/随机三链排序及原结点身份测试见临时验证记录。"
+      ]
+    },
+    {
+      "id": "S3-IV02",
+      "content": "**基本思想。** 第一遍深度优先搜索维护“到当前结点是否已经见过标记”和当前深度；在合格叶结点处只记最长路径的叶指针。第二遍从根找该叶，把沿途结点写入 `out`。这样不用在每个叶结点复制整条路径。\n\n```c\n#include <stdbool.h>\n#include <stddef.h>\ntypedef struct Node {\n    int data;\n    bool mark;\n    struct Node *left, *right;\n} Node;\n\nstatic void chooseLeaf(const Node *p, int depth, bool seenMark,\n                       const Node **bestLeaf, int *bestLen) {\n    if (p == NULL) return;\n    ++depth;\n    seenMark = seenMark || p->mark;\n    if (p->left == NULL && p->right == NULL) {\n        if (seenMark && depth > *bestLen) {\n            *bestLen = depth;\n            *bestLeaf = p;\n        }\n        return;\n    }\n    chooseLeaf(p->left, depth, seenMark, bestLeaf, bestLen);\n    chooseLeaf(p->right, depth, seenMark, bestLeaf, bestLen);\n}\n\nstatic bool writeToLeaf(const Node *p, const Node *target,\n                        const Node *out[], int *len) {\n    if (p == NULL) return false;\n    out[(*len)++] = p;\n    if (p == target) return true;\n    if (writeToLeaf(p->left, target, out, len) ||\n        writeToLeaf(p->right, target, out, len)) return true;\n    --*len;\n    return false;\n}\n\nbool longestMarkedPath(const Node *root, const Node *out[], int *len) {\n    const Node *leaf = NULL;\n    int bestLen = 0;\n    *len = 0;\n    chooseLeaf(root, 0, false, &leaf, &bestLen);\n    if (leaf == NULL) return false;\n    return writeToLeaf(root, leaf, out, len);\n}\n```\n\n设结点数为 n、高度为 h。两次 DFS 各至多访问 n 个结点，时间 `O(n)`；递归栈最多 h 层，额外辅助空间 `O(h)`，调用者提供的输出数组不计入辅助空间。空树或无标记的根叶路径时 `*len=0`。\n\n**建议评分（10分）：** 合格路径与最长目标的思想2分；第一遍选目标叶、第二遍正确输出及失败处理6分；时间与辅助空间2分。",
+      "references": [
+        {
+          "path": "知识笔记/重邮数据结构.md",
+          "location": "树与二叉树／二叉树遍历",
+          "use": "递归DFS与根叶路径"
+        },
+        {
+          "path": "真题资料/真题24-25.pdf",
+          "location": "物理第40页，2025算法题最长根叶路径答案",
+          "use": "仅参考DFS路径方法，标记约束另算"
+        }
+      ],
+      "checks": [
+        "C11编译；空树、无标记、并列最长及随机树与穷举根叶路径比较见临时验证记录。"
+      ]
+    },
+    {
+      "id": "S3-IV03",
+      "content": "**基本思想。** 从 s 深度优先搜索，记录已在当前路径上的顶点。到达 k 条边时，仅当当前点为 t 才计1；若提前到达 t，则该路径不能再延伸为顶点不重复的 s→t 路径。回溯时撤销访问标记，使不同顶点序列分别计数。\n\n```c\n#include <stdbool.h>\n\nstatic int countDfs(const int g[12][12], int V, int u, int t,\n                    int usedEdges, int k, bool onPath[12]) {\n    if (usedEdges == k) return u == t ? 1 : 0;\n    if (u == t) return 0;\n    int ans = 0;\n    for (int v = 0; v < V; ++v) {\n        if (g[u][v] && !onPath[v]) {\n            onPath[v] = true;\n            ans += countDfs(g, V, v, t, usedEdges + 1, k, onPath);\n            onPath[v] = false;\n        }\n    }\n    return ans;\n}\n\nint countPaths(const int g[12][12], int V, int s, int t, int k) {\n    bool onPath[12] = {false};\n    onPath[s] = true;\n    return countDfs(g, V, s, t, 0, k, onPath);\n}\n```\n\n搜索最多扩展 k 条边，每层候选顶点至多 V 个，每个状态扫描矩阵一行至多 V 项，故时间上界为 `O(V^(k+1))`；访问数组与递归栈合计辅助空间 `O(V)`。当 `s=t,k=0` 返回1；`s=t,k>0` 返回0。题定 `V≤12`，此范围内计数不超过 `int` 上限。\n\n**建议评分（12分）：** 简单路径与恰k边计数思想2分；访问标记、深度边界、回溯及入口等完整C实现8分；时间与辅助空间2分。",
+      "references": [
+        {
+          "path": "知识笔记/重邮数据结构.md",
+          "location": "图／深度优先遍历搜索、邻接矩阵法",
+          "use": "DFS和简单路径判定"
+        },
+        {
+          "path": "真题资料/真题24-25.pdf",
+          "location": "物理第41–42页，2025算法图路径答案",
+          "use": "仅参考DFS路径方法，计数目标另验"
+        }
+      ],
+      "checks": [
+        "C11编译；s=t、k=0、链图/三角图与随机小图暴力枚举对照见临时验证记录。"
+      ]
+    }
+  ]
+}

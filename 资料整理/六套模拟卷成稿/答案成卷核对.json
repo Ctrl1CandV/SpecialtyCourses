@@ -1,0 +1,38 @@
+[
+  {
+    "paper": 1,
+    "questions": 24,
+    "pages": 12,
+    "sha256": "3ba9617c6e6624461889958baf0245cb11cd6b9798ab2771a99a57c5352f6acd"
+  },
+  {
+    "paper": 2,
+    "questions": 24,
+    "pages": 12,
+    "sha256": "f777e6e2135469101d751a5dc9c7ddc87e7697e04ccc31fc12266aabc8cfe431"
+  },
+  {
+    "paper": 3,
+    "questions": 24,
+    "pages": 12,
+    "sha256": "fc69f1aa3160fddcb61cc98991923f48bbe88504a8c999a2381cac5b1f25e548"
+  },
+  {
+    "paper": 4,
+    "questions": 24,
+    "pages": 12,
+    "sha256": "d837f01123d970f928f3247017909d9464a80a6a780b1ae7ea069ea6ff2f6958"
+  },
+  {
+    "paper": 5,
+    "questions": 24,
+    "pages": 12,
+    "sha256": "385f1bd641d7b817cb529dc83efbec344104f9124ba4871743710d73fcbfa07b"
+  },
+  {
+    "paper": 6,
+    "questions": 24,
+    "pages": 12,
+    "sha256": "f3d7f6b4a939a77c7b8535c73ccc43466b77fb01e14bcc23db69c2fbd23a2530"
+  }
+]

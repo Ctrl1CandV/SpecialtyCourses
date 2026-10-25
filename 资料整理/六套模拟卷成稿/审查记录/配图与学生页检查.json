@@ -1,0 +1,217 @@
+{
+  "reviewer": "root",
+  "version": "2026-10-25-final-v6",
+  "scope": "12个学生配图页及替题、澄清的2页；答案72页由三名交叉审查者逐页查看",
+  "student_pdf_hashes": {
+    "1": "e0032b798c668a1d1b476a18996ad67c4eed3f067b8b8314b4f4c54bbf600d7d",
+    "2": "4f0e9f901ad11003cc69534cf82840bed246bc4bc211e7472f654fb5363bbcdd",
+    "3": "7e6feb9053b6f997df4c25e41a3a912d57fb66002f471dcb55ad1daee5ac3c19",
+    "4": "1a892ad337a9da8e0340f05989b1a3a7361a3158d781eb505d2b64d89cc905d3",
+    "5": "90361d5968edd032d7acdbe26863c88f5b34a5783d5a896d0e471c23c5a5f7b2",
+    "6": "81391484c74f48da5bf736c5cd1e2192caa1817f31d4f4f3013c23a95b208880"
+  },
+  "student_source_hashes": {
+    "1": "035d813088ae140d809ef2cdcc54630f9c547aace3fe27cc47e7285b5b533164",
+    "2": "83bc019eafaff0c5d9ded16e9b8348eeb2bb4149d1463b785c0aca0f18b990ee",
+    "3": "7f5157f89deb162de908197aafd01a9cd0d491687ea309f540f42dc9c7bb820b",
+    "4": "7db187240c5254dace16eb81704d7ef86d6d5dd1926f6825f0eba766c6c6eb0b",
+    "5": "28fe89c56a67dc1523bc4add91d49eeac64d67977bafa6e48f3bbf41e45f5cbd",
+    "6": "db64251648e41049867856c4da6d1765b6af7e6163157adcf3287ee94892d1df"
+  },
+  "student_diagrams_source_sha256": "25ab2e36b92c34fdf9f9f6139ef262ca3c6eeedb84d234e0b28db98dbad5dd7e",
+  "answer_diagrams_source_sha256": "cbb2b73205d661bc19b2a27d44cfa36e0e4d233e7ccf6e8b1b5cd0a7ae8a7608",
+  "visual_pages": [
+    {
+      "id": "S1-III05",
+      "paper": 1,
+      "page": 11,
+      "status": "pass",
+      "image_sha256": "1c915385417d1a2365950de5490234d08ecc52ef08abfc978b9fea57e21e9992",
+      "checks": [
+        "实际查看最终渲染页",
+        "图的顶点、边、方向、权值或孩子关系与题面一致",
+        "图注、题号、文字清晰，未裁切或重叠",
+        "题图仅呈现给定结构，保留作答空间"
+      ]
+    },
+    {
+      "id": "S2-III01",
+      "paper": 2,
+      "page": 7,
+      "status": "pass",
+      "image_sha256": "fbdc2bdff400bf7f4c15fe78d0860136f20c5e53de783f867dfb3d14c14caee9",
+      "checks": [
+        "实际查看最终渲染页",
+        "图的顶点、边、方向、权值或孩子关系与题面一致",
+        "图注、题号、文字清晰，未裁切或重叠",
+        "题图仅呈现给定结构，保留作答空间"
+      ]
+    },
+    {
+      "id": "S2-III04",
+      "paper": 2,
+      "page": 10,
+      "status": "pass",
+      "image_sha256": "95d6f2c288f39651afaa07a63b090098b4e007f8ac453ee7150d41598f5aa256",
+      "checks": [
+        "实际查看最终渲染页",
+        "图的顶点、边、方向、权值或孩子关系与题面一致",
+        "图注、题号、文字清晰，未裁切或重叠",
+        "题图仅呈现给定结构，保留作答空间"
+      ]
+    },
+    {
+      "id": "S2-III05",
+      "paper": 2,
+      "page": 11,
+      "status": "pass",
+      "image_sha256": "38e4f0cce1d28c67997845d7fbe3c033ee8356461fa50da266eaaa709505002e",
+      "checks": [
+        "实际查看最终渲染页",
+        "图的顶点、边、方向、权值或孩子关系与题面一致",
+        "图注、题号、文字清晰，未裁切或重叠",
+        "题图仅呈现给定结构，保留作答空间"
+      ]
+    },
+    {
+      "id": "S3-III05",
+      "paper": 3,
+      "page": 11,
+      "status": "pass",
+      "image_sha256": "7fd2b7fef1c90b862eba9911664b45d855a9b0c3724ba25576fa61a0f62939d3",
+      "checks": [
+        "实际查看最终渲染页",
+        "图的顶点、边、方向、权值或孩子关系与题面一致",
+        "图注、题号、文字清晰，未裁切或重叠",
+        "题图仅呈现给定结构，保留作答空间"
+      ]
+    },
+    {
+      "id": "S4-III03",
+      "paper": 4,
+      "page": 9,
+      "status": "pass",
+      "image_sha256": "19b9e06f418815b49da399fcddb16ae36ffd9846bbbbbc0d8d47090610898ff3",
+      "checks": [
+        "实际查看最终渲染页",
+        "图的顶点、边、方向、权值或孩子关系与题面一致",
+        "图注、题号、文字清晰，未裁切或重叠",
+        "题图仅呈现给定结构，保留作答空间"
+      ]
+    },
+    {
+      "id": "S4-III04",
+      "paper": 4,
+      "page": 10,
+      "status": "pass",
+      "image_sha256": "ecbbf5d10c2d0e2eff67d02c3855b9d88ae06f14c3840a3294ed95e8e38ccdfc",
+      "checks": [
+        "实际查看最终渲染页",
+        "图的顶点、边、方向、权值或孩子关系与题面一致",
+        "图注、题号、文字清晰，未裁切或重叠",
+        "题图仅呈现给定结构，保留作答空间"
+      ]
+    },
+    {
+      "id": "S4-III05",
+      "paper": 4,
+      "page": 11,
+      "status": "pass",
+      "image_sha256": "5ac94a885aa2b553ba330ac2630b6a95e01fd1f027870ac884595deef18cf7e2",
+      "checks": [
+        "实际查看最终渲染页",
+        "图的顶点、边、方向、权值或孩子关系与题面一致",
+        "图注、题号、文字清晰，未裁切或重叠",
+        "题图仅呈现给定结构，保留作答空间"
+      ]
+    },
+    {
+      "id": "S5-III06",
+      "paper": 5,
+      "page": 12,
+      "status": "pass",
+      "image_sha256": "879004c35ccdd01d03efb7e19ec31dafdc4ffaf5e24bb47f60990cb874dea493",
+      "checks": [
+        "实际查看最终渲染页",
+        "图的顶点、边、方向、权值或孩子关系与题面一致",
+        "图注、题号、文字清晰，未裁切或重叠",
+        "题图仅呈现给定结构，保留作答空间"
+      ]
+    },
+    {
+      "id": "S6-III02",
+      "paper": 6,
+      "page": 8,
+      "status": "pass",
+      "image_sha256": "f76df01fd7d4ebf13ffd89502c355e66190dd3fc8dd8e703edbed16a6036a90b",
+      "checks": [
+        "实际查看最终渲染页",
+        "图的顶点、边、方向、权值或孩子关系与题面一致",
+        "图注、题号、文字清晰，未裁切或重叠",
+        "题图仅呈现给定结构，保留作答空间"
+      ]
+    },
+    {
+      "id": "S6-III05",
+      "paper": 6,
+      "page": 11,
+      "status": "pass",
+      "image_sha256": "beb752d3de79f22b68d635d26a6e753f3e8d293caaf34c0552c10912e6dbd629",
+      "checks": [
+        "实际查看最终渲染页",
+        "图的顶点、边、方向、权值或孩子关系与题面一致",
+        "图注、题号、文字清晰，未裁切或重叠",
+        "题图仅呈现给定结构，保留作答空间"
+      ]
+    },
+    {
+      "id": "S6-III06",
+      "paper": 6,
+      "page": 12,
+      "status": "pass",
+      "image_sha256": "5f6f927ed7382525b3d6ae7b43192e31d45d72c2eab51ca77ca46ca5addccd43",
+      "checks": [
+        "实际查看最终渲染页",
+        "图的顶点、边、方向、权值或孩子关系与题面一致",
+        "图注、题号、文字清晰，未裁切或重叠",
+        "题图仅呈现给定结构，保留作答空间"
+      ]
+    },
+    {
+      "id": "S3-II05",
+      "paper": 3,
+      "page": 5,
+      "status": "pass",
+      "image_sha256": "3354925c4b59fd3e7231808d2b5ba98ec975a484c583494cb64125a3a8380b4c",
+      "checks": [
+        "实际查看最终变动页",
+        "新题或新增范围文字与源稿一致",
+        "题号与分值、排版、作答空间正常"
+      ]
+    },
+    {
+      "id": "S1-IV02",
+      "paper": 1,
+      "page": 16,
+      "status": "pass",
+      "image_sha256": "99e4a7b999b702ffe21125e54f62ea63df3c09c63343cae6c59eb4524d61d050",
+      "checks": [
+        "实际查看最终变动页",
+        "新题或新增范围文字与源稿一致",
+        "题号与分值、排版、作答空间正常"
+      ]
+    }
+  ],
+  "student_diagram_count": 12,
+  "answer_diagram_count": 25,
+  "references_audit": {
+    "reviewer": "exam_audit",
+    "total": 250,
+    "pdf": 160,
+    "markdown": 90,
+    "result": "全部路径存在，PDF引用页码有效；Markdown位置作为检索提示，不保证与标题逐字相同。"
+  },
+  "limitations": "本轮未重新逐页查看未变动的学生页，沿用上一阶段视觉审查并重新执行结构和交付一致性核对。",
+  "status": "pass",
+  "student_pages_checked_this_round": 14
+}

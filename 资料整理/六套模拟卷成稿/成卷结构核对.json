@@ -1,0 +1,971 @@
+{
+  "papers": [
+    {
+      "paper": 1,
+      "version": "2026-10-25-student-v6",
+      "questions": 24,
+      "points": 150,
+      "pages": 19,
+      "sections": {
+        "I": {
+          "name": "一、程序阅读题",
+          "questions": 4,
+          "points": 20
+        },
+        "II": {
+          "name": "二、填空题",
+          "questions": 10,
+          "points": 30
+        },
+        "III": {
+          "name": "三、综合应用题",
+          "questions": 7,
+          "points": 70
+        },
+        "IV": {
+          "name": "四、算法设计与分析题",
+          "questions": 3,
+          "points": 30
+        }
+      },
+      "numbering": "各大题内独立编号",
+      "source_sha256": "035d813088ae140d809ef2cdcc54630f9c547aace3fe27cc47e7285b5b533164",
+      "answer_spaces": [
+        {
+          "id": "S1-I01",
+          "page": 1,
+          "continuation": false,
+          "writing_height_mm": 47.2
+        },
+        {
+          "id": "S1-I02",
+          "page": 2,
+          "continuation": false,
+          "writing_height_mm": 66.2
+        },
+        {
+          "id": "S1-I03",
+          "page": 3,
+          "continuation": false,
+          "writing_height_mm": 44.2
+        },
+        {
+          "id": "S1-I04",
+          "page": 4,
+          "continuation": false,
+          "writing_height_mm": 102.4
+        },
+        {
+          "id": "S1-III01",
+          "page": 7,
+          "continuation": false,
+          "writing_height_mm": 190.4
+        },
+        {
+          "id": "S1-III02",
+          "page": 8,
+          "continuation": false,
+          "writing_height_mm": 195.7
+        },
+        {
+          "id": "S1-III03",
+          "page": 9,
+          "continuation": false,
+          "writing_height_mm": 190.4
+        },
+        {
+          "id": "S1-III04",
+          "page": 10,
+          "continuation": false,
+          "writing_height_mm": 195.7
+        },
+        {
+          "id": "S1-III05",
+          "page": 11,
+          "continuation": false,
+          "writing_height_mm": 113.8
+        },
+        {
+          "id": "S1-III06",
+          "page": 12,
+          "continuation": false,
+          "writing_height_mm": 195.7
+        },
+        {
+          "id": "S1-III07",
+          "page": 13,
+          "continuation": false,
+          "writing_height_mm": 156.2
+        },
+        {
+          "id": "S1-IV01",
+          "page": 14,
+          "continuation": false,
+          "writing_height_mm": 180.0
+        },
+        {
+          "id": "S1-IV01",
+          "page": 15,
+          "continuation": true,
+          "writing_height_mm": 240.1
+        },
+        {
+          "id": "S1-IV02",
+          "page": 16,
+          "continuation": false,
+          "writing_height_mm": 174.7
+        },
+        {
+          "id": "S1-IV02",
+          "page": 17,
+          "continuation": true,
+          "writing_height_mm": 240.1
+        },
+        {
+          "id": "S1-IV03",
+          "page": 18,
+          "continuation": false,
+          "writing_height_mm": 152.6
+        },
+        {
+          "id": "S1-IV03",
+          "page": 19,
+          "continuation": true,
+          "writing_height_mm": 240.1
+        }
+      ],
+      "question_pages": {
+        "S1-I01": 1,
+        "S1-I02": 2,
+        "S1-I03": 3,
+        "S1-I04": 4,
+        "S1-II01": 5,
+        "S1-II02": 5,
+        "S1-II03": 5,
+        "S1-II04": 5,
+        "S1-II05": 5,
+        "S1-II06": 6,
+        "S1-II07": 6,
+        "S1-II08": 6,
+        "S1-II09": 6,
+        "S1-II10": 6,
+        "S1-III01": 7,
+        "S1-III02": 8,
+        "S1-III03": 9,
+        "S1-III04": 10,
+        "S1-III05": 11,
+        "S1-III06": 12,
+        "S1-III07": 13,
+        "S1-IV01": 14,
+        "S1-IV02": 16,
+        "S1-IV03": 18
+      }
+    },
+    {
+      "paper": 2,
+      "version": "2026-10-25-student-v6",
+      "questions": 24,
+      "points": 150,
+      "pages": 19,
+      "sections": {
+        "I": {
+          "name": "一、程序阅读题",
+          "questions": 4,
+          "points": 20
+        },
+        "II": {
+          "name": "二、填空题",
+          "questions": 10,
+          "points": 30
+        },
+        "III": {
+          "name": "三、综合应用题",
+          "questions": 7,
+          "points": 70
+        },
+        "IV": {
+          "name": "四、算法设计与分析题",
+          "questions": 3,
+          "points": 30
+        }
+      },
+      "numbering": "各大题内独立编号",
+      "source_sha256": "83bc019eafaff0c5d9ded16e9b8348eeb2bb4149d1463b785c0aca0f18b990ee",
+      "answer_spaces": [
+        {
+          "id": "S2-I01",
+          "page": 1,
+          "continuation": false,
+          "writing_height_mm": 47.2
+        },
+        {
+          "id": "S2-I02",
+          "page": 2,
+          "continuation": false,
+          "writing_height_mm": 62.7
+        },
+        {
+          "id": "S2-I03",
+          "page": 3,
+          "continuation": false,
+          "writing_height_mm": 40.6
+        },
+        {
+          "id": "S2-I04",
+          "page": 4,
+          "continuation": false,
+          "writing_height_mm": 102.4
+        },
+        {
+          "id": "S2-III01",
+          "page": 7,
+          "continuation": false,
+          "writing_height_mm": 101.5
+        },
+        {
+          "id": "S2-III02",
+          "page": 8,
+          "continuation": false,
+          "writing_height_mm": 190.4
+        },
+        {
+          "id": "S2-III03",
+          "page": 9,
+          "continuation": false,
+          "writing_height_mm": 185.1
+        },
+        {
+          "id": "S2-III04",
+          "page": 10,
+          "continuation": false,
+          "writing_height_mm": 103.3
+        },
+        {
+          "id": "S2-III05",
+          "page": 11,
+          "continuation": false,
+          "writing_height_mm": 105.4
+        },
+        {
+          "id": "S2-III06",
+          "page": 12,
+          "continuation": false,
+          "writing_height_mm": 195.7
+        },
+        {
+          "id": "S2-III07",
+          "page": 13,
+          "continuation": false,
+          "writing_height_mm": 153.3
+        },
+        {
+          "id": "S2-IV01",
+          "page": 14,
+          "continuation": false,
+          "writing_height_mm": 180.0
+        },
+        {
+          "id": "S2-IV01",
+          "page": 15,
+          "continuation": true,
+          "writing_height_mm": 240.1
+        },
+        {
+          "id": "S2-IV02",
+          "page": 16,
+          "continuation": false,
+          "writing_height_mm": 180.9
+        },
+        {
+          "id": "S2-IV02",
+          "page": 17,
+          "continuation": true,
+          "writing_height_mm": 240.1
+        },
+        {
+          "id": "S2-IV03",
+          "page": 18,
+          "continuation": false,
+          "writing_height_mm": 152.6
+        },
+        {
+          "id": "S2-IV03",
+          "page": 19,
+          "continuation": true,
+          "writing_height_mm": 240.1
+        }
+      ],
+      "question_pages": {
+        "S2-I01": 1,
+        "S2-I02": 2,
+        "S2-I03": 3,
+        "S2-I04": 4,
+        "S2-II01": 5,
+        "S2-II02": 5,
+        "S2-II03": 5,
+        "S2-II04": 5,
+        "S2-II05": 5,
+        "S2-II06": 6,
+        "S2-II07": 6,
+        "S2-II08": 6,
+        "S2-II09": 6,
+        "S2-II10": 6,
+        "S2-III01": 7,
+        "S2-III02": 8,
+        "S2-III03": 9,
+        "S2-III04": 10,
+        "S2-III05": 11,
+        "S2-III06": 12,
+        "S2-III07": 13,
+        "S2-IV01": 14,
+        "S2-IV02": 16,
+        "S2-IV03": 18
+      }
+    },
+    {
+      "paper": 3,
+      "version": "2026-10-25-student-v6",
+      "questions": 24,
+      "points": 150,
+      "pages": 19,
+      "sections": {
+        "I": {
+          "name": "一、程序阅读题",
+          "questions": 4,
+          "points": 20
+        },
+        "II": {
+          "name": "二、填空题",
+          "questions": 10,
+          "points": 30
+        },
+        "III": {
+          "name": "三、综合应用题",
+          "questions": 7,
+          "points": 70
+        },
+        "IV": {
+          "name": "四、算法设计与分析题",
+          "questions": 3,
+          "points": 30
+        }
+      },
+      "numbering": "各大题内独立编号",
+      "source_sha256": "7f5157f89deb162de908197aafd01a9cd0d491687ea309f540f42dc9c7bb820b",
+      "answer_spaces": [
+        {
+          "id": "S3-I01",
+          "page": 1,
+          "continuation": false,
+          "writing_height_mm": 56.0
+        },
+        {
+          "id": "S3-I02",
+          "page": 2,
+          "continuation": false,
+          "writing_height_mm": 38.9
+        },
+        {
+          "id": "S3-I03",
+          "page": 3,
+          "continuation": false,
+          "writing_height_mm": 21.2
+        },
+        {
+          "id": "S3-I04",
+          "page": 4,
+          "continuation": false,
+          "writing_height_mm": 61.8
+        },
+        {
+          "id": "S3-III01",
+          "page": 7,
+          "continuation": false,
+          "writing_height_mm": 185.1
+        },
+        {
+          "id": "S3-III02",
+          "page": 8,
+          "continuation": false,
+          "writing_height_mm": 188.6
+        },
+        {
+          "id": "S3-III03",
+          "page": 9,
+          "continuation": false,
+          "writing_height_mm": 188.6
+        },
+        {
+          "id": "S3-III04",
+          "page": 10,
+          "continuation": false,
+          "writing_height_mm": 190.4
+        },
+        {
+          "id": "S3-III05",
+          "page": 11,
+          "continuation": false,
+          "writing_height_mm": 108.5
+        },
+        {
+          "id": "S3-III06",
+          "page": 12,
+          "continuation": false,
+          "writing_height_mm": 188.6
+        },
+        {
+          "id": "S3-III07",
+          "page": 13,
+          "continuation": false,
+          "writing_height_mm": 190.4
+        },
+        {
+          "id": "S3-IV01",
+          "page": 14,
+          "continuation": false,
+          "writing_height_mm": 193.2
+        },
+        {
+          "id": "S3-IV01",
+          "page": 15,
+          "continuation": true,
+          "writing_height_mm": 240.1
+        },
+        {
+          "id": "S3-IV02",
+          "page": 16,
+          "continuation": false,
+          "writing_height_mm": 165.9
+        },
+        {
+          "id": "S3-IV02",
+          "page": 17,
+          "continuation": true,
+          "writing_height_mm": 240.1
+        },
+        {
+          "id": "S3-IV03",
+          "page": 18,
+          "continuation": false,
+          "writing_height_mm": 192.3
+        },
+        {
+          "id": "S3-IV03",
+          "page": 19,
+          "continuation": true,
+          "writing_height_mm": 240.1
+        }
+      ],
+      "question_pages": {
+        "S3-I01": 1,
+        "S3-I02": 2,
+        "S3-I03": 3,
+        "S3-I04": 4,
+        "S3-II01": 5,
+        "S3-II02": 5,
+        "S3-II03": 5,
+        "S3-II04": 5,
+        "S3-II05": 5,
+        "S3-II06": 6,
+        "S3-II07": 6,
+        "S3-II08": 6,
+        "S3-II09": 6,
+        "S3-II10": 6,
+        "S3-III01": 7,
+        "S3-III02": 8,
+        "S3-III03": 9,
+        "S3-III04": 10,
+        "S3-III05": 11,
+        "S3-III06": 12,
+        "S3-III07": 13,
+        "S3-IV01": 14,
+        "S3-IV02": 16,
+        "S3-IV03": 18
+      }
+    },
+    {
+      "paper": 4,
+      "version": "2026-10-25-student-v6",
+      "questions": 24,
+      "points": 150,
+      "pages": 19,
+      "sections": {
+        "I": {
+          "name": "一、程序阅读题",
+          "questions": 4,
+          "points": 20
+        },
+        "II": {
+          "name": "二、填空题",
+          "questions": 10,
+          "points": 30
+        },
+        "III": {
+          "name": "三、综合应用题",
+          "questions": 7,
+          "points": 70
+        },
+        "IV": {
+          "name": "四、算法设计与分析题",
+          "questions": 3,
+          "points": 30
+        }
+      },
+      "numbering": "各大题内独立编号",
+      "source_sha256": "7db187240c5254dace16eb81704d7ef86d6d5dd1926f6825f0eba766c6c6eb0b",
+      "answer_spaces": [
+        {
+          "id": "S4-I01",
+          "page": 1,
+          "continuation": false,
+          "writing_height_mm": 59.5
+        },
+        {
+          "id": "S4-I02",
+          "page": 2,
+          "continuation": false,
+          "writing_height_mm": 30.0
+        },
+        {
+          "id": "S4-I03",
+          "page": 3,
+          "continuation": false,
+          "writing_height_mm": 47.7
+        },
+        {
+          "id": "S4-I04",
+          "page": 4,
+          "continuation": false,
+          "writing_height_mm": 88.3
+        },
+        {
+          "id": "S4-III01",
+          "page": 7,
+          "continuation": false,
+          "writing_height_mm": 188.6
+        },
+        {
+          "id": "S4-III02",
+          "page": 8,
+          "continuation": false,
+          "writing_height_mm": 171.0
+        },
+        {
+          "id": "S4-III03",
+          "page": 9,
+          "continuation": false,
+          "writing_height_mm": 115.6
+        },
+        {
+          "id": "S4-III04",
+          "page": 10,
+          "continuation": false,
+          "writing_height_mm": 122.7
+        },
+        {
+          "id": "S4-III05",
+          "page": 11,
+          "continuation": false,
+          "writing_height_mm": 120.9
+        },
+        {
+          "id": "S4-III06",
+          "page": 12,
+          "continuation": false,
+          "writing_height_mm": 195.7
+        },
+        {
+          "id": "S4-III07",
+          "page": 13,
+          "continuation": false,
+          "writing_height_mm": 183.3
+        },
+        {
+          "id": "S4-IV01",
+          "page": 14,
+          "continuation": false,
+          "writing_height_mm": 183.5
+        },
+        {
+          "id": "S4-IV01",
+          "page": 15,
+          "continuation": true,
+          "writing_height_mm": 240.1
+        },
+        {
+          "id": "S4-IV02",
+          "page": 16,
+          "continuation": false,
+          "writing_height_mm": 170.3
+        },
+        {
+          "id": "S4-IV02",
+          "page": 17,
+          "continuation": true,
+          "writing_height_mm": 240.1
+        },
+        {
+          "id": "S4-IV03",
+          "page": 18,
+          "continuation": false,
+          "writing_height_mm": 147.3
+        },
+        {
+          "id": "S4-IV03",
+          "page": 19,
+          "continuation": true,
+          "writing_height_mm": 240.1
+        }
+      ],
+      "question_pages": {
+        "S4-I01": 1,
+        "S4-I02": 2,
+        "S4-I03": 3,
+        "S4-I04": 4,
+        "S4-II01": 5,
+        "S4-II02": 5,
+        "S4-II03": 5,
+        "S4-II04": 5,
+        "S4-II05": 5,
+        "S4-II06": 6,
+        "S4-II07": 6,
+        "S4-II08": 6,
+        "S4-II09": 6,
+        "S4-II10": 6,
+        "S4-III01": 7,
+        "S4-III02": 8,
+        "S4-III03": 9,
+        "S4-III04": 10,
+        "S4-III05": 11,
+        "S4-III06": 12,
+        "S4-III07": 13,
+        "S4-IV01": 14,
+        "S4-IV02": 16,
+        "S4-IV03": 18
+      }
+    },
+    {
+      "paper": 5,
+      "version": "2026-10-25-student-v6",
+      "questions": 24,
+      "points": 150,
+      "pages": 19,
+      "sections": {
+        "I": {
+          "name": "一、程序阅读题",
+          "questions": 4,
+          "points": 20
+        },
+        "II": {
+          "name": "二、填空题",
+          "questions": 10,
+          "points": 30
+        },
+        "III": {
+          "name": "三、综合应用题",
+          "questions": 7,
+          "points": 70
+        },
+        "IV": {
+          "name": "四、算法设计与分析题",
+          "questions": 3,
+          "points": 30
+        }
+      },
+      "numbering": "各大题内独立编号",
+      "source_sha256": "28fe89c56a67dc1523bc4add91d49eeac64d67977bafa6e48f3bbf41e45f5cbd",
+      "answer_spaces": [
+        {
+          "id": "S5-I01",
+          "page": 1,
+          "continuation": false,
+          "writing_height_mm": 36.6
+        },
+        {
+          "id": "S5-I02",
+          "page": 2,
+          "continuation": false,
+          "writing_height_mm": 38.9
+        },
+        {
+          "id": "S5-I03",
+          "page": 3,
+          "continuation": false,
+          "writing_height_mm": 34.5
+        },
+        {
+          "id": "S5-I04",
+          "page": 4,
+          "continuation": false,
+          "writing_height_mm": 91.8
+        },
+        {
+          "id": "S5-III01",
+          "page": 7,
+          "continuation": false,
+          "writing_height_mm": 190.4
+        },
+        {
+          "id": "S5-III02",
+          "page": 8,
+          "continuation": false,
+          "writing_height_mm": 183.3
+        },
+        {
+          "id": "S5-III03",
+          "page": 9,
+          "continuation": false,
+          "writing_height_mm": 190.4
+        },
+        {
+          "id": "S5-III04",
+          "page": 10,
+          "continuation": false,
+          "writing_height_mm": 195.7
+        },
+        {
+          "id": "S5-III05",
+          "page": 11,
+          "continuation": false,
+          "writing_height_mm": 197.4
+        },
+        {
+          "id": "S5-III06",
+          "page": 12,
+          "continuation": false,
+          "writing_height_mm": 127.9
+        },
+        {
+          "id": "S5-III07",
+          "page": 13,
+          "continuation": false,
+          "writing_height_mm": 190.4
+        },
+        {
+          "id": "S5-IV01",
+          "page": 14,
+          "continuation": false,
+          "writing_height_mm": 193.2
+        },
+        {
+          "id": "S5-IV01",
+          "page": 15,
+          "continuation": true,
+          "writing_height_mm": 240.1
+        },
+        {
+          "id": "S5-IV02",
+          "page": 16,
+          "continuation": false,
+          "writing_height_mm": 184.4
+        },
+        {
+          "id": "S5-IV02",
+          "page": 17,
+          "continuation": true,
+          "writing_height_mm": 240.1
+        },
+        {
+          "id": "S5-IV03",
+          "page": 18,
+          "continuation": false,
+          "writing_height_mm": 198.5
+        },
+        {
+          "id": "S5-IV03",
+          "page": 19,
+          "continuation": true,
+          "writing_height_mm": 240.1
+        }
+      ],
+      "question_pages": {
+        "S5-I01": 1,
+        "S5-I02": 2,
+        "S5-I03": 3,
+        "S5-I04": 4,
+        "S5-II01": 5,
+        "S5-II02": 5,
+        "S5-II03": 5,
+        "S5-II04": 5,
+        "S5-II05": 5,
+        "S5-II06": 6,
+        "S5-II07": 6,
+        "S5-II08": 6,
+        "S5-II09": 6,
+        "S5-II10": 6,
+        "S5-III01": 7,
+        "S5-III02": 8,
+        "S5-III03": 9,
+        "S5-III04": 10,
+        "S5-III05": 11,
+        "S5-III06": 12,
+        "S5-III07": 13,
+        "S5-IV01": 14,
+        "S5-IV02": 16,
+        "S5-IV03": 18
+      }
+    },
+    {
+      "paper": 6,
+      "version": "2026-10-25-student-v6",
+      "questions": 24,
+      "points": 150,
+      "pages": 19,
+      "sections": {
+        "I": {
+          "name": "一、程序阅读题",
+          "questions": 4,
+          "points": 20
+        },
+        "II": {
+          "name": "二、填空题",
+          "questions": 10,
+          "points": 30
+        },
+        "III": {
+          "name": "三、综合应用题",
+          "questions": 7,
+          "points": 70
+        },
+        "IV": {
+          "name": "四、算法设计与分析题",
+          "questions": 3,
+          "points": 30
+        }
+      },
+      "numbering": "各大题内独立编号",
+      "source_sha256": "db64251648e41049867856c4da6d1765b6af7e6163157adcf3287ee94892d1df",
+      "answer_spaces": [
+        {
+          "id": "S6-I01",
+          "page": 1,
+          "continuation": false,
+          "writing_height_mm": 55.1
+        },
+        {
+          "id": "S6-I02",
+          "page": 2,
+          "continuation": false,
+          "writing_height_mm": 34.5
+        },
+        {
+          "id": "S6-I03",
+          "page": 3,
+          "continuation": false,
+          "writing_height_mm": 65.3
+        },
+        {
+          "id": "S6-I04",
+          "page": 4,
+          "continuation": false,
+          "writing_height_mm": 60.9
+        },
+        {
+          "id": "S6-III01",
+          "page": 7,
+          "continuation": false,
+          "writing_height_mm": 195.7
+        },
+        {
+          "id": "S6-III02",
+          "page": 8,
+          "continuation": false,
+          "writing_height_mm": 100.1
+        },
+        {
+          "id": "S6-III03",
+          "page": 9,
+          "continuation": false,
+          "writing_height_mm": 190.4
+        },
+        {
+          "id": "S6-III04",
+          "page": 10,
+          "continuation": false,
+          "writing_height_mm": 190.4
+        },
+        {
+          "id": "S6-III05",
+          "page": 11,
+          "continuation": false,
+          "writing_height_mm": 122.7
+        },
+        {
+          "id": "S6-III06",
+          "page": 12,
+          "continuation": false,
+          "writing_height_mm": 127.9
+        },
+        {
+          "id": "S6-III07",
+          "page": 13,
+          "continuation": false,
+          "writing_height_mm": 190.4
+        },
+        {
+          "id": "S6-IV01",
+          "page": 14,
+          "continuation": false,
+          "writing_height_mm": 188.8
+        },
+        {
+          "id": "S6-IV01",
+          "page": 15,
+          "continuation": true,
+          "writing_height_mm": 240.1
+        },
+        {
+          "id": "S6-IV02",
+          "page": 16,
+          "continuation": false,
+          "writing_height_mm": 197.6
+        },
+        {
+          "id": "S6-IV02",
+          "page": 17,
+          "continuation": true,
+          "writing_height_mm": 240.1
+        },
+        {
+          "id": "S6-IV03",
+          "page": 18,
+          "continuation": false,
+          "writing_height_mm": 179.1
+        },
+        {
+          "id": "S6-IV03",
+          "page": 19,
+          "continuation": true,
+          "writing_height_mm": 240.1
+        }
+      ],
+      "question_pages": {
+        "S6-I01": 1,
+        "S6-I02": 2,
+        "S6-I03": 3,
+        "S6-I04": 4,
+        "S6-II01": 5,
+        "S6-II02": 5,
+        "S6-II03": 5,
+        "S6-II04": 5,
+        "S6-II05": 5,
+        "S6-II06": 6,
+        "S6-II07": 6,
+        "S6-II08": 6,
+        "S6-II09": 6,
+        "S6-II10": 6,
+        "S6-III01": 7,
+        "S6-III02": 8,
+        "S6-III03": 9,
+        "S6-III04": 10,
+        "S6-III05": 11,
+        "S6-III06": 12,
+        "S6-III07": 13,
+        "S6-IV01": 14,
+        "S6-IV02": 16,
+        "S6-IV03": 18
+      }
+    }
+  ],
+  "说明": "检查固定题数分值、代码留空、第二部分填空格式、独立编号与无答案标记；不自动证明填空答案唯一、数学结论正确或难度实测合格。"
+}

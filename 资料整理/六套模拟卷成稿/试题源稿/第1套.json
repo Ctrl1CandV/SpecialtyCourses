@@ -1,0 +1,174 @@
+{
+  "paper": 1,
+  "version": "2026-10-25-student-v6",
+  "questions": [
+    {
+      "id": "S1-I01",
+      "section": "I",
+      "number": 1,
+      "points": 5,
+      "content": "readings 存放 n=2^k（k≥1）个读数，outSum 有效。阅读程序并填写执行次数与复杂度。\n\n```c\n#include <stdio.h>\nlong countOps(const int readings[], int n, long *outSum) {\n    long visits = 0;\n    *outSum = 0;\n    for (int span = 1; span < n; span *= 2) {\n        for (int j = 0; j < span; ++j) {\n            *outSum += readings[j];\n            ++visits;\n        }\n    }\n    return visits;\n}\nint main(void) {\n    int readings[16] = {3, 1, 4, 1, 5, 9, 2, 6,\n                        5, 3, 5, 8, 9, 7, 9, 3};\n    long total = 0;\n    long visits = countOps(readings, 16, &total);\n    printf(\"visits=%ld, total=%ld\\n\", visits, total);\n    return 0;\n}\n```\n\n本次调用的 visits 值为 __1__（2分）；一般 n=2^k 时 countOps 返回 __2__（2分）；该函数时间复杂度为 O(__3__)（1分）。只统计源程序执行的循环次数，不考虑编译器优化。"
+    },
+    {
+      "id": "S1-I02",
+      "section": "I",
+      "number": 2,
+      "points": 5,
+      "content": "带头结点的单链表中，p 是表内数据结点，s 是尚未入表的新结点。补全在 p 前插入 s 的代码。\n\n```c\n#include <stdio.h>\ntypedef struct Node {\n    int data;\n    struct Node *next;\n} Node;\nvoid insertBefore(Node *head, Node *p, Node *s) {\n    Node *prev = head;\n    while (prev->next != p)\n        prev = __1__;\n    s->next = __2__;\n    __3__ = s;\n}\nvoid printList(const Node *head) {\n    const Node *p = head->next;\n    while (p != NULL) {\n        printf(\"%d\", p->data);\n        if (p->next != NULL) printf(\"->\");\n        p = p->next;\n    }\n    putchar('\\n');\n}\nint main(void) {\n    Node head = {0, NULL}, a = {4, NULL}, b = {9, NULL};\n    Node s = {7, NULL}, t = {8, NULL};\n    head.next = &a;\n    a.next = &b;\n    printList(&head);\n    insertBefore(&head, &a, &s);\n    insertBefore(&head, &b, &t);\n    printList(&head);\n    return 0;\n}\n```\n\n填写 __1__（1分）、__2__（2分）、__3__（2分）。各空填一个表达式，勿改其余代码；p 是首个数据结点时也应正确。"
+    },
+    {
+      "id": "S1-I03",
+      "section": "I",
+      "number": 3,
+      "points": 5,
+      "content": "循环单链队列只存尾指针 rear；空队列时 rear=NULL，出队结点由调用者管理。补全代码。\n\n```c\n#include <stdio.h>\ntypedef struct Node {\n    int data;\n    struct Node *next;\n} Node;\ntypedef struct { Node *rear; } Queue;\nvoid enQueue(Queue *q, Node *x) {\n    if (q->rear == NULL) {\n        x->next = x;\n        q->rear = x;\n    } else {\n        x->next = __1__;\n        q->rear->next = x;\n        q->rear = x;\n    }\n}\nNode *deQueue(Queue *q) {\n    if (q->rear == NULL) return NULL;\n    Node *x = q->rear->next;\n    if (x == q->rear) __2__;\n    else __3__;\n    x->next = NULL;\n    return x;\n}\nint main(void) {\n    Queue q = {NULL};\n    Node a = {4, NULL}, b = {9, NULL};\n    enQueue(&q, &a);\n    enQueue(&q, &b);\n    Node *first = deQueue(&q);\n    printf(\"first=%d, rear=%d\\n\", first->data, q.rear->data);\n    Node *second = deQueue(&q);\n    Node *third = deQueue(&q);\n    printf(\"second=%d, empty=%d, third-null=%d\\n\",\n           second->data, q.rear == NULL, third == NULL);\n    return 0;\n}\n```\n\n填写 __1__（1分）、__2__（2分）、__3__（2分）。__1__ 填表达式；__2__、__3__ 各填一条不带分号的赋值语句。"
+    },
+    {
+      "id": "S1-I04",
+      "section": "I",
+      "number": 4,
+      "points": 5,
+      "content": "下列程序统计二叉树的叶结点数。空树的叶结点数为 0，叶结点的左右孩子均为空。补全代码。\n\n```c\n#include <stdio.h>\ntypedef struct TNode {\n    int data;\n    struct TNode *left, *right;\n} TNode;\nint leafCount(const TNode *t) {\n    if (t == NULL) return __1__;\n    if (t->left == NULL && t->right == NULL)\n        return __2__;\n    return __3__;\n}\nvoid report(const char *name, const TNode *root) {\n    printf(\"%s: %d\\n\", name, leafCount(root));\n}\nint main(void) {\n    TNode d = {4, NULL, NULL};\n    TNode e = {5, NULL, NULL};\n    TNode b = {2, &d, &e};\n    TNode c = {3, NULL, NULL};\n    TNode a = {1, &b, &c};\n    report(\"tree\", &a);\n    report(\"single\", &c);\n    report(\"empty\", NULL);\n    return 0;\n}\n```\n\n填写 __1__（1分）、__2__（1分）、__3__（3分），均为表达式。"
+    },
+    {
+      "id": "S1-II01",
+      "section": "II",
+      "number": 1,
+      "points": 3,
+      "content": "将中缀表达式 (a+b)×c−d 按通常优先级和左结合性转换为后缀表达式，结果为 __1__（3分）。运算数之间用空格分隔。"
+    },
+    {
+      "id": "S1-II02",
+      "section": "II",
+      "number": 2,
+      "points": 3,
+      "content": "二维数组 A[1..4][0..5] 按行优先顺序连续存放，每个元素占 4 字节。A[1,0] 的起始地址为 1000，则 A[3,2] 的起始地址为 __1__（3分）。"
+    },
+    {
+      "id": "S1-II03",
+      "section": "II",
+      "number": 3,
+      "points": 3,
+      "content": "循环队列使用长度为 8 的数组，f 指向队首元素的前一个位置，r 指向队尾元素，始终保留一个空槽。当前 f=6、r=2，队长为 __1__（1分）；用 f、r 表示的判满条件是 __2__（2分）。"
+    },
+    {
+      "id": "S1-II04",
+      "section": "II",
+      "number": 4,
+      "points": 3,
+      "content": "模式 P=ababaca，字符位置从 1 开始。设 π(i) 为 P[1..i] 最长的相等真前缀与后缀的长度，并规定 next[1]=0，j>1 时 next[j]=π(j−1)+1。则 next[5]=__1__（1分），next[7]=__2__（2分）。"
+    },
+    {
+      "id": "S1-II05",
+      "section": "II",
+      "number": 5,
+      "points": 3,
+      "content": "广义表 L=((a,b),(),c)。Head 取表的第一个元素，Tail 取除首元素外组成的表。Head(Tail(L)) 的结果是 __1__（3分）。请用广义表记法填写。"
+    },
+    {
+      "id": "S1-II06",
+      "section": "II",
+      "number": 6,
+      "points": 3,
+      "content": "一棵完全二叉树高为 6 层，根为第 1 层，第 5 层恰有 4 个叶结点。该树最多有 __1__ 个结点（3分）。"
+    },
+    {
+      "id": "S1-II07",
+      "section": "II",
+      "number": 7,
+      "points": 3,
+      "content": "元素 1、2、3、4、5 按顺序入栈，允许在任意两次入栈之间弹栈，最终全部出栈。若第一个弹出的元素规定为 3，则不同的完整出栈序列共有 __1__ 种（3分）。"
+    },
+    {
+      "id": "S1-II08",
+      "section": "II",
+      "number": 8,
+      "points": 3,
+      "content": "依次向空 AVL 树插入 2、4、6、8、10、12、14。完成全部插入并按 AVL 规则调整后，平衡因子为 0 的结点共有 __1__ 个（3分）；平衡因子定义为左子树高度减右子树高度。"
+    },
+    {
+      "id": "S1-II09",
+      "section": "II",
+      "number": 9,
+      "points": 3,
+      "content": "大根堆的顺序表初值为 [90,70,80,20,50,60]，把关键字 85 插入末尾并逐层上滤。完成插入后根的左孩子为 __1__（1分），新关键字所在的数组下标为 __2__（2分）；数组下标从 1 开始。"
+    },
+    {
+      "id": "S1-II10",
+      "section": "II",
+      "number": 10,
+      "points": 3,
+      "content": "对 95 个互异关键字构成的升序表作折半查找。搜索区间为闭区间，mid=⌊(low+high)/2⌋，每访问一个中间关键字计一次比较。成功查找最多比较 __1__ 次关键字（3分）。"
+    },
+    {
+      "id": "S1-III01",
+      "section": "III",
+      "number": 1,
+      "points": 10,
+      "content": "二叉树的先序序列为 ABDECFG，中序序列为 DBEACGF。结点关键字互异。中序线索化时，仅用原本为空的孩子指针存前驱或后继；标志 0 表示孩子指针，1 表示线索，不设置头结点。\n\n（1）画出重建的二叉树，或用“结点:左孩子,右孩子”（空写 ∅）列出结构。（4分）\n（2）写出后序遍历序列。（2分）\n（3）分别给出结点 C、G 在线索化后的左、右指针所指结点及对应标志；不存在的前驱/后继记 ∅。（4分）"
+    },
+    {
+      "id": "S1-III02",
+      "section": "III",
+      "number": 2,
+      "points": 10,
+      "content": "符号 A、B、C、D、E 的出现频率依次为 3、5、7、9、20。按 Huffman 方法，每次取当前权值最小的两个结点合并；两子树权值相同则按其最小符号的字母序选择，左边标 0、右边标 1。\n\n（1）按先后顺序列出每次合并的两个权值及合并后权值。（3分）\n（2）画出 Huffman 树，或列出 A～E 的一组对应码字。（5分）\n（3）求带权路径长度 WPL。（2分）"
+    },
+    {
+      "id": "S1-III03",
+      "section": "III",
+      "number": 3,
+      "points": 10,
+      "content": "散列表长 m=11，地址为 0～10，散列函数 H(key)=key mod 11。按 14、25、36、5、16 的顺序插入，冲突时线性探测；空槽记“—”。成功查找的五个关键字等概率；失败查找的 11 个起始散列地址等概率，探测到首个空槽也计 1 次。\n\n（1）写出插入完成后全部 0～10 号槽的内容。（4分）\n（2）列出五个成功查找的探测次数，求成功 ASL。（3分）\n（3）列出或分组给出 11 个起始地址的失败探测次数，求失败 ASL。（3分）"
+    },
+    {
+      "id": "S1-III04",
+      "section": "III",
+      "number": 4,
+      "points": 10,
+      "content": "升序表为 [4,9,13,18,25,29,35,41,50,58]，下标从 0 开始。按闭区间折半查找，mid=⌊(low+high)/2⌋；每访问一个中间关键字并比较一次，区间变空即判失败。\n\n（1）画出成功查找判定树，或用“结点:左孩子,右孩子”（空写 ∅）列出结构。（5分）\n（2）各关键字等概率被查找时，求成功 ASL，写出按比较次数分组的计算式。（3分）\n（3）查找不存在的 27 时，按顺序写出比较过的关键字和比较次数。（2分）"
+    },
+    {
+      "id": "S1-III05",
+      "section": "III",
+      "number": 5,
+      "points": 10,
+      "content": "无向连通带权图的顶点为 A、B、C、D、E、F，全部边及权值如下，未列出的边不存在。边权互异。\n\n| 边 | AB | AC | BC | BD | CD | CE | DE | DF | EF |\n|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|\n| 权值 | 2 | 5 | 3 | 7 | 4 | 8 | 6 | 9 | 1 |\n\n（1）从 A 出发，按加入顺序列出 Prim 算法选取的 5 条边。（5分）\n（2）按考虑权值由小到大，列出 Kruskal 算法纳入最小生成树的 5 条边。（3分）\n（3）求最小生成树总权值。（2分）"
+    },
+    {
+      "id": "S1-III06",
+      "section": "III",
+      "number": 6,
+      "points": 10,
+      "content": "向空二叉排序树依次插入 30、10、20、40、35，关键字互异。另从空树开始按相同顺序插入 AVL 树；两棵树分别构造，互不影响。查找成功的五个关键字等概率，每访问一个结点算一次比较。\n\n（1）画出普通二叉排序树，并列出其中五个关键字的成功查找比较次数。（3分）\n（2）求普通二叉排序树的成功 ASL。（2分）\n（3）按插入顺序写出 AVL 树每次发生的失衡类型，并画出全部插入完成后的 AVL 树。（5分）"
+    },
+    {
+      "id": "S1-III07",
+      "section": "III",
+      "number": 7,
+      "points": 10,
+      "content": "数组 A=[42,17,63,28,9,54,31,22]，下标从 0 开始。甲、乙分别从原数组开始，互不影响。\n\n甲：以首元素为枢轴，仅执行如下“挖坑”式快速排序的一趟划分：\n```c\nint pivot=A[0], i=0, j=7;\nwhile (i<j) {\n    while (i<j && A[j]>=pivot) --j;\n    if (i<j) A[i++]=A[j];\n    while (i<j && A[i]<=pivot) ++i;\n    if (i<j) A[j--]=A[i];\n}\nA[i]=pivot;\n```\n乙：按从最后一个非叶结点到根的顺序，自下而上筛选建小根堆；两个孩子都存在时选较小者。\n\n（1）写出甲结束后的完整数组及枢轴最终下标。（5分）\n（2）写出乙结束后的完整数组。（5分）"
+    },
+    {
+      "id": "S1-IV01",
+      "section": "IV",
+      "number": 1,
+      "points": 8,
+      "content": "两个带头结点的单链表 A、B 均按 data 严格递增，且没有共享结点。设计函数求差集 A\\B：删除 A 中所有关键字也在 B 中的原结点并释放它们；A 中保留的结点保持原先顺序，不新建数据结点，B 不变。空表允许，A 的头结点地址不变。\n\n```c\ntypedef struct Node {\n    int data;\n    struct Node *next;\n} Node;\nvoid listDifference(Node *A, const Node *B);\n```\n\n请写出算法的基本思想、C语言实现，并分析时间复杂度和辅助空间复杂度。"
+    },
+    {
+      "id": "S1-IV02",
+      "section": "IV",
+      "number": 2,
+      "points": 10,
+      "content": "一棵非空二叉树的结点 data 是整数，可为负数。本题所有从根到结点的路径权值和均在 int 范围内。设计函数求从根到某个叶结点的最大结点权值和，并把对应路径上的 data 按从根到叶的顺序写入 path；若多条路径的权值和并列，输出任意一条。path 的容量至少为结点总数，pathLen 为有效指针；函数返回最大权值和。叶结点的两个孩子均为空。\n\n```c\ntypedef struct TNode {\n    int data;\n    struct TNode *left, *right;\n} TNode;\nint maxRootLeafSum(const TNode *root, int *path, int *pathLen);\n```\n\n请写出算法的基本思想、C语言实现，并分析时间复杂度和辅助空间复杂度。"
+    },
+    {
+      "id": "S1-IV03",
+      "section": "IV",
+      "number": 3,
+      "points": 12,
+      "content": "无向简单图 G 用邻接表存储，顶点编号 0～V−1（1≤V≤100）。给定互不相同的合法顶点 s、t、w。设计函数找一条从 s 到 t、途中完全不经过 w、顶点不重复的路径。找到时将完整顶点序列写入容量至少 V 的 path，并把结点数写入 pathLen，返回 1；不存在时令 *pathLen=0，返回 0。无向边在两个端点的链表中各出现一次；E 表示无向边数。\n\n```c\ntypedef struct Arc {\n    int to;\n    struct Arc *next;\n} Arc;\ntypedef struct {\n    int V, E;\n    Arc **head;\n} Graph;\nint pathAvoidingVertex(const Graph *G, int s, int t, int w,\n                       int *path, int *pathLen);\n```\n\n请写出算法的基本思想、C语言实现，并分析时间复杂度和辅助空间复杂度。"
+    }
+  ]
+}

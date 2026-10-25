@@ -1,0 +1,586 @@
+{
+  "reviewer": "/root/project_map",
+  "source_hashes": {
+    "资料整理/六套模拟卷成稿/试题源稿/第3套.json": "7f5157f89deb162de908197aafd01a9cd0d491687ea309f540f42dc9c7bb820b",
+    "资料整理/六套模拟卷成稿/试题源稿/第4套.json": "7db187240c5254dace16eb81704d7ef86d6d5dd1926f6825f0eba766c6c6eb0b"
+  },
+  "answer_hashes": {
+    "资料整理/六套模拟卷成稿/答案源稿/第3套.json": "a2f46cd01e363e6677776446d43c8ee844db0defda913fda437644a024e1b0eb",
+    "资料整理/六套模拟卷成稿/答案源稿/第4套.json": "12a3f953da59d7869cf3c8f99c866fdfe34690812ec78c5ec026eb41881cc6bb"
+  },
+  "figure_source_hash": "cbb2b73205d661bc19b2a27d44cfa36e0e4d233e7ccf6e8b1b5cd0a7ae8a7608",
+  "answer_pdf_hashes": {
+    "资料整理/六套模拟卷成稿/答案PDF/重邮802模拟试卷第3套答案.pdf": "fc69f1aa3160fddcb61cc98991923f48bbe88504a8c999a2381cac5b1f25e548",
+    "资料整理/六套模拟卷成稿/答案PDF/重邮802模拟试卷第4套答案.pdf": "d837f01123d970f928f3247017909d9464a80a6a780b1ae7ea069ea6ff2f6958"
+  },
+  "summary": {
+    "questions_reviewed": 48,
+    "content_pass": 48,
+    "content_fail": 0,
+    "visual_pages_reviewed": 24,
+    "algorithm_random_cases_each": 1000,
+    "methods": [
+      "I题补空后GCC C11 -Wall -Wextra -Werror编译（有main者运行）",
+      "II/III按题面逐式、逐槽、逐树及逐轮独立计算",
+      "IV从正式答案JSON提取代码独立严格编译并随机对拍",
+      "树图源稿及24页PNG逐页目视检查"
+    ],
+    "nonblocking_note": null
+  },
+  "questions": [
+    {
+      "id": "S3-I01",
+      "status": "pass",
+      "checks": [
+        "按倍增外层1/2/4/8与每轮8次内层独立计算32；补空后GCC严格编译运行。"
+      ],
+      "findings": []
+    },
+    {
+      "id": "S3-I02",
+      "status": "pass",
+      "checks": [
+        "逐轮交换整条(key,tag)记录，重算同键4b先于4a；补空代码编译运行。"
+      ],
+      "findings": []
+    },
+    {
+      "id": "S3-I03",
+      "status": "pass",
+      "checks": [
+        "跟踪头尾在入4、入7、出4、入9各步状态；编译运行得到4 7。"
+      ],
+      "findings": []
+    },
+    {
+      "id": "S3-I04",
+      "status": "pass",
+      "checks": [
+        "按矩阵编号顺序追DFS树边与两个连通分量；补空后编译运行。"
+      ],
+      "findings": []
+    },
+    {
+      "id": "S3-II01",
+      "status": "pass",
+      "checks": [
+        "逐项模拟循环队列入4、出2、再入3，核front/rear/count=2/0/5。"
+      ],
+      "findings": []
+    },
+    {
+      "id": "S3-II02",
+      "status": "pass",
+      "checks": [
+        "由严格二叉树结点式N=2L−1独立求L=27。"
+      ],
+      "findings": []
+    },
+    {
+      "id": "S3-II03",
+      "status": "pass",
+      "checks": [
+        "以入栈位置、栈状态递归枚举首弹4的完整序列，去重计14。"
+      ],
+      "findings": []
+    },
+    {
+      "id": "S3-II04",
+      "status": "pass",
+      "checks": [
+        "对ababbab每个前缀逐位求最长真前后缀，再按1基定义换算next。"
+      ],
+      "findings": []
+    },
+    {
+      "id": "S3-II05",
+      "status": "pass",
+      "checks": [
+        "用操作数栈按记号求3+2、8×5、9−5、40÷4及最终16。"
+      ],
+      "findings": []
+    },
+    {
+      "id": "S3-II06",
+      "status": "pass",
+      "checks": [
+        "按结点度数求边数20及结点总数21，扣已知非叶9得叶12。"
+      ],
+      "findings": []
+    },
+    {
+      "id": "S3-II07",
+      "status": "pass",
+      "checks": [
+        "用各点出度至少1给下界n，用有向Hamilton环构造达到。"
+      ],
+      "findings": []
+    },
+    {
+      "id": "S3-II08",
+      "status": "pass",
+      "checks": [
+        "逐树汇总E=N−T，代入27−4=23。"
+      ],
+      "findings": []
+    },
+    {
+      "id": "S3-II09",
+      "status": "pass",
+      "checks": [
+        "按1基下标7→3→1逐层上滤0，重算完整堆。"
+      ],
+      "findings": []
+    },
+    {
+      "id": "S3-II10",
+      "status": "pass",
+      "checks": [
+        "计算46个孩子指针减22条树边，得24空指针。"
+      ],
+      "findings": []
+    },
+    {
+      "id": "S3-III01",
+      "status": "pass",
+      "checks": [
+        "由先序/中序左右段独立重建满二叉树，推后序和四个线索；对照配图树结构。"
+      ],
+      "findings": []
+    },
+    {
+      "id": "S3-III02",
+      "status": "pass",
+      "checks": [
+        "分别逐键建BST和AVL，重算22的LR旋转、两棵树与查找路径；对照两张配图。"
+      ],
+      "findings": []
+    },
+    {
+      "id": "S3-III03",
+      "status": "pass",
+      "checks": [
+        "按最小堆独立合并百分比权值7次，合并权和261即平均码长2.61。"
+      ],
+      "findings": []
+    },
+    {
+      "id": "S3-III04",
+      "status": "pass",
+      "checks": [
+        "按22/33/14/25/36/47独立线性探测构表，逐键成功与11个起址失败探测计数。"
+      ],
+      "findings": []
+    },
+    {
+      "id": "S3-III05",
+      "status": "pass",
+      "checks": [
+        "Kruskal按给定等权次序做并查集判环；Prim从A逐轮查跨边，均得权7。"
+      ],
+      "findings": []
+    },
+    {
+      "id": "S3-III06",
+      "status": "pass",
+      "checks": [
+        "按1基中点4/2/6构判定树，逐键统计深度与21、25两次查找；对照配图。"
+      ],
+      "findings": []
+    },
+    {
+      "id": "S3-III07",
+      "status": "pass",
+      "checks": [
+        "按宽度1、2、4分别稳定归并8a和8b，核三趟完整记录次序。"
+      ],
+      "findings": []
+    },
+    {
+      "id": "S3-IV01",
+      "status": "pass",
+      "checks": [
+        "正式C代码独立GCC -Werror编译；1000组随机三有序链含空链/重复键，核原结点集合与升序。"
+      ],
+      "findings": []
+    },
+    {
+      "id": "S3-IV02",
+      "status": "pass",
+      "checks": [
+        "正式C代码独立编译；1000棵随机标记树与独立根叶枚举对拍，核输出指针路径。"
+      ],
+      "findings": []
+    },
+    {
+      "id": "S3-IV03",
+      "status": "pass",
+      "checks": [
+        "正式C代码独立编译；1000张随机图穷举所有s/t/k和简单路径，逐项比计数。"
+      ],
+      "findings": []
+    },
+    {
+      "id": "S4-I01",
+      "status": "pass",
+      "checks": [
+        "逐层手算6次递归调用、5次比较与返回16；原程序GCC严格编译运行。"
+      ],
+      "findings": []
+    },
+    {
+      "id": "S4-I02",
+      "status": "pass",
+      "checks": [
+        "逐段追A交B的保留/释放/前进分支；三个空补全后GCC严格语法编译。"
+      ],
+      "findings": []
+    },
+    {
+      "id": "S4-I03",
+      "status": "pass",
+      "checks": [
+        "检查count=4判满、rear模4前进和deq减count；补空后编译运行。"
+      ],
+      "findings": []
+    },
+    {
+      "id": "S4-I04",
+      "status": "pass",
+      "checks": [
+        "按孩子关系枚举4/5/7三片叶；补空后编译运行输出3。"
+      ],
+      "findings": []
+    },
+    {
+      "id": "S4-II01",
+      "status": "pass",
+      "checks": [
+        "递归树叶数n、总结点2n−1和最大深度log₂n+1分别求时间/空间。"
+      ],
+      "findings": []
+    },
+    {
+      "id": "S4-II02",
+      "status": "pass",
+      "checks": [
+        "按行主序偏移2×6+3=15，4字节元素求地址1060。"
+      ],
+      "findings": []
+    },
+    {
+      "id": "S4-II03",
+      "status": "pass",
+      "checks": [
+        "独立模拟目标出栈序列3,2,4,1,5，跟踪首次压入数和最大栈高。"
+      ],
+      "findings": []
+    },
+    {
+      "id": "S4-II04",
+      "status": "pass",
+      "checks": [
+        "对abacaba前六段逐位求π并换算题定next[1..7]。"
+      ],
+      "findings": []
+    },
+    {
+      "id": "S4-II05",
+      "status": "pass",
+      "checks": [
+        "层层计算Tail、Head、Head，辨认c为原子。"
+      ],
+      "findings": []
+    },
+    {
+      "id": "S4-II06",
+      "status": "pass",
+      "checks": [
+        "由严格二叉Huffman树N=2L−1代入L=17得33。"
+      ],
+      "findings": []
+    },
+    {
+      "id": "S4-II07",
+      "status": "pass",
+      "checks": [
+        "入度/出度各至少1给弧数下界n；到达下界时各入度均1。"
+      ],
+      "findings": []
+    },
+    {
+      "id": "S4-II08",
+      "status": "pass",
+      "checks": [
+        "按折半判定树最大层数核600键的最坏成功比较10次。"
+      ],
+      "findings": []
+    },
+    {
+      "id": "S4-II09",
+      "status": "pass",
+      "checks": [
+        "新键1从下标8经4、2、1上滤，核整堆顺序。"
+      ],
+      "findings": []
+    },
+    {
+      "id": "S4-II10",
+      "status": "pass",
+      "checks": [
+        "按森林E=N−T求16，再添互不连接树核树数4。"
+      ],
+      "findings": []
+    },
+    {
+      "id": "S4-III01",
+      "status": "pass",
+      "checks": [
+        "独立转换中缀为后缀，模拟前六记号的栈[8,8]及峰值3。"
+      ],
+      "findings": []
+    },
+    {
+      "id": "S4-III02",
+      "status": "pass",
+      "checks": [
+        "按墓碑查找与首墓碑回用规则逐槽模拟，核最终31在4号槽。"
+      ],
+      "findings": []
+    },
+    {
+      "id": "S4-III03",
+      "status": "pass",
+      "checks": [
+        "按孩子表重算中序D B E A F C G，逐叶查前驱后继和B的右孩子标志。"
+      ],
+      "findings": []
+    },
+    {
+      "id": "S4-III04",
+      "status": "pass",
+      "checks": [
+        "逐轮手算Dijkstra暂定距离、前驱和0→4权10路径。"
+      ],
+      "findings": []
+    },
+    {
+      "id": "S4-III05",
+      "status": "pass",
+      "checks": [
+        "正向ve及逆向vl独立计算；逐活动算时差并枚举两条工期8关键路径。"
+      ],
+      "findings": []
+    },
+    {
+      "id": "S4-III06",
+      "status": "pass",
+      "checks": [
+        "逐键构BST与AVL，重算45引发RL、最终结构和两树ASL；对照配图。"
+      ],
+      "findings": []
+    },
+    {
+      "id": "S4-III07",
+      "status": "pass",
+      "checks": [
+        "以最小堆合并5次求WPL227，按合并树追F/A码长1/4与定长差73。"
+      ],
+      "findings": []
+    },
+    {
+      "id": "S4-IV01",
+      "status": "pass",
+      "checks": [
+        "正式C代码独立GCC -Werror编译；1000组随机环形链含空/全删/删尾/保序与计数验证。"
+      ],
+      "findings": []
+    },
+    {
+      "id": "S4-IV02",
+      "status": "pass",
+      "checks": [
+        "正式C代码独立编译；1000棵随机BST对全部键暴力比较最近距离及并列取小，含空树。"
+      ],
+      "findings": []
+    },
+    {
+      "id": "S4-IV03",
+      "status": "pass",
+      "checks": [
+        "正式C代码独立编译；1000张随机加权图失效MST边，与重新Kruskal求MST总权/断连结果对拍。"
+      ],
+      "findings": []
+    }
+  ],
+  "visual_pages": [
+    {
+      "paper": 3,
+      "page": 1,
+      "status": "pass",
+      "checks": "文字、代码、表格/树图及页脚清晰；无裁切、重叠、孤行或截断。",
+      "image_sha256": "62021da5b0828d8c152d2179f0c27409189d33b0a8677a28b03dbd8225641e50"
+    },
+    {
+      "paper": 3,
+      "page": 2,
+      "status": "pass",
+      "checks": "文字、代码、表格/树图及页脚清晰；无裁切、重叠、孤行或截断。",
+      "image_sha256": "4d3c74d53585cef802d11fdd4bf6d1e6b45227a8e66b22ac3df2e163af45cd02"
+    },
+    {
+      "paper": 3,
+      "page": 3,
+      "status": "pass",
+      "checks": "文字、代码、表格/树图及页脚清晰；无裁切、重叠、孤行或截断。",
+      "image_sha256": "61c828abfe95368a071b73bbc33df2de9abd63705ecda23223326e55376d6dcc"
+    },
+    {
+      "paper": 3,
+      "page": 4,
+      "status": "pass",
+      "checks": "文字、代码、表格/树图及页脚清晰；无裁切、重叠、孤行或截断。",
+      "image_sha256": "8c65456be7862ee14d5df5464c49775b73c9ec8228cfa44b02c36db5109f3923"
+    },
+    {
+      "paper": 3,
+      "page": 5,
+      "status": "pass",
+      "checks": "文字、代码、表格/树图及页脚清晰；无裁切、重叠、孤行或截断。",
+      "image_sha256": "33552794acab73262f7c5ac06cfbe2da3eedd544bf5fd23c1ba67ef14a11ca5a"
+    },
+    {
+      "paper": 3,
+      "page": 6,
+      "status": "pass",
+      "checks": "文字、代码、表格/树图及页脚清晰；无裁切、重叠、孤行或截断。",
+      "image_sha256": "6a5de20585953e1098609969f2bb8077a454e507449202d7228e8b3bbd728bea"
+    },
+    {
+      "paper": 3,
+      "page": 7,
+      "status": "pass",
+      "checks": "文字、代码、表格/树图及页脚清晰；无裁切、重叠、孤行或截断。",
+      "image_sha256": "95affcc4c016306be44cc2a73595b6e548aad82e6e196b22978617e8aaa0845a"
+    },
+    {
+      "paper": 3,
+      "page": 8,
+      "status": "pass",
+      "checks": "文字、代码、表格/树图及页脚清晰；无裁切、重叠、孤行或截断。",
+      "image_sha256": "b3cb277b3bbc5a5ee407db63a2899129ff0a8c0dc2d2c394e9f51baf238afc11"
+    },
+    {
+      "paper": 3,
+      "page": 9,
+      "status": "pass",
+      "checks": "文字、代码、表格/树图及页脚清晰；无裁切、重叠、孤行或截断。",
+      "image_sha256": "7a30e9e72465b2ac76b523c89686863abdd949fd0bc8eaca1f384649efdf5081"
+    },
+    {
+      "paper": 3,
+      "page": 10,
+      "status": "pass",
+      "checks": "文字、代码、表格/树图及页脚清晰；无裁切、重叠、孤行或截断。",
+      "image_sha256": "4417d8f4bb1df385094b3a63aaf06b4b5c760fc105198c6b21d068dcbcc04b09"
+    },
+    {
+      "paper": 3,
+      "page": 11,
+      "status": "pass",
+      "checks": "文字、代码、表格/树图及页脚清晰；无裁切、重叠、孤行或截断。",
+      "image_sha256": "a3404cf6f765bd6d16034ef594a3930da33e46e73971ac5b2c9580baa5c576e3"
+    },
+    {
+      "paper": 3,
+      "page": 12,
+      "status": "pass",
+      "checks": "文字、代码、表格/树图及页脚清晰；无裁切、重叠、孤行或截断。",
+      "image_sha256": "97d125d625522afb90dbeaee822a1e50181acba0b8eff405376d52cbeb35c636"
+    },
+    {
+      "paper": 4,
+      "page": 1,
+      "status": "pass",
+      "checks": "文字、代码、表格/树图及页脚清晰；无裁切、重叠、孤行或截断。",
+      "image_sha256": "41a438b1e664210af51ef1283b1fa4f5f938de1375eb10690b1cacd5bd13702c"
+    },
+    {
+      "paper": 4,
+      "page": 2,
+      "status": "pass",
+      "checks": "文字、代码、表格/树图及页脚清晰；无裁切、重叠、孤行或截断。 已复看II-8更新后的log₂(600)公式，底数与自变量清楚。",
+      "image_sha256": "cc5062f73f918a09ad614e15eebfa5c4f67562c28b0e4503067e50d7a28b1164"
+    },
+    {
+      "paper": 4,
+      "page": 3,
+      "status": "pass",
+      "checks": "文字、代码、表格/树图及页脚清晰；无裁切、重叠、孤行或截断。",
+      "image_sha256": "103f4a075f460fc60d31363a99ad6db5eef4d23303fa585aef2e54d80cf88b24"
+    },
+    {
+      "paper": 4,
+      "page": 4,
+      "status": "pass",
+      "checks": "文字、代码、表格/树图及页脚清晰；无裁切、重叠、孤行或截断。",
+      "image_sha256": "99472701041dc24d830f2efe6bbc6ba52ae940ad509be713d92019cc2da3d880"
+    },
+    {
+      "paper": 4,
+      "page": 5,
+      "status": "pass",
+      "checks": "文字、代码、表格/树图及页脚清晰；无裁切、重叠、孤行或截断。",
+      "image_sha256": "9f2090a5215a947463f2d4ba3c0f07bb9fb428c40985906b645bea70d03f7d8c"
+    },
+    {
+      "paper": 4,
+      "page": 6,
+      "status": "pass",
+      "checks": "文字、代码、表格/树图及页脚清晰；无裁切、重叠、孤行或截断。",
+      "image_sha256": "c712dc2d58b9c260f234095ef0dd8921f99f498e33f1a096e0d0f3972c5e0131"
+    },
+    {
+      "paper": 4,
+      "page": 7,
+      "status": "pass",
+      "checks": "文字、代码、表格/树图及页脚清晰；无裁切、重叠、孤行或截断。",
+      "image_sha256": "c25372a7ad5247ac94fc861646ef5988619adfb8e477e56e1322f2dea925fbc0"
+    },
+    {
+      "paper": 4,
+      "page": 8,
+      "status": "pass",
+      "checks": "文字、代码、表格/树图及页脚清晰；无裁切、重叠、孤行或截断。",
+      "image_sha256": "b5aa92f2f93a5bfe4bd2ba9fe638d850ad18334d955739036836c37655f57f53"
+    },
+    {
+      "paper": 4,
+      "page": 9,
+      "status": "pass",
+      "checks": "文字、代码、表格/树图及页脚清晰；无裁切、重叠、孤行或截断。",
+      "image_sha256": "a692608854ac46b63a5b41d6a7133783d10c96425f97f42f11466b966b5fe890"
+    },
+    {
+      "paper": 4,
+      "page": 10,
+      "status": "pass",
+      "checks": "文字、代码、表格/树图及页脚清晰；无裁切、重叠、孤行或截断。",
+      "image_sha256": "949f328ca9945df05d42c7e178faab630f55102e25d8f049df1929117b50fdf5"
+    },
+    {
+      "paper": 4,
+      "page": 11,
+      "status": "pass",
+      "checks": "文字、代码、表格/树图及页脚清晰；无裁切、重叠、孤行或截断。",
+      "image_sha256": "1bd48e75ddf7af7d53cbb51a317fa879e1182e24144d7a394fb8cac199f28d53"
+    },
+    {
+      "paper": 4,
+      "page": 12,
+      "status": "pass",
+      "checks": "文字、代码、表格/树图及页脚清晰；无裁切、重叠、孤行或截断。",
+      "image_sha256": "be123f0951490cc63a54b3071c9c4f9f3215fcb2759720f751c135b3ecf29942"
+    }
+  ]
+}
