@@ -1,0 +1,157 @@
+page: 12
+anim:
+- id: initial
+  component: raw
+  box:
+  - 1.0
+  - 2.66
+  - 11.33
+  - 3.65
+  props:
+    html: '<div style="width:100%;height:100%;padding:22px 28px;background:#F7F9FC;border:1px solid #D8DBE0;border-radius:16px;display:flex;flex-direction:column;justify-content:center;font-family:Arial,''Microsoft
+      YaHei'',sans-serif;color:#1F2329"><div style="font-size:25px;font-weight:700;color:#1F4E9C;margin-bottom:10px">初始：pre = L，p 指向 3</div><div
+      style="display:flex;align-items:center;gap:18px;margin:9px 0"><div style="width:146px;color:#68707C;font-size:19px;font-weight:700">当前链</div><div
+      style="display:flex;align-items:flex-end;gap:8px;flex-wrap:wrap"><div style="display:flex;flex-direction:column;align-items:center;gap:4px;min-width:82px"><span
+      style="font-size:18px;color:#1F4E9C;font-weight:700;margin-bottom:6px">p</span><div style="border:2px solid #1F4E9C;border-radius:10px;background:#fff;padding:12px
+      18px;min-width:82px;text-align:center;font-size:27px;font-weight:700;color:#1F2329">3</div></div><span style="font-size:28px;color:#1F4E9C;font-weight:700">→</span><div
+      style="display:flex;flex-direction:column;align-items:center;gap:4px;min-width:82px"><div style="border:2px solid #1F4E9C;border-radius:10px;background:#fff;padding:12px
+      18px;min-width:82px;text-align:center;font-size:27px;font-weight:700;color:#1F2329">9</div></div><span style="font-size:28px;color:#1F4E9C;font-weight:700">→</span><div
+      style="display:flex;flex-direction:column;align-items:center;gap:4px;min-width:82px"><div style="border:2px solid #1F4E9C;border-radius:10px;background:#fff;padding:12px
+      18px;min-width:82px;text-align:center;font-size:27px;font-weight:700;color:#1F2329">5</div></div><span style="font-size:28px;color:#1F4E9C;font-weight:700">→</span><div
+      style="display:flex;flex-direction:column;align-items:center;gap:4px;min-width:82px"><div style="border:2px solid #1F4E9C;border-radius:10px;background:#fff;padding:12px
+      18px;min-width:82px;text-align:center;font-size:27px;font-weight:700;color:#1F2329">12</div></div><span style="font-size:28px;color:#1F4E9C;font-weight:700">→</span><div
+      style="display:flex;flex-direction:column;align-items:center;gap:4px;min-width:82px"><div style="border:2px solid #1F4E9C;border-radius:10px;background:#fff;padding:12px
+      18px;min-width:82px;text-align:center;font-size:27px;font-weight:700;color:#1F2329">7</div></div><span style="font-size:20px;color:#8A9099;font-weight:700">→
+      NULL</span></div></div><div style="display:flex;align-items:center;gap:18px;margin:9px 0"><div style="width:146px;color:#68707C;font-size:19px;font-weight:700">前驱</div>pre
+      → L（头结点）</div><div style="margin-top:14px;padding:12px 16px;background:#E8EEF9;border-radius:10px;font-size:19px;line-height:1.35">3 不大于
+      8，pre、p 一起向后。</div></div>'
+- id: s1
+  component: raw
+  box:
+  - 1.0
+  - 2.66
+  - 11.33
+  - 3.65
+  props:
+    html: '<div style="width:100%;height:100%;padding:22px 28px;background:#F7F9FC;border:1px solid #D8DBE0;border-radius:16px;display:flex;flex-direction:column;justify-content:center;font-family:Arial,''Microsoft
+      YaHei'',sans-serif;color:#1F2329"><div style="font-size:25px;font-weight:700;color:#1F4E9C;margin-bottom:10px">3 保留后：pre = 3，p = 9</div><div
+      style="display:flex;align-items:center;gap:18px;margin:9px 0"><div style="width:146px;color:#68707C;font-size:19px;font-weight:700">当前链</div><div
+      style="display:flex;align-items:flex-end;gap:8px;flex-wrap:wrap"><div style="display:flex;flex-direction:column;align-items:center;gap:4px;min-width:82px"><span
+      style="font-size:18px;color:#1F4E9C;font-weight:700;margin-bottom:6px">pre</span><div style="border:2px solid #1F4E9C;border-radius:10px;background:#fff;padding:12px
+      18px;min-width:82px;text-align:center;font-size:27px;font-weight:700;color:#1F2329">3</div></div><span style="font-size:28px;color:#1F4E9C;font-weight:700">→</span><div
+      style="display:flex;flex-direction:column;align-items:center;gap:4px;min-width:82px"><span style="font-size:18px;color:#1F4E9C;font-weight:700;margin-bottom:6px">p</span><div
+      style="border:2px solid #1F4E9C;border-radius:10px;background:#fff;padding:12px 18px;min-width:82px;text-align:center;font-size:27px;font-weight:700;color:#1F2329">9</div></div><span
+      style="font-size:28px;color:#1F4E9C;font-weight:700">→</span><div style="display:flex;flex-direction:column;align-items:center;gap:4px;min-width:82px"><div
+      style="border:2px solid #1F4E9C;border-radius:10px;background:#fff;padding:12px 18px;min-width:82px;text-align:center;font-size:27px;font-weight:700;color:#1F2329">5</div></div><span
+      style="font-size:28px;color:#1F4E9C;font-weight:700">→</span><div style="display:flex;flex-direction:column;align-items:center;gap:4px;min-width:82px"><div
+      style="border:2px solid #1F4E9C;border-radius:10px;background:#fff;padding:12px 18px;min-width:82px;text-align:center;font-size:27px;font-weight:700;color:#1F2329">12</div></div><span
+      style="font-size:28px;color:#1F4E9C;font-weight:700">→</span><div style="display:flex;flex-direction:column;align-items:center;gap:4px;min-width:82px"><div
+      style="border:2px solid #1F4E9C;border-radius:10px;background:#fff;padding:12px 18px;min-width:82px;text-align:center;font-size:27px;font-weight:700;color:#1F2329">7</div></div><span
+      style="font-size:20px;color:#8A9099;font-weight:700">→ NULL</span></div></div><div style="margin-top:14px;padding:12px 16px;background:#E8EEF9;border-radius:10px;font-size:19px;line-height:1.35">9
+      &gt; 8，接下来摘掉 9。</div></div>'
+- id: s2
+  component: raw
+  box:
+  - 1.0
+  - 2.66
+  - 11.33
+  - 3.65
+  props:
+    html: '<div style="width:100%;height:100%;padding:22px 28px;background:#F7F9FC;border:1px solid #D8DBE0;border-radius:16px;display:flex;flex-direction:column;justify-content:center;font-family:Arial,''Microsoft
+      YaHei'',sans-serif;color:#1F2329"><div style="font-size:25px;font-weight:700;color:#1F4E9C;margin-bottom:10px">删除 9 后：pre = 3，p = 5</div><div
+      style="display:flex;align-items:center;gap:18px;margin:9px 0"><div style="width:146px;color:#68707C;font-size:19px;font-weight:700">当前链</div><div
+      style="display:flex;align-items:flex-end;gap:8px;flex-wrap:wrap"><div style="display:flex;flex-direction:column;align-items:center;gap:4px;min-width:82px"><span
+      style="font-size:18px;color:#1F4E9C;font-weight:700;margin-bottom:6px">pre</span><div style="border:2px solid #1F4E9C;border-radius:10px;background:#fff;padding:12px
+      18px;min-width:82px;text-align:center;font-size:27px;font-weight:700;color:#1F2329">3</div></div><span style="font-size:28px;color:#1F4E9C;font-weight:700">→</span><div
+      style="display:flex;flex-direction:column;align-items:center;gap:4px;min-width:82px"><span style="font-size:18px;color:#1F4E9C;font-weight:700;margin-bottom:6px">p</span><div
+      style="border:2px solid #1F4E9C;border-radius:10px;background:#fff;padding:12px 18px;min-width:82px;text-align:center;font-size:27px;font-weight:700;color:#1F2329">5</div></div><span
+      style="font-size:28px;color:#1F4E9C;font-weight:700">→</span><div style="display:flex;flex-direction:column;align-items:center;gap:4px;min-width:82px"><div
+      style="border:2px solid #1F4E9C;border-radius:10px;background:#fff;padding:12px 18px;min-width:82px;text-align:center;font-size:27px;font-weight:700;color:#1F2329">12</div></div><span
+      style="font-size:28px;color:#1F4E9C;font-weight:700">→</span><div style="display:flex;flex-direction:column;align-items:center;gap:4px;min-width:82px"><div
+      style="border:2px solid #1F4E9C;border-radius:10px;background:#fff;padding:12px 18px;min-width:82px;text-align:center;font-size:27px;font-weight:700;color:#1F2329">7</div></div><span
+      style="font-size:20px;color:#8A9099;font-weight:700">→ NULL</span></div></div><div style="margin-top:14px;padding:12px 16px;background:#E8EEF9;border-radius:10px;font-size:19px;line-height:1.35">pre
+      留在 3；p 从 pre-&gt;next 重取到 5。</div></div>'
+- id: s3
+  component: raw
+  box:
+  - 1.0
+  - 2.66
+  - 11.33
+  - 3.65
+  props:
+    html: '<div style="width:100%;height:100%;padding:22px 28px;background:#F7F9FC;border:1px solid #D8DBE0;border-radius:16px;display:flex;flex-direction:column;justify-content:center;font-family:Arial,''Microsoft
+      YaHei'',sans-serif;color:#1F2329"><div style="font-size:25px;font-weight:700;color:#1F4E9C;margin-bottom:10px">5 保留后：pre = 5，p = 12</div><div
+      style="display:flex;align-items:center;gap:18px;margin:9px 0"><div style="width:146px;color:#68707C;font-size:19px;font-weight:700">当前链</div><div
+      style="display:flex;align-items:flex-end;gap:8px;flex-wrap:wrap"><div style="display:flex;flex-direction:column;align-items:center;gap:4px;min-width:82px"><div
+      style="border:2px solid #1F4E9C;border-radius:10px;background:#fff;padding:12px 18px;min-width:82px;text-align:center;font-size:27px;font-weight:700;color:#1F2329">3</div></div><span
+      style="font-size:28px;color:#1F4E9C;font-weight:700">→</span><div style="display:flex;flex-direction:column;align-items:center;gap:4px;min-width:82px"><span
+      style="font-size:18px;color:#1F4E9C;font-weight:700;margin-bottom:6px">pre</span><div style="border:2px solid #1F4E9C;border-radius:10px;background:#fff;padding:12px
+      18px;min-width:82px;text-align:center;font-size:27px;font-weight:700;color:#1F2329">5</div></div><span style="font-size:28px;color:#1F4E9C;font-weight:700">→</span><div
+      style="display:flex;flex-direction:column;align-items:center;gap:4px;min-width:82px"><span style="font-size:18px;color:#1F4E9C;font-weight:700;margin-bottom:6px">p</span><div
+      style="border:2px solid #1F4E9C;border-radius:10px;background:#fff;padding:12px 18px;min-width:82px;text-align:center;font-size:27px;font-weight:700;color:#1F2329">12</div></div><span
+      style="font-size:28px;color:#1F4E9C;font-weight:700">→</span><div style="display:flex;flex-direction:column;align-items:center;gap:4px;min-width:82px"><div
+      style="border:2px solid #1F4E9C;border-radius:10px;background:#fff;padding:12px 18px;min-width:82px;text-align:center;font-size:27px;font-weight:700;color:#1F2329">7</div></div><span
+      style="font-size:20px;color:#8A9099;font-weight:700">→ NULL</span></div></div><div style="margin-top:14px;padding:12px 16px;background:#E8EEF9;border-radius:10px;font-size:19px;line-height:1.35">12
+      &gt; 8，接下来摘掉 12。</div></div>'
+- id: s4
+  component: raw
+  box:
+  - 1.0
+  - 2.66
+  - 11.33
+  - 3.65
+  props:
+    html: '<div style="width:100%;height:100%;padding:22px 28px;background:#F7F9FC;border:1px solid #D8DBE0;border-radius:16px;display:flex;flex-direction:column;justify-content:center;font-family:Arial,''Microsoft
+      YaHei'',sans-serif;color:#1F2329"><div style="font-size:25px;font-weight:700;color:#1F4E9C;margin-bottom:10px">删除 12 后：pre = 5，p = 7</div><div
+      style="display:flex;align-items:center;gap:18px;margin:9px 0"><div style="width:146px;color:#68707C;font-size:19px;font-weight:700">当前链</div><div
+      style="display:flex;align-items:flex-end;gap:8px;flex-wrap:wrap"><div style="display:flex;flex-direction:column;align-items:center;gap:4px;min-width:82px"><div
+      style="border:2px solid #1F4E9C;border-radius:10px;background:#fff;padding:12px 18px;min-width:82px;text-align:center;font-size:27px;font-weight:700;color:#1F2329">3</div></div><span
+      style="font-size:28px;color:#1F4E9C;font-weight:700">→</span><div style="display:flex;flex-direction:column;align-items:center;gap:4px;min-width:82px"><span
+      style="font-size:18px;color:#1F4E9C;font-weight:700;margin-bottom:6px">pre</span><div style="border:2px solid #1F4E9C;border-radius:10px;background:#fff;padding:12px
+      18px;min-width:82px;text-align:center;font-size:27px;font-weight:700;color:#1F2329">5</div></div><span style="font-size:28px;color:#1F4E9C;font-weight:700">→</span><div
+      style="display:flex;flex-direction:column;align-items:center;gap:4px;min-width:82px"><span style="font-size:18px;color:#1F4E9C;font-weight:700;margin-bottom:6px">p</span><div
+      style="border:2px solid #1F4E9C;border-radius:10px;background:#fff;padding:12px 18px;min-width:82px;text-align:center;font-size:27px;font-weight:700;color:#1F2329">7</div></div><span
+      style="font-size:20px;color:#8A9099;font-weight:700">→ NULL</span></div></div><div style="margin-top:14px;padding:12px 16px;background:#E8EEF9;border-radius:10px;font-size:19px;line-height:1.35">pre
+      仍停在 5；p 重新取到 7。</div></div>'
+- id: s5
+  component: raw
+  box:
+  - 1.0
+  - 2.66
+  - 11.33
+  - 3.65
+  props:
+    html: '<div style="width:100%;height:100%;padding:22px 28px;background:#F7F9FC;border:1px solid #D8DBE0;border-radius:16px;display:flex;flex-direction:column;justify-content:center;font-family:Arial,''Microsoft
+      YaHei'',sans-serif;color:#1F2329"><div style="font-size:25px;font-weight:700;color:#1F4E9C;margin-bottom:10px">7 保留后：pre = 7，p = NULL</div><div
+      style="display:flex;align-items:center;gap:18px;margin:9px 0"><div style="width:146px;color:#68707C;font-size:19px;font-weight:700">当前链</div><div
+      style="display:flex;align-items:flex-end;gap:8px;flex-wrap:wrap"><div style="display:flex;flex-direction:column;align-items:center;gap:4px;min-width:82px"><div
+      style="border:2px solid #1F4E9C;border-radius:10px;background:#fff;padding:12px 18px;min-width:82px;text-align:center;font-size:27px;font-weight:700;color:#1F2329">3</div></div><span
+      style="font-size:28px;color:#1F4E9C;font-weight:700">→</span><div style="display:flex;flex-direction:column;align-items:center;gap:4px;min-width:82px"><div
+      style="border:2px solid #1F4E9C;border-radius:10px;background:#fff;padding:12px 18px;min-width:82px;text-align:center;font-size:27px;font-weight:700;color:#1F2329">5</div></div><span
+      style="font-size:28px;color:#1F4E9C;font-weight:700">→</span><div style="display:flex;flex-direction:column;align-items:center;gap:4px;min-width:82px"><span
+      style="font-size:18px;color:#1F4E9C;font-weight:700;margin-bottom:6px">pre</span><div style="border:2px solid #1F4E9C;border-radius:10px;background:#fff;padding:12px
+      18px;min-width:82px;text-align:center;font-size:27px;font-weight:700;color:#1F2329">7</div></div><span style="font-size:20px;color:#8A9099;font-weight:700">→
+      NULL</span></div></div><div style="display:flex;align-items:center;gap:18px;margin:9px 0"><div style="width:146px;color:#68707C;font-size:19px;font-weight:700">结束</div>p
+      → NULL</div><div style="margin-top:14px;padding:12px 16px;background:#E8EEF9;border-radius:10px;font-size:19px;line-height:1.35">扫描结束。最终链表为
+      3 → 5 → 7。</div></div>'
+steps:
+- hide:
+  - initial
+  appear:
+  - s1
+- hide:
+  - s1
+  appear:
+  - s2
+- hide:
+  - s2
+  appear:
+  - s3
+- hide:
+  - s3
+  appear:
+  - s4
+- hide:
+  - s4
+  appear:
+  - s5

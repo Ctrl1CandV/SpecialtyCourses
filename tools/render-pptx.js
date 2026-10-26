@@ -27,7 +27,7 @@ let TOP = TOP_DEF;                   // 可被 deck.meta.topSafe 覆盖（如题
 const BODY_TOP = 2.62;               // 正文起始
 const FOOT_Y = 6.58;                 // 页脚（底图底部色带从约7.10in开始，页脚须在其上方）
 const CONTENT_BOTTOM = 6.42;         // 内容块可用底边界
-let BG = path.resolve(__dirname, '..', 'assets', '底图.jpg'); // 可被 deck.meta.background 覆盖
+let BG = path.resolve(__dirname, '..', '课程', '素材', '底图.jpg'); // 可被 deck.meta.background 覆盖
 
 // ================= 工具 =================
 function parseRuns(text, base) {

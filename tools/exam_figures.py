@@ -6,8 +6,8 @@ from reportlab.graphics.shapes import Drawing, Circle, Line, String, Polygon, Re
 from reportlab.lib.colors import HexColor, white
 
 ROOT=Path(__file__).resolve().parents[1]
-OUT=ROOT/'资料整理/六套模拟卷成稿'
-SPEC=OUT/'配图源稿.json'
+OUT=ROOT/'试卷/六套模拟卷'
+SPEC=OUT/'源稿/配图源稿.json'
 
 def load_specs():
     return json.loads(SPEC.read_text(encoding='utf-8')) if SPEC.exists() else {}
@@ -50,7 +50,7 @@ def drawing(spec):
 def export_figures():
     from reportlab.graphics import renderSVG,renderPM
     from build_exam_papers import init_pdf
-    init_pdf(); dest=OUT/'配图'; dest.mkdir(exist_ok=True)
+    init_pdf(); dest=OUT/'源稿/配图/试题'; dest.mkdir(exist_ok=True)
     import pypdfium2 as pdfium
     from reportlab.graphics import renderPDF
     import io

@@ -1,0 +1,37 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{width:2214px;height:634px;background:transparent;position:relative;overflow:visible;font-family:'Microsoft YaHei','微软雅黑',sans-serif}
+.el{position:absolute}
+.codepanel{background:F7F9FC;border-radius:2px}
+.codebar{position:absolute;left:0;top:0;width:11px;height:100%;background:1F4E9C}
+.coderows{position:absolute;left:26px;top:14px;right:10px;bottom:10px;font-family:Consolas,'Courier New',monospace;color:1F2329;white-space:pre}
+.cl{min-height:1em}
+.cfocus{background:FFF3CD;box-shadow:0 0 0 2px FFF3CD}
+.lnode{display:flex;position:absolute;border-radius:3px;overflow:hidden}
+.lnode-cell{display:flex;align-items:center;justify-content:center;height:100%;font-size:34px;font-family:'Microsoft YaHei','微软雅黑',sans-serif;border-right:2px solid #D8DBE0}
+.lnode-cell:last-child{border-right:none}
+.lhead-tag{position:absolute;font-size:20px;color:#8A9099;text-align:center}
+.cellbox{position:absolute;border:3px solid #1F4E9C;background:#fff;display:flex;align-items:center;justify-content:center;font-size:30px;color:1F2329}
+.cellidx{position:absolute;text-align:center;font-size:22px;color:#8A9099}
+.gridcell{position:absolute;border:3px solid #1F4E9C;background:#fff}
+.gridlab{position:absolute;display:flex;align-items:center;justify-content:center;font-size:24px;color:#8A9099}
+.tnode{position:absolute;border:3px solid #1F4E9C;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:30px;color:1F2329;font-weight:600}
+.panel{border-radius:6px}
+.panel-title{position:absolute;left:18px;top:10px;font-size:24px;font-weight:700}
+.chip{display:flex;align-items:center;justify-content:center;border-radius:6px;font-weight:700;font-family:'Microsoft YaHei','微软雅黑',sans-serif}
+.wlabel{position:absolute;text-align:center;font-size:30px;font-weight:700;color:#1F4E9C;font-family:'Microsoft YaHei','微软雅黑',sans-serif}
+.legend-item{position:relative;display:flex;align-items:center;gap:10px;color:1F2329}
+.sw{display:inline-block;width:26px;height:26px;border:2px solid #1F4E9C}
+.arrowsym{position:absolute;text-align:center;font-size:24px;font-weight:700;font-family:'Microsoft YaHei','微软雅黑',sans-serif}
+</style></head><body><div class="el" style="left:0;top:0;width:100%;height:100%;position:absolute"><div class="codepanel" style="position:absolute;left:0%;top:0;width:calc(50% - 12px);height:100%">
+        <div class="codebar"></div><div class="coderows" style="font-size:26px;line-height:1.55"><div class="cl"><span style="color:#1F4E9C;font-weight:600">void</span> Prim(ALGraph &amp;G){</div><div class="cl">  <span style="color:#1F4E9C;font-weight:600">bool</span> include[MaxVertexNum];</div><div class="cl">  <span style="color:#1F4E9C;font-weight:600">int</span> dist[MaxVertexNum], parent[MaxVertexNum];</div><div class="cl">  <span style="color:#1F4E9C;font-weight:600">for</span>(<span style="color:#1F4E9C;font-weight:600">int</span> i = 0; i &lt; G.vexnum; i++)</div><div class="cl">    { include[i] = <span style="color:#1F4E9C;font-weight:600">false</span>; dist[i] = <span style="color:#1F4E9C;font-weight:600">INF</span>;</div><div class="cl">      parent[i] = -1; }            <span style="color:#8A9099">// 不能写 dist[] = {INF}</span></div><div class="cl">  dist[0] = 0;</div><div class="cl">  <span style="color:#1F4E9C;font-weight:600">for</span>(<span style="color:#1F4E9C;font-weight:600">int</span> k = 0; k &lt; G.vexnum; k++){</div><div class="cl">    <span style="color:#1F4E9C;font-weight:600">int</span> u = -1, minDist = <span style="color:#1F4E9C;font-weight:600">INF</span>;</div></div></div><div class="codepanel" style="position:absolute;left:50%;top:0;width:calc(50% - 12px);height:100%">
+        <div class="codebar"></div><div class="coderows" style="font-size:26px;line-height:1.55"><div class="cl">    <span style="color:#1F4E9C;font-weight:600">for</span>(<span style="color:#1F4E9C;font-weight:600">int</span> i = 0; i &lt; G.vexnum; i++)      <span style="color:#8A9099">// ①选树外 dist 最小的 u</span></div><div class="cl">      <span style="color:#1F4E9C;font-weight:600">if</span>(!include[i] &amp;&amp; dist[i] &lt; minDist)</div><div class="cl">        { minDist = dist[i]; u = i; }</div><div class="cl">      <span style="color:#1F4E9C;font-weight:600">if</span>(u == -1) <span style="color:#1F4E9C;font-weight:600">break</span>;               <span style="color:#8A9099">// 图不连通，停</span></div><div class="cl">      include[u] = <span style="color:#1F4E9C;font-weight:600">true</span>;               <span style="color:#8A9099">// ②u 并入树</span></div><div class="cl">      <span style="color:#1F4E9C;font-weight:600">for</span>(ArcNode *p = G.vertices[u].firstarc;</div><div class="cl">          p != <span style="color:#1F4E9C;font-weight:600">NULL</span>; p = p-&gt;nextarc)</div><div class="cl">        <span style="color:#1F4E9C;font-weight:600">if</span>(!include[p-&gt;adjvex] &amp;&amp; p-&gt;weight &lt; dist[p-&gt;adjvex])</div><div class="cl">          { dist[p-&gt;adjvex] = p-&gt;weight; parent[p-&gt;adjvex] = u; }  <span style="color:#8A9099">// ③刷新</span></div><div class="cl">  }</div><div class="cl">}</div></div></div></div><script>
+window.addEventListener('load',()=>{
+  const out=[];
+  if(document.body.scrollWidth>document.body.clientWidth+1) out.push('body-w:'+document.body.scrollWidth+'>'+document.body.clientWidth);
+  if(document.body.scrollHeight>document.body.clientHeight+1) out.push('body-h:'+document.body.scrollHeight+'>'+document.body.clientHeight);
+  document.title='AUDIT|'+(out.length?out.join(';'):'OK');
+  const t=document.createElement('div');t.id='audit-result';t.textContent='AUDIT|'+(out.length?out.join(';'):'OK');t.style.display='none';
+  document.body.appendChild(t);
+});
+</script></body></html>

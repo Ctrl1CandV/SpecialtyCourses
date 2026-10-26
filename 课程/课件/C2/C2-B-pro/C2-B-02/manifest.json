@@ -1,0 +1,647 @@
+{
+ "lesson": "C2-B-02",
+ "slides": [
+  {
+   "page": 1,
+   "entries": [
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p01:pageno"
+    },
+    {
+     "kind": "text",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    }
+   ]
+  },
+  {
+   "page": 2,
+   "entries": [
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p02:pageno"
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p02:kicker"
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p02:title"
+    },
+    {
+     "kind": "text",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    }
+   ]
+  },
+  {
+   "page": 3,
+   "entries": [
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p03:pageno"
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p03:kicker"
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p03:title"
+    },
+    {
+     "kind": "shape",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    }
+   ]
+  },
+  {
+   "page": 4,
+   "entries": [
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p04:pageno"
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p04:kicker"
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p04:title"
+    },
+    {
+     "kind": "table",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    }
+   ]
+  },
+  {
+   "page": 5,
+   "entries": [
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p05:pageno"
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p05:kicker"
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p05:title"
+    },
+    {
+     "kind": "image",
+     "id": "p05:initial"
+    },
+    {
+     "kind": "image",
+     "id": "p05:s1"
+    },
+    {
+     "kind": "image",
+     "id": "p05:s2"
+    },
+    {
+     "kind": "image",
+     "id": "p05:s3"
+    },
+    {
+     "kind": "image",
+     "id": "p05:s4"
+    },
+    {
+     "kind": "image",
+     "id": "p05:s5"
+    },
+    {
+     "kind": "image",
+     "id": "p05:s6"
+    }
+   ]
+  },
+  {
+   "page": 6,
+   "entries": [
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p06:pageno"
+    },
+    {
+     "kind": "shape",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p06:kicker"
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p06:title"
+    },
+    {
+     "kind": "shape",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    }
+   ]
+  },
+  {
+   "page": 7,
+   "entries": [
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p07:pageno"
+    },
+    {
+     "kind": "shape",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p07:kicker"
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p07:title"
+    },
+    {
+     "kind": "shape",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    }
+   ]
+  },
+  {
+   "page": 8,
+   "entries": [
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p08:pageno"
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p08:kicker"
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p08:title"
+    },
+    {
+     "kind": "image",
+     "id": "p08:initial"
+    },
+    {
+     "kind": "image",
+     "id": "p08:s1"
+    },
+    {
+     "kind": "image",
+     "id": "p08:s2"
+    },
+    {
+     "kind": "image",
+     "id": "p08:s3"
+    },
+    {
+     "kind": "image",
+     "id": "p08:s4"
+    }
+   ]
+  },
+  {
+   "page": 9,
+   "entries": [
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p09:pageno"
+    },
+    {
+     "kind": "shape",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p09:kicker"
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p09:title"
+    },
+    {
+     "kind": "shape",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    }
+   ]
+  },
+  {
+   "page": 10,
+   "entries": [
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p10:pageno"
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p10:kicker"
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p10:title"
+    },
+    {
+     "kind": "image",
+     "id": "p10:initial"
+    },
+    {
+     "kind": "image",
+     "id": "p10:s1"
+    },
+    {
+     "kind": "image",
+     "id": "p10:s2"
+    },
+    {
+     "kind": "image",
+     "id": "p10:s3"
+    },
+    {
+     "kind": "image",
+     "id": "p10:s4"
+    }
+   ]
+  },
+  {
+   "page": 11,
+   "entries": [
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p11:pageno"
+    },
+    {
+     "kind": "shape",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p11:kicker"
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p11:title"
+    },
+    {
+     "kind": "shape",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    }
+   ]
+  },
+  {
+   "page": 12,
+   "entries": [
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p12:pageno"
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p12:kicker"
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p12:title"
+    },
+    {
+     "kind": "table",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    }
+   ]
+  },
+  {
+   "page": 13,
+   "entries": [
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p13:pageno"
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p13:kicker"
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p13:title"
+    },
+    {
+     "kind": "table",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    }
+   ]
+  },
+  {
+   "page": 14,
+   "entries": [
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p14:pageno"
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p14:kicker"
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p14:title"
+    },
+    {
+     "kind": "table",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    }
+   ]
+  },
+  {
+   "page": 15,
+   "entries": [
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p15:pageno"
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p15:kicker"
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p15:title"
+    },
+    {
+     "kind": "shape",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    }
+   ]
+  },
+  {
+   "page": 16,
+   "entries": [
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p16:pageno"
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p16:kicker"
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p16:title"
+    },
+    {
+     "kind": "shape",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    }
+   ]
+  },
+  {
+   "page": 17,
+   "entries": [
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p17:pageno"
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p17:kicker"
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p17:title"
+    },
+    {
+     "kind": "text",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    }
+   ]
+  }
+ ]
+}

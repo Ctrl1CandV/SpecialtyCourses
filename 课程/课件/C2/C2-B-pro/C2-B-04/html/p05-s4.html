@@ -1,0 +1,39 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{width:2218px;height:726px;background:transparent;position:relative;overflow:visible;font-family:'Microsoft YaHei','微软雅黑',sans-serif}
+.el{position:absolute}
+.codepanel{background:F7F9FC;border-radius:2px}
+.codebar{position:absolute;left:0;top:0;width:11px;height:100%;background:1F4E9C}
+.coderows{position:absolute;left:26px;top:14px;right:10px;bottom:10px;font-family:Consolas,'Courier New',monospace;color:1F2329;white-space:pre}
+.cl{min-height:1em}
+.cfocus{background:FFF3CD;box-shadow:0 0 0 2px FFF3CD}
+.lnode{display:flex;position:absolute;border-radius:3px;overflow:hidden}
+.lnode-cell{display:flex;align-items:center;justify-content:center;height:100%;font-size:34px;font-family:'Microsoft YaHei','微软雅黑',sans-serif;border-right:2px solid #D8DBE0}
+.lnode-cell:last-child{border-right:none}
+.lhead-tag{position:absolute;font-size:20px;color:#8A9099;text-align:center}
+.cellbox{position:absolute;border:3px solid #1F4E9C;background:#fff;display:flex;align-items:center;justify-content:center;font-size:30px;color:1F2329}
+.cellidx{position:absolute;text-align:center;font-size:22px;color:#8A9099}
+.gridcell{position:absolute;border:3px solid #1F4E9C;background:#fff}
+.gridlab{position:absolute;display:flex;align-items:center;justify-content:center;font-size:24px;color:#8A9099}
+.tnode{position:absolute;border:3px solid #1F4E9C;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:30px;color:1F2329;font-weight:600}
+.panel{border-radius:6px}
+.panel-title{position:absolute;left:18px;top:10px;font-size:24px;font-weight:700}
+.chip{display:flex;align-items:center;justify-content:center;border-radius:6px;font-weight:700;font-family:'Microsoft YaHei','微软雅黑',sans-serif}
+.wlabel{position:absolute;text-align:center;font-size:30px;font-weight:700;color:#1F4E9C;font-family:'Microsoft YaHei','微软雅黑',sans-serif}
+.legend-item{position:relative;display:flex;align-items:center;gap:10px;color:1F2329}
+.sw{display:inline-block;width:26px;height:26px;border:2px solid #1F4E9C}
+.arrowsym{position:absolute;text-align:center;font-size:24px;font-weight:700;font-family:'Microsoft YaHei','微软雅黑',sans-serif}
+</style></head><body><div class="el" style="left:0;top:0;width:100%;height:100%"><div style="width:100%;height:100%;box-sizing:border-box;padding:23px 27px;background:#F7F9FC;border:1px solid #D8DEE8;border-radius:16px;display:flex;flex-direction:column;gap:12px;overflow:hidden;font-family:Arial,'Microsoft YaHei',sans-serif;color:#1F2329">
+<div style="font-size:37px;line-height:1.12;font-weight:700;color:#1F4E9C">求高度：沿调用向下，再把结果逐层带回</div>
+<div style="font-size:24px;line-height:1.25;color:#515B68">回到根结点</div>
+<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:16px;flex:1;min-height:0"><section style="background:#FFFFFF;border:1px solid #D8DEE8;border-radius:16px;padding:20px 22px;display:flex;flex-direction:column;justify-content:center;min-height:150px;box-sizing:border-box"><div style="font-size:27px;color:#1F4E9C;font-weight:700;margin-bottom:15px">递归树</div><svg viewBox="0 0 850 340" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"><line x1="425" y1="81" x2="240" y2="118" stroke="#7E8996" stroke-width="4"/><line x1="425" y1="81" x2="610" y2="118" stroke="#7E8996" stroke-width="4"/><line x1="240" y1="172" x2="140" y2="228" stroke="#7E8996" stroke-width="4"/><line x1="240" y1="172" x2="340" y2="228" stroke="#7E8996" stroke-width="4"/><line x1="610" y1="172" x2="520" y2="228" stroke="#7E8996" stroke-width="4"/><line x1="610" y1="172" x2="700" y2="228" stroke="#7E8996" stroke-width="4"/><circle cx="425" cy="54" r="27" fill="#E8EEF9" stroke="#1F4E9C" stroke-width="4"/><text x="425" y="64" text-anchor="middle" font-family="Arial,Microsoft YaHei,sans-serif" font-size="28" font-weight="700" fill="#173B77">1</text><circle cx="240" cy="145" r="27" fill="#E8F4EE" stroke="#4B8B68" stroke-width="4"/><text x="240" y="155" text-anchor="middle" font-family="Arial,Microsoft YaHei,sans-serif" font-size="28" font-weight="700" fill="#28583D">2</text><circle cx="610" cy="145" r="27" fill="#E8F4EE" stroke="#4B8B68" stroke-width="4"/><text x="610" y="155" text-anchor="middle" font-family="Arial,Microsoft YaHei,sans-serif" font-size="28" font-weight="700" fill="#28583D">3</text><circle cx="140" cy="255" r="27" fill="#E8F4EE" stroke="#4B8B68" stroke-width="4"/><text x="140" y="265" text-anchor="middle" font-family="Arial,Microsoft YaHei,sans-serif" font-size="28" font-weight="700" fill="#28583D">4</text><circle cx="340" cy="255" r="27" fill="#E8F4EE" stroke="#4B8B68" stroke-width="4"/><text x="340" y="265" text-anchor="middle" font-family="Arial,Microsoft YaHei,sans-serif" font-size="28" font-weight="700" fill="#28583D">5</text><circle cx="520" cy="255" r="27" fill="#E8F4EE" stroke="#4B8B68" stroke-width="4"/><text x="520" y="265" text-anchor="middle" font-family="Arial,Microsoft YaHei,sans-serif" font-size="28" font-weight="700" fill="#28583D">6</text><circle cx="700" cy="255" r="27" fill="#E8F4EE" stroke="#4B8B68" stroke-width="4"/><text x="700" y="265" text-anchor="middle" font-family="Arial,Microsoft YaHei,sans-serif" font-size="28" font-weight="700" fill="#28583D">7</text></svg></section><section style="background:#FFFFFF;border:1px solid #D8DEE8;border-radius:16px;padding:20px 22px;display:flex;flex-direction:column;justify-content:center;min-height:150px;box-sizing:border-box"><div style="font-size:27px;color:#1F4E9C;font-weight:700;margin-bottom:15px">返回值</div><div style="font-size:32px;line-height:1.55">空树 → 0<br>叶子 → 1<br>结点 → max(左,右)+1</div><div style="font-size:25px;line-height:1.3;color:#515B68;margin-top:14px">h(1)=max(2,2)+1=3；整棵树高度为3。</div></section></div>
+<div style="padding:12px 16px;background:#E8EEF9;border-radius:10px;font-size:25px;line-height:1.2;font-weight:600;color:#243B5A">h(1)=max(2,2)+1=3；整棵树高度为3。</div></div></div><script>
+window.addEventListener('load',()=>{
+  const out=[];
+  if(document.body.scrollWidth>document.body.clientWidth+1) out.push('body-w:'+document.body.scrollWidth+'>'+document.body.clientWidth);
+  if(document.body.scrollHeight>document.body.clientHeight+1) out.push('body-h:'+document.body.scrollHeight+'>'+document.body.clientHeight);
+  document.title='AUDIT|'+(out.length?out.join(';'):'OK');
+  const t=document.createElement('div');t.id='audit-result';t.textContent='AUDIT|'+(out.length?out.join(';'):'OK');t.style.display='none';
+  document.body.appendChild(t);
+});
+</script></body></html>

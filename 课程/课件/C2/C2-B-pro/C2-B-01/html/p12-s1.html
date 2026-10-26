@@ -1,0 +1,35 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{width:2175px;height:701px;background:transparent;position:relative;overflow:visible;font-family:'Microsoft YaHei','微软雅黑',sans-serif}
+.el{position:absolute}
+.codepanel{background:F7F9FC;border-radius:2px}
+.codebar{position:absolute;left:0;top:0;width:11px;height:100%;background:1F4E9C}
+.coderows{position:absolute;left:26px;top:14px;right:10px;bottom:10px;font-family:Consolas,'Courier New',monospace;color:1F2329;white-space:pre}
+.cl{min-height:1em}
+.cfocus{background:FFF3CD;box-shadow:0 0 0 2px FFF3CD}
+.lnode{display:flex;position:absolute;border-radius:3px;overflow:hidden}
+.lnode-cell{display:flex;align-items:center;justify-content:center;height:100%;font-size:34px;font-family:'Microsoft YaHei','微软雅黑',sans-serif;border-right:2px solid #D8DBE0}
+.lnode-cell:last-child{border-right:none}
+.lhead-tag{position:absolute;font-size:20px;color:#8A9099;text-align:center}
+.cellbox{position:absolute;border:3px solid #1F4E9C;background:#fff;display:flex;align-items:center;justify-content:center;font-size:30px;color:1F2329}
+.cellidx{position:absolute;text-align:center;font-size:22px;color:#8A9099}
+.gridcell{position:absolute;border:3px solid #1F4E9C;background:#fff}
+.gridlab{position:absolute;display:flex;align-items:center;justify-content:center;font-size:24px;color:#8A9099}
+.tnode{position:absolute;border:3px solid #1F4E9C;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:30px;color:1F2329;font-weight:600}
+.panel{border-radius:6px}
+.panel-title{position:absolute;left:18px;top:10px;font-size:24px;font-weight:700}
+.chip{display:flex;align-items:center;justify-content:center;border-radius:6px;font-weight:700;font-family:'Microsoft YaHei','微软雅黑',sans-serif}
+.wlabel{position:absolute;text-align:center;font-size:30px;font-weight:700;color:#1F4E9C;font-family:'Microsoft YaHei','微软雅黑',sans-serif}
+.legend-item{position:relative;display:flex;align-items:center;gap:10px;color:1F2329}
+.sw{display:inline-block;width:26px;height:26px;border:2px solid #1F4E9C}
+.arrowsym{position:absolute;text-align:center;font-size:24px;font-weight:700;font-family:'Microsoft YaHei','微软雅黑',sans-serif}
+</style></head><body><div class="el" style="left:0;top:0;width:100%;height:100%"><div style="width:100%;height:100%;padding:22px 28px;background:#F7F9FC;border:1px solid #D8DBE0;border-radius:16px;display:flex;flex-direction:column;justify-content:center;font-family:Arial,'Microsoft YaHei',sans-serif;color:#1F2329"><div style="font-size:25px;font-weight:700;color:#1F4E9C;margin-bottom:10px">3 保留后：pre = 3，p = 9</div><div style="display:flex;align-items:center;gap:18px;margin:9px 0"><div style="width:146px;color:#68707C;font-size:19px;font-weight:700">当前链</div><div style="display:flex;align-items:flex-end;gap:8px;flex-wrap:wrap"><div style="display:flex;flex-direction:column;align-items:center;gap:4px;min-width:82px"><span style="font-size:18px;color:#1F4E9C;font-weight:700;margin-bottom:6px">pre</span><div style="border:2px solid #1F4E9C;border-radius:10px;background:#fff;padding:12px 18px;min-width:82px;text-align:center;font-size:27px;font-weight:700;color:#1F2329">3</div></div><span style="font-size:28px;color:#1F4E9C;font-weight:700">→</span><div style="display:flex;flex-direction:column;align-items:center;gap:4px;min-width:82px"><span style="font-size:18px;color:#1F4E9C;font-weight:700;margin-bottom:6px">p</span><div style="border:2px solid #1F4E9C;border-radius:10px;background:#fff;padding:12px 18px;min-width:82px;text-align:center;font-size:27px;font-weight:700;color:#1F2329">9</div></div><span style="font-size:28px;color:#1F4E9C;font-weight:700">→</span><div style="display:flex;flex-direction:column;align-items:center;gap:4px;min-width:82px"><div style="border:2px solid #1F4E9C;border-radius:10px;background:#fff;padding:12px 18px;min-width:82px;text-align:center;font-size:27px;font-weight:700;color:#1F2329">5</div></div><span style="font-size:28px;color:#1F4E9C;font-weight:700">→</span><div style="display:flex;flex-direction:column;align-items:center;gap:4px;min-width:82px"><div style="border:2px solid #1F4E9C;border-radius:10px;background:#fff;padding:12px 18px;min-width:82px;text-align:center;font-size:27px;font-weight:700;color:#1F2329">12</div></div><span style="font-size:28px;color:#1F4E9C;font-weight:700">→</span><div style="display:flex;flex-direction:column;align-items:center;gap:4px;min-width:82px"><div style="border:2px solid #1F4E9C;border-radius:10px;background:#fff;padding:12px 18px;min-width:82px;text-align:center;font-size:27px;font-weight:700;color:#1F2329">7</div></div><span style="font-size:20px;color:#8A9099;font-weight:700">→ NULL</span></div></div><div style="margin-top:14px;padding:12px 16px;background:#E8EEF9;border-radius:10px;font-size:19px;line-height:1.35">9 &gt; 8，接下来摘掉 9。</div></div></div><script>
+window.addEventListener('load',()=>{
+  const out=[];
+  if(document.body.scrollWidth>document.body.clientWidth+1) out.push('body-w:'+document.body.scrollWidth+'>'+document.body.clientWidth);
+  if(document.body.scrollHeight>document.body.clientHeight+1) out.push('body-h:'+document.body.scrollHeight+'>'+document.body.clientHeight);
+  document.title='AUDIT|'+(out.length?out.join(';'):'OK');
+  const t=document.createElement('div');t.id='audit-result';t.textContent='AUDIT|'+(out.length?out.join(';'):'OK');t.style.display='none';
+  document.body.appendChild(t);
+});
+</script></body></html>

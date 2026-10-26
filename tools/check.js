@@ -27,7 +27,7 @@ const yaml = require('js-yaml');
 const { execSync } = require('child_process');
 
 const ROOT = path.resolve(__dirname, '..');
-const COURSE_DIR = path.join(ROOT, '课件');
+const COURSE_DIR = path.join(ROOT, '课程', '课件');
 
 // 违禁词（营销腔 + AI味结构词）
 const BAD_WORDS = /稳稳拿下|放心跟|跑不掉|一句话总结|首先，|其次，|综上所述|值得注意的是|不仅.*而且|总而言之/g;

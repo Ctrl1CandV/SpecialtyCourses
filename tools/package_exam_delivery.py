@@ -3,7 +3,6 @@ from __future__ import annotations
 
 import hashlib
 import json
-import zipfile
 
 try:
     from . import verify_exam_delivery as audit
@@ -68,24 +67,6 @@ def main():
 
     write_json(AUDIT / "逐题溯源.json",
                {"version": "2026-10-25-final-v6", "questions": traces})
-    package = OUT / "六套试卷与答案.zip"
-    with zipfile.ZipFile(package, "w", zipfile.ZIP_DEFLATED) as z:
-        for p in range(1, 7):
-            z.write(audit.student_pdf(p),
-                    f"第{p}套/重邮802模拟试卷第{p}套.pdf")
-            z.write(audit.answer_pdf(p),
-                    f"第{p}套/重邮802模拟试卷第{p}套答案.pdf")
-        z.writestr(
-            "使用说明.txt",
-            "2027考研重邮802数据结构六套模拟卷\n"
-            "第1—3套保守，第4—6套适度创新。\n"
-            "每套文件夹含一份试卷和一份对应参考答案，打印时请分别发放。\n"
-            "试卷每套24题、150分、180分钟、19页；答案12页。\n"
-            "题型分值为20/30/70/30，算法题为8/10/12分。\n"
-            "参考答案允许等价正确解法，评分应结合实际实现。\n"
-            "版本：2026-10-25，第6版题面及独立复核后的答案。\n",
-        )
-    audit.check_zip()
 
     artifacts = audit.artifact_files()
     audit.ensure(all(path.is_file() for path in artifacts),
@@ -100,7 +81,7 @@ def main():
         "answer_diagrams": 25,
         "student_total_pages": 114,
         "answer_total_pages": 72,
-        "database_sha256": audit.sha(ROOT / "题库数据库/tiku.db"),
+        "database_sha256": audit.sha(ROOT / "题库/tiku.db"),
         "artifacts": {
             path.relative_to(ROOT).as_posix(): audit.sha(path)
             for path in sorted(artifacts)
@@ -111,8 +92,8 @@ def main():
         ],
     }
     audit.check_manifest(manifest)
-    write_json(OUT / "交付核对.json", manifest)
-    print("Packaged 6 sets / 12 PDFs; provenance for 144 questions saved.")
+    write_json(OUT / "审查/交付核对.json", manifest)
+    print("Registered 6 sets / 12 PDFs; provenance for 144 questions saved. No ZIP is created.")
 
 
 if __name__ == "__main__":

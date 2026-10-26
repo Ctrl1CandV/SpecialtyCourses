@@ -81,7 +81,7 @@ def build():
     return out
 
 def main():
-    specs=build();init_pdf();dest=OUT/'答案配图';dest.mkdir(exist_ok=True)
+    specs=build();init_pdf();dest=OUT/'源稿/配图/答案';dest.mkdir(exist_ok=True)
     from reportlab.graphics import renderPDF,renderSVG
     import pypdfium2 as pdfium
     for qid,items in specs.items():
@@ -90,6 +90,6 @@ def main():
             renderSVG.drawToFile(d,str(dest/f'{stem}.svg'))
             pdf=pdfium.PdfDocument(renderPDF.drawToString(d));page=pdf[0];bitmap=page.render(scale=2)
             bitmap.to_pil().save(dest/f'{stem}.png');bitmap.close();page.close();pdf.close()
-    (OUT/'答案配图源稿.json').write_text(json.dumps(specs,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+    (OUT/'源稿/答案配图源稿.json').write_text(json.dumps(specs,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
     print(sum(map(len,specs.values())),'answer diagrams')
 if __name__=='__main__':main()

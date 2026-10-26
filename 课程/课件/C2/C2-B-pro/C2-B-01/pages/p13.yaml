@@ -1,0 +1,93 @@
+page: 13
+anim:
+- id: initial
+  component: raw
+  box:
+  - 6.5
+  - 2.82
+  - 5.82
+  - 3.25
+  props:
+    html: '<div style="width:100%;height:100%;padding:22px 28px;background:#F7F9FC;border:1px solid #D8DBE0;border-radius:16px;display:flex;flex-direction:column;justify-content:center;font-family:Arial,''Microsoft
+      YaHei'',sans-serif;color:#1F2329"><div style="font-size:25px;font-weight:700;color:#1F4E9C;margin-bottom:10px">交换前</div><div style="display:flex;align-items:center;gap:18px;margin:9px
+      0"><div style="width:146px;color:#68707C;font-size:19px;font-weight:700">双链</div><span style="font-size:25px;color:#1F4E9C;font-weight:700">X
+      ⇄ p ⇄ q ⇄ Y</span></div><div style="margin-top:14px;padding:12px 16px;background:#E8EEF9;border-radius:10px;font-size:19px;line-height:1.35">q
+      紧跟 p；目标是得到 X ⇄ q ⇄ p ⇄ Y。</div></div>'
+- id: s1
+  component: raw
+  box:
+  - 6.5
+  - 2.82
+  - 5.82
+  - 3.25
+  props:
+    html: '<div style="width:100%;height:100%;padding:22px 24px;background:#F7F9FC;border:1px solid #D8DBE0;border-radius:16px;display:flex;flex-direction:column;justify-content:center;font-family:Arial,''Microsoft
+      YaHei'',sans-serif"><div style="font-size:24px;font-weight:700;color:#1F4E9C;margin-bottom:10px">先接外侧两端</div><div style="padding:12px 16px;margin:7px
+      0;background:#fff;border:1px solid #D8DBE0;border-radius:9px;font-family:Consolas,monospace;font-size:18px;color:#1F2329">p-&gt;prior-&gt;next
+      = q</div><div style="padding:12px 16px;margin:7px 0;background:#fff;border:1px solid #D8DBE0;border-radius:9px;font-family:Consolas,monospace;font-size:18px;color:#1F2329">q-&gt;next-&gt;prior
+      = p</div><div style="margin-top:12px;padding:12px 14px;background:#E8EEF9;border-radius:10px;font-size:17px;line-height:1.35;color:#1F2329">两处都要用到
+      p 的旧前驱和 q 的旧后继。</div></div>'
+- id: s2
+  component: raw
+  box:
+  - 6.5
+  - 2.82
+  - 5.82
+  - 3.25
+  props:
+    html: '<div style="width:100%;height:100%;padding:22px 24px;background:#F7F9FC;border:1px solid #D8DBE0;border-radius:16px;display:flex;flex-direction:column;justify-content:center;font-family:Arial,''Microsoft
+      YaHei'',sans-serif"><div style="font-size:24px;font-weight:700;color:#1F4E9C;margin-bottom:10px">再让 p、q 各自接回外邻居</div><div style="padding:12px
+      16px;margin:7px 0;background:#fff;border:1px solid #D8DBE0;border-radius:9px;font-family:Consolas,monospace;font-size:18px;color:#1F2329">p-&gt;next
+      = q-&gt;next</div><div style="padding:12px 16px;margin:7px 0;background:#fff;border:1px solid #D8DBE0;border-radius:9px;font-family:Consolas,monospace;font-size:18px;color:#1F2329">q-&gt;prior
+      = p-&gt;prior</div><div style="margin-top:12px;padding:12px 14px;background:#E8EEF9;border-radius:10px;font-size:17px;line-height:1.35;color:#1F2329">这两句完成后，外侧邻居已经接到交换后的对应位置。</div></div>'
+- id: s3
+  component: raw
+  box:
+  - 6.5
+  - 2.82
+  - 5.82
+  - 3.25
+  props:
+    html: '<div style="width:100%;height:100%;padding:22px 24px;background:#F7F9FC;border:1px solid #D8DBE0;border-radius:16px;display:flex;flex-direction:column;justify-content:center;font-family:Arial,''Microsoft
+      YaHei'',sans-serif"><div style="font-size:24px;font-weight:700;color:#1F4E9C;margin-bottom:10px">最后交换 p、q 的内部关系</div><div style="padding:12px
+      16px;margin:7px 0;background:#fff;border:1px solid #D8DBE0;border-radius:9px;font-family:Consolas,monospace;font-size:18px;color:#1F2329">p-&gt;prior
+      = q</div><div style="padding:12px 16px;margin:7px 0;background:#fff;border:1px solid #D8DBE0;border-radius:9px;font-family:Consolas,monospace;font-size:18px;color:#1F2329">q-&gt;next
+      = p</div><div style="margin-top:12px;font-size:20px;font-weight:700;color:#1F4E9C">X ⇄ q ⇄ p ⇄ Y</div><div style="margin-top:12px;padding:12px
+      14px;background:#E8EEF9;border-radius:10px;font-size:17px;line-height:1.35;color:#1F2329">得到 X ⇄ q ⇄ p ⇄ Y；next 与 prior 两边一致。</div></div>'
+steps:
+- hide:
+  - initial
+  appear:
+  - s1
+- hide:
+  - s1
+  appear:
+  - s2
+- hide:
+  - s2
+  appear:
+  - s3
+native:
+- id: code
+  kind: code
+  box:
+  - 0.92
+  - 2.82
+  - 5.25
+  - 2.36
+  props:
+    text: "void exchange(DNode *p, DNode *q){\n    p->prior->next = q;  q->next->prior = p;\n    p->next = q->next;   q->prior = p->prior;\n \
+      \   p->prior = q;        q->next = p;\n}"
+    fontSize: 13
+- id: caption
+  kind: text
+  box:
+  - 0.92
+  - 5.34
+  - 5.25
+  - 0.74
+  props:
+    text: 三次点击：先接外部，再改自身，最后互指。
+    fontSize: 16
+    bold: true
+    color: 1F4E9C

@@ -14,12 +14,12 @@ import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-OUT = ROOT / '资料整理' / '六套模拟卷成稿'
-SOURCE = OUT / '试题源稿'
-PDF_DIR = OUT / '学生卷PDF'
-MD_DIR = OUT / '可编辑试题'
+OUT = ROOT / '试卷' / '六套模拟卷'
+SOURCE = OUT / '源稿/试题'
+PDF_DIR = OUT / '成品/试卷'
+MD_DIR = OUT / '源稿/试题'
 QA_DIR = ROOT / '_tmp' / 'exam_production' / 'rendered'
-FORMAT = json.loads((OUT/'题型规范.json').read_text(encoding='utf-8'))
+FORMAT = json.loads((OUT/'源稿/题型规范.json').read_text(encoding='utf-8'))
 SECTIONS = {key:(value['name'],value['count'],sum(value['points']))
             for key,value in FORMAT['sections'].items()}
 def paper_profile(paper: int) -> str:
@@ -140,7 +140,7 @@ def markdown(data: dict) -> str:
         body=q['content'].strip()
         if q['id'] in figure_specs:
             spec=figure_specs[q['id']]
-            body=body.replace('（1）',f'![{spec["caption"]}](../配图/{q["id"]}.png)\n\n（1）',1)
+            body=body.replace('（1）',f'![{spec["caption"]}](../配图/试题/{q["id"]}.png)\n\n（1）',1)
         lines += [f'### {q["number"]}（{q["points"]}分）', '', body, '']
         if q['section'] in {'I', 'III', 'IV'}:
             lines += ['作答区：', '', '<br>\n' * (4 if q['section']=='I' else 10), '']
@@ -440,7 +440,7 @@ def merge_all():
     for paper in range(1,7):
         path = PDF_DIR/f'重邮802模拟试卷第{paper}套.pdf'
         writer.append(PdfReader(path), outline_item=f'第{paper}套 {paper_profile(paper)}')
-    target = OUT/'六套模拟试卷合订本.pdf'
+    target = OUT/'成品/六套模拟试卷合订本.pdf'
     writer.add_metadata({'/Title':'2027考研重邮802数据结构六套模拟试卷','/Author':''})
     with target.open('wb') as f:
         writer.write(f)
@@ -552,7 +552,7 @@ def main():
     if args.build and sorted(args.papers) == list(range(1,7)):
         merge_all()
     if args.build:
-        (OUT/'成卷结构核对.json').write_text(json.dumps({'papers':reports,'说明':'检查固定题数分值、代码留空、第二部分填空格式、独立编号与无答案标记；不自动证明填空答案唯一、数学结论正确或难度实测合格。'},ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+        (OUT/'审查/成卷结构核对.json').write_text(json.dumps({'papers':reports,'说明':'检查固定题数分值、代码留空、第二部分填空格式、独立编号与无答案标记；不自动证明填空答案唯一、数学结论正确或难度实测合格。'},ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
 
 
 if __name__ == '__main__':

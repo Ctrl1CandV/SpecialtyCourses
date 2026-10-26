@@ -15,8 +15,8 @@ def normalize(text):
     return re.sub(r'⌈([^⌈⌉]+)⌉',r'ceil(\1)',text)
 
 def answer_data(paper):
-    a=json.loads((OUT/f'答案源稿/第{paper}套.json').read_text(encoding='utf-8-sig'))
-    q=json.loads((OUT/f'试题源稿/第{paper}套.json').read_text(encoding='utf-8-sig'))
+    a=json.loads((OUT/f'源稿/答案/第{paper}套.json').read_text(encoding='utf-8-sig'))
+    q=json.loads((OUT/f'源稿/试题/第{paper}套.json').read_text(encoding='utf-8-sig'))
     assert [x['id'] for x in a['questions']]==[x['id'] for x in q['questions']],f'S{paper} answer order/missing questions'
     for aq,sq in zip(a['questions'],q['questions']):
         assert len(aq['content'])>15 and aq['content'].count('```')%2==0,aq['id']
@@ -67,7 +67,7 @@ def build(data,specs):
     fill_num=ParagraphStyle('FillNumber',parent=num,spaceBefore=5,spaceAfter=4)
     caption=ParagraphStyle('Caption',parent=body,fontSize=9,leading=13,alignment=1)
     cell=ParagraphStyle('AnswerCell',parent=body,fontSize=9.5,leading=13,spaceAfter=0)
-    paper=data['paper'];target=OUT/f'答案PDF/重邮802模拟试卷第{paper}套答案.pdf';target.parent.mkdir(exist_ok=True)
+    paper=data['paper'];target=OUT/f'成品/答案/重邮802模拟试卷第{paper}套答案.pdf';target.parent.mkdir(exist_ok=True)
     doc=SimpleDocTemplate(str(target),pagesize=A4,leftMargin=margin,rightMargin=margin,topMargin=18*mm,bottomMargin=18*mm,title=f'2027重邮802模拟试卷第{paper}套参考答案',author='',subject='参考答案与评分建议')
     story=[Paragraph(f'2027考研重邮802数据结构模拟试卷<br/>第{paper}套 参考答案',title),Paragraph('对应第6版题面。程序填空接受等价写法；非唯一的树形、编码或路径按题内规则判分。算法实现仅给出一种正确方法，其他满足题目约束的解法同样有效。',body),Paragraph('评分建议用于核对作答要点。复杂度须与考生实际实现一致；不能仅因实现与参考代码不同而扣分。',body)]
     current=None
@@ -112,7 +112,7 @@ def markdown(data,specs):
     for q in data['questions']:
         if q['section']!=current:current=q['section'];lines.extend([f'## {SECTIONS[current][0]}',''])
         lines.extend([f'### {q["number"]}（{q["points"]}分）','',q['content'],''])
-        for i,s in enumerate(specs.get(q['id'],[]),1):lines.extend([f'![{s["caption"]}](../答案配图/{q["id"]}-{i}.png)',''])
+        for i,s in enumerate(specs.get(q['id'],[]),1):lines.extend([f'![{s["caption"]}](../配图/答案/{q["id"]}-{i}.png)',''])
     return '\n'.join(lines)
 
 def render(target,paper):
@@ -128,8 +128,8 @@ def render(target,paper):
 
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--papers',nargs='+',type=int,default=list(range(1,7)));parser.add_argument('--render',action='store_true');args=parser.parse_args()
-    init_pdf();specs=json.loads((OUT/'答案配图源稿.json').read_text(encoding='utf-8'))
-    md=OUT/'可编辑答案';md.mkdir(exist_ok=True);reports=[]
+    init_pdf();specs=json.loads((OUT/'源稿/答案配图源稿.json').read_text(encoding='utf-8'))
+    md=OUT/'源稿/答案';md.mkdir(exist_ok=True);reports=[]
     for p in args.papers:
         data=answer_data(p);target=build(data,specs);(md/f'第{p}套答案.md').write_text(markdown(data,specs),encoding='utf-8')
         from pypdf import PdfReader
@@ -138,7 +138,7 @@ def main():
     if sorted(args.papers)==list(range(1,7)):
         from pypdf import PdfWriter
         writer=PdfWriter()
-        for p in args.papers:writer.append(str(OUT/f'答案PDF/重邮802模拟试卷第{p}套答案.pdf'),outline_item=f'第{p}套答案')
-        writer.write(str(OUT/'六套模拟试卷答案合订本.pdf'));writer.close()
-        (OUT/'答案成卷核对.json').write_text(json.dumps(reports,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+        for p in args.papers:writer.append(str(OUT/f'成品/答案/重邮802模拟试卷第{p}套答案.pdf'),outline_item=f'第{p}套答案')
+        writer.write(str(OUT/'成品/六套模拟试卷答案合订本.pdf'));writer.close()
+        (OUT/'审查/答案成卷核对.json').write_text(json.dumps(reports,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
 if __name__=='__main__':main()

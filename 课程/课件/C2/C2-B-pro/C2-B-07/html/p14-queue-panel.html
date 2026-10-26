@@ -1,0 +1,36 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{width:1480px;height:311px;background:transparent;position:relative;overflow:visible;font-family:'Microsoft YaHei','微软雅黑',sans-serif}
+.el{position:absolute}
+.codepanel{background:F7F9FC;border-radius:2px}
+.codebar{position:absolute;left:0;top:0;width:11px;height:100%;background:1F4E9C}
+.coderows{position:absolute;left:26px;top:14px;right:10px;bottom:10px;font-family:Consolas,'Courier New',monospace;color:1F2329;white-space:pre}
+.cl{min-height:1em}
+.cfocus{background:FFF3CD;box-shadow:0 0 0 2px FFF3CD}
+.lnode{display:flex;position:absolute;border-radius:3px;overflow:hidden}
+.lnode-cell{display:flex;align-items:center;justify-content:center;height:100%;font-size:34px;font-family:'Microsoft YaHei','微软雅黑',sans-serif;border-right:2px solid #D8DBE0}
+.lnode-cell:last-child{border-right:none}
+.lhead-tag{position:absolute;font-size:20px;color:#8A9099;text-align:center}
+.cellbox{position:absolute;border:3px solid #1F4E9C;background:#fff;display:flex;align-items:center;justify-content:center;font-size:30px;color:1F2329}
+.cellidx{position:absolute;text-align:center;font-size:22px;color:#8A9099}
+.gridcell{position:absolute;border:3px solid #1F4E9C;background:#fff}
+.gridlab{position:absolute;display:flex;align-items:center;justify-content:center;font-size:24px;color:#8A9099}
+.tnode{position:absolute;border:3px solid #1F4E9C;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:30px;color:1F2329;font-weight:600}
+.panel{border-radius:6px}
+.panel-title{position:absolute;left:18px;top:10px;font-size:24px;font-weight:700}
+.chip{display:flex;align-items:center;justify-content:center;border-radius:6px;font-weight:700;font-family:'Microsoft YaHei','微软雅黑',sans-serif}
+.wlabel{position:absolute;text-align:center;font-size:30px;font-weight:700;color:#1F4E9C;font-family:'Microsoft YaHei','微软雅黑',sans-serif}
+.legend-item{position:relative;display:flex;align-items:center;gap:10px;color:1F2329}
+.sw{display:inline-block;width:26px;height:26px;border:2px solid #1F4E9C}
+.arrowsym{position:absolute;text-align:center;font-size:24px;font-weight:700;font-family:'Microsoft YaHei','微软雅黑',sans-serif}
+</style></head><body><div class="el panel" style="left:0;top:0;width:100%;height:100%;background:#F7F9FC;border:1px solid #D8DBE0">
+      <div class="panel-title" style="color:#1F4E9C">队列状态（一维编号 i×m+j，取出用 / 与 % 还原坐标）</div></div><script>
+window.addEventListener('load',()=>{
+  const out=[];
+  if(document.body.scrollWidth>document.body.clientWidth+1) out.push('body-w:'+document.body.scrollWidth+'>'+document.body.clientWidth);
+  if(document.body.scrollHeight>document.body.clientHeight+1) out.push('body-h:'+document.body.scrollHeight+'>'+document.body.clientHeight);
+  document.title='AUDIT|'+(out.length?out.join(';'):'OK');
+  const t=document.createElement('div');t.id='audit-result';t.textContent='AUDIT|'+(out.length?out.join(';'):'OK');t.style.display='none';
+  document.body.appendChild(t);
+});
+</script></body></html>

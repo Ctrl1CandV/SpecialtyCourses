@@ -1,0 +1,174 @@
+{
+  "paper": 5,
+  "version": "2026-10-25-student-v6",
+  "questions": [
+    {
+      "id": "S5-I01",
+      "section": "I",
+      "number": 1,
+      "points": 5,
+      "content": "设 n≥1 且为 2 的幂。两次递归调用都实际执行，不共用返回值；假定整数运算不溢出，基本算术、比较与自增均计为常数时间。\n```c\n#include <stdio.h>\nunsigned long long work(unsigned n) {\n    if (n == 1) return 0;\n    unsigned long long s = 0;\n    for (unsigned i = 0; i < n; ++i) {\n        ++s;\n    }\n    unsigned half = n / 2;\n    unsigned long long left = work(half);\n    unsigned long long right = work(half);\n    return left + right + s;\n}\nint main(void) {\n    const unsigned input[] = {2, 4, 8};\n    for (unsigned i = 0; i < 3; ++i) {\n        unsigned long long value = work(input[i]);\n        printf(\"%u -> %llu\\n\", input[i], value);\n    }\n    return 0;\n}\n```\n只分析一次 work(n) 调用。work(8) 的返回值为 __1__（1分）；当 n>1 时，每一层非基例调用中的循环总次数为 __2__（1分），非基例层数为 __3__（1分）；work(n) 的时间复杂度为 O(__4__)（2分）。"
+    },
+    {
+      "id": "S5-I02",
+      "section": "I",
+      "number": 2,
+      "points": 5,
+      "content": "带头结点的单链表有 n 个数据结点。程序建表后删除全部偶数结点并输出剩余元素；只分析 removeEven。待填处写指针表达式，head 非空。\n```c\n#include <stdio.h>\n#include <stdlib.h>\ntypedef struct Node { int data; struct Node *next; } Node;\nvoid removeEven(Node *head) {\n    Node *pre = head, *p = head->next;\n    while (p != NULL) {\n        if (p->data % 2 == 0) {\n            pre->next = p->next;\n            free(p);\n            p = __1__;\n        } else {\n            pre = __2__;\n            p = __3__;\n        }\n    }\n}\nint main(void) {\n    Node head = {0, NULL};\n    const int input[] = {3, 8, 5, 6, 7};\n    Node *tail = &head;\n    for (int i = 0; i < 5; ++i) {\n        Node *node = malloc(sizeof *node);\n        if (node == NULL) exit(EXIT_FAILURE);\n        node->data = input[i]; node->next = NULL;\n        tail->next = node; tail = node;\n    }\n    removeEven(&head);\n    Node *p = head.next;\n    while (p != NULL) {\n        Node *next = p->next;\n        printf(\"%d \", p->data);\n        free(p);\n        p = next;\n    }\n    putchar('\\n');\n    return 0;\n}\n```\n填 __1__（1分）、__2__（1分）、__3__（1分）；removeEven 的最坏时间复杂度为 __4__（1分），额外空间复杂度为 __5__（1分），均用 n 表示。"
+    },
+    {
+      "id": "S5-I03",
+      "section": "I",
+      "number": 3,
+      "points": 5,
+      "content": "两个栈共用长度为 CAP 的数组，栈0从左向右增长，栈1从右向左增长。CAP≥2；s、out 在调用时均为有效指针，所有操作均在初始化后进行。\n```c\n#include <stdio.h>\n#define CAP 8\ntypedef struct {\n    int a[CAP];\n    int top0, top1;\n} Shared;\nvoid init(Shared *s) {\n    s->top0 = -1;\n    s->top1 = __1__;\n}\nint full(const Shared *s) {\n    return __2__;\n}\nint push0(Shared *s, int x) {\n    if (full(s)) return 0;\n    s->a[++s->top0] = x;\n    return 1;\n}\nint push1(Shared *s, int x) {\n    if (full(s)) return 0;\n    s->a[--s->top1] = x;\n    return 1;\n}\nint pop1(Shared *s, int *out) {\n    if (__3__) return 0;\n    *out = s->a[s->top1++];\n    return 1;\n}\nint main(void) {\n    Shared s;\n    int value;\n    init(&s);\n    push0(&s, 11);\n    push1(&s, 72);\n    push0(&s, 13);\n    if (pop1(&s, &value)) printf(\"%d\\n\", value);\n    return 0;\n}\n```\n填 __1__（1分）、__2__（1分）、__3__（1分）；任一次 push 或 pop 的最坏时间复杂度为 __4__（1分），每次操作除既有数组外的额外空间复杂度为 __5__（1分）。"
+    },
+    {
+      "id": "S5-I04",
+      "section": "I",
+      "number": 4,
+      "points": 5,
+      "content": "给定容量 m≥1 的散列表，空槽用 -1 表示；待插入的关键字均为非负整数，每次调用前表中均不含该 key。散列函数为 H(key)=key mod m；发生冲突时，沿地址递增方向循环探测；若探测完 m 个槽仍无空槽，则插入失败。阅读完整程序，补全线性探测的关键表达式。\n```c\n#include <stdio.h>\nenum { CAP = 11, EMPTY = -1 };\nint insertLinear(int table[], int m, int key) {\n    int pos = __1__;\n    for (int step = 0; step < m; ++step) {\n        if (table[pos] == EMPTY) {\n            table[pos] = key;\n            return 1;\n        }\n        pos = __2__;\n    }\n    return 0;\n}\nint main(void) {\n    int table[CAP];\n    const int keys[] = {7, 18, 29, 3};\n    for (int i = 0; i < CAP; ++i)\n        table[i] = EMPTY;\n    for (int i = 0; i < 4; ++i)\n        insertLinear(table, CAP, keys[i]);\n    for (int i = 0; i < CAP; ++i)\n        printf(\"%d \", table[i]);\n    putchar('\\n');\n    return 0;\n}\n```\n填 __1__（2分）、__2__（2分）；一次插入的最坏时间复杂度为 __3__（1分），用 m 表示。"
+    },
+    {
+      "id": "S5-II01",
+      "section": "II",
+      "number": 1,
+      "points": 3,
+      "content": "对数组 A=(6,2,5,1,4,3,7) 作升序冒泡排序。每趟从左向右比较相邻元素，只有前者大于后者才交换；第一趟依次比较下标(0,1)至(5,6)，第二趟依次比较(0,1)至(4,5)，不提前停止。第一趟结束后的数组为 __1__（1分）；第二趟结束后的数组为 __2__（1分）；这两趟合计交换 __3__（1分）次。"
+    },
+    {
+      "id": "S5-II02",
+      "section": "II",
+      "number": 2,
+      "points": 3,
+      "content": "操作数均为单个字母，不含一元运算。中缀表达式 a+b*(c−d/e) 的后缀表达式为 __1__（3分）；相邻记号用空格分隔。"
+    },
+    {
+      "id": "S5-II03",
+      "section": "II",
+      "number": 3,
+      "points": 3,
+      "content": "两个循环队列均用长度为 m（m≥2）的数组。甲留一个空槽，以 front==rear 判空、(rear+1)%m==front 判满；乙另设 count，以 count==0 判空、count==m 判满。甲最多容纳 __1__ 个元素（1分），乙最多容纳 __2__ 个元素（2分）；答案用 m 表示。"
+    },
+    {
+      "id": "S5-II04",
+      "section": "II",
+      "number": 4,
+      "points": 3,
+      "content": "模式 P=abcabca，下标从 1 开始。采用约定 next[1]=0；对 j≥2，next[j] 为 P[1..j−1] 的最长真前后缀长度加 1，若最长长度为 0 则 next[j]=1。按下标 1 至 7 依次写出完整 next 数组：__1__（3分）。"
+    },
+    {
+      "id": "S5-II05",
+      "section": "II",
+      "number": 5,
+      "points": 3,
+      "content": "二维数组 A 按行主序连续存放，各元素占 2 字节，A[0,0] 的首地址为 200，A[2,3] 的首地址为 246，各行列数相同。每行有 __1__ 列（3分）。"
+    },
+    {
+      "id": "S5-II06",
+      "section": "II",
+      "number": 6,
+      "points": 3,
+      "content": "一棵非空二叉树有 8 个叶结点、3 个度为 1 的结点。这棵树共有 __1__ 个结点（3分）。"
+    },
+    {
+      "id": "S5-II07",
+      "section": "II",
+      "number": 7,
+      "points": 3,
+      "content": "有向无环图的顶点为 0、1、2、3、4、5，弧集为 {0→2，0→3，1→3，1→4，2→5，3→5，4→5}。包含全部六个顶点的不同拓扑序共有 __1__ 个（3分）。"
+    },
+    {
+      "id": "S5-II08",
+      "section": "II",
+      "number": 8,
+      "points": 3,
+      "content": "对升序数组 A[1..15]=(2,4,6,8,10,12,14,16,18,20,22,24,26,28,30) 折半查找 26。使用闭区间 [lo,hi]，每轮 mid=floor((lo+hi)/2)，每次访问 A[mid] 计一次比较。依次比较的数组下标为 __1__（2分），总比较次数为 __2__（1分）。"
+    },
+    {
+      "id": "S5-II09",
+      "section": "II",
+      "number": 9,
+      "points": 3,
+      "content": "最小堆 A[1..6]=(3,7,5,10,9,8) 的下标从 1 开始；把 2 插入堆尾，再按通常的上滤过程恢复最小堆。插入后 A[1..7] 为 __1__（3分）。"
+    },
+    {
+      "id": "S5-II10",
+      "section": "II",
+      "number": 10,
+      "points": 3,
+      "content": "一棵 Huffman 编码树是严格二叉树，共有 217 个结点，所有字符对应叶结点。字符数为 __1__（3分）。"
+    },
+    {
+      "id": "S5-III01",
+      "section": "III",
+      "number": 1,
+      "points": 10,
+      "content": "一棵二叉树的结点标识互不相同，先序序列为 A、B、D、E、C、F、G，中序序列为 D、B、E、A、F、C、G。中序线索化时，仅将原本为空的左、右指针分别指向该结点的中序前驱、后继；首尾结点的相应线索仍为空。\n（1）根据两种遍历序列画出二叉树，标明左右孩子。（4分）\n（2）写出该树的后序遍历序列。（3分）\n（3）写出结点 D 的中序前驱、后继，以及结点 F 的中序前驱、后继；不存在时写“空”。（3分）"
+    },
+    {
+      "id": "S5-III02",
+      "section": "III",
+      "number": 2,
+      "points": 10,
+      "content": "互异关键字 A[1..10]=(5,12,18,23,31,42,57,66,74,89) 已按升序存储。折半查找每轮采用闭区间 [lo,hi]，取 mid=floor((lo+hi)/2)，每访问一个关键字计一次比较；等概率成功查找时，每个关键字概率相同。\n（1）画出该规则对应的完整折半查找判定树，结点写关键字。（5分）\n（2）写出成功查找 57 时依次比较的关键字。（2分）\n（3）写出未成功查找 60 时依次比较的关键字。（1分）\n（4）求等概率成功查找的平均查找长度 ASL。（2分）"
+    },
+    {
+      "id": "S5-III03",
+      "section": "III",
+      "number": 3,
+      "points": 10,
+      "content": "字符 A、B、C、D、E、F 的出现频率依次为 2、4、7、10、15、25。按二叉 Huffman 树构造二进制前缀码，WPL 为各叶频率乘其码长之和；合并权如遇并列可任意选择。现只把 A 的频率从 2 改为 9，其他字符不变。\n（1）列出原频率的每次 Huffman 合并权，并求原最小 WPL。（4分）\n（2）若仍沿用原树的各字符码长，求新频率下的 WPL。（2分）\n（3）按新频率重新构造 Huffman 树，列出每次合并权并求新的最小 WPL。（4分）"
+    },
+    {
+      "id": "S5-III04",
+      "section": "III",
+      "number": 4,
+      "points": 10,
+      "content": "互异整数 40、20、10、30、60、50、70 依次插入一棵初始为空的普通二叉排序树；左子树键小于根，右子树键大于根。查找成功时，根的比较次数计为 1，所有结点被查找的概率相等。\n（1）画出最终二叉排序树。（4分）\n（2）写出该树的后序遍历序列。（2分）\n（3）写出查找 55 未成功时依次比较的关键字，并求七个结点等概率成功查找的 ASL。（4分）"
+    },
+    {
+      "id": "S5-III05",
+      "section": "III",
+      "number": 5,
+      "points": 10,
+      "content": "散列表地址为 0..10，依次插入关键字 22、1、13、11、24、35、46。采用双散列探测：H₀(k)=k mod 11，d(k)=1+(k mod 10)，第 i 次候选地址 Hᵢ(k)=(H₀(k)+i·d(k)) mod 11（i 从 0 开始）。表初始为空，插入时遇到首个空槽即停。\n（1）写出每个关键字的最终地址和插入探测次数，并填写最终散列表。（6分）\n（2）假设这七个关键字被等概率成功查找，求成功 ASL。（4分）"
+    },
+    {
+      "id": "S5-III06",
+      "section": "III",
+      "number": 6,
+      "points": 10,
+      "content": "无向简单图的顶点为 0..6，边集为 {0–1，0–2，1–2，3–4，4–5}，顶点 6 孤立。邻接点均按编号递增访问；遍历完一个分量后，从最小未访问顶点重新启动。发现新顶点时将该边记为生成森林的树边。\n（1）分别写出 DFS 与 BFS 的访问序列。（4分）\n（2）分别列出两种生成森林的全部树边。（4分）\n（3）给出连通分量数及每种森林的树边总数。（2分）"
+    },
+    {
+      "id": "S5-III07",
+      "section": "III",
+      "number": 7,
+      "points": 10,
+      "content": "六条记录按原顺序记为 a=(C,2)、b=(A,1)、c=(B,2)、d=(A,2)、e=(B,1)、f=(A,1)。要求按第一关键字字母 A<B<C 升序，再按第二关键字整数 1<2 升序；两个关键字均相同时保留原先后次序。每一趟都采用稳定排序。\n（1）先按第二关键字、再按第一关键字排序，写出第一趟结束后的记录标识序列。（3分）\n（2）写出第二趟结束后的记录标识序列。（3分）\n（3）若改为先按第一关键字、再按第二关键字排序，写出最终记录标识序列。（4分）"
+    },
+    {
+      "id": "S5-IV01",
+      "section": "IV",
+      "number": 1,
+      "points": 8,
+      "content": "带头结点的单链表 L 按整数 key 非递减排列，允许重复与空表。设计 void keepLastOfEachKey(Node *L)，对每种键值只保留它在原链中的最后一个数据结点，释放同键其余结点；保留结点原相对次序，头结点地址不变，不新建数据结点。\n```c\ntypedef struct Node { int key; struct Node *next; } Node;\nvoid keepLastOfEachKey(Node *L);\n```\n请写出算法的基本思想、C语言实现，并分析时间复杂度和辅助空间复杂度。"
+    },
+    {
+      "id": "S5-IV02",
+      "section": "IV",
+      "number": 2,
+      "points": 10,
+      "content": "有向无环图 G 采用邻接表存储，顶点编号为 0..V−1。给定长度为 k 的整数序列 P，0≤k≤V，其中各元素互不相同且均为合法顶点编号。设计 bool canBePrefix(const Graph *G, const int P[], int k)，判断 P 能否作为 G 的某个完整拓扑序的前 k 项；k=0 时返回真。只返回真假，不修改 G。\n```c\n#include <stdbool.h>\ntypedef struct Arc { int to; struct Arc *next; } Arc;\ntypedef struct Graph { int V; Arc **head; } Graph;\nbool canBePrefix(const Graph *G, const int P[], int k);\n```\n请写出算法的基本思想、C语言实现，并分析时间复杂度和辅助空间复杂度。"
+    },
+    {
+      "id": "S5-IV03",
+      "section": "IV",
+      "number": 3,
+      "points": 12,
+      "content": "普通二叉树以左右孩子指针存储。设计 int treeDiameter(const Node *root)，返回树中任意两结点之间最长简单路径的边数；空树和单结点树均返回 0。不得改动原树。\n```c\ntypedef struct Node { struct Node *left, *right; } Node;\nint treeDiameter(const Node *root);\n```\n请写出算法的基本思想、C语言实现，并分析时间复杂度和辅助空间复杂度。"
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+# B-07 P14 多源 BFS 逐层扩散 —— 动画页（网格扩散 + 队列状态 + 步骤字幕）
+# 网格壳=固定层；dist 值/染色/队列/字幕=原生对象按点击出现（4 次点击）
+page: 14
+fixed:
+  - id: grid
+    component: grid
+    box: [0.9, 2.72, 3.62, 2.72]
+    props:
+      rows: 3
+      cols: 4
+      cellW: 150
+      cellH: 150
+      gapPx: 8
+      labelW: 40
+      labelH: 30
+      colLabels: ["0", "1", "2", "3"]
+      rowLabels: ["0", "1", "2"]
+  - id: queue-panel
+    component: panel
+    box: [4.72, 2.72, 7.71, 1.62]
+    props:
+      title: "队列状态（一维编号 i×m+j，取出用 / 与 % 还原坐标）"
+native:
+  # —— 第0层：两个源点 ——
+  - { id: srctint-01, kind: rect, box: [1.931, 2.877, 0.781, 0.781], props: { fill: "1F4E9C", transparency: 55 } }
+  - { id: srctint-22, kind: rect, box: [2.754, 4.523, 0.781, 0.781], props: { fill: "1F4E9C", transparency: 55 } }
+  - { id: v01, kind: text, box: [2.171, 3.117, 0.30, 0.30], props: { text: "0", fontSize: 18, bold: true, color: "1F4E9C", align: center, valign: middle } }
+  - { id: v22, kind: text, box: [2.944, 4.713, 0.40, 0.40], props: { text: "0", fontSize: 18, bold: true, color: "1F4E9C", align: center, valign: middle } }
+  # —— 第1层 6 格 dist=1（值 + 浅染色） ——
+  - { id: lt1-00, kind: rect, box: [1.108, 2.877, 0.781, 0.781], props: { fill: "D6E2F5" } }
+  - { id: lt1-02, kind: rect, box: [2.754, 2.877, 0.781, 0.781], props: { fill: "D6E2F5" } }
+  - { id: lt1-11, kind: rect, box: [1.931, 3.700, 0.781, 0.781], props: { fill: "D6E2F5" } }
+  - { id: lt1-21, kind: rect, box: [1.931, 4.523, 0.781, 0.781], props: { fill: "D6E2F5" } }
+  - { id: lt1-23, kind: rect, box: [3.576, 4.523, 0.781, 0.781], props: { fill: "D6E2F5" } }
+  - { id: lt1-12, kind: rect, box: [2.754, 3.700, 0.781, 0.781], props: { fill: "D6E2F5" } }
+  - { id: v00, kind: text, box: [1.348, 3.117, 0.30, 0.30], props: { text: "1", fontSize: 18, align: center, valign: middle } }
+  - { id: v02, kind: text, box: [2.994, 3.117, 0.30, 0.30], props: { text: "1", fontSize: 18, align: center, valign: middle } }
+  - { id: v11, kind: text, box: [2.171, 3.940, 0.30, 0.30], props: { text: "1", fontSize: 18, align: center, valign: middle } }
+  - { id: v21, kind: text, box: [2.171, 4.763, 0.30, 0.30], props: { text: "1", fontSize: 18, align: center, valign: middle } }
+  - { id: v23, kind: text, box: [3.816, 4.763, 0.30, 0.30], props: { text: "1", fontSize: 18, align: center, valign: middle } }
+  - { id: v12, kind: text, box: [2.994, 3.940, 0.30, 0.30], props: { text: "1", fontSize: 18, align: center, valign: middle } }
+  # —— 第2层 3 格 dist=2 ——
+  - { id: lt2-10, kind: rect, box: [1.108, 3.700, 0.781, 0.781], props: { fill: "EDF2FB" } }
+  - { id: lt2-03, kind: rect, box: [3.576, 2.877, 0.781, 0.781], props: { fill: "EDF2FB" } }
+  - { id: lt2-13, kind: rect, box: [3.576, 3.700, 0.781, 0.781], props: { fill: "EDF2FB" } }
+  - { id: v10, kind: text, box: [1.348, 3.940, 0.30, 0.30], props: { text: "2", fontSize: 18, color: "8A9099", align: center, valign: middle } }
+  - { id: v03, kind: text, box: [3.816, 3.117, 0.30, 0.30], props: { text: "2", fontSize: 18, color: "8A9099", align: center, valign: middle } }
+  - { id: v13, kind: text, box: [3.816, 3.940, 0.30, 0.30], props: { text: "2", fontSize: 18, color: "8A9099", align: center, valign: middle } }
+  # —— 队列状态（每步一条，隐藏上一条） ——
+  - { id: q1, kind: text, box: [4.95, 3.22, 7.25, 0.95], props: { fontSize: 15, text: "初始化扫全图：白像素 dist=0 全部入队，黑像素 dist=-1 兼作 visited\n队列 = [ (0,1), (2,2) ]" } }
+  - { id: q2, kind: text, box: [4.95, 3.22, 7.25, 0.95], props: { fontSize: 15, text: "出队 (0,1)(2,2)，四邻居中 dist=-1 的共 6 个，dist 置 1 入队；相邻白像素只记一次\n队列 = [ (0,0), (0,2), (1,1), (2,1), (2,3), (1,2) ]" } }
+  - { id: q3, kind: text, box: [4.95, 3.22, 7.25, 0.95], props: { fontSize: 15, text: "出队 6 个，每个只带出 dist=-1 的新邻居，dist 置 2\n队列 = [ (1,0), (0,3), (1,3) ]" } }
+  - { id: q4, kind: text, box: [4.95, 3.22, 7.25, 0.95], props: { fontSize: 15, text: "出队 3 个，无新邻居可入\n队列为空，扩散停止，共入队 12 次 = 像素数，时间 O(nm)" } }
+  # —— 步骤字幕（网格右侧下方） ——
+  - { id: cap1, kind: text, box: [4.72, 4.50, 7.71, 0.42], props: { fontSize: 15, bold: true, color: "1F4E9C", text: "第 0 层：源点同时起跑" } }
+  - { id: cap2, kind: text, box: [4.72, 4.50, 7.71, 0.42], props: { fontSize: 15, bold: true, color: "1F4E9C", text: "第 1 层：每扩一层距离加 1，第一次被访问就是最近距离" } }
+  - { id: cap3, kind: text, box: [4.72, 4.50, 7.71, 0.42], props: { fontSize: 15, bold: true, color: "1F4E9C", text: "第 2 层：扩散按层推进，互不越层" } }
+  - { id: cap4, kind: text, box: [4.72, 4.50, 7.71, 0.42], props: { fontSize: 15, bold: true, color: "1F4E9C", text: "结束：距离矩阵与手算曼哈顿距离逐个一致" } }
+  # —— 底部常驻要点 ——
+  - id: pts
+    kind: bullets
+    box: [0.9, 5.62, 11.53, 0.80]
+    props:
+      fontSize: 14
+      items:
+        - "白像素在 (0,1) 和 (2,2)；先拿纸手算每个像素到最近白像素的距离，再逐步对照动画"
+        - "对照手算：每个像素第一次被访问的层号就是答案，最终矩阵与曼哈顿距离逐个一致"
+steps:
+  - { appear: [srctint-01, srctint-22, v01, v22, q1, cap1], caption: "第0层：源点入队" }
+  - { appear: [lt1-00, lt1-02, lt1-11, lt1-21, lt1-23, lt1-12, v00, v02, v11, v21, v23, v12, q2, cap2], hide: [q1, cap1], caption: "第1层：6个邻居dist=1" }
+  - { appear: [lt2-10, lt2-03, lt2-13, v10, v03, v13, q3, cap3], hide: [q2, cap2], caption: "第2层：3个像素dist=2" }
+  - { appear: [q4, cap4], hide: [q3, cap3], caption: "队列空，扩散停" }

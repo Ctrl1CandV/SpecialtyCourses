@@ -1,0 +1,35 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{width:1018px;height:691px;background:transparent;position:relative;overflow:visible;font-family:'Microsoft YaHei','微软雅黑',sans-serif}
+.el{position:absolute}
+.codepanel{background:F7F9FC;border-radius:2px}
+.codebar{position:absolute;left:0;top:0;width:11px;height:100%;background:1F4E9C}
+.coderows{position:absolute;left:26px;top:14px;right:10px;bottom:10px;font-family:Consolas,'Courier New',monospace;color:1F2329;white-space:pre}
+.cl{min-height:1em}
+.cfocus{background:FFF3CD;box-shadow:0 0 0 2px FFF3CD}
+.lnode{display:flex;position:absolute;border-radius:3px;overflow:hidden}
+.lnode-cell{display:flex;align-items:center;justify-content:center;height:100%;font-size:34px;font-family:'Microsoft YaHei','微软雅黑',sans-serif;border-right:2px solid #D8DBE0}
+.lnode-cell:last-child{border-right:none}
+.lhead-tag{position:absolute;font-size:20px;color:#8A9099;text-align:center}
+.cellbox{position:absolute;border:3px solid #1F4E9C;background:#fff;display:flex;align-items:center;justify-content:center;font-size:30px;color:1F2329}
+.cellidx{position:absolute;text-align:center;font-size:22px;color:#8A9099}
+.gridcell{position:absolute;border:3px solid #1F4E9C;background:#fff}
+.gridlab{position:absolute;display:flex;align-items:center;justify-content:center;font-size:24px;color:#8A9099}
+.tnode{position:absolute;border:3px solid #1F4E9C;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:30px;color:1F2329;font-weight:600}
+.panel{border-radius:6px}
+.panel-title{position:absolute;left:18px;top:10px;font-size:24px;font-weight:700}
+.chip{display:flex;align-items:center;justify-content:center;border-radius:6px;font-weight:700;font-family:'Microsoft YaHei','微软雅黑',sans-serif}
+.wlabel{position:absolute;text-align:center;font-size:30px;font-weight:700;color:#1F4E9C;font-family:'Microsoft YaHei','微软雅黑',sans-serif}
+.legend-item{position:relative;display:flex;align-items:center;gap:10px;color:1F2329}
+.sw{display:inline-block;width:26px;height:26px;border:2px solid #1F4E9C}
+.arrowsym{position:absolute;text-align:center;font-size:24px;font-weight:700;font-family:'Microsoft YaHei','微软雅黑',sans-serif}
+</style></head><body><div class="el" style="left:0;top:0;width:100%;height:100%;position:absolute"><svg style="position:absolute;left:0;top:0;width:100%;height:100%;overflow:visible"><line x1="189.0834476451135" y1="235.74130835820543" x2="400.9165523548865" y2="104.25869164179457" stroke="#1F2329" stroke-width="3"/></svg><div class="wlabel" style="left:265px;top:150px;width:60px">2</div><svg style="position:absolute;left:0;top:0;width:100%;height:100%;overflow:visible"><line x1="170.57182539299805" y1="301.1436507859961" x2="269.42817460700195" y2="498.8563492140039" stroke="#1F2329" stroke-width="3"/></svg><div class="wlabel" style="left:190px;top:380px;width:60px">6</div><svg style="position:absolute;left:0;top:0;width:100%;height:100%;overflow:visible"><line x1="480.09247470772925" y1="102.5520170230977" x2="719.9075252922707" y2="237.4479829769023" stroke="#1F2329" stroke-width="3"/></svg><div class="wlabel" style="left:570px;top:150px;width:60px">3</div><svg style="position:absolute;left:0;top:0;width:100%;height:100%;overflow:visible"><line x1="425.7390524077778" y1="123.73357261614802" x2="304.2609475922222" y2="496.266427383852" stroke="#1F2329" stroke-width="3"/></svg><div class="wlabel" style="left:335px;top:290px;width:60px">8</div><svg style="position:absolute;left:0;top:0;width:100%;height:100%;overflow:visible"><line x1="458.3414011250647" y1="122.18522258764881" x2="621.6585988749353" y2="497.8147774123512" stroke="#1F2329" stroke-width="3"/></svg><div class="wlabel" style="left:510px;top:290px;width:60px">5</div><svg style="position:absolute;left:0;top:0;width:100%;height:100%;overflow:visible"><line x1="741.8797122653583" y1="302.28067138083065" x2="658.1202877346417" y2="497.71932861916935" stroke="#1F2329" stroke-width="3"/></svg><div class="wlabel" style="left:670px;top:380px;width:60px">7</div><svg style="position:absolute;left:0;top:0;width:100%;height:100%;overflow:visible"><line x1="336" y1="540" x2="594" y2="540" stroke="#1F2329" stroke-width="3"/></svg><div class="wlabel" style="left:435px;top:520px;width:60px">9</div><div class="tnode" style="left:108px;top:218px;width:84px;height:84px"><span>0</span></div><div class="tnode" style="left:398px;top:38px;width:84px;height:84px"><span>1</span></div><div class="tnode" style="left:718px;top:218px;width:84px;height:84px"><span>2</span></div><div class="tnode" style="left:248px;top:498px;width:84px;height:84px"><span>3</span></div><div class="tnode" style="left:598px;top:498px;width:84px;height:84px"><span>4</span></div></div><script>
+window.addEventListener('load',()=>{
+  const out=[];
+  if(document.body.scrollWidth>document.body.clientWidth+1) out.push('body-w:'+document.body.scrollWidth+'>'+document.body.clientWidth);
+  if(document.body.scrollHeight>document.body.clientHeight+1) out.push('body-h:'+document.body.scrollHeight+'>'+document.body.clientHeight);
+  document.title='AUDIT|'+(out.length?out.join(';'):'OK');
+  const t=document.createElement('div');t.id='audit-result';t.textContent='AUDIT|'+(out.length?out.join(';'):'OK');t.style.display='none';
+  document.body.appendChild(t);
+});
+</script></body></html>

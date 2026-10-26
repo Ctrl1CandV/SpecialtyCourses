@@ -1,0 +1,123 @@
+page: 7
+anim:
+- id: initial
+  component: raw
+  box:
+  - 1.0
+  - 2.66
+  - 11.33
+  - 3.65
+  props:
+    html: '<div style="width:100%;height:100%;padding:22px 28px;background:#F7F9FC;border:1px solid #D8DBE0;border-radius:16px;display:flex;flex-direction:column;justify-content:center;font-family:Arial,''Microsoft
+      YaHei'',sans-serif;color:#1F2329"><div style="font-size:25px;font-weight:700;color:#1F4E9C;margin-bottom:10px">初始状态</div><div style="display:flex;align-items:center;gap:18px;margin:9px
+      0"><div style="width:146px;color:#68707C;font-size:19px;font-weight:700">整条链</div><div style="display:flex;align-items:flex-end;gap:8px;flex-wrap:wrap"><div
+      style="display:flex;flex-direction:column;align-items:center;gap:4px;min-width:82px"><span style="font-size:18px;color:#1F4E9C;font-weight:700;margin-bottom:6px">L</span><div
+      style="border:2px solid #1F4E9C;border-radius:10px;background:#fff;padding:12px 18px;min-width:82px;text-align:center;font-size:27px;font-weight:700;color:#1F2329">A</div></div><span
+      style="font-size:28px;color:#1F4E9C;font-weight:700">→</span><div style="display:flex;flex-direction:column;align-items:center;gap:4px;min-width:82px"><div
+      style="border:2px solid #1F4E9C;border-radius:10px;background:#fff;padding:12px 18px;min-width:82px;text-align:center;font-size:27px;font-weight:700;color:#1F2329">B</div></div><span
+      style="font-size:28px;color:#1F4E9C;font-weight:700">→</span><div style="display:flex;flex-direction:column;align-items:center;gap:4px;min-width:82px"><div
+      style="border:2px solid #1F4E9C;border-radius:10px;background:#fff;padding:12px 18px;min-width:82px;text-align:center;font-size:27px;font-weight:700;color:#1F2329">C</div></div><span
+      style="font-size:20px;color:#8A9099;font-weight:700">→ NULL</span></div></div><div style="margin-top:14px;padding:12px 16px;background:#E8EEF9;border-radius:10px;font-size:19px;line-height:1.35">先置空
+      L-&gt;next，再逐个摘下并头插。</div></div>'
+- id: s1
+  component: raw
+  box:
+  - 1.0
+  - 2.66
+  - 11.33
+  - 3.65
+  props:
+    html: '<div style="width:100%;height:100%;padding:22px 28px;background:#F7F9FC;border:1px solid #D8DBE0;border-radius:16px;display:flex;flex-direction:column;justify-content:center;font-family:Arial,''Microsoft
+      YaHei'',sans-serif;color:#1F2329"><div style="font-size:25px;font-weight:700;color:#1F4E9C;margin-bottom:10px">断成结果空表和待处理链</div><div style="display:flex;align-items:center;gap:18px;margin:9px
+      0"><div style="width:146px;color:#68707C;font-size:19px;font-weight:700">结果</div><span style="font-size:24px;color:#8A9099">L → NULL</span></div><div
+      style="display:flex;align-items:center;gap:18px;margin:9px 0"><div style="width:146px;color:#68707C;font-size:19px;font-weight:700">待处理</div><div
+      style="display:flex;align-items:flex-end;gap:8px;flex-wrap:wrap"><div style="display:flex;flex-direction:column;align-items:center;gap:4px;min-width:82px"><span
+      style="font-size:18px;color:#1F4E9C;font-weight:700;margin-bottom:6px">p</span><div style="border:2px solid #1F4E9C;border-radius:10px;background:#fff;padding:12px
+      18px;min-width:82px;text-align:center;font-size:27px;font-weight:700;color:#1F2329">A</div></div><span style="font-size:28px;color:#1F4E9C;font-weight:700">→</span><div
+      style="display:flex;flex-direction:column;align-items:center;gap:4px;min-width:82px"><div style="border:2px solid #1F4E9C;border-radius:10px;background:#fff;padding:12px
+      18px;min-width:82px;text-align:center;font-size:27px;font-weight:700;color:#1F2329">B</div></div><span style="font-size:28px;color:#1F4E9C;font-weight:700">→</span><div
+      style="display:flex;flex-direction:column;align-items:center;gap:4px;min-width:82px"><div style="border:2px solid #1F4E9C;border-radius:10px;background:#fff;padding:12px
+      18px;min-width:82px;text-align:center;font-size:27px;font-weight:700;color:#1F2329">C</div></div><span style="font-size:20px;color:#8A9099;font-weight:700">→
+      NULL</span></div></div><div style="margin-top:14px;padding:12px 16px;background:#E8EEF9;border-radius:10px;font-size:19px;line-height:1.35">p
+      仍指向 A；A、B、C 仍连在一起。</div></div>'
+- id: s2
+  component: raw
+  box:
+  - 1.0
+  - 2.66
+  - 11.33
+  - 3.65
+  props:
+    html: '<div style="width:100%;height:100%;padding:22px 28px;background:#F7F9FC;border:1px solid #D8DBE0;border-radius:16px;display:flex;flex-direction:column;justify-content:center;font-family:Arial,''Microsoft
+      YaHei'',sans-serif;color:#1F2329"><div style="font-size:25px;font-weight:700;color:#1F4E9C;margin-bottom:10px">第 1 轮：A 头插到 L 后面</div><div
+      style="display:flex;align-items:center;gap:18px;margin:9px 0"><div style="width:146px;color:#68707C;font-size:19px;font-weight:700">结果</div><div
+      style="display:flex;align-items:flex-end;gap:8px;flex-wrap:wrap"><div style="display:flex;flex-direction:column;align-items:center;gap:4px;min-width:82px"><span
+      style="font-size:18px;color:#1F4E9C;font-weight:700;margin-bottom:6px">L</span><div style="border:2px solid #1F4E9C;border-radius:10px;background:#fff;padding:12px
+      18px;min-width:82px;text-align:center;font-size:27px;font-weight:700;color:#1F2329">A</div></div><span style="font-size:20px;color:#8A9099;font-weight:700">→
+      NULL</span></div></div><div style="display:flex;align-items:center;gap:18px;margin:9px 0"><div style="width:146px;color:#68707C;font-size:19px;font-weight:700">待处理</div><div
+      style="display:flex;align-items:flex-end;gap:8px;flex-wrap:wrap"><div style="display:flex;flex-direction:column;align-items:center;gap:4px;min-width:82px"><span
+      style="font-size:18px;color:#1F4E9C;font-weight:700;margin-bottom:6px">p</span><div style="border:2px solid #1F4E9C;border-radius:10px;background:#fff;padding:12px
+      18px;min-width:82px;text-align:center;font-size:27px;font-weight:700;color:#1F2329">B</div></div><span style="font-size:28px;color:#1F4E9C;font-weight:700">→</span><div
+      style="display:flex;flex-direction:column;align-items:center;gap:4px;min-width:82px"><div style="border:2px solid #1F4E9C;border-radius:10px;background:#fff;padding:12px
+      18px;min-width:82px;text-align:center;font-size:27px;font-weight:700;color:#1F2329">C</div></div><span style="font-size:20px;color:#8A9099;font-weight:700">→
+      NULL</span></div></div><div style="margin-top:14px;padding:12px 16px;background:#E8EEF9;border-radius:10px;font-size:19px;line-height:1.35">先让
+      p 移到 B，再改 A-&gt;next。</div></div>'
+- id: s3
+  component: raw
+  box:
+  - 1.0
+  - 2.66
+  - 11.33
+  - 3.65
+  props:
+    html: '<div style="width:100%;height:100%;padding:22px 28px;background:#F7F9FC;border:1px solid #D8DBE0;border-radius:16px;display:flex;flex-direction:column;justify-content:center;font-family:Arial,''Microsoft
+      YaHei'',sans-serif;color:#1F2329"><div style="font-size:25px;font-weight:700;color:#1F4E9C;margin-bottom:10px">第 2 轮：B 头插</div><div style="display:flex;align-items:center;gap:18px;margin:9px
+      0"><div style="width:146px;color:#68707C;font-size:19px;font-weight:700">结果</div><div style="display:flex;align-items:flex-end;gap:8px;flex-wrap:wrap"><div
+      style="display:flex;flex-direction:column;align-items:center;gap:4px;min-width:82px"><span style="font-size:18px;color:#1F4E9C;font-weight:700;margin-bottom:6px">L</span><div
+      style="border:2px solid #1F4E9C;border-radius:10px;background:#fff;padding:12px 18px;min-width:82px;text-align:center;font-size:27px;font-weight:700;color:#1F2329">B</div></div><span
+      style="font-size:28px;color:#1F4E9C;font-weight:700">→</span><div style="display:flex;flex-direction:column;align-items:center;gap:4px;min-width:82px"><div
+      style="border:2px solid #1F4E9C;border-radius:10px;background:#fff;padding:12px 18px;min-width:82px;text-align:center;font-size:27px;font-weight:700;color:#1F2329">A</div></div><span
+      style="font-size:20px;color:#8A9099;font-weight:700">→ NULL</span></div></div><div style="display:flex;align-items:center;gap:18px;margin:9px
+      0"><div style="width:146px;color:#68707C;font-size:19px;font-weight:700">待处理</div><div style="display:flex;align-items:flex-end;gap:8px;flex-wrap:wrap"><div
+      style="display:flex;flex-direction:column;align-items:center;gap:4px;min-width:82px"><span style="font-size:18px;color:#1F4E9C;font-weight:700;margin-bottom:6px">p</span><div
+      style="border:2px solid #1F4E9C;border-radius:10px;background:#fff;padding:12px 18px;min-width:82px;text-align:center;font-size:27px;font-weight:700;color:#1F2329">C</div></div><span
+      style="font-size:20px;color:#8A9099;font-weight:700">→ NULL</span></div></div><div style="margin-top:14px;padding:12px 16px;background:#E8EEF9;border-radius:10px;font-size:19px;line-height:1.35">B
+      接在 A 前面，未处理部分仍由 p 保留。</div></div>'
+- id: s4
+  component: raw
+  box:
+  - 1.0
+  - 2.66
+  - 11.33
+  - 3.65
+  props:
+    html: '<div style="width:100%;height:100%;padding:22px 28px;background:#F7F9FC;border:1px solid #D8DBE0;border-radius:16px;display:flex;flex-direction:column;justify-content:center;font-family:Arial,''Microsoft
+      YaHei'',sans-serif;color:#1F2329"><div style="font-size:25px;font-weight:700;color:#1F4E9C;margin-bottom:10px">第 3 轮：C 头插，p 为空</div><div
+      style="display:flex;align-items:center;gap:18px;margin:9px 0"><div style="width:146px;color:#68707C;font-size:19px;font-weight:700">结果</div><div
+      style="display:flex;align-items:flex-end;gap:8px;flex-wrap:wrap"><div style="display:flex;flex-direction:column;align-items:center;gap:4px;min-width:82px"><span
+      style="font-size:18px;color:#1F4E9C;font-weight:700;margin-bottom:6px">L</span><div style="border:2px solid #1F4E9C;border-radius:10px;background:#fff;padding:12px
+      18px;min-width:82px;text-align:center;font-size:27px;font-weight:700;color:#1F2329">C</div></div><span style="font-size:28px;color:#1F4E9C;font-weight:700">→</span><div
+      style="display:flex;flex-direction:column;align-items:center;gap:4px;min-width:82px"><div style="border:2px solid #1F4E9C;border-radius:10px;background:#fff;padding:12px
+      18px;min-width:82px;text-align:center;font-size:27px;font-weight:700;color:#1F2329">B</div></div><span style="font-size:28px;color:#1F4E9C;font-weight:700">→</span><div
+      style="display:flex;flex-direction:column;align-items:center;gap:4px;min-width:82px"><div style="border:2px solid #1F4E9C;border-radius:10px;background:#fff;padding:12px
+      18px;min-width:82px;text-align:center;font-size:27px;font-weight:700;color:#1F2329">A</div></div><span style="font-size:20px;color:#8A9099;font-weight:700">→
+      NULL</span></div></div><div style="display:flex;align-items:center;gap:18px;margin:9px 0"><div style="width:146px;color:#68707C;font-size:19px;font-weight:700">待处理</div><span
+      style="font-size:24px;color:#8A9099">p → NULL</span></div><div style="margin-top:14px;padding:12px 16px;background:#E8EEF9;border-radius:10px;font-size:19px;line-height:1.35">循环结束。只改连接，时间
+      O(n)，额外空间 O(1)。</div></div>'
+steps:
+- hide:
+  - initial
+  appear:
+  - s1
+- hide:
+  - s1
+  appear:
+  - s2
+- hide:
+  - s2
+  appear:
+  - s3
+- hide:
+  - s3
+  appear:
+  - s4

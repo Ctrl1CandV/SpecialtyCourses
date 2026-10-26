@@ -1,0 +1,611 @@
+{
+  "S5-II01": [
+    [
+      [
+        2,
+        5,
+        1,
+        4,
+        3,
+        6,
+        7
+      ],
+      [
+        2,
+        1,
+        4,
+        3,
+        5,
+        6,
+        7
+      ]
+    ],
+    8
+  ],
+  "S5-II04": [
+    0,
+    1,
+    1,
+    1,
+    2,
+    3,
+    4
+  ],
+  "S5-II07": 16,
+  "S5-II08": [
+    8,
+    12,
+    14,
+    13
+  ],
+  "S5-II09": [
+    2,
+    7,
+    3,
+    10,
+    9,
+    8,
+    5
+  ],
+  "S5-I01-work8": 24,
+  "S5-II05-columns": 10,
+  "S5-II06-nodes": 18,
+  "S5-II10-leaves": 109,
+  "S5-III01-pre": [
+    "A",
+    "B",
+    "D",
+    "E",
+    "C",
+    "F",
+    "G"
+  ],
+  "S5-III01-in": [
+    "D",
+    "B",
+    "E",
+    "A",
+    "F",
+    "C",
+    "G"
+  ],
+  "S5-III01-post": [
+    "D",
+    "E",
+    "B",
+    "F",
+    "G",
+    "C",
+    "A"
+  ],
+  "S5-III02-diagram": [
+    31,
+    [
+      12,
+      [
+        5,
+        null,
+        null
+      ],
+      [
+        18,
+        null,
+        [
+          23,
+          null,
+          null
+        ]
+      ]
+    ],
+    [
+      66,
+      [
+        42,
+        null,
+        [
+          57,
+          null,
+          null
+        ]
+      ],
+      [
+        74,
+        null,
+        [
+          89,
+          null,
+          null
+        ]
+      ]
+    ]
+  ],
+  "S5-III02-ASL": 29,
+  "S5-III03-old-merges": [
+    6,
+    13,
+    23,
+    38,
+    63
+  ],
+  "S5-III03-new-merges": [
+    11,
+    19,
+    26,
+    44,
+    70
+  ],
+  "S5-III03-old-WPL": 143,
+  "S5-III03-new-WPL": 170,
+  "S5-III03-original-A-length": 5,
+  "S5-III03-diagram-0-WPL": 143,
+  "S5-III03-diagram-1-WPL": 170,
+  "S5-III04-diagram": [
+    40,
+    [
+      20,
+      [
+        10,
+        null,
+        null
+      ],
+      [
+        30,
+        null,
+        null
+      ]
+    ],
+    [
+      60,
+      [
+        50,
+        null,
+        null
+      ],
+      [
+        70,
+        null,
+        null
+      ]
+    ]
+  ],
+  "S5-III04-ASL": 17,
+  "S5-III05-table": [
+    22,
+    1,
+    13,
+    null,
+    11,
+    null,
+    null,
+    24,
+    35,
+    46,
+    null
+  ],
+  "S5-III05-probes": [
+    1,
+    1,
+    1,
+    3,
+    2,
+    2,
+    2
+  ],
+  "S5-III06-DFS": [
+    [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    [
+      [
+        0,
+        1
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        3,
+        4
+      ],
+      [
+        4,
+        5
+      ]
+    ]
+  ],
+  "S5-III06-BFS": [
+    [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    [
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        3,
+        4
+      ],
+      [
+        4,
+        5
+      ]
+    ]
+  ],
+  "S5-III07": [
+    [
+      "b",
+      "e",
+      "f",
+      "a",
+      "c",
+      "d"
+    ],
+    [
+      "b",
+      "f",
+      "d",
+      "e",
+      "c",
+      "a"
+    ],
+    [
+      "b",
+      "f",
+      "e",
+      "d",
+      "c",
+      "a"
+    ]
+  ],
+  "S6-II03-stackcount": 3,
+  "S6-II01-queuecount": 4,
+  "S6-II02-address": 152,
+  "S6-II04": [
+    [
+      0,
+      2
+    ],
+    7
+  ],
+  "S6-II06": 7,
+  "S6-II07": 27,
+  "S6-II08": [
+    1,
+    7,
+    2,
+    9,
+    8,
+    6,
+    4
+  ],
+  "S6-II09": 19,
+  "S6-II10": 8,
+  "S6-III01-merges": [
+    8,
+    15,
+    24,
+    33,
+    57
+  ],
+  "S6-III01-WPL": 137,
+  "S6-III01-diagram-codes": {
+    "D": "00",
+    "E": "01",
+    "C": "100",
+    "A": "1010",
+    "B": "1011",
+    "F": "11"
+  },
+  "S6-III02-forest-diagram": [
+    [
+      "A",
+      "B"
+    ],
+    [
+      "A",
+      "D"
+    ],
+    [
+      "B",
+      "C"
+    ],
+    [
+      "D",
+      "E"
+    ],
+    [
+      "F",
+      "G"
+    ]
+  ],
+  "S6-III03-diagram": [
+    6,
+    [
+      3,
+      [
+        1,
+        null,
+        [
+          2,
+          null,
+          null
+        ]
+      ],
+      [
+        4,
+        null,
+        [
+          5,
+          null,
+          null
+        ]
+      ]
+    ],
+    [
+      9,
+      [
+        7,
+        null,
+        [
+          8,
+          null,
+          null
+        ]
+      ],
+      [
+        10,
+        null,
+        [
+          11,
+          null,
+          null
+        ]
+      ]
+    ]
+  ],
+  "S6-III03-ASL": 33,
+  "S6-III04-BST-diagram": [
+    30,
+    [
+      10,
+      null,
+      [
+        20,
+        null,
+        null
+      ]
+    ],
+    [
+      50,
+      [
+        40,
+        null,
+        null
+      ],
+      [
+        60,
+        null,
+        [
+          70,
+          null,
+          null
+        ]
+      ]
+    ]
+  ],
+  "S6-III04-AVL-diagram": [
+    40,
+    [
+      20,
+      [
+        10,
+        null,
+        null
+      ],
+      [
+        30,
+        null,
+        null
+      ]
+    ],
+    [
+      60,
+      [
+        50,
+        null,
+        null
+      ],
+      [
+        70,
+        null,
+        null
+      ]
+    ]
+  ],
+  "S6-III04-binary-diagram": [
+    4,
+    [
+      2,
+      [
+        1,
+        null,
+        null
+      ],
+      [
+        3,
+        null,
+        null
+      ]
+    ],
+    [
+      6,
+      [
+        5,
+        null,
+        null
+      ],
+      [
+        7,
+        null,
+        null
+      ]
+    ]
+  ],
+  "S6-III04-ASLs": [
+    18,
+    17,
+    17
+  ],
+  "S6-III05": [
+    [
+      0,
+      2,
+      3,
+      6,
+      7,
+      9
+    ],
+    [
+      0,
+      2,
+      3,
+      6,
+      7,
+      9
+    ],
+    [
+      0,
+      0,
+      2,
+      3,
+      3,
+      6,
+      7,
+      2
+    ],
+    [
+      0,
+      0,
+      2,
+      5,
+      3,
+      6,
+      7,
+      6
+    ]
+  ],
+  "S6-III06-MST-weight": 8,
+  "S6-III06-distances": [
+    0,
+    2,
+    3,
+    6,
+    7
+  ],
+  "S6-III07-table": [
+    22,
+    null,
+    35,
+    46,
+    null,
+    null,
+    null,
+    18,
+    29,
+    40,
+    7
+  ],
+  "S6-III07-probes": [
+    1,
+    2,
+    3,
+    4,
+    1,
+    1,
+    2
+  ],
+  "S5-I01-points": 5,
+  "S5-I02-points": 5,
+  "S5-I03-points": 5,
+  "S5-I04-points": 5,
+  "S5-II01-points": 3,
+  "S5-II02-points": 3,
+  "S5-II03-points": 3,
+  "S5-II04-points": 3,
+  "S5-II05-points": 3,
+  "S5-II06-points": 3,
+  "S5-II07-points": 3,
+  "S5-II08-points": 3,
+  "S5-II09-points": 3,
+  "S5-II10-points": 3,
+  "S5-III01-points": 10,
+  "S5-III02-points": 10,
+  "S5-III03-points": 10,
+  "S5-III04-points": 10,
+  "S5-III05-points": 10,
+  "S5-III06-points": 10,
+  "S5-III07-points": 10,
+  "S5-IV01-points": [
+    0,
+    8
+  ],
+  "S5-IV02-points": [
+    0,
+    10
+  ],
+  "S5-IV03-points": [
+    0,
+    12
+  ],
+  "S6-I01-points": 5,
+  "S6-I02-points": 5,
+  "S6-I03-points": 5,
+  "S6-I04-points": 5,
+  "S6-II01-points": 3,
+  "S6-II02-points": 3,
+  "S6-II03-points": 3,
+  "S6-II04-points": 3,
+  "S6-II05-points": 3,
+  "S6-II06-points": 3,
+  "S6-II07-points": 3,
+  "S6-II08-points": 3,
+  "S6-II09-points": 3,
+  "S6-II10-points": 3,
+  "S6-III01-points": 10,
+  "S6-III02-points": 10,
+  "S6-III03-points": 10,
+  "S6-III04-points": 10,
+  "S6-III05-points": 10,
+  "S6-III06-points": 10,
+  "S6-III07-points": 10,
+  "S6-IV01-points": [
+    0,
+    8
+  ],
+  "S6-IV02-points": [
+    0,
+    10
+  ],
+  "S6-IV03-points": [
+    0,
+    12
+  ]
+}

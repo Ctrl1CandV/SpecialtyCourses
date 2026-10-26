@@ -1,0 +1,29 @@
+# B-07 P9 Floyd —— 混合页试点：图(静态PNG) + 代码面板(HTML) + 要点(原生)
+page: 11
+fixed:
+  - id: floyd-fig
+    component: image
+    box: [0.9, 2.62, 6.9, 2.40]
+    props:
+      srcAbs: "file:///D:/Program%20Project/SpecialtyCourses/assets/diagrams/b7-floyd.png"
+  - id: floyd-code
+    component: code
+    box: [8.0, 2.62, 4.43, 1.95]
+    props:
+      fontSizePx: 26
+      text: |
+        for(int k = 0; k < G.vexnum; k++)    // ①中转点：最外层
+          for(int i = 0; i < G.vexnum; i++)
+            for(int j = 0; j < G.vexnum; j++)
+              if(A[i][k] + A[k][j] < A[i][j])
+                A[i][j] = A[i][k] + A[k][j]; // 松弛
+native:
+  - id: pts
+    kind: bullets
+    box: [0.9, 5.20, 11.53, 1.20]
+    props:
+      fontSize: 14
+      items:
+        - "一句话含义：依次把每个顶点 vk 当中转点，对所有 i、j 试一次经过 vk 会不会更近"
+        - "k 必须在最外层：A[i][k] 与 A[k][j] 必须是只允许前 k-1 个顶点中转算完的结果，k 放内层结果直接错"
+        - "时间 O(n³)；实际写要判 A[i][k] 与 A[k][j] 都小于 INF，0x3f3f3f3f 让 INF 相加不溢出成负数"

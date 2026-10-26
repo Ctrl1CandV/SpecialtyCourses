@@ -6,13 +6,14 @@ import json
 import re
 import zipfile
 from pathlib import Path
+from project_paths import resolve_reference
 
 from pypdf import PdfReader
 
 ROOT = Path(__file__).resolve().parents[1]
-OUT = ROOT / "资料整理/六套模拟卷成稿"
-PLAN = ROOT / "资料整理/六套模拟卷规划"
-AUDIT = OUT / "审查记录"
+OUT = ROOT / "试卷/六套模拟卷"
+PLAN = ROOT / "试卷/六套模拟卷/命题依据"
+AUDIT = OUT / "审查"
 REVIEWS = ((1, 2, "独立审查_第1至2套.json"),
            (3, 4, "独立审查_第3至4套.json"),
            (5, 6, "独立审查_第5至6套.json"))
@@ -32,19 +33,19 @@ def read(path):
 
 
 def source(p):
-    return OUT / f"试题源稿/第{p}套.json"
+    return OUT / f"源稿/试题/第{p}套.json"
 
 
 def answer(p):
-    return OUT / f"答案源稿/第{p}套.json"
+    return OUT / f"源稿/答案/第{p}套.json"
 
 
 def student_pdf(p):
-    return OUT / f"学生卷PDF/重邮802模拟试卷第{p}套.pdf"
+    return OUT / f"成品/试卷/重邮802模拟试卷第{p}套.pdf"
 
 
 def answer_pdf(p):
-    return OUT / f"答案PDF/重邮802模拟试卷第{p}套答案.pdf"
+    return OUT / f"成品/答案/重邮802模拟试卷第{p}套答案.pdf"
 
 
 def positions(p):
@@ -104,7 +105,7 @@ def check_reviews():
                        filename + " 对应旧文件：" + str(path))
         if "figure_source_hash" in report:
             ensure(report["figure_source_hash"].lower()
-                   == sha(OUT / "答案配图源稿.json"),
+                   == sha(OUT / "源稿/答案配图源稿.json"),
                    filename + " 对应旧答案配图")
 
     visual = read(AUDIT / "配图与学生页检查.json")
@@ -120,9 +121,9 @@ def check_reviews():
                and hash_in(visual.get("student_pdf_hashes"), p, "") == sha(student_pdf(p)),
                f"第{p}套学生源稿/PDF与审查版本不同")
     ensure(visual.get("student_diagrams_source_sha256", "").lower()
-           == sha(OUT / "配图源稿.json")
+           == sha(OUT / "源稿/配图源稿.json")
            and visual.get("answer_diagrams_source_sha256", "").lower()
-           == sha(OUT / "答案配图源稿.json")
+           == sha(OUT / "源稿/答案配图源稿.json")
            and visual.get("student_diagram_count") == 12
            and visual.get("answer_diagram_count") == 25,
            "配图源稿或数量与审查版本不同")
@@ -165,7 +166,7 @@ def check_structure():
             for ref in refs:
                 ensure(isinstance(ref, dict) and isinstance(ref.get("path"), str)
                        and ref["path"].strip(), qid + " 参考路径为空")
-                path = (ROOT / ref["path"]).resolve()
+                path = resolve_reference(ref["path"])
                 ensure(path.is_relative_to(ROOT.resolve()) and path.is_file(),
                        qid + " 参考文件不存在：" + ref["path"])
             ensure(not re.search(r"Θ|紧渐近|TODO|待补齐", a["content"]),
@@ -192,8 +193,8 @@ def check_structure():
 
 
 def check_build_records(content_hashes):
-    student = read(OUT / "成卷结构核对.json")["papers"]
-    answers = read(OUT / "答案成卷核对.json")
+    student = read(OUT / "审查/成卷结构核对.json")["papers"]
+    answers = read(OUT / "审查/答案成卷核对.json")
     ensure(len(student) == len(answers) == 6, "成卷记录未覆盖六套")
     for p, (s, a) in enumerate(zip(student, answers), 1):
         ensure(s.get("paper") == a.get("paper") == p
@@ -203,7 +204,7 @@ def check_build_records(content_hashes):
                and s.get("source_sha256", "").lower() == sha(source(p))
                and a.get("sha256", "").lower() == sha(answer_pdf(p)),
                f"第{p}套成卷记录与当前源稿/PDF不符")
-    review = read(OUT / "内容复查核对.json")
+    review = read(OUT / "审查/内容复查核对.json")
     rows = review.get("questions")
     ensure(review.get("reviewed_questions") == 144
            and review.get("unresolved_findings") == 0
@@ -216,7 +217,7 @@ def check_build_records(content_hashes):
                and r.get("question_sha256", "").lower()
                == content_hashes[r["id"]] for r in rows),
            "内容复查有未通过题目或旧题面哈希")
-    for folder, expected in (("配图", 12), ("答案配图", 25)):
+    for folder, expected in (("源稿/配图/试题", 12), ("源稿/配图/答案", 25)):
         png = {p.stem for p in (OUT / folder).glob("*.png")}
         svg = {p.stem for p in (OUT / folder).glob("*.svg")}
         ensure(len(png) == expected and svg == png,
@@ -227,26 +228,26 @@ def artifact_files():
     files = set()
     for p in range(1, 7):
         files.update((source(p), answer(p), student_pdf(p), answer_pdf(p),
-                      OUT / f"可编辑试题/第{p}套试卷.md",
-                      OUT / f"可编辑答案/第{p}套答案.md"))
-    files.update((OUT / "六套试卷与答案.zip",
-                  OUT / "六套模拟试卷合订本.pdf",
-                  OUT / "六套模拟试卷答案合订本.pdf",
-                  OUT / "题型规范.json", OUT / "配图源稿.json",
-                  OUT / "答案配图源稿.json",
-                  OUT / "内容复查核对.json", OUT / "成卷结构核对.json",
-                  OUT / "答案成卷核对.json",
+                      OUT / f"源稿/试题/第{p}套试卷.md",
+                      OUT / f"源稿/答案/第{p}套答案.md"))
+    files.update((OUT / "成品/六套模拟试卷合订本.pdf",
+                  OUT / "成品/六套模拟试卷答案合订本.pdf",
+                  OUT / "源稿/题型规范.json", OUT / "源稿/配图源稿.json",
+                  OUT / "源稿/答案配图源稿.json",
+                  OUT / "审查/内容复查核对.json", OUT / "审查/成卷结构核对.json",
+                  OUT / "审查/答案成卷核对.json",
                   PLAN / "六套逐题蓝图.json"))
     files.update(p for p in AUDIT.rglob("*") if p.is_file()
-                 and p.suffix.lower() in {".json", ".zip", ".md"})
-    files.update(p for name in ("配图", "答案配图")
+                 and p.suffix.lower() in {".json", ".md", ".py", ".c"}
+                 and p.name != "交付核对.json")
+    files.update(p for name in ("源稿/配图/试题", "源稿/配图/答案")
                  for p in (OUT / name).rglob("*") if p.is_file()
                  and p.suffix.lower() in {".svg", ".png"})
     files.update(ROOT / "tools" / name for name in (
         "build_answer_figures.py", "build_exam_answers.py",
         "build_exam_papers.py", "exam_blueprint.py", "exam_figures.py",
         "package_exam_delivery.py", "verify_exam_delivery.py",
-        "verify_exam_seeds.py"))
+        "verify_exam_seeds.py", "project_paths.py", "目录迁移.csv"))
     return files
 
 
@@ -260,7 +261,7 @@ def check_inputs():
 def check_combined(texts):
     for kind, name in (("student", "六套模拟试卷合订本.pdf"),
                        ("answer", "六套模拟试卷答案合订本.pdf")):
-        reader = PdfReader(OUT / name)
+        reader = PdfReader(OUT / "成品" / name)
         ensure([page.extract_text() or "" for page in reader.pages] == texts[kind],
                name + " 与六份单套PDF页面不一致")
         titles = [getattr(x, "title", "") for x in reader.outline]
@@ -268,21 +269,6 @@ def check_combined(texts):
                and all(f"第{p}套" in titles[p - 1] for p in range(1, 7)),
                name + " 书签数量或顺序错误")
 
-
-def check_zip():
-    names = {f"第{p}套/重邮802模拟试卷第{p}套{suffix}.pdf"
-             for p in range(1, 7) for suffix in ("", "答案")}
-    names.add("使用说明.txt")
-    with zipfile.ZipFile(OUT / "六套试卷与答案.zip") as z:
-        listing = z.namelist()
-        ensure(len(listing) == 13 and set(listing) == names
-               and z.testzip() is None, "ZIP条目或CRC错误")
-        ensure(z.read("使用说明.txt").strip(), "ZIP使用说明为空")
-        for p in range(1, 7):
-            for suffix, path in (("", student_pdf(p)), ("答案", answer_pdf(p))):
-                name = f"第{p}套/重邮802模拟试卷第{p}套{suffix}.pdf"
-                ensure(z.read(name) == path.read_bytes(),
-                       f"ZIP第{p}套{suffix}不是现行PDF")
 
 
 def check_manifest(manifest):
@@ -304,7 +290,7 @@ def check_manifest(manifest):
                and row.get("student_source_sha256") == sha(source(p))
                and row.get("answer_source_sha256") == sha(answer(p)),
                f"第{p}套交付清单哈希或页数错误")
-    ensure(manifest.get("database_sha256") == sha(ROOT / "题库数据库/tiku.db"),
+    ensure(manifest.get("database_sha256") == sha(ROOT / "题库/tiku.db"),
            "题库数据库哈希与清单不同")
     actual = {p.relative_to(ROOT).as_posix(): p for p in artifact_files()}
     listed = manifest.get("artifacts")
@@ -317,9 +303,8 @@ def check_manifest(manifest):
 def main():
     texts = check_inputs()
     check_combined(texts)
-    check_zip()
-    check_manifest(read(OUT / "交付核对.json"))
-    print("PASS final: 144题900分、114页学生卷和72页答案；审查、合订本、ZIP及全部工件哈希一致。")
+    check_manifest(read(OUT / "审查/交付核对.json"))
+    print("PASS final: 144题900分、114页学生卷和72页答案；审查、合订本及全部工件哈希一致。")
 
 
 if __name__ == "__main__":

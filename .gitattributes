@@ -1,7 +1,7 @@
 # Preserve reviewed exam bytes: delivery and review records bind SHA256 hashes.
 # Recognize CRLF and preserve existing generated blank lines at end of file.
-资料整理/六套模拟卷成稿/** -text whitespace=cr-at-eol,-blank-at-eof
-资料整理/六套模拟卷规划/六套逐题蓝图.json -text whitespace=cr-at-eol,-blank-at-eof
+试卷/六套模拟卷/** -text whitespace=cr-at-eol,-blank-at-eof
+试卷/2026机构押题/** -text whitespace=cr-at-eol,-blank-at-eof
 tools/build_answer_figures.py -text whitespace=cr-at-eol,-blank-at-eof
 tools/build_exam_answers.py -text whitespace=cr-at-eol,-blank-at-eof
 tools/build_exam_papers.py -text whitespace=cr-at-eol,-blank-at-eof

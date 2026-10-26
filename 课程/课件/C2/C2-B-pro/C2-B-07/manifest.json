@@ -1,0 +1,851 @@
+{
+ "lesson": "C2-B-07",
+ "slides": [
+  {
+   "page": 1,
+   "entries": [
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p01:pageno"
+    },
+    {
+     "kind": "text",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    }
+   ]
+  },
+  {
+   "page": 2,
+   "entries": [
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p02:pageno"
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p02:kicker"
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p02:title"
+    },
+    {
+     "kind": "table",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    }
+   ]
+  },
+  {
+   "page": 3,
+   "entries": [
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p03:pageno"
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p03:kicker"
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p03:title"
+    },
+    {
+     "kind": "image",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    }
+   ]
+  },
+  {
+   "page": 4,
+   "entries": [
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p04:pageno"
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p04:kicker"
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p04:title"
+    },
+    {
+     "kind": "shape",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    }
+   ]
+  },
+  {
+   "page": 5,
+   "entries": [
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p05:pageno"
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p05:kicker"
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p05:title"
+    },
+    {
+     "kind": "shape",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    }
+   ]
+  },
+  {
+   "page": 6,
+   "entries": [
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p06:pageno"
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p06:kicker"
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p06:title"
+    },
+    {
+     "kind": "image",
+     "id": "p06:graph"
+    },
+    {
+     "kind": "image",
+     "id": "p06:beats-code"
+    },
+    {
+     "kind": "shape",
+     "id": "p06:e01",
+     "arrow": true
+    },
+    {
+     "kind": "shape",
+     "id": "p06:e03",
+     "arrow": true
+    },
+    {
+     "kind": "shape",
+     "id": "p06:e12",
+     "arrow": true
+    },
+    {
+     "kind": "shape",
+     "id": "p06:e14",
+     "arrow": true
+    },
+    {
+     "kind": "shape",
+     "id": "p06:ring0"
+    },
+    {
+     "kind": "shape",
+     "id": "p06:ring1"
+    },
+    {
+     "kind": "shape",
+     "id": "p06:ring2"
+    },
+    {
+     "kind": "shape",
+     "id": "p06:ring3"
+    },
+    {
+     "kind": "shape",
+     "id": "p06:ring4"
+    },
+    {
+     "kind": "text",
+     "id": "p06:d1"
+    },
+    {
+     "kind": "text",
+     "id": "p06:d2"
+    },
+    {
+     "kind": "text",
+     "id": "p06:d3"
+    },
+    {
+     "kind": "text",
+     "id": "p06:d4"
+    },
+    {
+     "kind": "text",
+     "id": "p06:d5"
+    },
+    {
+     "kind": "text",
+     "id": "p06:d6"
+    },
+    {
+     "kind": "text",
+     "id": "p06:d7"
+    },
+    {
+     "kind": "text",
+     "id": "p06:d8"
+    }
+   ]
+  },
+  {
+   "page": 7,
+   "entries": [
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p07:pageno"
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p07:kicker"
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p07:title"
+    },
+    {
+     "kind": "shape",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    }
+   ]
+  },
+  {
+   "page": 8,
+   "entries": [
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p08:pageno"
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p08:kicker"
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p08:title"
+    },
+    {
+     "kind": "shape",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    }
+   ]
+  },
+  {
+   "page": 9,
+   "entries": [
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p09:pageno"
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p09:kicker"
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p09:title"
+    },
+    {
+     "kind": "shape",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    }
+   ]
+  },
+  {
+   "page": 10,
+   "entries": [
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p10:pageno"
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p10:kicker"
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p10:title"
+    },
+    {
+     "kind": "table",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    }
+   ]
+  },
+  {
+   "page": 11,
+   "entries": [
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p11:pageno"
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p11:kicker"
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p11:title"
+    },
+    {
+     "kind": "image",
+     "id": "p11:floyd-fig"
+    },
+    {
+     "kind": "image",
+     "id": "p11:floyd-code"
+    },
+    {
+     "kind": "text",
+     "id": "p11:pts"
+    }
+   ]
+  },
+  {
+   "page": 12,
+   "entries": [
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p12:pageno"
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p12:kicker"
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p12:title"
+    },
+    {
+     "kind": "text",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    }
+   ]
+  },
+  {
+   "page": 13,
+   "entries": [
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p13:pageno"
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p13:kicker"
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p13:title"
+    },
+    {
+     "kind": "shape",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    }
+   ]
+  },
+  {
+   "page": 14,
+   "entries": [
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p14:pageno"
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p14:kicker"
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p14:title"
+    },
+    {
+     "kind": "image",
+     "id": "p14:grid"
+    },
+    {
+     "kind": "image",
+     "id": "p14:queue-panel"
+    },
+    {
+     "kind": "shape",
+     "id": "p14:srctint-01"
+    },
+    {
+     "kind": "shape",
+     "id": "p14:srctint-22"
+    },
+    {
+     "kind": "text",
+     "id": "p14:v01"
+    },
+    {
+     "kind": "text",
+     "id": "p14:v22"
+    },
+    {
+     "kind": "shape",
+     "id": "p14:lt1-00"
+    },
+    {
+     "kind": "shape",
+     "id": "p14:lt1-02"
+    },
+    {
+     "kind": "shape",
+     "id": "p14:lt1-11"
+    },
+    {
+     "kind": "shape",
+     "id": "p14:lt1-21"
+    },
+    {
+     "kind": "shape",
+     "id": "p14:lt1-23"
+    },
+    {
+     "kind": "shape",
+     "id": "p14:lt1-12"
+    },
+    {
+     "kind": "text",
+     "id": "p14:v00"
+    },
+    {
+     "kind": "text",
+     "id": "p14:v02"
+    },
+    {
+     "kind": "text",
+     "id": "p14:v11"
+    },
+    {
+     "kind": "text",
+     "id": "p14:v21"
+    },
+    {
+     "kind": "text",
+     "id": "p14:v23"
+    },
+    {
+     "kind": "text",
+     "id": "p14:v12"
+    },
+    {
+     "kind": "shape",
+     "id": "p14:lt2-10"
+    },
+    {
+     "kind": "shape",
+     "id": "p14:lt2-03"
+    },
+    {
+     "kind": "shape",
+     "id": "p14:lt2-13"
+    },
+    {
+     "kind": "text",
+     "id": "p14:v10"
+    },
+    {
+     "kind": "text",
+     "id": "p14:v03"
+    },
+    {
+     "kind": "text",
+     "id": "p14:v13"
+    },
+    {
+     "kind": "text",
+     "id": "p14:q1"
+    },
+    {
+     "kind": "text",
+     "id": "p14:q2"
+    },
+    {
+     "kind": "text",
+     "id": "p14:q3"
+    },
+    {
+     "kind": "text",
+     "id": "p14:q4"
+    },
+    {
+     "kind": "text",
+     "id": "p14:cap1"
+    },
+    {
+     "kind": "text",
+     "id": "p14:cap2"
+    },
+    {
+     "kind": "text",
+     "id": "p14:cap3"
+    },
+    {
+     "kind": "text",
+     "id": "p14:cap4"
+    },
+    {
+     "kind": "text",
+     "id": "p14:pts"
+    }
+   ]
+  },
+  {
+   "page": 15,
+   "entries": [
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p15:pageno"
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p15:kicker"
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p15:title"
+    },
+    {
+     "kind": "table",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    }
+   ]
+  },
+  {
+   "page": 16,
+   "entries": [
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p16:pageno"
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p16:kicker"
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p16:title"
+    },
+    {
+     "kind": "table",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    }
+   ]
+  },
+  {
+   "page": 17,
+   "entries": [
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p17:pageno"
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p17:kicker"
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p17:title"
+    },
+    {
+     "kind": "table",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    }
+   ]
+  },
+  {
+   "page": 18,
+   "entries": [
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p18:pageno"
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p18:kicker"
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p18:title"
+    },
+    {
+     "kind": "image",
+     "id": "p18:prim-code"
+    },
+    {
+     "kind": "text",
+     "id": "p18:note1"
+    }
+   ]
+  },
+  {
+   "page": 19,
+   "entries": [
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p19:pageno"
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p19:kicker"
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p19:title"
+    },
+    {
+     "kind": "shape",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    }
+   ]
+  },
+  {
+   "page": 20,
+   "entries": [
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p20:pageno"
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p20:kicker"
+    },
+    {
+     "kind": "text",
+     "id": null,
+     "name": "p20:title"
+    },
+    {
+     "kind": "text",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    },
+    {
+     "kind": "shape",
+     "id": null
+    },
+    {
+     "kind": "text",
+     "id": null
+    }
+   ]
+  }
+ ]
+}

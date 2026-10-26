@@ -21,16 +21,17 @@ import sys
 import tempfile
 from collections import Counter, defaultdict
 from pathlib import Path
+from project_paths import resolve_reference
 
 
 ROOT = Path(__file__).resolve().parents[1]
-PLAN = ROOT / "资料整理" / "六套模拟卷规划"
-DB = ROOT / "题库数据库" / "tiku.db"
+PLAN = ROOT / "试卷" / "六套模拟卷" / "命题依据"
+DB = ROOT / "题库" / "tiku.db"
 SOURCE = PLAN / "六套逐题蓝图.json"
 OLD_SOURCE = PLAN / "历史版本" / "2026-10-20" / "六套逐题蓝图.json"
 OLD_VERIFY = PLAN / "历史版本" / "2026-10-20" / "蓝图数据复核.json"
 
-FORMAT = json.loads((ROOT/'资料整理/六套模拟卷成稿/题型规范.json').read_text(encoding='utf-8'))
+FORMAT = json.loads((ROOT/'试卷/六套模拟卷/源稿/题型规范.json').read_text(encoding='utf-8'))
 SECTION_NAMES = {key: value['name'] for key,value in FORMAT['sections'].items()}
 SECTION_COUNTS = {key: value['count'] for key,value in FORMAT['sections'].items()}
 SECTION_POINTS = {key: sum(value['points']) for key,value in FORMAT['sections'].items()}
@@ -176,7 +177,7 @@ def safe_reference(root: Path, reference: str) -> bool:
     if path.is_absolute():
         return False
     root_resolved = root.resolve()
-    target = (root / path).resolve()
+    target = resolve_reference(path, root)
     try:
         target.relative_to(root_resolved)
     except ValueError:

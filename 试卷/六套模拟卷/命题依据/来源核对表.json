@@ -1,0 +1,999 @@
+{
+  "metadata": {
+    "说明": "本表完整摘录题库原题题干与出处，仅支持来源追溯。它不是现设计任务或答案的验算，也不能证明学生实际见过该题。",
+    "题库题数": 966,
+    "题库文件SHA256": "3f050fea3cf82d0753dd24c8e518c0b1c49ed70c740b703d572a0b37e7b4d718",
+    "引用原题数": 68,
+    "题干截断": false
+  },
+  "records": [
+    {
+      "id": "真题-2024-填空1",
+      "source": "真题2024",
+      "source_detail": "24-25回忆修订版(题面P1-5)+2024答案解析(P13-26)",
+      "stem": "设循环队列的表长为 n，f 指向元素的前一个位置，r 指向最后一个元素的位置。该循环队列的长度为 ________。",
+      "answer_present": true,
+      "notes": "",
+      "usage": [
+        "S1-II03",
+        "S2-II03",
+        "S6-II01"
+      ],
+      "historical_only": [
+        "S3-II01",
+        "S4-I03",
+        "S5-II03"
+      ]
+    },
+    {
+      "id": "真题-2024-填空2",
+      "source": "真题2024",
+      "source_detail": "24-25回忆修订版(题面P1-5)+2024答案解析(P13-26)",
+      "stem": "将中缀表达式 a+b−a*((c+d)/e−f)+g 转换为后缀表达式 ________。",
+      "answer_present": true,
+      "notes": "",
+      "usage": [
+        "S1-II01",
+        "S5-II02"
+      ],
+      "historical_only": [
+        "S4-III01"
+      ]
+    },
+    {
+      "id": "真题-2024-填空3",
+      "source": "真题2024",
+      "source_detail": "24-25回忆修订版(题面P1-5)+2024答案解析(P13-26)",
+      "stem": "给定字符串 abcaabbabcab，求其对应的 next 数组。\n\n| 下标 i | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 |\n|---|---|---|---|---|---|---|---|---|---|---|---|---|\n| 字符 | a | b | c | a | a | b | b | a | b | c | a | b |\n| next[i] | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? |",
+      "answer_present": true,
+      "notes": "",
+      "usage": [
+        "S1-II04",
+        "S2-II04"
+      ],
+      "historical_only": [
+        "S3-II04",
+        "S4-II04",
+        "S5-II04"
+      ]
+    },
+    {
+      "id": "真题-2024-填空5",
+      "source": "真题2024",
+      "source_detail": "24-25回忆修订版(题面P1-5)+2024答案解析(P13-26)",
+      "stem": "对序列 {1, 2, 3, 4, 5, 6, 7} 进行顺序插入构建平衡二叉树(AVL)，平衡因子为 0 的结点个数为 ________。",
+      "answer_present": true,
+      "notes": "构造过程图见答案PDF P16(z2425-p16-0.png)。",
+      "usage": [
+        "S1-II08"
+      ],
+      "historical_only": []
+    },
+    {
+      "id": "真题-2024-填空6",
+      "source": "真题2024",
+      "source_detail": "24-25回忆修订版(题面P1-5)+2024答案解析(P13-26)",
+      "stem": "给定一个二维数组 A[10][15]，A[0][0] 的地址为 644，行优先存储，每个元素占用一个地址空间，A[4][5] 的地址为 ________。",
+      "answer_present": true,
+      "notes": "",
+      "usage": [
+        "S1-II02",
+        "S6-II02"
+      ],
+      "historical_only": [
+        "S4-II02",
+        "S5-II05"
+      ]
+    },
+    {
+      "id": "真题-2024-填空7",
+      "source": "真题2024",
+      "source_detail": "24-25回忆修订版(题面P1-5)+2024答案解析(P13-26)",
+      "stem": "已知一棵树有 2011 个结点，其中 116 个是叶结点，其对应二叉树中右子树为空的结点数量为 ________。",
+      "answer_present": true,
+      "notes": "",
+      "usage": [],
+      "historical_only": [
+        "S6-II06"
+      ]
+    },
+    {
+      "id": "真题-2024-填空8",
+      "source": "真题2024",
+      "source_detail": "24-25回忆修订版(题面P1-5)+2024答案解析(P13-26)",
+      "stem": "设森林 F 中有三棵树，第一、第二、第三棵树的结点个数分别为 M1、M2 和 M3。与森林 F 对应的二叉树根结点的左子树上的结点个数是 ________。",
+      "answer_present": true,
+      "notes": "OCR 中题号前混入'3E'为噪声，已剔除。",
+      "usage": [],
+      "historical_only": [
+        "S6-II06",
+        "S6-III02"
+      ]
+    },
+    {
+      "id": "真题-2024-填空9",
+      "source": "真题2024",
+      "source_detail": "24-25回忆修订版(题面P1-5)+2024答案解析(P13-26)",
+      "stem": "已知一棵完全二叉树的第六层有 8 个叶结点，树根位于第一层，树的最多结点数为 ________。",
+      "answer_present": true,
+      "notes": "",
+      "usage": [
+        "S1-II06",
+        "S6-II07"
+      ],
+      "historical_only": []
+    },
+    {
+      "id": "真题-2024-算法1",
+      "source": "真题2024",
+      "source_detail": "24-25回忆修订版(题面P1-5)+2024答案解析(P13-26)",
+      "stem": "编写代码及思想，判断一棵树是否为二叉排序树(BST)，结构体已给出。\n\n```c\ntypedef struct BiTNode {\n    int data;                 // 数据域，存储节点值\n    struct BiTNode* lchild;   // 指向左子树的指针\n    struct BiTNode* rchild;   // 指向右子树的指针\n} BiTNode, *BiTree;\n```",
+      "answer_present": true,
+      "notes": "答案PDF给出范围递归法(isBSTUtil)，逻辑正确。",
+      "usage": [],
+      "historical_only": [
+        "S4-IV02"
+      ]
+    },
+    {
+      "id": "真题-2024-算法2",
+      "source": "真题2024",
+      "source_detail": "24-25回忆修订版(题面P1-5)+2024答案解析(P13-26)",
+      "stem": "编写代码及思想，判断在无向图中是否存在从顶点 i 到顶点 j 的长度为 k 的路径(使用邻接表表示图)。",
+      "answer_present": true,
+      "notes": "【答案PDF有误】PDF 代码把复位语句 `visited[i]=0;` 误放在 for 循环体内部(每尝试一个邻接点后就复位)，与其'思想'所述'递归结束时将当前顶点访问状态重置'矛盾，会导致同一顶点在一条路径中被重复经过、结果错误。正确写法是把 `visited[i]=0;` 移到 for 循环之外、`return 0` 之前(见 answer 修正代码)。\n【模拟卷候选：优先】替代参考ID=题集-07-算18。",
+      "usage": [],
+      "historical_only": [
+        "S2-IV03",
+        "S3-IV03"
+      ]
+    },
+    {
+      "id": "真题-2024-算法3",
+      "source": "真题2024",
+      "source_detail": "24-25回忆修订版(题面P1-5)+2024答案解析(P13-26)",
+      "stem": "编写代码及思想，计算二叉树的繁荣度(即每一层的结点数乘以该层的层数，再对各层求和)。",
+      "answer_present": true,
+      "notes": "答案PDF代码末行 `FreeQueue(q)` 中 q 应为 Q(笔误)，其余逻辑正确。",
+      "usage": [],
+      "historical_only": [
+        "S6-I03"
+      ]
+    },
+    {
+      "id": "真题-2024-综合1",
+      "source": "真题2024",
+      "source_detail": "24-25回忆修订版(题面P1-5)+2024答案解析(P13-26)",
+      "stem": "设数组 S[] = {93, 946, 372, 9, 146, 151, 301, 485, 236, 372, 43, 892}。\n（1）采用最低位优先(LSD)基数排序将 S 排列成升序序列，写出每一趟排序的结果。\n（2）增量等于 5 时进行希尔排序，写出第一趟排序结果。\n（3）以第一个元素为轴进行快速排序，写出第一趟排序结果。\n（4）构造小根堆，写出调整后的小根堆。",
+      "answer_present": true,
+      "notes": "【答案PDF有误】第(1)问第3趟(百位)结果 PDF 写作 {009, 093, 043, 146, …}，其中 093 与 043 顺序颠倒。基数排序为稳定排序且最终须升序，043 < 093，正确结果应为 {009, 043, 093, 146, 151, 236, 301, 372, 372, 485, 892, 946}。第(2)(3)(4)问及第1、2趟均核对无误。排序过程图见答案PDF P17(z2425-p17-0.png)。",
+      "usage": [
+        "S1-III07",
+        "S2-III07"
+      ],
+      "historical_only": [
+        "S3-III07",
+        "S5-III07"
+      ]
+    },
+    {
+      "id": "真题-2024-综合2",
+      "source": "真题2024",
+      "source_detail": "24-25回忆修订版(题面P1-5)+2024答案解析(P13-26)",
+      "stem": "设散列函数 H(key) = key MOD 11，用线性探测再散列法解决冲突。对关键字序列 (13, 28, 72, 5, 16, 18, 7, 11, 24) 在地址空间 0-10 的散列区中建散列表，画出此表，并求等概率情况下查找成功和查找失败时的平均查找长度。\n\n| 下标 | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |\n|---|---|---|---|---|---|---|---|---|---|---|---|\n| 关键字 | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? |",
+      "answer_present": true,
+      "notes": "【答案PDF有误】ASL成功 PDF 写作 (1+1+2+1+3+3+4+1+2)/9 = 2，其求和项与它自己表格中的成功比较次数(1,1,2,1,1,2,4,3,4)不一致，且和也算错(表内实际求和=19)。正确 ASL成功 = 19/9 ≈ 2.11。ASL失败 = 42/11 正确无误。",
+      "usage": [
+        "S1-III03",
+        "S6-III07"
+      ],
+      "historical_only": [
+        "S3-III04",
+        "S4-III02",
+        "S5-I04"
+      ]
+    },
+    {
+      "id": "真题-2024-综合3",
+      "source": "真题2024",
+      "source_detail": "24-25回忆修订版(题面P1-5)+2024答案解析(P13-26)",
+      "stem": "一棵二叉树的先序、中序和后序序列如下，其中有部分未标出：\n先序序列：_ _ C D E _ G H I _ K\n中序序列：C B _ _ F A _ J K I G\n后序序列：_ E F D B _ J I H _ A\n（1）根据所给序列补全先序、中序、后序序列。\n（2）构造二叉树。\n（3）画出二叉树的中序线索链表。",
+      "answer_present": true,
+      "notes": "树形图与中序线索链表图见答案PDF P19(z2425-p19-0.png, z2425-p19-1.png)。",
+      "usage": [
+        "S1-III01"
+      ],
+      "historical_only": [
+        "S3-III01",
+        "S4-III03",
+        "S5-III01"
+      ]
+    },
+    {
+      "id": "真题-2024-综合5",
+      "source": "真题2024",
+      "source_detail": "24-25回忆修订版(题面P1-5)+2024答案解析(P13-26)",
+      "stem": "设某通信信息由若干字母组成，字母以及其出现的次数如下表所示。采用赫夫曼(Huffman)编码算法对上述序列编码，给出相应的 Huffman 树，以及每个字符的 Huffman 码。\n\n| 字符 | a | b | c | d | e | f | g |\n|---|---|---|---|---|---|---|---|\n| 出现频率 | 2 | 5 | 6 | 8 | 13 | 19 | 36 |",
+      "answer_present": true,
+      "notes": "【答案PDF有误】PDF 给出编码 a=00110,b=00111,c=0010,d=000,e=100,f=101,g=11，存在两处问题：(1) g(频率最大 36) 码长为 2，而任何 Huffman 树中最大权必位于最短码长(应为 1)，该编码 WPL=251 > 最优 215，非最优；(2) 前缀 '01' 分支为空，不是满二叉树，结构非法。正确 WPL=215，编码见 answer(哈夫曼树图见答案PDF P21 z2425-p21-0.png，但该图对应错误编码，应据正确构造重画)。",
+      "usage": [
+        "S1-III02",
+        "S2-III06",
+        "S6-III01"
+      ],
+      "historical_only": [
+        "S3-III03",
+        "S4-III07",
+        "S5-III03"
+      ]
+    },
+    {
+      "id": "真题-2024-综合6",
+      "source": "真题2024",
+      "source_detail": "24-25回忆修订版(题面P1-5)+2024答案解析(P13-26)",
+      "stem": "对 [\"Jan\",\"Feb\",\"Mar\",\"Apr\",\"May\",\"Jun\",\"Jul\",\"Aug\",\"Sep\",\"Oct\",\"Nov\",\"Dec\"] 的月份集合，执行以下操作：\n（1）构造二叉排序树，并计算查找成功的平均查找长度。\n（2）对月份简写进行排序后，利用折半查找，计算查找成功的平均查找长度。\n（3）构造二叉平衡树(AVL)，并计算查找成功的平均查找长度。",
+      "answer_present": true,
+      "notes": "BST 与 AVL 树形图见答案PDF P21-P22(z2425-p21-1.png, z2425-p22-0.png)。",
+      "usage": [
+        "S1-III06"
+      ],
+      "historical_only": [
+        "S4-III06",
+        "S5-III04",
+        "S6-III04"
+      ]
+    },
+    {
+      "id": "真题-2024-阅读1",
+      "source": "真题2024",
+      "source_detail": "24-25回忆修订版(题面P1-5)+2024答案解析(P13-26)",
+      "stem": "有一个整数 n，其中 n 为 2 的幂。程序通过如下代码计算 count 的值并返回。请分析并给出该代码的时间复杂度。\n\n```c\nint main() {\n    int count = 0;\n    int x = 2;\n    while (x < n / 2) {\n        x *= x;\n        count++;\n    }\n    return count;\n}\n```",
+      "answer_present": true,
+      "notes": "",
+      "usage": [],
+      "historical_only": [
+        "S1-I01",
+        "S3-I01",
+        "S6-I01"
+      ]
+    },
+    {
+      "id": "真题-2024-阅读2",
+      "source": "真题2024",
+      "source_detail": "24-25回忆修订版(题面P1-5)+2024答案解析(P13-26)",
+      "stem": "下面给出一段关于链表操作的代码片段，请将这些代码片段按正确的顺序填入空位，使其实现将结点 s 插入到结点 p 之前的功能(假设 p 既不是头结点也不是尾结点)，并分析时间复杂度。\n\n待填代码片段：\n- ① `prev->next != p && prev->next != NULL`\n- ② `prev->next = s`\n- ③ `head == NULL || p == NULL || s == NULL`\n- ④ `prev->next == p`\n\n```c\nvoid insertBefore(Node* head, Node* p, Node* s) {\n    if (________) return;          // 空1\n    Node* prev = head;\n    while (________) {             // 空2\n        prev = prev->next;\n    }\n    if (________) {                // 空3\n        s->next = p;\n        ________;                  // 空4\n    }\n}\n```",
+      "answer_present": true,
+      "notes": "无贴切模板(前驱遍历插入不属于给定模板集)，template 留空。",
+      "usage": [
+        "S1-I02"
+      ],
+      "historical_only": []
+    },
+    {
+      "id": "真题-2024-阅读3",
+      "source": "真题2024",
+      "source_detail": "24-25回忆修订版(题面P1-5)+2024答案解析(P13-26)",
+      "stem": "合并两个非递减的链表为一个非递增链表，以下是部分代码，请补全代码使其正确实现功能。假设链表长度分别为 n 和 m，分析这段代码的时间复杂度。\n\n```c\ntypedef struct Node {\n    int data;\n    struct Node* next;\n} Node;\n\nNode* mergeAndReverse(Node* La, Node* Lb) {\n    Node* Lc = NULL;   // 非递增链表的头指针\n    Node* hc = NULL;   // 临时指针，用于构建链表\n    while (____①____) {\n        Node* p = NULL;\n        if (____②____) {\n            p = La;\n            La = La->next;\n        } else {\n            p = Lb;\n            Lb = Lb->next;\n        }\n        ____③____;\n        ____④____;\n    }\n    while (La != NULL) {\n        Node* p = La;\n        La = La->next;\n        p->next = Lc;\n        Lc = p;\n    }\n    while (Lb != NULL) {\n        Node* p = Lb;\n        Lb = Lb->next;\n        p->next = Lc;\n        Lc = p;\n    }\n    return Lc;\n}\n```",
+      "answer_present": true,
+      "notes": "题面中 hc 声明后未使用，属冗余；实际以 Lc 直接头插构建。",
+      "usage": [],
+      "historical_only": [
+        "S3-IV01",
+        "S6-I02",
+        "S6-IV01"
+      ]
+    },
+    {
+      "id": "真题-2024-阅读4",
+      "source": "真题2024",
+      "source_detail": "24-25回忆修订版(题面P1-5)+2024答案解析(P13-26)",
+      "stem": "请补全下面拓扑排序算法中的代码，假设顶点数为 |V|，边数为 |E|，分析这段代码的时间复杂度。\n\n```c\nbool Topologicalsort(Graph G) {\n    InitStack(S);\n    for (int i = 0; i < G.vexnum; i++) {\n        if (indegree[i] == 0) {\n            ____①____;\n        }\n    }\n    int count = 0;\n    while (____②____) {\n        ____③____;\n        print[count++] = i;\n        for (p = G.vertices[i].firstarc; ____④____; p = p->nextarc) {\n            v = p->adjvex;\n            if (!(--indegree[v])) {\n                Push(S, v);\n            }\n        }\n    }\n    if (count < G.vexnum) {\n        return false;\n    } else {\n        return true;\n    }\n}\n```",
+      "answer_present": true,
+      "notes": "",
+      "usage": [
+        "S6-I04"
+      ],
+      "historical_only": [
+        "S5-II07"
+      ]
+    },
+    {
+      "id": "真题-2024-阅读5",
+      "source": "真题2024",
+      "source_detail": "24-25回忆修订版(题面P1-5)+2024答案解析(P13-26)",
+      "stem": "描述以下递归代码的功能。\n\n```c\nint func(TreeNode* root) {\n    if (root == NULL) {\n        return 0;\n    }\n    if (root->left == NULL && root->right == NULL) {\n        return 1;\n    }\n    return func(root->left) + func(root->right);\n}\n```",
+      "answer_present": true,
+      "notes": "",
+      "usage": [
+        "S1-I04",
+        "S4-I04"
+      ],
+      "historical_only": [
+        "S2-IV02"
+      ]
+    },
+    {
+      "id": "真题-2025-填空1",
+      "source": "真题2025",
+      "source_detail": "24-25回忆修订版(题面P7-12)+2025答案解析(P27-41)",
+      "stem": "分析这段代码在给定输入 a[]={5,4,3,2,1} 的时间复杂度 ________。\n```c\nvoid F(int a[], int i, int n) {\n    if (i >= n - 1) {\n        return;\n    }\n    for (int j = i; j < n - 1; j++) {\n        if (a[j] > a[j + 1]) {\n            int temp = a[j];\n            a[j] = a[j + 1];\n            a[j + 1] = temp;\n        }\n    }\n    F(a, i + 1, n);\n}\n```",
+      "answer_present": true,
+      "notes": "题干代码跨 P9-P10 两页，已按逻辑拼接完整。",
+      "usage": [],
+      "historical_only": [
+        "S5-II01"
+      ]
+    },
+    {
+      "id": "真题-2025-填空10",
+      "source": "真题2025",
+      "source_detail": "24-25回忆修订版(题面P7-12)+2025答案解析(P27-41)",
+      "stem": "如图所示，有一个小根堆，当插入 3 后，小根堆经过调整后为 ____。",
+      "answer_present": false,
+      "notes": "【图缺失】题干'如图所示'的原始小根堆图未在题面(P10)给出，也无提取到的图片；答案PDF(P31-32)仅文字'根据堆的调整规则调整即可得到'，未给出插入3后的堆序列。缺原堆数据无法确定唯一答案，仅作真题登记。\n【模拟卷候选：已替代】优先题ID=题集-10-选30。旧记录缺原堆图；现库已有完整堆插入题，本轮补答案即可，无需另加相近题。保留本记录供原始来源/历史分析，不再直接选作模拟题；非真题恢复。",
+      "usage": [
+        "S1-II09",
+        "S2-II09",
+        "S5-II09",
+        "S6-II08"
+      ],
+      "historical_only": [
+        "S3-II09",
+        "S4-II09"
+      ]
+    },
+    {
+      "id": "真题-2025-填空2",
+      "source": "真题2025",
+      "source_detail": "24-25回忆修订版(题面P7-12)+2025答案解析(P27-41)",
+      "stem": "元素 1,1,2,3,4 依次入栈，以 4 为开头的出栈序列有 ____ 个。",
+      "answer_present": true,
+      "notes": "【答案PDF有误】答案PDF给出 9，其解析误用 Catalan 数：把'4 先出栈后剩下的 1,1,2,3'当作仍有 push/pop 交错自由的子问题（C(4)=14 再去重 5 得 9）。但 4 最后入栈、最先出栈时，1,1,2,3 必已全部在栈中，出栈顺序被 LIFO 完全锁定，正确结论应为 1 个（4,3,2,1,1）。答案PDF实际算的是'1,1,2,3 四元素全部不同出栈序列去重数'这一另一问题。",
+      "usage": [
+        "S1-II07",
+        "S2-II02",
+        "S6-II03"
+      ],
+      "historical_only": [
+        "S3-II03",
+        "S4-II03"
+      ]
+    },
+    {
+      "id": "真题-2025-填空3",
+      "source": "真题2025",
+      "source_detail": "24-25回忆修订版(题面P7-12)+2025答案解析(P27-41)",
+      "stem": "已知四维数组 A[9][3][5][8]（行优先存储），其中 A[0][0][0][0] 的地址为 100，每一个整数占 4B，则 A[2][1][4][7] 的地址为 ____。",
+      "answer_present": true,
+      "notes": "OCR错位已重组：原题面维度 OCR 为散乱的'8 5 3 9'且下标'A2147'，已按答案计算式 2×3×5×8+1×5×8+4×8+7 反推为行优先数组 A[9][3][5][8] 求 A[2][1][4][7]。",
+      "usage": [
+        "S1-II02",
+        "S2-II05"
+      ],
+      "historical_only": [
+        "S6-II02"
+      ]
+    },
+    {
+      "id": "真题-2025-填空4",
+      "source": "真题2025",
+      "source_detail": "24-25回忆修订版(题面P7-12)+2025答案解析(P27-41)",
+      "stem": "哈夫曼树有 199 个结点，则叶子结点有 ____ 个。",
+      "answer_present": true,
+      "notes": "",
+      "usage": [
+        "S2-II10",
+        "S5-II10"
+      ],
+      "historical_only": [
+        "S3-II02",
+        "S4-II06"
+      ]
+    },
+    {
+      "id": "真题-2025-填空5",
+      "source": "真题2025",
+      "source_detail": "24-25回忆修订版(题面P7-12)+2025答案解析(P27-41)",
+      "stem": "对于后缀表达式 1 2 4 2 / + 5 * -，经过运算后的值为 ____。",
+      "answer_present": true,
+      "notes": "",
+      "usage": [
+        "S2-II01",
+        "S3-II05"
+      ],
+      "historical_only": [
+        "S4-III01"
+      ]
+    },
+    {
+      "id": "真题-2025-填空6",
+      "source": "真题2025",
+      "source_detail": "24-25回忆修订版(题面P7-12)+2025答案解析(P27-41)",
+      "stem": "森林 F 有 15 条边，25 个结点，则森林中一共有 ____ 棵树。",
+      "answer_present": true,
+      "notes": "",
+      "usage": [
+        "S2-II06"
+      ],
+      "historical_only": [
+        "S3-II08",
+        "S4-II10"
+      ]
+    },
+    {
+      "id": "真题-2025-填空7",
+      "source": "真题2025",
+      "source_detail": "24-25回忆修订版(题面P7-12)+2025答案解析(P27-41)",
+      "stem": "getHead[getTail[((a,b),(c,d))]] = ____。",
+      "answer_present": true,
+      "notes": "",
+      "usage": [
+        "S1-II05",
+        "S6-II05"
+      ],
+      "historical_only": [
+        "S4-II05"
+      ]
+    },
+    {
+      "id": "真题-2025-填空8",
+      "source": "真题2025",
+      "source_detail": "24-25回忆修订版(题面P7-12)+2025答案解析(P27-41)",
+      "stem": "利用 KMP 算法，求 \"abcaaba\" 的 next 数组 _______。",
+      "answer_present": true,
+      "notes": "【答案PDF有误】答案PDF写 '011123'（仅6位），少一位，疑为 OCR 漏字或笔误。7 个字符应有 7 位 next，正确为 0111223（王道 next[1]=0 约定）。若采用 nextval 或 0 基约定数值会不同，但按题面'next 数组'与王道约定应为 0111223。",
+      "usage": [
+        "S1-II04",
+        "S2-II04",
+        "S5-II04"
+      ],
+      "historical_only": []
+    },
+    {
+      "id": "真题-2025-填空9",
+      "source": "真题2025",
+      "source_detail": "24-25回忆修订版(题面P7-12)+2025答案解析(P27-41)",
+      "stem": "在一棵度为 4 的树 T 中，若有 20 个度为 4 的结点，10 个度为 3 的结点，1 个度为 2 的结点，10 个度为 1 的结点，则树中叶结点的个数为 ____。",
+      "answer_present": true,
+      "notes": "",
+      "usage": [],
+      "historical_only": [
+        "S3-II06",
+        "S5-II06"
+      ]
+    },
+    {
+      "id": "真题-2025-算法1",
+      "source": "真题2025",
+      "source_detail": "24-25回忆修订版(题面P7-12)+2025答案解析(P27-41)",
+      "stem": "给定一个单链表，找到倒数第 k 个元素。如果找到该元素，打印该元素的值并返回 1；否则返回 0。\n（1）描述算法的基本设计思想；\n（2）根据设计思想，采用 C 语言描述算法。\n结点定义如下：\n```c\ntypedef struct node {\n    int data;\n    struct node *next;\n} LNode, *LinkList;\n```",
+      "answer_present": true,
+      "notes": "答案PDF代码把 head 视为首数据结点(不带头结点)；若链表带头结点，应相应调整起始与长度判定。代码正确。",
+      "usage": [],
+      "historical_only": [
+        "S5-IV01"
+      ]
+    },
+    {
+      "id": "真题-2025-算法2",
+      "source": "真题2025",
+      "source_detail": "24-25回忆修订版(题面P7-12)+2025答案解析(P27-41)",
+      "stem": "给定一棵二叉树，输出从根结点到叶子结点的最长路径，打印路径的结点值，并输出该路径的长度。\n（1）描述算法的基本设计思想；\n（2）根据设计思想，采用 C 语言描述算法。\n二叉树的链式存储结构描述如下：\n```c\ntypedef struct BiTNode {\n    ElemType data;\n    struct BiTNode *lchild, *rchild;\n} BiTNode, *BiTree;\n```",
+      "answer_present": true,
+      "notes": "答案PDF用 C++ 引用(int&)与 cout，题干要求 C；改用 C 可将 maxLen/pathIndex 换成指针传参、cout 换成 printf。逻辑正确。",
+      "usage": [],
+      "historical_only": [
+        "S1-IV02",
+        "S3-IV02",
+        "S5-IV03"
+      ]
+    },
+    {
+      "id": "真题-2025-算法3",
+      "source": "真题2025",
+      "source_detail": "24-25回忆修订版(题面P7-12)+2025答案解析(P27-41)",
+      "stem": "给定一个邻接表表示的连通图，输出从顶点 u 到顶点 v 并经过顶点 k 的一条路径。如果不存在这样的路径，输出 -1。\n（1）描述算法的基本设计思想；\n（2）根据设计思想，采用 C 语言描述算法。\n```c\n#define MaxVertexNum 100\ntypedef char InfoType;   // 附加信息类型\ntypedef int  VertexType; // 顶点数据类型\ntypedef struct ArcNode {\n    int adjvex;              // 该弧所指向的顶点位置\n    struct ArcNode *next;    // 下个结点\n    // InfoType info;\n} ArcNode;\ntypedef struct VNode {\n    VertexType data;   // 顶点信息\n    ArcNode *first;    // 指向第一个依附于该顶点弧的指针\n} VNode, AdjList[MaxVertexNum];\ntypedef struct {\n    AdjList vertices;\n    int vexnum, arcnum;  // 图的当前顶点数和弧数\n} ALGraph;\n```",
+      "answer_present": true,
+      "notes": "答案PDF代码在第二阶段 DFS(G,k,v,v,...) 仍从 pathLength 处续写，会把顶点 k 再次压入 path，导致输出路径中 k 重复一次；可在第二段起始令 pathLength-- 或跳过重复的 k。此为答案PDF代码的小瑕疵，整体算法思路正确。",
+      "usage": [],
+      "historical_only": [
+        "S1-IV03"
+      ]
+    },
+    {
+      "id": "真题-2025-综合1",
+      "source": "真题2025",
+      "source_detail": "24-25回忆修订版(题面P7-12)+2025答案解析(P27-41)",
+      "stem": "已知一棵二叉查找树/二叉排序树(BST)的先序遍历序列为 23, 15, 12, 18, 56, 29, 34, 71。\n（1）请画出此二叉树的形态。\n（2）请给出这棵树的后序遍历序列。\n（3）画出此二叉树的中序线索二叉树。\n（4）画出与此二叉树对应的森林。",
+      "answer_present": true,
+      "notes": "答案PDF已核对：后序序列与按 BST 重建结果完全一致，正确。(1)(3)(4) 图形见答案PDF图 z2425-p32-*.png、z2425-p33-0.png。",
+      "usage": [
+        "S1-III01",
+        "S2-III01"
+      ],
+      "historical_only": [
+        "S3-III01",
+        "S4-III03",
+        "S5-III04"
+      ]
+    },
+    {
+      "id": "真题-2025-综合2",
+      "source": "真题2025",
+      "source_detail": "24-25回忆修订版(题面P7-12)+2025答案解析(P27-41)",
+      "stem": "设散列表为 HT[0..12]，即表的大小为 m=13。现采用双散列法解决冲突。散列函数和再散列函数分别为：\nH0(key)=key%13\nHi=(Hi-1+(reverse(x)+1)%11+1)%13\n其中 reverse(x) 是将 x 逆置，如 reverse(789)=987。\n（1）若输入的关键码为 2, 8, 31, 20, 70, 59, 25, 28，请画出插入这 8 个关键码后得到的散列表。\n（2）计算查找成功 ASL。",
+      "answer_present": true,
+      "notes": "ASL成功=2 与探测次数(1,1,1,1,2,2,4,4)自洽。答案PDF部分中间探测算式（如 70 的 H1）与所给公式 reverse(70)=07=7 反推的地址不完全吻合，疑为答案PDF书写/OCR 的算式笔误，但最终落位表与 ASL=2 一致，予以保留；如需精确复算请以公式逐步代入核对。",
+      "usage": [
+        "S5-III05"
+      ],
+      "historical_only": []
+    },
+    {
+      "id": "真题-2025-综合3",
+      "source": "真题2025",
+      "source_detail": "24-25回忆修订版(题面P7-12)+2025答案解析(P27-41)",
+      "stem": "给定字符 a 到 g，它们的权值分别为：a:5  b:9  c:12  d:13  e:16  f:45  g:50。\n（1）请根据给定的字符及其权值，使用哈夫曼编码算法构建一棵哈夫曼树。要求每次合并两个结点时，左结点的权值小于等于右结点的权值。\n（2）根据哈夫曼树结构，写出每个字符的哈夫曼编码（左结点为 0，右结点为 1），填表。",
+      "answer_present": true,
+      "notes": "已逐字符核对编码，答案PDF正确。哈夫曼树形见答案PDF图 z2425-p34-0.png。",
+      "usage": [
+        "S1-III02",
+        "S2-III06"
+      ],
+      "historical_only": [
+        "S3-III03",
+        "S5-III03",
+        "S6-III01"
+      ]
+    },
+    {
+      "id": "真题-2025-综合4",
+      "source": "真题2025",
+      "source_detail": "24-25回忆修订版(题面P7-12)+2025答案解析(P27-41)",
+      "stem": "已知有序数组为 [7, 15, 23, 35, 41, 53, 62, 70, 81, 94]，对该数组进行二分查找，回答以下问题：\n（1）画出二叉查找树（折半查找判定树）；\n（2）查找 53 需要与哪些元素比较；\n（3）查找 90 需要与哪些元素比较；\n（4）计算查找成功和查找失败的平均查找长度。",
+      "answer_present": true,
+      "notes": "【答案PDF有误】答案PDF给 ASL成功=33/10=3.3，但其自身判定树(与查找53='41→70→53'、查找90='41→70→81→94'及 ASL失败=39/11 完全对应)按层数求和应为 (1×1+2×2+4×3+3×4)/10=29/10=2.9。故 ASL成功正确值为 29/10=2.9，答案PDF的 33/10 有误。ASL失败=39/11 已核对正确。判定树图见 z2425-p35-0.png。",
+      "usage": [
+        "S1-III04",
+        "S2-III02",
+        "S5-III02"
+      ],
+      "historical_only": [
+        "S3-III06",
+        "S5-II08"
+      ]
+    },
+    {
+      "id": "真题-2025-综合5",
+      "source": "真题2025",
+      "source_detail": "24-25回忆修订版(题面P7-12)+2025答案解析(P27-41)",
+      "stem": "已知带权的完全无向图 G（图见原题附图），回答以下问题：\n（1）从 A 开始，分别写出图 G 的广度优先搜索(BFS)和深度优先搜索(DFS)序列。若遍历过程中有多个相同权值的路径，优先选择字母顺序较小的结点。\n（2）使用 Prim 算法从结点 A 开始构建最小生成树，权值相同时优先选字母顺序较小的结点。\n（3）使用 Kruskal 算法构建最小生成树，权值相同时优先选字母顺序较小的结点。",
+      "answer_present": true,
+      "notes": "题干依赖'完全无向图 G'的图。P11 有两张题图(z2425-p11-0.png 301x298、z2425-p11-1.png 677x345)，分别对应综合5的完全无向图 G 与综合6的 AOE 网，因无图内文本无法从 OCR 精确区分二者对应关系，故两图一并附上。BFS/DFS 序列取自答案PDF；MST 结果为答案PDF附图。",
+      "usage": [
+        "S1-III05",
+        "S5-III06"
+      ],
+      "historical_only": [
+        "S3-III05",
+        "S4-IV03",
+        "S6-III06"
+      ]
+    },
+    {
+      "id": "真题-2025-综合6",
+      "source": "真题2025",
+      "source_detail": "24-25回忆修订版(题面P7-12)+2025答案解析(P27-41)",
+      "stem": "给定一个 AOE 网（图见原题附图），请回答以下问题：\n（1）计算每个事件的最早发生时间(ve)和最晚发生时间(vl)；\n（2）计算每个活动的最早开始时间(e)和最迟完成时间(l)；\n（3）确定关键路径。",
+      "answer_present": true,
+      "notes": "答案已核对：关键活动 ab,be,eg,gi 满足 e==l，关键路径 a→b→e→g→i 长度 19 与 ve(i) 一致，正确。AOE 网图见 P11 题图(z2425-p11-*.png，与综合5共用两图，对应关系需查原图)。",
+      "usage": [
+        "S2-III05",
+        "S6-III05"
+      ],
+      "historical_only": [
+        "S4-III05"
+      ]
+    },
+    {
+      "id": "真题-2025-阅读1",
+      "source": "真题2025",
+      "source_detail": "24-25回忆修订版(题面P7-12)+2025答案解析(P27-41)",
+      "stem": "求以下代码的时间复杂度，并分析原因。\n```c\nvoid move(char a, char b, int n) {\n    printf(\"将第%d个盘子从%c移动到%c\", n, a, b);\n}\n\nvoid F(int n, char a, char b, char c) {\n    if (n == 1) {\n        move(a, c, n);\n    } else {\n        F(n - 1, a, c, b);\n        move(a, c, n);\n        F(n - 1, b, a, c);\n    }\n}\n```",
+      "answer_present": true,
+      "notes": "OCR错位已重组：原 OCR 在 move() 中混入一行无定义的 printf(\"%s\\n\", buffer); 及乱序行号，已按汉诺塔逻辑删除并还原。",
+      "usage": [],
+      "historical_only": [
+        "S1-I01",
+        "S2-I01",
+        "S3-I01",
+        "S4-II01",
+        "S5-I01"
+      ]
+    },
+    {
+      "id": "真题-2025-阅读2",
+      "source": "真题2025",
+      "source_detail": "24-25回忆修订版(题面P7-12)+2025答案解析(P27-41)",
+      "stem": "下列代码交换双向链表中 p 结点和 p 结点的前驱。请填写完整代码。\n双向链表存储结构：\n```c\nstruct DLinkNode {\n    ElementType data;\n    Position prior; // Front pointer\n    Position next;  // Rear pointer\n};\n\nvoid SwapWithPrevious(DLinkNode* p) {\n    DLinkNode* q = p->prior;\n    ①;\n    p->next = q;\n    q->prior = p;\n    ②;\n    p->prior->next = p;\n    q->next->prior = q;\n}\n```",
+      "answer_present": true,
+      "notes": "【答案PDF有误】答案PDF的② q->next = p->next 在骨架中位于 p->next=q 之后执行，此时 p->next 已被改为 q，会导致 q->next=q（自环），并使随后的 q->next->prior=q 把 q->prior 破坏为 q。正确做法是先保存 p 的原后继再赋给 q->next（见重组代码）。此错也可能源于回忆版骨架行序 OCR 错位。",
+      "usage": [
+        "S2-I02"
+      ],
+      "historical_only": []
+    },
+    {
+      "id": "真题-2025-阅读3",
+      "source": "真题2025",
+      "source_detail": "24-25回忆修订版(题面P7-12)+2025答案解析(P27-41)",
+      "stem": "下列代码实现循环单链表队列的出队入队，请填写完整代码。\n队列的链式存储类型（仅设尾指针 rear，首尾相接成环）：\n```c\ntypedef struct LinkNode {\n    ElemType data;\n    struct LinkNode *next;\n} LinkNode;\n\ntypedef struct {\n    LinkNode *rear;\n} LinkQueue;\n\nvoid EnQueue(LinkQueue *Q, LinkNode *p) {\n    if (Q->rear == NULL) {\n        Q->rear = p;\n        p->next = p;\n    } else {\n        ①;\n        Q->rear->next = p;\n        Q->rear = p;\n    }\n}\n\nLinkNode* DeQueue(LinkQueue *Q) {\n    LinkNode *p;\n    if (Q->rear == NULL) {\n        return NULL;\n    }\n    p = Q->rear->next;\n    if (Q->rear == p) {\n        ②;\n    } else {\n        Q->rear->next = p->next;\n    }\n    return p;\n}\n```",
+      "answer_present": true,
+      "notes": "",
+      "usage": [
+        "S1-I03"
+      ],
+      "historical_only": [
+        "S3-I03"
+      ]
+    },
+    {
+      "id": "真题-2025-阅读4",
+      "source": "真题2025",
+      "source_detail": "24-25回忆修订版(题面P7-12)+2025答案解析(P27-41)",
+      "stem": "下列代码实现带头结点的单链表的简单选择排序，请填写完整代码。\n单链表存储结构：\n```c\ntypedef struct LNode {\n    ElemType data;\n    struct LNode* next;\n} LNode, *LinkList;\n\nvoid SelectionSort(LinkList &L) {\n    LNode *p, *q, *min;\n    ①;\n    while (p != NULL) {\n        min = p;\n        q = p->next;\n        while (q != NULL) {\n            if (q->data < min->data) {\n                min = q;\n            }\n            q = q->next;\n        }\n        if (②) {\n            ElemType temp = p->data;\n            p->data = min->data;\n            min->data = temp;\n        }\n        ③;\n    }\n}\n```",
+      "answer_present": true,
+      "notes": "",
+      "usage": [
+        "S3-I02"
+      ],
+      "historical_only": []
+    },
+    {
+      "id": "真题-2026-填空10",
+      "source": "真题2026",
+      "source_detail": "26回忆版(题面)+2026答案PDF(答案)",
+      "stem": "设某个强连通图有 n 个顶点，则该强连通图至少有________条边。",
+      "answer_present": true,
+      "notes": "【答案 PDF 有误】其写'需要 n+1 条边构成环'。强连通有向图最少边数为 n(n 个顶点构成一个有向环)，非 n+1；已按正确结论入库。",
+      "usage": [],
+      "historical_only": [
+        "S3-II07",
+        "S4-II07"
+      ]
+    },
+    {
+      "id": "真题-2026-填空11",
+      "source": "真题2026",
+      "source_detail": "26回忆版(题面)+2026答案PDF(答案)",
+      "stem": "n 个节点的二叉树，采用二叉链表存储，空指针个数为________。",
+      "answer_present": true,
+      "notes": "",
+      "usage": [
+        "S2-II07",
+        "S3-II10",
+        "S6-II09"
+      ],
+      "historical_only": []
+    },
+    {
+      "id": "真题-2026-填空13",
+      "source": "真题2026",
+      "source_detail": "26回忆版(题面)+2026答案PDF(答案)",
+      "stem": "有 125 个元素的有序数组，使用折半查找，成功的比较次数最多为________。",
+      "answer_present": true,
+      "notes": "",
+      "usage": [
+        "S1-II10",
+        "S2-II08",
+        "S6-II10"
+      ],
+      "historical_only": [
+        "S4-II08",
+        "S5-II08"
+      ]
+    },
+    {
+      "id": "真题-2026-填空14",
+      "source": "真题2026",
+      "source_detail": "26回忆版(题面)+2026答案PDF(答案)",
+      "stem": "（回忆版题面缺失）一个广义表的取表头、取表尾运算________。",
+      "answer_present": false,
+      "notes": "【题面严重缺失】回忆版仅有'是一个广义表的运算取头取尾'一句，无具体广义表与所求。答案 PDF 亦注'题目不全，通常考察 Head() 取表头、Tail() 取表尾'。保留占位，待主讲补全具体题面。",
+      "usage": [
+        "S1-II05"
+      ],
+      "historical_only": []
+    },
+    {
+      "id": "真题-2026-填空15",
+      "source": "真题2026",
+      "source_detail": "26回忆版(题面)+2026答案PDF(答案)",
+      "stem": "大根堆后面加入一个元素，重新向上调整建堆需要比较的次数为________。",
+      "answer_present": true,
+      "notes": "回忆版题干为'如图所示'但 26 回忆版未给出该图，按大根堆插入向上调整的通用结论入库。",
+      "usage": [
+        "S1-II09",
+        "S2-II09"
+      ],
+      "historical_only": [
+        "S3-II09",
+        "S4-II09",
+        "S6-II08"
+      ]
+    },
+    {
+      "id": "真题-2026-填空6",
+      "source": "真题2026",
+      "source_detail": "26回忆版(题面)+2026答案PDF(答案)",
+      "stem": "若 a=2, b=3, c=4, d=5，则后缀表达式 `abc+*d-` 的值为________。",
+      "answer_present": true,
+      "notes": "",
+      "usage": [
+        "S2-II01"
+      ],
+      "historical_only": []
+    },
+    {
+      "id": "真题-2026-填空7",
+      "source": "真题2026",
+      "source_detail": "26回忆版(题面)+2026答案PDF(答案)",
+      "stem": "用一个大小为 6 的数组实现循环队列，当前 rear 和 front 的值分别为 0 和 3。从队列中删除一个元素、再加入两个元素后，rear 和 front 的值分别为________。",
+      "answer_present": true,
+      "notes": "答案 PDF 末尾写'答案：3'与其自身解析(front=4,rear=2)矛盾，疑为笔误；以解析过程为准，取 front=4、rear=2。",
+      "usage": [
+        "S1-II03",
+        "S2-II03"
+      ],
+      "historical_only": [
+        "S3-II01",
+        "S4-I03"
+      ]
+    },
+    {
+      "id": "真题-2026-填空8",
+      "source": "真题2026",
+      "source_detail": "26回忆版(题面)+2026答案PDF(答案)",
+      "stem": "已知二维数组 A 按行优先方式存储，每个元素占一个单元。若 A[0][0] 的存储地址为 100，A[3][3] 为 220，则 A[5][5] 的存储地址为________。",
+      "answer_present": true,
+      "notes": "",
+      "usage": [
+        "S1-II02",
+        "S5-II05"
+      ],
+      "historical_only": [
+        "S4-II02",
+        "S6-II02"
+      ]
+    },
+    {
+      "id": "真题-2026-填空9",
+      "source": "真题2026",
+      "source_detail": "26回忆版(题面)+2026答案PDF(答案)",
+      "stem": "已知一个栈的入栈序列是 1,2,3,…,n，输出序列为 T1,T2,…,Tn。若 T1=n，则第 i 个出栈的元素是________。",
+      "answer_present": true,
+      "notes": "回忆版题面文字 OCR 有断裂(题号与题干错位)，已按答案 PDF 的解读补全为完整题意。",
+      "usage": [
+        "S1-II07"
+      ],
+      "historical_only": [
+        "S3-II03",
+        "S4-II03",
+        "S6-II03"
+      ]
+    },
+    {
+      "id": "真题-2026-算法24",
+      "source": "真题2026",
+      "source_detail": "26回忆版(题面)+2026答案PDF(答案)",
+      "stem": "（约瑟夫环，8分）有 n 个人围成一个圈，编号为 1~n。现要求从第 s 个人开始报数，数到 m 的人出列，出列后的下一个人继续从 1 开始报数，同样数到 m 的人出列，一直重复此过程，直到圈中只剩下最后一个人，返回其编号。",
+      "answer_present": true,
+      "notes": "答案 PDF 注：'之前讲冲刺班的时候压到这题了'——与主讲冲刺班押题一致，C3-B 重点讲。完整代码见 C3-B 模板(循环链表模拟)。",
+      "usage": [],
+      "historical_only": [
+        "S4-IV01",
+        "S5-IV01"
+      ]
+    },
+    {
+      "id": "真题-2026-算法25",
+      "source": "真题2026",
+      "source_detail": "26回忆版(题面)+2026答案PDF(答案)",
+      "stem": "（10分）设一棵二叉树中各结点的值互不相同，其先序遍历序列和中序遍历序列分别存于两个一维数组 A[1..n] 和 B[1..n] 中，试编写算法建立该二叉树的二叉链表存储结构。",
+      "answer_present": true,
+      "notes": "答案 PDF 仅给思路'递归划分'未给完整代码；完整代码见 C3-B 模板(递归建树)，与 2024 判 BST、2025 最长路径同属树的递归范式。",
+      "usage": [],
+      "historical_only": [
+        "S6-IV02"
+      ]
+    },
+    {
+      "id": "真题-2026-算法26",
+      "source": "真题2026",
+      "source_detail": "26回忆版(题面)+2026答案PDF(答案)",
+      "stem": "（12分）给一个由邻接表存储的图，以及一个序列 V1 V2 ... Vn，判断这个序列是不是该图的一个拓扑序列。",
+      "answer_present": true,
+      "notes": "答案 PDF 给出两种思路(前驱检查、入度表法模拟)并配图(a26-p10-0.png、a26-p11-0.png)。完整代码见 C3-B 模板(入度表法)。",
+      "usage": [],
+      "historical_only": [
+        "S5-II07",
+        "S5-IV02",
+        "S6-IV03"
+      ]
+    },
+    {
+      "id": "真题-2026-综合16",
+      "source": "真题2026",
+      "source_detail": "26回忆版(题面)+2026答案PDF(答案)",
+      "stem": "二叉树的中序序列为 BADCFEG，先序序列为ABCDEFG。\n（1）画出该二叉树，并给出后序序列；\n（2）画出该二叉树对应的三叉链表结构；\n（3）画出该二叉树对应的树或森林。",
+      "answer_present": true,
+      "notes": "",
+      "usage": [
+        "S2-III01"
+      ],
+      "historical_only": [
+        "S3-III01",
+        "S5-III01",
+        "S6-III02"
+      ]
+    },
+    {
+      "id": "真题-2026-综合17",
+      "source": "真题2026",
+      "source_detail": "26回忆版(题面)+2026答案PDF(答案)",
+      "stem": "散列表的散列函数为 H0=Key%13。将关键字序列 {19,14,23,1,68,20,84,27,55,11,10,79} 按顺序插入空哈希表。\n（1）采用线性探测法处理冲突，画出插入完成的哈希表(HT[0..15]，表长16)，求等概率下查找成功与不成功的 ASL；\n（2）采用链地址法处理冲突，画出哈希表，求查找成功与不成功的 ASL。",
+      "answer_present": true,
+      "notes": "散列表插入结果与 ASL 计算过程详见答案 PDF P6-P7；此处为题面与关键结论登记。",
+      "usage": [
+        "S1-III03",
+        "S2-III03"
+      ],
+      "historical_only": [
+        "S4-III02",
+        "S6-III07"
+      ]
+    },
+    {
+      "id": "真题-2026-综合18",
+      "source": "真题2026",
+      "source_detail": "26回忆版(题面)+2026答案PDF(答案)",
+      "stem": "给一个整数序列 14,4,39,28,16,2,10,78。\n（1）依次插入二叉排序树的最终结果；\n（2）计算查找成功的平均查找长度；\n（3）若一开始插入时进行平衡调整，给出最终结果(AVL)。",
+      "answer_present": true,
+      "notes": "BST 与 AVL 树形图见答案 PDF P7(a26-p07-0.png)。",
+      "usage": [
+        "S1-III06"
+      ],
+      "historical_only": [
+        "S3-III02",
+        "S4-III06",
+        "S6-III04"
+      ]
+    },
+    {
+      "id": "真题-2026-综合20",
+      "source": "真题2026",
+      "source_detail": "26回忆版(题面)+2026答案PDF(答案)",
+      "stem": "给定一个 AOE 网，完成表格(给出计算过程)，并给出关键路径。表头含 V1..V7、Ve、Vl、a1..a9、e、l。",
+      "answer_present": false,
+      "notes": "【图缺失】回忆版给出了表格表头(顶点/活动)但未给出 AOE 网的图与边权。答案 PDF 注：'没有给图，做不了，但按从前向后求最大、从后往前求最小可得事件最早最晚，再求活动的最早最晚'。仅作真题登记。\n【模拟卷候选：已替代】优先题ID=EXT-INST-2026-M8-C6-AOE。旧记录缺AOE图和边权；新题用完整依赖表构网并分析关键路径。保留本记录供原始来源/历史分析，不再直接选作模拟题；非真题恢复。",
+      "usage": [
+        "S2-III05"
+      ],
+      "historical_only": [
+        "S6-III05"
+      ]
+    },
+    {
+      "id": "真题-2026-综合21",
+      "source": "真题2026",
+      "source_detail": "26回忆版(题面)+2026答案PDF(答案)",
+      "stem": "给定一个有向图，利用 Dijkstra 算法寻找最短路径，完成表格(第一趟至第五趟，含 V1..V5、S)。",
+      "answer_present": false,
+      "notes": "【图缺失】回忆版给出表格框架但未给出有向图。答案 PDF 注：'没给图，但这个题和 19 题思路很像，可能有一个题有问题、记重复了，应该不会一张卷子考两次相同算法'。仅作真题登记。",
+      "usage": [
+        "S2-III04"
+      ],
+      "historical_only": [
+        "S4-III04",
+        "S6-III06"
+      ]
+    },
+    {
+      "id": "真题-2026-综合22",
+      "source": "真题2026",
+      "source_detail": "26回忆版(题面)+2026答案PDF(答案)",
+      "stem": "abcdefg 对应的出现次数(略)。\n（1）建立哈夫曼树，要求同一节点的左根大于右根；\n（2）对二叉树进行编码，左0右1，完成表格。",
+      "answer_present": false,
+      "notes": "【数据缺失】回忆版注明各字符出现次数'(略)'，未给出具体权值。答案 PDF 注：'没给具体权值，但哈夫曼树的题目一般不难'。仅作真题登记。\n【模拟卷候选：已替代】优先题ID=EXT-INST-2026-M6-C2-HUFFCOMPARE。旧记录缺权值不可作答；新题数据完整并增加编码方案比较。保留本记录供原始来源/历史分析，不再直接选作模拟题；非真题恢复。",
+      "usage": [
+        "S1-III02",
+        "S2-III06"
+      ],
+      "historical_only": [
+        "S6-III01"
+      ]
+    },
+    {
+      "id": "真题-2026-综合23",
+      "source": "真题2026",
+      "source_detail": "26回忆版(题面)+2026答案PDF(答案)",
+      "stem": "给定一个整数序列 (2,7,8,10,24,25,28,31,33,39,41) 进行折半查找。\n（1）画出描述折半查找过程的判定树；\n（2）若查找元素 28，需依次与哪些元素比较？\n（3）求等概率情况下查找成功的平均查找长度。",
+      "answer_present": true,
+      "notes": "答案 PDF 注'判定树 word 写不方便，这里不画'，判定树图缺失，按折半过程文字还原比较序列。",
+      "usage": [
+        "S1-III04",
+        "S2-III02"
+      ],
+      "historical_only": [
+        "S5-III02",
+        "S6-III03"
+      ]
+    },
+    {
+      "id": "真题-2026-阅读1",
+      "source": "真题2026",
+      "source_detail": "26回忆版(题面)+2026答案PDF(答案解析)",
+      "stem": "深度优先生成树（第一空1分，第二空2分，共3分）。下列代码用邻接表存储图，`DFS_Tree` 对每个连通分量调用 `DFSTree` 生成深度优先生成树，请补全 `DFSTree` 中的两个空。\n\n```c\ntypedef struct ArcNode {\n    int adjvex;\n    struct ArcNode *nextarc;\n} ArcNode;\ntypedef struct VNode {\n    char data;\n    ArcNode *firstarc;\n} VNode;\ntypedef struct {\n    VNode vertices[MaxVertexNum];\n    int vexnum, arcnum;\n} ALGraph;\n\nvoid DFS_Tree(ALGraph G) {\n    for (int i = 0; i < G.vexnum; i++) visited[i] = false;\n    for (int i = 0; i < G.vexnum; i++)\n        if (!visited[i]) DFSTree(G, i);\n}\nvoid DFSTree(ALGraph G, int v) {\n    visited[v] = true;\n    ArcNode *p = ________;              // 空1\n    while (p != NULL) {\n        if (!visited[p->adjvex]) {\n            ________;                   // 空2\n        }\n        printf(\"Tree edge: %d -> %d\\n\", v, p->adjvex);\n        p = p->nextarc;\n    }\n}\n```",
+      "answer_present": true,
+      "notes": "回忆版此处代码顺序 OCR 有错位（printf 与空2 位置颠倒），已按 DFS 逻辑与答案重组：空2 在 if(!visited) 块内。",
+      "usage": [
+        "S3-I04"
+      ],
+      "historical_only": []
+    },
+    {
+      "id": "真题-2026-阅读2",
+      "source": "真题2026",
+      "source_detail": "26回忆版(题面)+2026答案PDF(答案解析)",
+      "stem": "共享栈（每空1分，共5分）。大小为 m 的数组实现两个栈，top[0] 为栈1指针初始指向 -1，top[1] 为栈2指针初始指向 m，两栈底在数组两端向中间生长。补全 Push、Pop 中的空。\n\n```c\ntypedef struct {\n    int data[MaxSize];\n    int top[2];\n    int bot[2];\n} TwStack;\nvoid InitStack(TwStack &S) {\n    S.bot[0] = -1; S.bot[1] = m;\n    S.top[0] = -1; S.top[1] = m;\n}\nbool Push(TwStack &S, int i, int x) {\n    if (________) return false;         // 空1：判满\n    if (i == 0) { S.data[________] = x; }      // 空2：栈0进栈\n    else if (i == 1) { S.data[________] = x; } // 空3：栈1进栈\n    return true;\n}\nbool Pop(TwStack &S, int i, int &x) {\n    if (S.top[i] == S.bot[i]) return false;\n    if (i == 0) { x = S.data[________]; }      // 空4：栈0出栈\n    else if (i == 1) { x = S.data[________]; } // 空5：栈1出栈\n    return true;\n}\n```",
+      "answer_present": true,
+      "notes": "回忆版注明'红色部分并未给出'；OCR 把空位与 S.data[__]=x 打乱，已按共享栈逻辑与答案重组。",
+      "usage": [
+        "S2-I03",
+        "S5-I03"
+      ],
+      "historical_only": []
+    },
+    {
+      "id": "真题-2026-阅读3",
+      "source": "真题2026",
+      "source_detail": "26回忆版(题面)+2026答案PDF(答案解析)",
+      "stem": "链表求交集（第一空1分，后面每空2分，共5分）。以两个元素依值递增有序排列的线性表 A 和 B 分别表示两个集合，另辟空间构成线性表 C 为 A、B 的交集（递增有序），**利用 A 表空间存放 C**。补全 mergelist 中的空。\n\n```c\nStatus mergelist(LinkList &A, LinkList &B) {\n    LNode *pa = A->next, *pb = B->next, *pc = A, *temp;\n    while (________) {                    // 空1\n        if (pa->data == pb->data) {\n            ________                      // 空2\n            pc = pa; pa = pa->next;\n            temp = pb; pb = pb->next; free(temp);\n        } else if (pa->data < pb->data) {\n            temp = pa; pa = pa->next; free(temp);\n        } else {\n            temp = pb; pb = pb->next; free(temp);\n        }\n    }\n    while (pb) { temp = pb; pb = pb->next; free(temp); }\n    while (pa) { temp = pa; pa = pa->next; free(temp); }\n    ________                              // 空3\n    free(B);\n    return OK;\n}\n```",
+      "answer_present": true,
+      "notes": "回忆版代码有跨页断裂，已按逻辑补全；空2 依答案 PDF 为 pc->next=pa。",
+      "usage": [
+        "S4-I02"
+      ],
+      "historical_only": [
+        "S1-IV01",
+        "S2-IV01",
+        "S5-I02",
+        "S6-IV01"
+      ]
+    },
+    {
+      "id": "真题-2026-阅读4",
+      "source": "真题2026",
+      "source_detail": "26回忆版(题面)+2026答案PDF(答案解析)",
+      "stem": "给出下列程序输出结果（1分）与算法时间复杂度（2分），其中 n 为 8（共3分）。\n\n```c\nint a[] = {23,33,16,79,34,79,29,86};\n// 版本一\nvoid riddle(int n) {\n    if (n == 1) return;\n    riddle(n - 1);\n    if (a[n-1] < a[n-2]) printf(\"%d \", a[n-1]);\n    else                 printf(\"%d \", a[n-2]);\n}\n// 版本二\nint riddle(int n) {\n    if (n == 1) return a[0];\n    int p = riddle(n - 1);\n    if (p < a[n]) return p;\n    else          return a[n];\n}\n```",
+      "answer_present": true,
+      "notes": "回忆版作者说明：'本题作者似乎寄了，不确定是以下哪个函数或其他'——两个版本并存，题目本身存疑，讲解时以版本一为准并说明歧义。",
+      "usage": [],
+      "historical_only": [
+        "S4-I01"
+      ]
+    },
+    {
+      "id": "真题-2026-阅读5",
+      "source": "真题2026",
+      "source_detail": "26回忆版(题面)+2026答案PDF(答案解析)",
+      "stem": "判断一个二叉树是否是平衡二叉树，若是返回深度，不是则不返回。结构为 (left, right, data)（每空2分，共4分）。补全 IsBalanced 中的空。\n\n```c\nbool IsBalanced(BiTree T, int &depth) {\n    if (T == NULL) { depth = 0; return true; }\n    int deepleft, deepright;\n    if (________) {                       // 空1\n        depth = (deepleft > deepright ? deepleft : deepright) + 1;\n        int dif = deepleft - deepright;\n        if (________) {                   // 空2\n            return true;\n        }\n    }\n    return false;\n}\n```",
+      "answer_present": true,
+      "notes": "",
+      "usage": [
+        "S2-I04"
+      ],
+      "historical_only": []
+    }
+  ]
+}

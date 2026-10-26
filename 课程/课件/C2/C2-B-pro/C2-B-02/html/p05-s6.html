@@ -1,0 +1,39 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{width:2218px;height:726px;background:transparent;position:relative;overflow:visible;font-family:'Microsoft YaHei','微软雅黑',sans-serif}
+.el{position:absolute}
+.codepanel{background:F7F9FC;border-radius:2px}
+.codebar{position:absolute;left:0;top:0;width:11px;height:100%;background:1F4E9C}
+.coderows{position:absolute;left:26px;top:14px;right:10px;bottom:10px;font-family:Consolas,'Courier New',monospace;color:1F2329;white-space:pre}
+.cl{min-height:1em}
+.cfocus{background:FFF3CD;box-shadow:0 0 0 2px FFF3CD}
+.lnode{display:flex;position:absolute;border-radius:3px;overflow:hidden}
+.lnode-cell{display:flex;align-items:center;justify-content:center;height:100%;font-size:34px;font-family:'Microsoft YaHei','微软雅黑',sans-serif;border-right:2px solid #D8DBE0}
+.lnode-cell:last-child{border-right:none}
+.lhead-tag{position:absolute;font-size:20px;color:#8A9099;text-align:center}
+.cellbox{position:absolute;border:3px solid #1F4E9C;background:#fff;display:flex;align-items:center;justify-content:center;font-size:30px;color:1F2329}
+.cellidx{position:absolute;text-align:center;font-size:22px;color:#8A9099}
+.gridcell{position:absolute;border:3px solid #1F4E9C;background:#fff}
+.gridlab{position:absolute;display:flex;align-items:center;justify-content:center;font-size:24px;color:#8A9099}
+.tnode{position:absolute;border:3px solid #1F4E9C;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:30px;color:1F2329;font-weight:600}
+.panel{border-radius:6px}
+.panel-title{position:absolute;left:18px;top:10px;font-size:24px;font-weight:700}
+.chip{display:flex;align-items:center;justify-content:center;border-radius:6px;font-weight:700;font-family:'Microsoft YaHei','微软雅黑',sans-serif}
+.wlabel{position:absolute;text-align:center;font-size:30px;font-weight:700;color:#1F4E9C;font-family:'Microsoft YaHei','微软雅黑',sans-serif}
+.legend-item{position:relative;display:flex;align-items:center;gap:10px;color:1F2329}
+.sw{display:inline-block;width:26px;height:26px;border:2px solid #1F4E9C}
+.arrowsym{position:absolute;text-align:center;font-size:24px;font-weight:700;font-family:'Microsoft YaHei','微软雅黑',sans-serif}
+</style></head><body><div class="el" style="left:0;top:0;width:100%;height:100%"><div style="width:100%;height:100%;box-sizing:border-box;padding:23px 27px;background:#F7F9FC;border:1px solid #D8DEE8;border-radius:16px;display:flex;flex-direction:column;gap:12px;overflow:hidden;font-family:Arial,'Microsoft YaHei',sans-serif;color:#1F2329">
+<div style="font-size:37px;line-height:1.12;font-weight:700;color:#1F4E9C">归并成递减链：每次摘较小结点并头插</div>
+<div style="font-size:24px;line-height:1.25;color:#515B68">输入链仍递增；输出链头插后自然递减</div>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;flex:1;min-height:0"><section style="background:#FFFFFF;border:1px solid #D8DEE8;border-radius:16px;padding:20px 22px;display:flex;flex-direction:column;justify-content:center;min-height:150px;box-sizing:border-box"><div style="font-size:27px;color:#1F4E9C;font-weight:700;margin-bottom:15px">A · pa</div><div style="display:flex;align-items:center;justify-content:center;gap:13px;flex-wrap:wrap"><div style="min-width:62px;height:54px;padding:0 12px;border:2px solid #B9C3D0;border-radius:12px;background:#FFFFFF;color:#1F2329;display:flex;align-items:center;justify-content:center;font-size:31px;font-weight:700;box-sizing:border-box">空</div></div><div style="font-size:25px;line-height:1.3;color:#515B68;margin-top:14px">按递增顺序读取</div></section><section style="background:#FFFFFF;border:1px solid #D8DEE8;border-radius:16px;padding:20px 22px;display:flex;flex-direction:column;justify-content:center;min-height:150px;box-sizing:border-box"><div style="font-size:27px;color:#1F4E9C;font-weight:700;margin-bottom:15px">B · pb</div><div style="display:flex;align-items:center;justify-content:center;gap:13px;flex-wrap:wrap"><div style="min-width:62px;height:54px;padding:0 12px;border:2px solid #B9C3D0;border-radius:12px;background:#FFFFFF;color:#1F2329;display:flex;align-items:center;justify-content:center;font-size:31px;font-weight:700;box-sizing:border-box">空</div></div><div style="font-size:25px;line-height:1.3;color:#515B68;margin-top:14px">与 pa 当前结点比较</div></section><section style="background:#FFFFFF;border:1px solid #D8DEE8;border-radius:16px;padding:20px 22px;display:flex;flex-direction:column;justify-content:center;min-height:150px;box-sizing:border-box"><div style="font-size:27px;color:#1F4E9C;font-weight:700;margin-bottom:15px">结果 · la</div><div style="display:flex;align-items:center;justify-content:center;gap:13px;flex-wrap:wrap"><div style="min-width:62px;height:54px;padding:0 12px;border:2px solid #B9C3D0;border-radius:12px;background:#FFFFFF;color:#1F2329;display:flex;align-items:center;justify-content:center;font-size:31px;font-weight:700;box-sizing:border-box">6</div><div style="min-width:62px;height:54px;padding:0 12px;border:2px solid #B9C3D0;border-radius:12px;background:#FFFFFF;color:#1F2329;display:flex;align-items:center;justify-content:center;font-size:31px;font-weight:700;box-sizing:border-box">5</div><div style="min-width:62px;height:54px;padding:0 12px;border:2px solid #B9C3D0;border-radius:12px;background:#FFFFFF;color:#1F2329;display:flex;align-items:center;justify-content:center;font-size:31px;font-weight:700;box-sizing:border-box">4</div><div style="min-width:62px;height:54px;padding:0 12px;border:2px solid #B9C3D0;border-radius:12px;background:#FFFFFF;color:#1F2329;display:flex;align-items:center;justify-content:center;font-size:31px;font-weight:700;box-sizing:border-box">3</div><div style="min-width:62px;height:54px;padding:0 12px;border:2px solid #B9C3D0;border-radius:12px;background:#FFFFFF;color:#1F2329;display:flex;align-items:center;justify-content:center;font-size:31px;font-weight:700;box-sizing:border-box">2</div><div style="min-width:62px;height:54px;padding:0 12px;border:2px solid #B9C3D0;border-radius:12px;background:#FFFFFF;color:#1F2329;display:flex;align-items:center;justify-content:center;font-size:31px;font-weight:700;box-sizing:border-box">1</div></div><div style="font-size:25px;line-height:1.3;color:#515B68;margin-top:14px">新结点接到表头</div></section></div>
+<div style="padding:12px 16px;background:#E8EEF9;border-radius:10px;font-size:25px;line-height:1.2;font-weight:600;color:#243B5A">收尾头插6；两条输入链耗尽，归并结束</div></div></div><script>
+window.addEventListener('load',()=>{
+  const out=[];
+  if(document.body.scrollWidth>document.body.clientWidth+1) out.push('body-w:'+document.body.scrollWidth+'>'+document.body.clientWidth);
+  if(document.body.scrollHeight>document.body.clientHeight+1) out.push('body-h:'+document.body.scrollHeight+'>'+document.body.clientHeight);
+  document.title='AUDIT|'+(out.length?out.join(';'):'OK');
+  const t=document.createElement('div');t.id='audit-result';t.textContent='AUDIT|'+(out.length?out.join(';'):'OK');t.style.display='none';
+  document.body.appendChild(t);
+});
+</script></body></html>

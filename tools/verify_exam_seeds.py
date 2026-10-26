@@ -14,7 +14,7 @@ from fractions import Fraction
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-PLAN = ROOT/'资料整理/六套模拟卷规划'
+PLAN = ROOT/'试卷/六套模拟卷/命题依据'
 
 
 def signature(row):
