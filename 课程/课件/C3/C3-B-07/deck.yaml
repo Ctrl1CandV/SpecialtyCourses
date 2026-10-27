@@ -1,0 +1,709 @@
+meta:
+  id: C3-B-07
+  title: 机构模拟题的完整解题过程
+  stage: B解题
+  instructor: 牙膏学长
+  duration: 49min
+slides:
+  - type: cover
+    kicker: 重邮802 数据结构代码课程
+    title: 数据结构冲刺阶段
+    subtitle: 机构模拟题的完整解题过程
+    meta: 主讲：牙膏学长 ｜ 资料答疑：伴梦研途QQ群
+  - type: content
+    kicker: 解题过程
+    title: 两道题各自需要解决什么
+    blocks:
+      - type: table
+        head:
+          - 题目
+          - 读题后要做的决定
+        rows:
+          - - 有序顺序表闭区间删除
+            - 如何确定重复值边界；哪些元素要搬移
+          - - 表达式树输出
+            - 单目与二元如何区分；括号写在何处
+      - type: note
+        text: 据机构模拟卷二、卷一题解整理并明确条件。
+  - type: content
+    kicker: 解题过程
+    title: 题一：删除所有落在闭区间内的元素
+    blocks:
+      - type: bullets
+        items:
+          - A[0…n−1]为非递减整数顺序表，允许重复值和空表。
+          - 删除所有满足x≤A[i]≤y的元素，保留其余元素的相对顺序。
+          - 原地更新n并返回删除个数；x>y时不作修改、返回0。
+          - 请设计算法，写出思想、代码及时间、辅助空间复杂度。
+      - type: note
+        text: 据机构模拟卷二算法第1题题解整理；本讲以两次二分定位为重点。
+  - type: content
+    kicker: 解题过程
+    title: 先在一个例子里圈出删除区段
+    blocks:
+      - type: diagram
+        nodes:
+          - id: prefix
+            text: 保留前缀
+            x: 16
+            'y': 35
+            shape: rect
+          - id: remove
+            text: 删除6项
+            x: 50
+            'y': 35
+            shape: rect
+            highlight: true
+          - id: suffix
+            text: 保留后缀
+            x: 84
+            'y': 35
+            shape: rect
+        edges: []
+        labels:
+          - text: A[0…1]
+            x: 16
+            'y': 62
+          - text: A[2…7]
+            x: 50
+            'y': 62
+          - text: A[8]
+            x: 84
+            'y': 62
+          - text: −3  −1
+            x: 16
+            'y': 86
+          - text: 2 2 2 4 6 6
+            x: 50
+            'y': 86
+          - text: '9'
+            x: 84
+            'y': 86
+        caption: 原数组为−3、−1、2、2、2、4、6、6、9，删除值域[2,6]。
+      - type: bullets
+        items:
+          - 只需移动最后的9，不需逐个删除命中元素。
+  - type: content
+    kicker: 解题过程
+    title: 把闭区间转换成两个位置
+    blocks:
+      - type: bullets
+        items:
+          - first：第一个满足A[i]≥x的位置。
+          - after：第一个满足A[i]>y的位置。
+          - 删除下标区间[first，after)，删除数为after−first。
+          - 不存在这样的元素时，相应位置取n。
+  - type: content
+    kicker: 解题过程
+    title: 找到某个相等元素不足以确定删除边界
+    blocks:
+      - type: diagram
+        nodes:
+          - id: p2
+            text: '2'
+            x: 20
+            'y': 42
+            shape: rect
+            highlight: true
+          - id: p3
+            text: '2'
+            x: 50
+            'y': 42
+            shape: rect
+          - id: p4
+            text: '2'
+            x: 80
+            'y': 42
+            shape: rect
+        edges: []
+        labels:
+          - text: 下标2
+            x: 20
+            'y': 76
+          - text: 下标3
+            x: 50
+            'y': 76
+          - text: 下标4
+            x: 80
+            'y': 76
+        caption: 原例的重复组位于下标2、3、4。普通折半首次可能命中下标4。
+      - type: bullets
+        items:
+          - 若把首次命中位置当first，就会漏删前面的两个2。
+          - 左边界要求最先满足A[i]≥x的位置，命中后仍需向左收缩。
+  - type: content
+    kicker: 解题过程
+    title: 第一次二分找第一个大于等于2的位置
+    blocks:
+      - type: table
+        head:
+          - lo
+          - hi
+          - mid
+          - A[mid]
+          - 更新
+        rows:
+          - - '0'
+            - '9'
+            - '4'
+            - '2'
+            - hi=4
+          - - '0'
+            - '4'
+            - '2'
+            - '2'
+            - hi=2
+          - - '0'
+            - '2'
+            - '1'
+            - −1
+            - lo=2
+          - - '2'
+            - '2'
+            - 结束
+            - —
+            - first=2
+      - type: note
+        text: 搜索区间采用[lo，hi)，初始hi=n；mid始终小于hi。
+  - type: content
+    kicker: 解题过程
+    title: 第二次二分找第一个大于6的位置
+    blocks:
+      - type: table
+        head:
+          - lo
+          - hi
+          - mid
+          - A[mid]
+          - 更新
+        rows:
+          - - '2'
+            - '9'
+            - '5'
+            - '4'
+            - lo=6
+          - - '6'
+            - '9'
+            - '7'
+            - '6'
+            - lo=8
+          - - '8'
+            - '9'
+            - '8'
+            - '9'
+            - hi=8
+          - - '8'
+            - '8'
+            - 结束
+            - —
+            - after=8
+      - type: note
+        text: 继续从first开始搜索；判断条件改为A[mid]≤y。
+  - type: content
+    kicker: 解题过程
+    title: 两个二分循环分别维护哪条边界
+    blocks:
+      - type: table
+        head:
+          - 查找目标
+          - 已排除的左侧
+          - 已确定的右侧
+        rows:
+          - - first：首个A[i]≥x
+            - 下标小于lo处均小于x
+            - 下标不小于hi处均不小于x
+          - - after：首个A[i]>y
+            - 下标小于lo处均不大于y
+            - 下标不小于hi处均大于y
+          - - lo==hi
+            - 待搜索区间为空
+            - 交界位置即答案
+      - type: bullets
+        items:
+          - mid只在lo<hi时计算，因此始终有mid<n。
+  - type: content
+    kicker: 答案代码
+    title: 删除函数：定位左边界
+    blocks:
+      - type: code
+        text: |-
+          int DeleteRange(int A[], int *n, int x, int y) {
+              if (*n == 0 || x > y) return 0;
+              int lo = 0, hi = *n;
+              while (lo < hi) {
+                  int mid = lo + (hi - lo) / 2;
+                  if (A[mid] < x) lo = mid + 1;
+                  else hi = mid;
+              }
+              int first = lo;
+  - type: content
+    kicker: 答案代码
+    title: 删除函数：定位右边界
+    blocks:
+      - type: code
+        text: |2-
+              hi = *n;
+              while (lo < hi) {
+                  int mid = lo + (hi - lo) / 2;
+                  if (A[mid] <= y) lo = mid + 1;
+                  else hi = mid;
+              }
+              int after = lo;
+              int removed = after - first;
+              if (removed == 0) return 0;
+  - type: content
+    kicker: 答案代码
+    title: 删除函数：一次搬移并更新长度
+    blocks:
+      - type: code
+        text: |2-
+              for (int k = after; k < *n; ++k)
+                  A[k - removed] = A[k];
+              *n -= removed;
+              return removed;
+          }
+      - type: bullets
+        items:
+          - 例中removed=6，只把A[8]写到A[2]。
+          - 新长度为3，有效数组是−3，−1，9。
+  - type: content
+    kicker: 解题过程
+    title: 后缀向左搬移时应从左向右读取
+    blocks:
+      - type: diagram
+        nodes:
+          - id: r3
+            text: A[3]=4
+            x: 18
+            'y': 22
+            shape: rect
+          - id: r4
+            text: A[4]=5
+            x: 50
+            'y': 22
+            shape: rect
+          - id: r5
+            text: A[5]=6
+            x: 82
+            'y': 22
+            shape: rect
+          - id: w1
+            text: A[1]=4
+            x: 18
+            'y': 76
+            shape: rect
+            highlight: true
+          - id: w2
+            text: A[2]=5
+            x: 50
+            'y': 76
+            shape: rect
+            highlight: true
+          - id: w3
+            text: A[3]=6
+            x: 82
+            'y': 76
+            shape: rect
+            highlight: true
+        edges:
+          - from: r3
+            to: w1
+            label: 第1步
+            directed: true
+          - from: r4
+            to: w2
+            label: 第2步
+            directed: true
+          - from: r5
+            to: w3
+            label: 第3步
+            directed: true
+        labels: []
+        caption: 另例：A=[1,2,3,4,5,6]删除[2,3]，removed=2。
+      - type: bullets
+        items:
+          - 先读A[3]的4，最后才把6写入A[3]。
+          - 若逆向搬移，先覆盖A[3]会破坏尚未读取的4。
+  - type: content
+    kicker: 解题过程
+    title: 题一的思想段与复杂度
+    blocks:
+      - type: bullets
+        items:
+          - 思想：利用有序性二分定位两个边界，再将保留后缀一次性前移。
+          - 两次边界查找合计O(log n)。
+          - 命中区间时搬移n−after个元素；最坏时间O(n)。
+          - 辅助空间O(1)；没有命中时不搬移。
+  - type: content
+    kicker: 解题过程
+    title: 边界检查：先判断位置再判断值
+    blocks:
+      - type: table
+        head:
+          - 输入情况
+          - first与after
+          - 结果
+        rows:
+          - - 删除值域位于全部元素左侧
+            - 两者均为0
+            - 删除0个
+          - - 删除值域位于全部元素右侧
+            - 两者均为n
+            - 删除0个
+          - - 全部元素命中
+            - first=0，after=n
+            - 新n=0
+          - - x=y且该值重复
+            - 包住全部重复值
+            - 一次删除整组
+  - type: content
+    kicker: 解题过程
+    title: 题二：输出保持运算次序的中缀表达式
+    blocks:
+      - type: bullets
+        items:
+          - 叶结点存放标识符或非负整数字符串；二元结点存放+、−、*、/。
+          - 负值由单目负号结点表示；唯一孩子可在左指针或右指针。
+          - 按树的语义输出等价中缀表达式；允许保留可省括号。
+          - 空树不输出；结点字符串至多9字符，以\0结尾。
+          - 写出思想、完整代码及时间、辅助空间复杂度。
+      - type: note
+        text: 据机构模拟卷一算法第1题题解整理；不要求最少括号。
+  - type: content
+    kicker: 解题过程
+    title: 先辨认单目负号与二元减法
+    blocks:
+      - type: diagram
+        nodes:
+          - id: plus
+            text: +
+            x: 50
+            'y': 8
+            shape: ellipse
+          - id: mul
+            text: '*'
+            x: 25
+            'y': 35
+            shape: ellipse
+          - id: neg
+            text: −
+            x: 75
+            'y': 35
+            shape: ellipse
+            highlight: true
+          - id: a
+            text: a
+            x: 12
+            'y': 62
+            shape: ellipse
+          - id: b
+            text: b
+            x: 38
+            'y': 62
+            shape: ellipse
+          - id: sub
+            text: −
+            x: 75
+            'y': 62
+            shape: ellipse
+            highlight: true
+          - id: cc
+            text: c
+            x: 62
+            'y': 90
+            shape: ellipse
+          - id: dd
+            text: d
+            x: 88
+            'y': 90
+            shape: ellipse
+        edges:
+          - from: plus
+            to: mul
+            directed: true
+          - from: plus
+            to: neg
+            directed: true
+          - from: mul
+            to: a
+            directed: true
+          - from: mul
+            to: b
+            directed: true
+          - from: neg
+            to: sub
+            directed: true
+          - from: sub
+            to: cc
+            directed: true
+          - from: sub
+            to: dd
+            directed: true
+        labels:
+          - text: 单目负号
+            x: 88
+            'y': 35
+          - text: 二元减法
+            x: 88
+            'y': 62
+          - text: 唯一孩子
+            x: 64
+            'y': 49
+        caption: 先计算a*b与c−d，对后者取负，再做加法。
+      - type: bullets
+        items:
+          - 孩子数量区分单目负号和二元减法。
+  - type: content
+    kicker: 解题过程
+    title: 直接中序输出会在哪里失去语义
+    blocks:
+      - type: table
+        head:
+          - 树中目标
+          - 只列中序字符的风险
+        rows:
+          - - (a+b)作为乘法左子树
+            - a+b*c改变加法与乘法先后
+          - - 单目负号孩子在右侧
+            - 可能偶然得到−x
+          - - 单目负号孩子在左侧
+            - 直接中序会得到x−
+          - - 二元减法右子树仍是减法
+            - a−(b−c)不能省成a−b−c
+  - type: content
+    kicker: 解题过程
+    title: 右子树的括号会改变减法结果
+    blocks:
+      - type: diagram
+        nodes:
+          - id: root
+            text: −
+            x: 50
+            'y': 12
+            shape: ellipse
+            highlight: true
+          - id: a
+            text: a
+            x: 20
+            'y': 49
+            shape: ellipse
+          - id: sub
+            text: −
+            x: 76
+            'y': 49
+            shape: ellipse
+            highlight: true
+          - id: b
+            text: b
+            x: 62
+            'y': 85
+            shape: ellipse
+          - id: cc
+            text: c
+            x: 90
+            'y': 85
+            shape: ellipse
+        edges:
+          - from: root
+            to: a
+            directed: true
+          - from: root
+            to: sub
+            directed: true
+          - from: sub
+            to: b
+            directed: true
+          - from: sub
+            to: cc
+            directed: true
+        labels: []
+        caption: a=10、b=6、c=2时，a−(b−c)=6，而a−b−c=2。
+      - type: bullets
+        items:
+          - 相同优先级也可能需要括号，普通中序次序不足以保留语义。
+  - type: content
+    kicker: 解题过程
+    title: 递归函数处理三类结点
+    blocks:
+      - type: table
+        head:
+          - 类型
+          - 输出规则
+        rows:
+          - - 叶结点
+            - 直接输出data，不加括号
+          - - 单目结点
+            - 输出负号，再递归唯一孩子
+          - - 二元结点
+            - 递归左子树、输出运算符、递归右子树
+          - - 非根运算子树
+            - 在上述输出前后分别加左、右括号
+  - type: content
+    kicker: 解题过程
+    title: 结构定义与根标志
+    blocks:
+      - type: code
+        text: |-
+          typedef struct node {
+              char data[10];
+              struct node *left, *right;
+          } BTree;
+      - type: bullets
+        items:
+          - 首次调用printExpr(root,1)，整式不加最外层括号。
+          - 所有递归子调用传0；非根运算子树加一对外括号。
+  - type: content
+    kicker: 解题过程
+    title: 跟踪右侧单目子树的输出
+    blocks:
+      - type: table
+        head:
+          - 处理位置
+          - 本步输出
+          - 当前已输出
+        rows:
+          - - 进入非根单目结点
+            - (
+            - (
+          - - 单目运算符
+            - −
+            - (−
+          - - 进入其二元减法孩子
+            - (
+            - (−(
+          - - 输出c、−、d
+            - c−d
+            - (−(c−d
+          - - 退出二元孩子
+            - )
+            - (−(c−d)
+          - - 退出单目结点
+            - )
+            - (−(c−d))
+  - type: content
+    kicker: 解题过程
+    title: 每层递归配对自己输出的括号
+    blocks:
+      - type: diagram
+        nodes:
+          - id: neg
+            text: 负号子树
+            x: 18
+            'y': 37
+            shape: rect
+            highlight: true
+          - id: sub
+            text: 减法子树
+            x: 50
+            'y': 37
+            shape: rect
+            highlight: true
+          - id: leaf
+            text: 叶c、d
+            x: 82
+            'y': 37
+            shape: rect
+        edges:
+          - from: neg
+            to: sub
+            label: 递归
+            directed: true
+          - from: sub
+            to: leaf
+            label: 递归
+            directed: true
+        labels:
+          - text: 进入(  返回)
+            x: 18
+            'y': 78
+          - text: 进入(  返回)
+            x: 50
+            'y': 78
+          - text: 直接输出操作数
+            x: 82
+            'y': 78
+        caption: 右侧子表达式最终输出(−(c−d))。两层非根运算调用各补齐一对括号。
+      - type: bullets
+        items:
+          - 子调用只负责自己的完整子表达式，父调用负责外层的运算与括号。
+  - type: content
+    kicker: 答案代码
+    title: 表达式输出：空树与叶结点
+    blocks:
+      - type: code
+        text: |-
+          void printExpr(const BTree *t, int isRoot) {
+              if (t == NULL) return;
+              if (t->left == NULL && t->right == NULL) {
+                  printf("%s", t->data);
+                  return;
+              }
+              if (!isRoot) printf("(");
+  - type: content
+    kicker: 答案代码
+    title: 表达式输出：按孩子数量选择顺序
+    blocks:
+      - type: code
+        text: |2-
+              if (t->left == NULL || t->right == NULL) {
+                  printf("%s", t->data);
+                  printExpr(t->left ? t->left : t->right, 0);
+              } else {
+                  printExpr(t->left, 0);
+                  printf("%s", t->data);
+                  printExpr(t->right, 0);
+              }
+  - type: content
+    kicker: 答案代码
+    title: 表达式输出：配对括号与调用入口
+    blocks:
+      - type: code
+        text: |2-
+              if (!isRoot) printf(")");
+          }
+          void Infix(const BTree *root) {
+              printExpr(root, 1);
+          }
+      - type: bullets
+        items:
+          - 示例完整输出：(a*b)+(−(c−d))
+  - type: content
+    kicker: 解题过程
+    title: 题二的完整答案与复杂度
+    blocks:
+      - type: bullets
+        items:
+          - 思想：按叶、单目、二元分类递归输出，非根运算子树加括号。
+          - 每个结点访问一次；字符串长度有常数上界，时间O(n)。
+          - 递归栈随树高增长，辅助空间O(h)，最坏O(n)。
+          - 若字符串长度无固定上界，应另计实际输出字符总量L。
+  - type: content
+    kicker: 解题过程
+    title: 表达式题的思想段交代输出规则
+    blocks:
+      - type: bullets
+        items:
+          - 递归处理当前子树，空树不输出，叶结点输出完整操作数字符串。
+          - 单目结点先输出运算符，再递归唯一孩子，兼容孩子在左或右。
+          - 二元结点依次输出左子表达式、运算符和右子表达式。
+          - 除整式根外，每个运算子树在进入和退出时配一对括号。
+  - type: content
+    kicker: 解题过程
+    title: 课堂检查：把题目条件落实到答案
+    blocks:
+      - type: bullets
+        items:
+          - A=[1,2,2,5]，删除[2,2]：first、after、新n分别是多少？
+          - A=[1,3,5]，删除[6,8]：会不会读取A[n]或搬移元素？
+          - 表达式树根为单目负号，唯一左孩子为叶x：输出什么？
+          - 若取消操作数字符串长度上界，复杂度应如何写？
+  - type: content
+    kicker: 参考答案
+    title: 课堂检查参考
+    blocks:
+      - type: bullets
+        items:
+          - 第一问：first=1，after=3，新n=2，删除2个。
+          - 第二问：first=after=3；不读A[3]，不搬移，返回0。
+          - 第三问：输出−x；整式根不额外加外括号。
+          - 第四问：时间O(n+L)，辅助栈O(h)。

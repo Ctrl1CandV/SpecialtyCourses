@@ -2,6 +2,10 @@
 # Recognize CRLF and preserve existing generated blank lines at end of file.
 试卷/六套模拟卷/** -text whitespace=cr-at-eol,-blank-at-eof
 试卷/2026机构押题/** -text whitespace=cr-at-eol,-blank-at-eof
+试卷/2027押题卷/** -text whitespace=cr-at-eol,-blank-at-eof
+课程/课件/C3/** -text whitespace=cr-at-eol,-blank-at-eof
+# Frozen historical sources keep original whitespace as well as original bytes.
+资料/历史参考/2026-10-04排版导出/** -text whitespace=cr-at-eol,-blank-at-eof,-blank-at-eol
 tools/build_answer_figures.py -text whitespace=cr-at-eol,-blank-at-eof
 tools/build_exam_answers.py -text whitespace=cr-at-eol,-blank-at-eof
 tools/build_exam_papers.py -text whitespace=cr-at-eol,-blank-at-eof

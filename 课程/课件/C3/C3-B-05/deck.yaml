@@ -1,0 +1,514 @@
+meta:
+  id: C3-B-05
+  title: 图路径题的条件与回溯
+  stage: B解题
+  instructor: 牙膏学长
+  duration: 47min
+slides:
+  - type: cover
+    kicker: 重邮802 数据结构代码课程
+    title: 数据结构冲刺阶段
+    subtitle: 图路径题的条件与回溯
+    meta: 主讲：牙膏学长 ｜ 资料答疑：伴梦研途QQ群
+  - type: content
+    kicker: 解题过程
+    title: 先判断题目究竟要求哪一种路径
+    blocks:
+      - type: table
+        head:
+          - 限制
+          - 搜索状态
+        rows:
+          - - 找任意一条可达路径
+            - 全程访问标记，通常无需撤销
+          - - 完全避开 w
+            - 禁止进入 w，再做可达性搜索
+          - - 恰有 k 条边且顶点不重复
+            - 当前路径标记与已走边数
+          - - 必须经过 w 且顶点不重复
+            - 当前路径标记与是否经过 w
+  - type: content
+    kicker: 解题过程
+    title: 2024 题意整理：恰有 k 条边
+    blocks:
+      - type: bullets
+        items:
+          - 无向简单图采用邻接表，顶点编号0…V−1。
+          - 判断是否存在从 s 到 t、恰有 k 条边的简单路径。
+          - 0≤k≤V−1；s=t且k=0时单顶点路径成立。
+          - 课堂同时把找到的顶点序列写入 path，便于核对；最多 V 项。
+  - type: content
+    kicker: 解题过程
+    title: 一条失败路径不能封死另一个分支
+    blocks:
+      - type: diagram
+        nodes:
+          - id: s
+            text: s
+            x: 7
+            'y': 45
+            shape: ellipse
+            highlight: true
+          - id: a
+            text: a
+            x: 35
+            'y': 15
+            shape: ellipse
+            highlight: true
+          - id: b
+            text: b
+            x: 28
+            'y': 78
+            shape: ellipse
+          - id: c
+            text: c
+            x: 57
+            'y': 78
+            shape: ellipse
+          - id: x
+            text: x
+            x: 69
+            'y': 32
+            shape: ellipse
+            highlight: true
+          - id: t
+            text: t
+            x: 94
+            'y': 32
+            shape: ellipse
+            highlight: true
+        edges:
+          - from: s
+            to: a
+            directed: false
+          - from: a
+            to: x
+            directed: false
+          - from: s
+            to: b
+            directed: false
+          - from: b
+            to: c
+            directed: false
+          - from: c
+            to: x
+            directed: false
+          - from: x
+            to: t
+            directed: false
+        labels: []
+        caption: 先试s、a、x、t，只有3条边，未达到题目要求的4条边。
+      - type: bullets
+        items:
+          - 这一分支失败后，x还可能出现在另一条合法路径中。
+  - type: content
+    kicker: 解题过程
+    title: 恢复标记后才能尝试另一条路径
+    blocks:
+      - type: diagram
+        nodes:
+          - id: s
+            text: s
+            x: 7
+            'y': 45
+            shape: ellipse
+            highlight: true
+          - id: a
+            text: a
+            x: 35
+            'y': 15
+            shape: ellipse
+          - id: b
+            text: b
+            x: 28
+            'y': 78
+            shape: ellipse
+            highlight: true
+          - id: c
+            text: c
+            x: 57
+            'y': 78
+            shape: ellipse
+            highlight: true
+          - id: x
+            text: x
+            x: 69
+            'y': 32
+            shape: ellipse
+            highlight: true
+          - id: t
+            text: t
+            x: 94
+            'y': 32
+            shape: ellipse
+            highlight: true
+        edges:
+          - from: s
+            to: a
+            directed: false
+          - from: a
+            to: x
+            directed: false
+          - from: s
+            to: b
+            directed: false
+          - from: b
+            to: c
+            directed: false
+          - from: c
+            to: x
+            directed: false
+          - from: x
+            to: t
+            directed: false
+        labels: []
+        caption: 第二个分支s、b、c、x、t有4条边，可以成功。
+      - type: bullets
+        items:
+          - 本次到达x时已走3条边，之前到达x时只走2条边。
+          - 前缀不同、已用顶点不同，同一顶点不能只搜索一次。
+  - type: content
+    kicker: 解题过程
+    title: 函数参数对应当前搜索状态
+    blocks:
+      - type: bullets
+        items:
+          - dfs(u,d)：当前在u，已经走过d条边。
+          - path[d]=u；used仅标记当前候选路径上的顶点。
+          - d==k时只检查u==t，边数用尽后不再扩展。
+          - 所有邻点分支均失败后撤销used[u]；子调用负责恢复它自己的标记。
+  - type: content
+    kicker: 解题过程
+    title: 回溯时恢复的是刚刚结束的调用
+    blocks:
+      - type: table
+        head:
+          - 时刻
+          - 仍在当前路径的顶点
+          - 动作
+        rows:
+          - - 进入s、a、x、t
+            - s、a、x、t
+            - 当前边数3，继续尝试但无可用邻点
+          - - t返回失败
+            - s、a、x
+            - t撤销used[t]
+          - - x返回失败
+            - s、a
+            - x撤销used[x]
+          - - a返回失败
+            - s
+            - a撤销used[a]
+          - - s转入b
+            - s、b
+            - s保持已标记
+  - type: content
+    kicker: 答案代码
+    title: 定长简单路径的实现（1/2）
+    blocks:
+      - type: code
+        text: |-
+          bool exactDFS(const Graph *G,int u,int t,int k,int d,
+                        unsigned char used[],int path[]) {
+              path[d]=u;
+              if (d==k) return u==t;
+              used[u]=1;
+              for (const Arc *e=G->head[u];e!=NULL;e=e->next)
+                  if (!used[e->to] &&
+                      exactDFS(G,e->to,t,k,d+1,used,path)) return true;
+              used[u]=0; return false;
+          }
+  - type: content
+    kicker: 答案代码
+    title: 定长简单路径的实现（2/2）
+    blocks:
+      - type: code
+        text: |-
+          bool exactPath(const Graph *G,int s,int t,int k,int path[]) {
+              if (k<0 || k>=G->V) return false;
+              unsigned char *used=(unsigned char*)calloc(G->V,1);
+              if (used==NULL) abort();
+              bool ok=exactDFS(G,s,t,k,0,used,path);
+              free(used);
+              return ok;
+          }
+  - type: content
+    kicker: 解题过程
+    title: 定长路径题的答案思想与边界
+    blocks:
+      - type: bullets
+        items:
+          - 从s开始深度优先搜索，记录当前路径与已经经过的边数d。
+          - 仅向当前路径未使用的邻点扩展，防止重复顶点。
+          - d达到k时检查当前结点是否为t，成功保留路径，失败逐层回溯。
+          - k=0时仅s=t成立；k≥V时不存在简单路径。
+  - type: content
+    kicker: 解题过程
+    title: 2025 题意整理：一条路径经过 w
+    blocks:
+      - type: bullets
+        items:
+          - 图为有向或无向简单图，以邻接表存储；输出 s 到 t 且经过 w 的简单路径。
+          - 课堂约定 s、t、w 两两不同；不存在则输出 −1。
+          - 路径上每个顶点最多出现一次，边方向必须遵守图的定义。
+          - 不能仅证明 s 能到 w、w 能到 t，就认定存在所需简单路径。
+  - type: content
+    kicker: 解题过程
+    title: 两段路径各自简单，拼接仍会重复
+    blocks:
+      - type: diagram
+        nodes:
+          - id: s
+            text: s
+            x: 12
+            'y': 55
+            shape: ellipse
+          - id: x
+            text: x
+            x: 50
+            'y': 55
+            shape: ellipse
+            highlight: true
+          - id: t
+            text: t
+            x: 88
+            'y': 55
+            shape: ellipse
+          - id: w
+            text: w
+            x: 50
+            'y': 12
+            shape: ellipse
+        edges:
+          - from: s
+            to: x
+            directed: false
+          - from: x
+            to: t
+            directed: false
+          - from: x
+            to: w
+            directed: false
+        labels: []
+        caption: 从s到w后若继续走向t，必须再次经过x。
+      - type: bullets
+        items:
+          - s、x、w与w、x、t各自不重复，拼接仍会重复x。
+  - type: content
+    kicker: 解题过程
+    title: 在同一次回溯中维护经过状态
+    blocks:
+      - type: bullets
+        items:
+          - hasW 表示当前路径是否已经经过 w。
+          - 进入 u 后更新 hasW = hasW || u==w。
+          - 到达 t 时，仅当 hasW 为真才成功；否则该分支失败。
+          - hasW 按值传递，返回时自动恢复；used 仍须显式撤销。
+  - type: content
+    kicker: 解题过程
+    title: 先到终点但尚未经过指定点
+    blocks:
+      - type: diagram
+        nodes:
+          - id: s
+            text: s
+            x: 8
+            'y': 50
+            shape: ellipse
+            highlight: true
+          - id: a
+            text: a
+            x: 32
+            'y': 50
+            shape: ellipse
+            highlight: true
+          - id: w
+            text: w
+            x: 52
+            'y': 12
+            shape: ellipse
+          - id: b
+            text: b
+            x: 77
+            'y': 12
+            shape: ellipse
+          - id: t
+            text: t
+            x: 92
+            'y': 50
+            shape: ellipse
+            highlight: true
+        edges:
+          - from: s
+            to: a
+            directed: false
+          - from: a
+            to: w
+            directed: false
+          - from: w
+            to: b
+            directed: false
+          - from: b
+            to: t
+            directed: false
+          - from: a
+            to: t
+            directed: false
+        labels: []
+        caption: 先试s、a、t。t处hasW=false，这条候选路径失败。
+      - type: bullets
+        items:
+          - t撤销used[t]，返回a；a仍保留used[a]=1。
+          - 不能越过t去找w后再回到t，否则终点重复。
+  - type: content
+    kicker: 解题过程
+    title: 返回父调用后继续尝试指定点
+    blocks:
+      - type: diagram
+        nodes:
+          - id: s
+            text: s
+            x: 8
+            'y': 50
+            shape: ellipse
+            highlight: true
+          - id: a
+            text: a
+            x: 32
+            'y': 50
+            shape: ellipse
+            highlight: true
+          - id: w
+            text: w
+            x: 52
+            'y': 12
+            shape: ellipse
+            highlight: true
+          - id: b
+            text: b
+            x: 77
+            'y': 12
+            shape: ellipse
+            highlight: true
+          - id: t
+            text: t
+            x: 92
+            'y': 50
+            shape: ellipse
+            highlight: true
+        edges:
+          - from: s
+            to: a
+            directed: false
+          - from: a
+            to: w
+            directed: false
+          - from: w
+            to: b
+            directed: false
+          - from: b
+            to: t
+            directed: false
+          - from: a
+            to: t
+            directed: false
+        labels: []
+        caption: 继续尝试a的邻点w，得到s、a、w、b、t。
+      - type: bullets
+        items:
+          - 进入w后，该分支的hasW变为true，并传给后续调用。
+          - 成功到t时len=d+1=5，输出path前5个顶点。
+  - type: content
+    kicker: 答案代码
+    title: 经过指定点的实现（1/3）
+    blocks:
+      - type: code
+        text: |-
+          bool throughDFS(const Graph *G,int u,int t,int w,int d,
+                          bool hasW,unsigned char used[],int path[],int &len) {
+              used[u]=1; path[d]=u; hasW=hasW || u==w;
+              if (u==t) {
+                  if (hasW) { len=d+1; return true; }
+                  used[u]=0; return false;
+              }
+  - type: content
+    kicker: 答案代码
+    title: 经过指定点的实现（2/3）
+    blocks:
+      - type: code
+        text: |-
+          for (const Arc *e=G->head[u];e!=NULL;e=e->next)
+                  if (!used[e->to] &&
+                      throughDFS(G,e->to,t,w,d+1,hasW,used,path,len)) return true;
+              used[u]=0; return false;
+          }
+  - type: content
+    kicker: 答案代码
+    title: 经过指定点的实现（3/3）
+    blocks:
+      - type: code
+        text: |-
+          bool pathThrough(const Graph *G,int s,int t,int w,int path[],int &len) {
+              len=0;
+              unsigned char *used=(unsigned char*)calloc(G->V,1);
+              if (used==NULL) abort();
+              bool ok=throughDFS(G,s,t,w,0,false,used,path,len);
+              free(used); return ok;
+          }
+  - type: content
+    kicker: 解题过程
+    title: 经过指定点题的答案如何写完整
+    blocks:
+      - type: bullets
+        items:
+          - 在同一次DFS中保存路径内标记及是否经过w，始终禁止重复顶点。
+          - 到达t时根据hasW判定成功，失败时恢复本层标记。
+          - 成功保留path和len并输出，不存在时输出−1。
+          - 主函数初始化len与used，每次查询重新建立状态。
+  - type: content
+    kicker: 解题过程
+    title: 回溯搜索不能套用普通遍历复杂度
+    blocks:
+      - type: bullets
+        items:
+          - 同一顶点可在不同候选路径中被多次访问。
+          - 设搜索状态数为 S：每状态扫描至多 V−1 条邻边，时间 O(SV)。
+          - S 随简单路径前缀数量增长，最坏可能达到阶乘规模。
+          - 辅助 visited 和递归路径均为 O(V)。
+          - 仅避开 w 的可达性题可用永久标记，时间 O(V+E)。
+  - type: content
+    kicker: 解题过程
+    title: 永久标记与回溯标记依据的状态不同
+    blocks:
+      - type: table
+        head:
+          - 问题
+          - 两次到达x能否共用已搜索结果
+        rows:
+          - - 只问x能否到达t
+            - 后续目标和允许通行的图相同，可以共用
+          - - 要求恰有k条边
+            - 剩余边数可能不同，不能仅按x合并
+          - - 要求简单路径经过w
+            - 已使用顶点集合与经过状态可能不同
+          - - 当前实现的计时
+            - 统计展开的路径状态数S，再统计各状态扫描的邻边
+  - type: content
+    kicker: 解题过程
+    title: 课堂检查：回放一个成功分支
+    blocks:
+      - type: bullets
+        items:
+          - 无向边：s–a、a–w、w–b、b–t、a–t。
+          - 找一条经过 w 的 s 到 t 简单路径。
+          - 如果先试 s→a→t，应在何处撤销哪些状态？
+          - 写最终路径，并指出 hasW 为什么不需要手工改回 false。
+  - type: content
+    kicker: 检查答案
+    title: 课堂检查参考
+    blocks:
+      - type: bullets
+        items:
+          - 成功路径：s→a→w→b→t。
+          - 失败到达 t 时撤销 used[t]；a 仍在当前路径中。
+          - hasW 为每层局部副本，used 为共享数组，恢复方式不同。

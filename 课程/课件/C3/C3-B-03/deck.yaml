@@ -1,0 +1,591 @@
+meta:
+  id: C3-B-03
+  title: 线性表综合题的读题与实现
+  stage: B解题
+  instructor: 牙膏学长
+  duration: 48min
+slides:
+  - type: cover
+    kicker: 重邮802 数据结构代码课程
+    title: 数据结构冲刺阶段
+    subtitle: 线性表综合题的读题与实现
+    meta: 主讲：牙膏学长 ｜ 资料答疑：伴梦研途QQ群
+  - type: content
+    kicker: 解题过程
+    title: 先把题干限制改写为实现要求
+    blocks:
+      - type: table
+        head:
+          - 题干
+          - 对应实现
+        rows:
+          - - 严格递增
+            - 两个游标可以单向推进
+          - - 只改 A，B 不变
+            - 只删除 A 的结点
+          - - 不新建数据结点
+            - 重连并释放已有结点
+          - - 头结点地址不变
+            - 保存前驱，从 A 开始
+          - - 保留相对次序
+            - 保留段直接沿用原 next
+  - type: content
+    kicker: 解题过程
+    title: 模拟卷一：求 A 与 B 的差集
+    blocks:
+      - type: bullets
+        items:
+          - A、B 均带头结点，数据严格递增，且没有共享结点。
+          - 删除并释放 A 中所有也出现在 B 中的结点，B 不变。
+          - A 保留结点的原顺序，不新建数据结点，头结点地址不变。
+          - 空表允许；写基本思想、C 实现、时间和辅助空间。
+  - type: content
+    kicker: 解题过程
+    title: 三种比较分别意味着什么
+    blocks:
+      - type: table
+        head:
+          - 比较
+          - 结论
+          - 操作
+        rows:
+          - - pa->data < pb->data
+            - pa 不会再匹配 B 后面的值
+            - 保留 A 当前结点
+          - - pa->data > pb->data
+            - pb 不可能匹配 A 余段
+            - 只推进 B
+          - - 两者相等
+            - A 当前结点属于交集
+            - 从 A 删除并释放
+  - type: content
+    title: 第一次相等时，prev仍指向保留的1
+    blocks:
+      - type: diagram
+        nodes:
+          - id: a1
+            text: '1'
+            x: 10
+            'y': 28
+            shape: rect
+            highlight: true
+          - id: a2
+            text: '2'
+            x: 30
+            'y': 28
+            shape: rect
+            highlight: true
+          - id: a3
+            text: '3'
+            x: 50
+            'y': 28
+            shape: rect
+          - id: a5
+            text: '5'
+            x: 70
+            'y': 28
+            shape: rect
+          - id: a7
+            text: '7'
+            x: 90
+            'y': 28
+            shape: rect
+          - id: b2
+            text: '2'
+            x: 30
+            'y': 73
+            shape: rect
+            highlight: true
+          - id: b3
+            text: '3'
+            x: 50
+            'y': 73
+            shape: rect
+          - id: b4
+            text: '4'
+            x: 70
+            'y': 73
+            shape: rect
+          - id: b5
+            text: '5'
+            x: 90
+            'y': 73
+            shape: rect
+        edges:
+          - from: a1
+            to: a2
+            directed: true
+          - from: a2
+            to: a3
+            directed: true
+          - from: a3
+            to: a5
+            directed: true
+          - from: a5
+            to: a7
+            directed: true
+          - from: b2
+            to: b3
+            directed: true
+          - from: b3
+            to: b4
+            directed: true
+          - from: b4
+            to: b5
+            directed: true
+        labels:
+          - text: prev
+            x: 10
+            'y': 8
+          - text: pa
+            x: 30
+            'y': 8
+          - text: pb
+            x: 30
+            'y': 94
+          - text: A余段
+            x: 79
+            'y': 8
+          - text: B保持不变
+            x: 75
+            'y': 94
+        caption: 省略两表头结点与尾部NULL，仅展示当前相关连接。
+      - type: bullets
+        items:
+          - A当前值等于B当前值，需要删A中的2。
+          - 下一数据结点是3，删除前先保存它的地址。
+  - type: content
+    kicker: 解题过程
+    title: 用连续删除检查前驱
+    blocks:
+      - type: table
+        head:
+          - 当前 A 游标
+          - 当前 B 游标
+          - 动作
+          - 保留前驱
+        rows:
+          - - '1'
+            - '2'
+            - 保留1
+            - '1'
+          - - '2'
+            - '2'
+            - 删2
+            - '1'
+          - - '3'
+            - '3'
+            - 删3
+            - '1'
+          - - '5'
+            - '4'
+            - B前进到5
+            - '1'
+          - - '5'
+            - '5'
+            - 删5
+            - '1'
+          - - '7'
+            - 空
+            - 结束，7自然保留
+            - '1'
+  - type: content
+    title: 删掉2后，prev继续为下一个删除提供前驱
+    blocks:
+      - type: diagram
+        nodes:
+          - id: a1
+            text: '1'
+            x: 10
+            'y': 28
+            shape: rect
+            highlight: true
+          - id: a3
+            text: '3'
+            x: 50
+            'y': 28
+            shape: rect
+            highlight: true
+          - id: a5
+            text: '5'
+            x: 70
+            'y': 28
+            shape: rect
+          - id: a7
+            text: '7'
+            x: 90
+            'y': 28
+            shape: rect
+          - id: b2
+            text: '2'
+            x: 30
+            'y': 73
+            shape: rect
+          - id: b3
+            text: '3'
+            x: 50
+            'y': 73
+            shape: rect
+            highlight: true
+          - id: b4
+            text: '4'
+            x: 70
+            'y': 73
+            shape: rect
+          - id: b5
+            text: '5'
+            x: 90
+            'y': 73
+            shape: rect
+        edges:
+          - from: a1
+            to: a3
+            directed: true
+          - from: a3
+            to: a5
+            directed: true
+          - from: a5
+            to: a7
+            directed: true
+          - from: b2
+            to: b3
+            directed: true
+          - from: b3
+            to: b4
+            directed: true
+          - from: b4
+            to: b5
+            directed: true
+        labels:
+          - text: prev
+            x: 10
+            'y': 8
+          - text: pa
+            x: 50
+            'y': 8
+          - text: pb
+            x: 50
+            'y': 94
+          - text: B原结点2仍在
+            x: 24
+            'y': 94
+        caption: A中的2已经释放。pa、pb都来到3，下一步继续删除A中的3。
+      - type: bullets
+        items:
+          - prev->next仍等于pa，前驱关系继续成立。
+          - 若此时prev=pa，prev会指向下一次要释放的结点。
+  - type: content
+    kicker: 答案代码
+    title: 差集的完整实现（1/2）
+    blocks:
+      - type: code
+        text: |-
+          void listDifference(DiffNode *A, const DiffNode *B) {
+              DiffNode *prev = A, *pa = A->next;
+              const DiffNode *pb = B->next;
+              while (pa != NULL && pb != NULL) {
+                  if (pa->data < pb->data) {
+                      prev = pa; pa = pa->next;
+                  } else if (pa->data > pb->data) {
+                      pb = pb->next;
+                  } else {
+  - type: content
+    kicker: 答案代码
+    title: 差集的完整实现（2/2）
+    blocks:
+      - type: code
+        text: |-
+          DiffNode *old = pa;
+                      pa = pa->next;
+                      prev->next = pa;
+                      free(old);
+                      pb = pb->next;
+                  }
+              }
+          }
+  - type: content
+    title: 释放结点之前必须取得仍要使用的地址
+    blocks:
+      - type: table
+        head:
+          - 步骤
+          - 语句
+          - 需要保证的事实
+        rows:
+          - - 保存待删地址
+            - old=pa
+            - 最后仍能释放原结点
+          - - 先取后继
+            - pa=pa->next
+            - 当前pa尚未释放
+          - - 恢复保留链
+            - prev->next=pa
+            - 前驱越过待删结点
+          - - 释放原结点
+            - free(old)
+            - 此后不再读old的字段
+      - type: bullets
+        items:
+          - 相等分支中prev不动，pb只向后移动一次。
+  - type: content
+    kicker: 解题过程
+    title: 把答案中的理由写具体
+    blocks:
+      - type: bullets
+        items:
+          - 基本思想：双游标比较；保留较小的 A，跳过较小的 B，相等时删除 A。
+          - 正确性：有序性保证被跳过的值不再与另一表余段匹配。
+          - 时间 O(m+n)：每个游标只单向扫描一次。
+          - 辅助空间 O(1)：只用固定数量指针，不复制原结点。
+  - type: content
+    title: 差集算法的完整思想段
+    blocks:
+      - type: bullets
+        items:
+          - pa、pb指两表首元，prev初始指A头结点，始终是pa的保留前驱。
+          - A值较小则保留并推进A，B值较小只推进B。
+          - 相等时从A重连删除并释放当前结点，prev不动，两游标后移。
+          - 任一表结束即停止。B用尽时A余段保留，全程不改B。
+  - type: content
+    kicker: 解题过程
+    title: 机构题解改编：循环表中的括号
+    blocks:
+      - type: bullets
+        items:
+          - 带头结点 L 的循环单链表存字符，最多 BCAP 个数据结点。
+          - 判断圆括号、方括号、花括号是否正确嵌套；其他字符忽略。
+          - 空表达式返回 true；不得修改链表。
+          - 写出思想、完整代码及时间和辅助空间。
+  - type: content
+    title: 循环表的扫描终点是回到头结点
+    blocks:
+      - type: diagram
+        nodes:
+          - id: head
+            text: L
+            x: 20
+            'y': 25
+            shape: rect
+          - id: open
+            text: (
+            x: 80
+            'y': 25
+            shape: rect
+            highlight: true
+          - id: x
+            text: x
+            x: 80
+            'y': 75
+            shape: rect
+          - id: close
+            text: )
+            x: 20
+            'y': 75
+            shape: rect
+        edges:
+          - from: head
+            to: open
+            directed: true
+          - from: open
+            to: x
+            directed: true
+          - from: x
+            to: close
+            directed: true
+          - from: close
+            to: head
+            directed: true
+        labels:
+          - text: 头结点，不读字符
+            x: 20
+            'y': 7
+          - text: p从这里开始
+            x: 80
+            'y': 7
+        caption: 数据字符依次为(、x、)，最后一个结点回到L。
+      - type: bullets
+        items:
+          - p从L->next出发，只在p!=L时读取p->ch。
+          - 改成p!=NULL会绕圈，并把头结点当数据。
+  - type: content
+    kicker: 解题过程
+    title: 计数相等仍可能不匹配
+    blocks:
+      - type: table
+        head:
+          - 输入
+          - 左括号数与右括号数
+          - 是否匹配
+        rows:
+          - - ([a]+{b})
+            - 相等
+            - 是
+          - - ([)]
+            - 相等
+            - 否，类型交叉
+          - - ())(
+            - 相等
+            - 否，前缀已多出右括号
+          - - abc
+            - 均为0
+            - 是
+  - type: content
+    title: 读到右圆括号时，栈顶方括号必须先匹配
+    blocks:
+      - type: diagram
+        nodes:
+          - id: bottom
+            text: (
+            x: 40
+            'y': 76
+            shape: rect
+          - id: top
+            text: '['
+            x: 40
+            'y': 30
+            shape: rect
+            highlight: true
+          - id: current
+            text: )
+            x: 82
+            'y': 30
+            shape: rect
+            highlight: true
+        edges:
+          - from: top
+            to: current
+            label: 类型不同
+            directed: false
+        labels:
+          - text: st[0]，栈底
+            x: 16
+            'y': 76
+          - text: top=1
+            x: 18
+            'y': 30
+          - text: 当前字符
+            x: 82
+            'y': 7
+        caption: 输入([)]正在读取第3个字符，尚未匹配的左括号栈为(、[。
+      - type: bullets
+        items:
+          - 最近的左括号[尚未闭合，不能越过它去匹配下方的(。
+          - 当前即返回false，后续字符不能修复已经交叉的嵌套。
+  - type: content
+    kicker: 解题过程
+    title: 逐字符跟踪尚未匹配的左括号
+    blocks:
+      - type: table
+        head:
+          - 读入字符
+          - 栈底到栈顶
+          - 动作
+        rows:
+          - - (
+            - (
+            - 入栈
+          - - '['
+            - ([
+            - 入栈
+          - - a
+            - ([
+            - 忽略
+          - - ']'
+            - (
+            - 与 [ 配对后出栈
+          - - +{b}
+            - (
+            - 忽略字符，{ 与 } 配对
+          - - )
+            - 空
+            - 配对，扫描结束后成功
+  - type: content
+    title: 成功条件包括过程合法与最终栈空
+    blocks:
+      - type: table
+        head:
+          - 输入
+          - 失败位置
+          - 应执行的判断
+        rows:
+          - - )a
+            - 第一个字符
+            - 栈空时不能读取st[top]
+          - - ([)]
+            - 读到第一个右圆括号
+            - 检查与栈顶是否同类
+          - - ((a)
+            - 扫描结束
+            - 栈中还有一个左圆括号
+          - - abc
+            - 扫描结束，栈始终空
+            - 返回true
+      - type: bullets
+        items:
+          - 每个右括号都匹配成功，仍不代表所有左括号已经闭合。
+  - type: content
+    kicker: 答案代码
+    title: 括号匹配的实现（1/2）
+    blocks:
+      - type: code
+        text: |-
+          bool matchPair(char a, char b) {
+              return (a=='(' && b==')') || (a=='[' && b==']') ||
+                     (a=='{' && b=='}');
+          }
+          bool bracketsMatch(const CharNode *L) {
+              char st[BCAP]; int top = -1;
+              for (const CharNode *p=L->next; p!=L; p=p->next) {
+                  char c = p->ch;
+  - type: content
+    kicker: 答案代码
+    title: 括号匹配的实现（2/2）
+    blocks:
+      - type: code
+        text: |-
+          if (c=='(' || c=='[' || c=='{') st[++top]=c;
+                  else if (c==')' || c==']' || c=='}') {
+                      if (top==-1 || !matchPair(st[top],c)) return false;
+                      --top;
+                  }
+              }
+              return top==-1;
+          }
+  - type: content
+    kicker: 解题过程
+    title: 综合题的复杂度与边界
+    blocks:
+      - type: bullets
+        items:
+          - 字符逐个扫描，匹配检查为 O(1)，总时间 O(n)。
+          - 栈的逻辑使用量最坏 O(n)；当前定容实现分配 O(BCAP)。
+          - 空表：L->next=L，返回 true；不访问头结点的字符域。
+          - 链表和栈不能共用停止条件；返回 false 时也没有修改输入。
+  - type: content
+    title: 括号匹配题的完整思想段
+    blocks:
+      - type: bullets
+        items:
+          - 从L->next扫描至再次到L，用栈记录尚未匹配的左括号。
+          - 左括号入栈，普通字符忽略，右括号必须与非空栈顶同类。
+          - 匹配后出栈，失配立即失败，扫描结束且栈空才成功。
+          - 时间O(n)。逻辑栈深最坏n，当前定容数组分配BCAP格。
+  - type: content
+    kicker: 解题过程
+    title: 课堂检查：修改后的程序错在哪里
+    blocks:
+      - type: bullets
+        items:
+          - 删除差集结点后执行 prev=pa，会影响哪一种输入？
+          - 括号匹配把 p!=L 改为 p!=NULL，能否结束？
+          - 括号匹配遇到右括号只执行 --top，不检查类型。
+          - 各给一个反例，并写出修复语句。
+  - type: content
+    kicker: 检查答案
+    title: 课堂检查参考
+    blocks:
+      - type: bullets
+        items:
+          - 连续命中如 A=[2,3]、B=[2,3]：prev 必须仍指头结点。
+          - 循环表不会走到 NULL，应以回到 L 结束。
+          - ([)] 总数相等但嵌套错误，必须检查当前右括号与栈顶类型。

@@ -1,0 +1,131 @@
+{
+  "说明": "2026-10-04历史排版的原字节存档；不代表现行题目正确性或可重建性。",
+  "files": [
+    {
+      "original": "_tmp/pdf_v3/产出/精选题集.pdf",
+      "file": "成品/精选题集.pdf",
+      "bytes": 2448822,
+      "sha256": "3dd3061f710f4c5c2ee9c5281245b5da10d0d59cf7c77b4393e939db9a7c4833"
+    },
+    {
+      "original": "_tmp/pdf_v3/产出/补充题集.pdf",
+      "file": "成品/补充题集.pdf",
+      "bytes": 2337883,
+      "sha256": "f913460b69c010e0ba0ad8aa9d16fead2e3682b3e46175b8abb4f201f8097043"
+    },
+    {
+      "original": "_tmp/pdf_v3/产出/答案册.pdf",
+      "file": "成品/答案册.pdf",
+      "bytes": 2434352,
+      "sha256": "524d640284c978bd33c4223c62093d360f0717704617c27bff5d59ed0fb2b7d9"
+    },
+    {
+      "original": "_tmp/pdf_v3/产出/代码总结.pdf",
+      "file": "成品/代码总结.pdf",
+      "bytes": 742722,
+      "sha256": "d53cca2198a38946228088af003feffe3b9439262a65e2e43abf62c74840abcf"
+    },
+    {
+      "original": "_tmp/pdf_v3/产出/重邮数据结构.pdf",
+      "file": "成品/重邮数据结构.pdf",
+      "bytes": 3496422,
+      "sha256": "d7d17e132a686ce42d75d3283c28a101e82c60fa35bca80203bcd14eb1f1e389"
+    },
+    {
+      "original": "_tmp/pdf_v3/notes_opt/代码总结.md",
+      "file": "笔记源稿/代码总结.md",
+      "bytes": 49725,
+      "sha256": "8118619bc7983ea52fd1e665e6e5135866b6a0a9b1c0e972925003d92b34f611"
+    },
+    {
+      "original": "_tmp/pdf_v3/notes_opt/重邮数据结构.md",
+      "file": "笔记源稿/重邮数据结构.md",
+      "bytes": 127003,
+      "sha256": "7a4b57194d8418d1c2aed63fe8375508aca0aa8970bf32fe72a9d8cc03e5e3e4"
+    },
+    {
+      "original": "_tmp/pdf_v3/notes_opt/修订记录.md",
+      "file": "笔记源稿/修订记录.md",
+      "bytes": 14777,
+      "sha256": "7be8b8121e7cbbc2250e1d3a86094983802019d6b1a2747d01f4d257d39c738d"
+    },
+    {
+      "original": "_tmp/pdf_v3/v3说明.md",
+      "file": "审查/v3说明.md",
+      "bytes": 5664,
+      "sha256": "6e0e03014b6a6692b5ef5727b1b6090c1e3251d5c8fa8d5cb1bd2a260b670b2d"
+    },
+    {
+      "original": "_tmp/pdf_v3/validation.json",
+      "file": "审查/validation.json",
+      "bytes": 5492,
+      "sha256": "a67886852418505ca9a74964a4e903e7bc2f3f3ab4aae0361955bc3e5444ad50"
+    },
+    {
+      "original": "_tmp/pdf_v3/math_verification_v3.json",
+      "file": "审查/math_verification_v3.json",
+      "bytes": 376,
+      "sha256": "87cb7c775039063bf67312d5d738dcd2a236d212c9db5893beded6d29f89a0de"
+    },
+    {
+      "original": "_tmp/pdf_v3/math_nodes_v3.json",
+      "file": "审查/math_nodes_v3.json",
+      "bytes": 33063,
+      "sha256": "b05bdd165d47cd147c32705bad75dfabd190d980a16c0786e5a32db958940b54"
+    },
+    {
+      "original": "题库数据库/工具/export_pdf.py",
+      "file": "维护/题库/export_pdf.py",
+      "bytes": 38367,
+      "sha256": "370d47c2590a83fc20a3793be89ef61d2019cbc52e63c4ff277a984646b2126e"
+    },
+    {
+      "original": "_tmp/pdf_v3/build_notes/build_notes.py",
+      "file": "维护/笔记/build_notes.py",
+      "bytes": 12392,
+      "sha256": "3aface8073243d752fb9ce9cac38ab0bde4b921d2b536a66990e6a89d7da97e0"
+    },
+    {
+      "original": "_tmp/pdf_v3/build_notes/print_books.py",
+      "file": "维护/笔记/print_books.py",
+      "bytes": 1035,
+      "sha256": "77c56b3d37bc1013b3ca31ea72b1c213b0daa57495e300c3e6bda2568ceb6621"
+    },
+    {
+      "original": "_tmp/pdf_v3/build_notes/verify_notes.py",
+      "file": "维护/笔记/verify_notes.py",
+      "bytes": 5147,
+      "sha256": "5934a9b1640987f7562bbaa61266cd13b112cb62dccc91deb43dddc04db905da"
+    },
+    {
+      "original": "_tmp/pdf_v3/scripts/check_content_counts.py",
+      "file": "维护/旧验证/check_content_counts.py",
+      "bytes": 950,
+      "sha256": "35335d0b1a41dc6022f09ac5d4dce293cd05d6fcdbd737983f23b99bf41209d3"
+    },
+    {
+      "original": "_tmp/pdf_v3/scripts/check_math_v3.js",
+      "file": "维护/旧验证/check_math_v3.js",
+      "bytes": 1188,
+      "sha256": "c717b865155fff2a48a9516c7b5fd81fa0b8f3fc4f03ecde8c8c1493f048e8fa"
+    },
+    {
+      "original": "_tmp/pdf_v3/scripts/check_order.py",
+      "file": "维护/旧验证/check_order.py",
+      "bytes": 2563,
+      "sha256": "5c8074f42f04d1306e587bac96405c6194c7901a9420f92eb31ae02a32bcaa1d"
+    },
+    {
+      "original": "_tmp/pdf_v3/scripts/extract_math_v3.py",
+      "file": "维护/旧验证/extract_math_v3.py",
+      "bytes": 936,
+      "sha256": "6e52f0de9a45e65c2fe06ef34c66fb673642c13b256614ade71a9d94c8dd6c0b"
+    },
+    {
+      "original": "_tmp/pdf_v3/scripts/validate_v3.py",
+      "file": "维护/旧验证/validate_v3.py",
+      "bytes": 7022,
+      "sha256": "1c15743e551cc406cf3479880067867fb82119bd3f0256511c25b2f683935fa9"
+    }
+  ]
+}

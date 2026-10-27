@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg
+  PUBLIC '-//W3C//DTD SVG 1.0//EN'
+  'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'>
+<svg width="475.5590551181103" height="180" preserveAspectRatio="xMinYMin meet" viewBox="0 0 475 180" xmlns="http://www.w3.org/2000/svg" version="1.0" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<title>...</title>
+	<desc>...</desc>
+	<clipPath id="clip">
+		<rect x="0" y="0" width="475.5590551181103" height="180"/>
+	</clipPath>
+	<g id="group" transform="scale(1,-1) translate(0,-180)" style="clip-path: url(#clip)">
+		<g transform="">
+			<path d="M 225.525996,155.658231 L 137.143296,124.341769 Z" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 0.8;"/>
+			<path d="M 114.28306,112.483496 L 79.051586,87.516504 Z" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 0.8;"/>
+			<path d="M 75.939485,69.37781 L 89.17272,50.62219 Z" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 0.8;"/>
+			<path d="M 135.496468,112.483496 L 170.727942,87.516504 Z" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 0.8;"/>
+			<path d="M 173.840042,69.37781 L 160.606808,50.62219 Z" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 0.8;"/>
+			<path d="M 250.033059,155.658231 L 338.41576,124.341769 Z" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 0.8;"/>
+			<path d="M 340.062587,112.483496 L 304.831114,87.516504 Z" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 0.8;"/>
+			<path d="M 301.719013,69.37781 L 314.952247,50.62219 Z" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 0.8;"/>
+			<path d="M 361.275995,112.483496 L 396.507469,87.516504 Z" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 0.8;"/>
+			<path d="M 399.61957,69.37781 L 386.386336,50.62219 Z" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 0.8;"/>
+			<circle cx="237.77952755905514" cy="160" r="13" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="235.27952755905514" y="156.5" style="font-family: PredSong; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,313) scale(1,-1)">M</text>
+			<circle cx="124.88976377952757" cy="120" r="13" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="122.38976377952757" y="116.5" style="font-family: PredSong; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,233) scale(1,-1)">G</text>
+			<circle cx="68.44488188976379" cy="80" r="13" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="65.94488188976379" y="76.5" style="font-family: PredSong; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,153) scale(1,-1)">C</text>
+			<circle cx="96.66732283464569" cy="40" r="13" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="94.16732283464569" y="36.5" style="font-family: PredSong; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,73) scale(1,-1)">E</text>
+			<circle cx="181.33464566929135" cy="80" r="13" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="178.83464566929135" y="76.5" style="font-family: PredSong; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,153) scale(1,-1)">J</text>
+			<circle cx="153.11220472440945" cy="40" r="13" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="150.61220472440945" y="36.5" style="font-family: PredSong; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,73) scale(1,-1)">H</text>
+			<circle cx="350.6692913385827" cy="120" r="13" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="348.1692913385827" y="116.5" style="font-family: PredSong; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,233) scale(1,-1)">T</text>
+			<circle cx="294.2244094488189" cy="80" r="13" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="291.7244094488189" y="76.5" style="font-family: PredSong; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,153) scale(1,-1)">P</text>
+			<circle cx="322.4468503937008" cy="40" r="13" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="319.9468503937008" y="36.5" style="font-family: PredSong; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,73) scale(1,-1)">R</text>
+			<circle cx="407.1141732283465" cy="80" r="13" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="404.6141732283465" y="76.5" style="font-family: PredSong; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,153) scale(1,-1)">W</text>
+			<circle cx="378.8917322834646" cy="40" r="13" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="376.3917322834646" y="36.5" style="font-family: PredSong; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,73) scale(1,-1)">V</text>
+		</g>
+	</g>
+</svg>

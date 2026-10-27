@@ -1,0 +1,479 @@
+meta:
+  id: C3-B-06
+  title: 拓扑约束题的分析与作答
+  stage: B解题
+  instructor: 牙膏学长
+  duration: 47min
+slides:
+  - type: cover
+    kicker: 重邮802 数据结构代码课程
+    title: 数据结构冲刺阶段
+    subtitle: 拓扑约束题的分析与作答
+    meta: 主讲：牙膏学长 ｜ 资料答疑：伴梦研途QQ群
+  - type: content
+    kicker: 解题过程
+    title: 从题目目标选择已有工具
+    blocks:
+      - type: table
+        head:
+          - 题目要求
+          - 需要完成的事
+        rows:
+          - - 求一个拓扑序
+            - 生成满足全部弧方向的排列
+          - - 验证给定序列
+            - 检查排列与每条弧的先后关系
+          - - 新增弧后的原序是否合法
+            - 只需比较两个端点的位置
+          - - 新增弧是否成环
+            - 检查原图反向可达性
+  - type: content
+    kicker: 解题过程
+    title: 2026 算法题：验证给定拓扑序
+    blocks:
+      - type: bullets
+        items:
+          - 有向图用邻接表存储，顶点编号0…V−1。
+          - 给定长度为 V 的整数序列 order，判断它是否是完整拓扑序。
+          - 序列必须恰好包含每个顶点一次。
+          - 对每条弧 u→v，u 在序列中的位置必须早于 v。
+  - type: content
+    kicker: 解题过程
+    title: 无边图也需要检查顶点排列
+    blocks:
+      - type: diagram
+        nodes:
+          - id: '0'
+            text: '0'
+            x: 18
+            'y': 40
+            shape: ellipse
+          - id: '1'
+            text: '1'
+            x: 50
+            'y': 40
+            shape: ellipse
+            highlight: true
+          - id: '2'
+            text: '2'
+            x: 82
+            'y': 40
+            shape: ellipse
+        edges: []
+        labels: []
+        caption: 原图没有弧，候选序列为0、0、2。检查所有弧会直接通过，但顶点1缺失。
+      - type: bullets
+        items:
+          - 长度为V、编号合法、互不重复，三项共同保证完整排列。
+  - type: content
+    kicker: 解题过程
+    title: 位置数组把先后关系变成比较
+    blocks:
+      - type: table
+        head:
+          - 图的弧
+          - 0→2，1→2，1→3，2→4，3→4
+        rows:
+          - - 候选序列
+            - 1，0，3，2，4
+          - - 位置 pos[0…4]
+            - 1，0，3，2，4
+          - - 检查 1→3
+            - pos[1]=0 < pos[3]=2
+          - - 检查 2→4
+            - pos[2]=3 < pos[4]=4
+          - - 结论
+            - 全部弧符合先后关系，序列合法
+  - type: content
+    kicker: 解题过程
+    title: 比较弧两端在序列中的位置
+    blocks:
+      - type: diagram
+        nodes:
+          - id: '1'
+            text: '1'
+            x: 12
+            'y': 20
+            shape: ellipse
+          - id: '0'
+            text: '0'
+            x: 12
+            'y': 78
+            shape: ellipse
+          - id: '3'
+            text: '3'
+            x: 51
+            'y': 20
+            shape: ellipse
+          - id: '2'
+            text: '2'
+            x: 51
+            'y': 78
+            shape: ellipse
+          - id: '4'
+            text: '4'
+            x: 89
+            'y': 49
+            shape: ellipse
+        edges:
+          - from: '0'
+            to: '2'
+            directed: true
+          - from: '1'
+            to: '2'
+            directed: true
+          - from: '1'
+            to: '3'
+            directed: true
+          - from: '2'
+            to: '4'
+            directed: true
+          - from: '3'
+            to: '4'
+            directed: true
+        labels:
+          - text: pos=0
+            x: 12
+            'y': 4
+          - text: pos=1
+            x: 12
+            'y': 94
+          - text: pos=2
+            x: 51
+            'y': 4
+          - text: pos=3
+            x: 51
+            'y': 94
+          - text: pos=4
+            x: 89
+            'y': 72
+        caption: 候选序列为1、0、3、2、4。每条弧都从较小的pos指向较大的pos。
+      - type: bullets
+        items:
+          - pos[order[i]]=i把“第i位是谁”转换为“这个顶点在第几位”。
+  - type: content
+    kicker: 答案代码
+    title: 验证拓扑序的实现（1/2）
+    blocks:
+      - type: code
+        text: |-
+          bool isTopo(const Graph *G,const int order[]) {
+              int *pos=(int*)malloc(G->V*sizeof(int));
+              if (pos==NULL) abort();
+              for (int i=0;i<G->V;++i) pos[i]=-1;
+              for (int i=0;i<G->V;++i) {
+                  int x=order[i];
+                  if (x<0 || x>=G->V || pos[x]!=-1) {
+                      free(pos); return false;
+                  }
+                  pos[x]=i;
+  - type: content
+    kicker: 答案代码
+    title: 验证拓扑序的实现（2/2）
+    blocks:
+      - type: code
+        text: |-
+          }
+              for (int u=0;u<G->V;++u)
+                  for (const Arc *e=G->head[u];e!=NULL;e=e->next)
+                      if (pos[u]>=pos[e->to]) {
+                          free(pos); return false;
+                      }
+              free(pos); return true;
+          }
+  - type: content
+    kicker: 解题过程
+    title: 验证题的完整答案应交代充分性
+    blocks:
+      - type: bullets
+        items:
+          - 必要性：拓扑序必须让每条弧的起点先于终点。
+          - 充分性：若序列是全部顶点的排列且每条弧都向后，它就是拓扑序。
+          - 时间 O(V+E)：构造位置表后，每条弧只检查一次。
+          - 辅助空间 O(V)：位置数组；不修改原图。
+  - type: content
+    kicker: 解题过程
+    title: 验证拓扑序的思想段与代码对应
+    blocks:
+      - type: bullets
+        items:
+          - 建立顶点位置表，并检查候选序列的编号范围与重复情况。
+          - 遍历邻接表中的每条弧u到v，若pos[u]≥pos[v]则返回假。
+          - 若排列合法且所有弧均符合先后关系，返回真。
+          - 构造位置表O(V)，检查全部弧O(E)，辅助位置表O(V)。
+  - type: content
+    kicker: 解题过程
+    title: 模拟卷六：新增一条弧后三种状态
+    blocks:
+      - type: bullets
+        items:
+          - 原图为 DAG，sigma 已验证为合法完整拓扑序。
+          - 计划增加原图不存在的弧 u→v，允许 u=v；检查时不修改 G。
+          - 返回：原序仍可用、需要重排但仍无环、已经成环。
+          - 不要求输出新拓扑序；时间和空间按当前实现分析。
+  - type: content
+    kicker: 解题过程
+    title: 原序失效仍可能找到另一个合法顺序
+    blocks:
+      - type: diagram
+        nodes:
+          - id: '0'
+            text: '0'
+            x: 17
+            'y': 18
+            shape: ellipse
+            highlight: true
+          - id: '1'
+            text: '1'
+            x: 17
+            'y': 80
+            shape: ellipse
+            highlight: true
+          - id: '2'
+            text: '2'
+            x: 54
+            'y': 49
+            shape: ellipse
+          - id: '3'
+            text: '3'
+            x: 88
+            'y': 49
+            shape: ellipse
+        edges:
+          - from: '0'
+            to: '2'
+            directed: true
+          - from: '1'
+            to: '2'
+            directed: true
+          - from: '2'
+            to: '3'
+            directed: true
+          - from: '1'
+            to: '0'
+            label: 新增
+            directed: true
+        labels: []
+        caption: 原序0、1、2、3失效，换成1、0、2、3仍满足所有弧。
+      - type: bullets
+        items:
+          - 新增1到0与旧序相反，但原图中0到不了1，所以没有环。
+  - type: content
+    kicker: 解题过程
+    title: 新增弧成环的充要条件
+    blocks:
+      - type: bullets
+        items:
+          - u=v：新弧本身就是自环。
+          - u 位于 v 之前：新弧与原序一致，原序仍合法。
+          - u 位于 v 之后：原序失效，需要检查原图是否存在 v 到 u 的路径。
+          - 存在 v→…→u：与新弧 u→v 合成环；否则仍是 DAG。
+  - type: content
+    kicker: 解题过程
+    title: 新环去掉新增弧后留下反向路径
+    blocks:
+      - type: diagram
+        nodes:
+          - id: v
+            text: 0=v
+            x: 15
+            'y': 17
+            shape: ellipse
+            highlight: true
+          - id: m
+            text: '2'
+            x: 50
+            'y': 82
+            shape: ellipse
+            highlight: true
+          - id: u
+            text: 3=u
+            x: 85
+            'y': 17
+            shape: ellipse
+            highlight: true
+        edges:
+          - from: v
+            to: m
+            label: 原图
+            directed: true
+          - from: m
+            to: u
+            label: 原图
+            directed: true
+          - from: u
+            to: v
+            label: 新增
+            directed: true
+        labels: []
+        caption: 新增3到0。原图0、2、3这条路径与新增弧共同组成环。
+      - type: bullets
+        items:
+          - 新环一定使用新增弧，因为原图已知无环。
+          - 删去u到v，剩下的就是原图中v到u的路径。
+  - type: content
+    kicker: 解题过程
+    title: 同一原图演示三种结果
+    blocks:
+      - type: table
+        head:
+          - 原图与顺序
+          - 0→2，1→2，2→3；sigma=[0,1,2,3]
+        rows:
+          - - 新增 0→3
+            - 位置0在3前，原序仍可用
+          - - 新增 1→0
+            - 原图0到不了1，无环但原序失效
+          - - 新增 3→0
+            - 原图0→2→3，与新弧成环
+          - - 新增 2→2
+            - 自环，成环
+  - type: content
+    kicker: 解题过程
+    title: 顺序一致的新增弧无需再搜索
+    blocks:
+      - type: bullets
+        items:
+          - 原序合法意味着每条原图路径上的位置严格递增。
+          - 若pos[u]<pos[v]，原图不可能存在从v回到u的路径。
+          - 新增u到v与原序方向一致，直接返回原序仍可用。
+          - 只有逆序且非自环的分支需要查询v到u。
+  - type: content
+    kicker: 答案代码
+    title: 只检查反向可达性（1/3）
+    blocks:
+      - type: code
+        text: |-
+          bool reachable(const Graph *G,int x,int target,unsigned char seen[]) {
+              if (x==target) return true;
+              seen[x]=1;
+              for (const Arc *e=G->head[x];e!=NULL;e=e->next)
+                  if (!seen[e->to] && reachable(G,e->to,target,seen)) return true;
+              return false;
+          }
+  - type: content
+    kicker: 答案代码
+    title: 只检查反向可达性（2/3）
+    blocks:
+      - type: code
+        text: |-
+          State classifyArc(const Graph *G,const int sigma[],int u,int v) {
+              if (u==v) return CYCLE;
+              int pu=-1,pv=-1;
+              for (int i=0;i<G->V;++i) {
+                  if (sigma[i]==u) pu=i;
+                  if (sigma[i]==v) pv=i;
+              }
+              if (pu<pv) return ORDER_OK;
+  - type: content
+    kicker: 答案代码
+    title: 只检查反向可达性（3/3）
+    blocks:
+      - type: code
+        text: |-
+          unsigned char *seen=(unsigned char*)calloc(G->V,1);
+              if (seen==NULL) abort();
+              bool back=reachable(G,v,u,seen);
+              free(seen);
+              return back ? CYCLE : REORDER;
+          }
+  - type: content
+    kicker: 解题过程
+    title: 加弧分类题的思想段按判定顺序写
+    blocks:
+      - type: bullets
+        items:
+          - 若u=v，新增自环，返回成环。
+          - 在合法原序中找到两个端点的位置，顺序一致则原序仍可用。
+          - 顺序相反时，在未修改的原图中搜索v是否可达u。
+          - 可达则成环，不可达则图仍无环但需要重排。
+  - type: content
+    kicker: 解题过程
+    title: 按分支写出时间与空间
+    blocks:
+      - type: bullets
+        items:
+          - 自环分支 O(1)；只比较原序位置的分支 O(V)。
+          - 必要时搜索原图 v 到 u，最坏 O(V+E)。
+          - 总最坏时间 O(V+E)。
+          - seen 数组与递归栈各至多 O(V)，辅助空间 O(V)。
+  - type: content
+    kicker: 解题过程
+    title: 普通可达搜索的汇合点只需展开一次
+    blocks:
+      - type: diagram
+        nodes:
+          - id: v
+            text: v
+            x: 8
+            'y': 48
+            shape: ellipse
+            highlight: true
+          - id: a
+            text: a
+            x: 31
+            'y': 15
+            shape: ellipse
+            highlight: true
+          - id: b
+            text: b
+            x: 31
+            'y': 81
+            shape: ellipse
+          - id: x
+            text: x
+            x: 57
+            'y': 48
+            shape: ellipse
+            highlight: true
+          - id: 'y'
+            text: 'y'
+            x: 80
+            'y': 48
+            shape: ellipse
+            highlight: true
+          - id: u
+            text: u
+            x: 91
+            'y': 90
+            shape: ellipse
+        edges:
+          - from: v
+            to: a
+            directed: true
+          - from: v
+            to: b
+            directed: true
+          - from: a
+            to: x
+            directed: true
+          - from: b
+            to: x
+            directed: true
+          - from: x
+            to: 'y'
+            directed: true
+        labels: []
+        caption: 查询v到孤立顶点u。先沿a搜索x及其后继，沿b再次遇到x时可直接跳过。
+      - type: bullets
+        items:
+          - 这里没有经过指定点或精确长度条件，后续可达目标保持不变。
+  - type: content
+    kicker: 解题过程
+    title: 课堂检查：三类容易混淆的错误
+    blocks:
+      - type: bullets
+        items:
+          - 图的弧为0到2、1到2、1到3、2到4、3到4。
+          - 候选序列[2,1,0,3,4]若只检查顶点编号u<v，会漏掉什么？
+          - 原图0到2、1到2、2到3，原序[0,1,2,3]：新增1到0为何不能直接判环？
+          - 新增3到0时，应搜索哪两个顶点、哪个方向？
+  - type: content
+    kicker: 检查答案
+    title: 课堂检查参考
+    blocks:
+      - type: bullets
+        items:
+          - 序列中pos[0]=2、pos[2]=0，违反0到2；仅比较编号0<2会漏判。
+          - 新增1到0后可用[1,0,2,3]，旧序失效但无环。
+          - 新增3到0应查原图0到3；路径0、2、3存在，所以成环。

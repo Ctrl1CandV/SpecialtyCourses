@@ -1,0 +1,526 @@
+meta:
+  id: C3-B-02
+  title: 栈和队列的程序阅读
+  stage: B解题
+  instructor: 牙膏学长
+  duration: 49min
+slides:
+  - type: cover
+    kicker: 重邮802 数据结构代码课程
+    title: 数据结构冲刺阶段
+    subtitle: 栈和队列的程序阅读
+    meta: 主讲：牙膏学长 ｜ 资料答疑：伴梦研途QQ群
+  - type: content
+    kicker: 解题过程
+    title: 先给指针和下标写清含义
+    blocks:
+      - type: table
+        head:
+          - 结构
+          - 空状态
+          - 关键位置
+        rows:
+          - - 循环单链队列
+            - rear=NULL
+            - 非空时 rear->next 为队首
+          - - 共享栈0
+            - top[0]=−1
+            - 已有元素最右侧下标
+          - - 共享栈1
+            - top[1]=m
+            - 已有元素最左侧下标
+  - type: content
+    kicker: 解题过程
+    title: 2025 阅读题：只保留尾指针的队列
+    blocks:
+      - type: bullets
+        items:
+          - 无额外头结点的循环单链队列；空队列 rear=NULL。
+          - 入队结点 p 已分配、尚未在队列中；出队返回原结点。
+          - 补全非空入队时 p 的后继；补全唯一结点出队后的状态。
+          - 函数只负责接链，返回结点由调用者使用和释放。
+  - type: content
+    title: 新结点入队前，rear的后继仍是原队首
+    blocks:
+      - type: diagram
+        nodes:
+          - id: a
+            text: a
+            x: 20
+            'y': 25
+            shape: rect
+          - id: b
+            text: b
+            x: 80
+            'y': 25
+            shape: rect
+          - id: c
+            text: c
+            x: 80
+            'y': 75
+            shape: rect
+            highlight: true
+          - id: d
+            text: d
+            x: 20
+            'y': 75
+            shape: rect
+            highlight: true
+        edges:
+          - from: a
+            to: b
+            directed: true
+          - from: b
+            to: c
+            directed: true
+          - from: c
+            to: a
+            directed: true
+        labels:
+          - text: 原队首
+            x: 20
+            'y': 7
+          - text: rear
+            x: 80
+            'y': 95
+          - text: p，尚未接入
+            x: 20
+            'y': 95
+        caption: 原队列逻辑次序为a、b、c，新结点为d。
+      - type: bullets
+        items:
+          - p的next必须保存原队首a。
+          - 原队首地址当前可由Q->rear->next取得。
+  - type: content
+    kicker: 解题过程
+    title: 入队时保存原队首
+    blocks:
+      - type: code
+        text: |-
+          void EnQueue(LinkQueue *Q, LinkNode *p) {
+              if (Q->rear == NULL) {
+                  Q->rear = p;
+                  p->next = p;
+              } else {
+                  ①;
+                  Q->rear->next = p;
+                  Q->rear = p;
+              }
+          }
+  - type: content
+    title: 入队完成后，回边从新尾d指向a
+    blocks:
+      - type: diagram
+        nodes:
+          - id: a
+            text: a
+            x: 20
+            'y': 25
+            shape: rect
+          - id: b
+            text: b
+            x: 80
+            'y': 25
+            shape: rect
+          - id: c
+            text: c
+            x: 80
+            'y': 75
+            shape: rect
+          - id: d
+            text: d
+            x: 20
+            'y': 75
+            shape: rect
+            highlight: true
+        edges:
+          - from: a
+            to: b
+            directed: true
+          - from: b
+            to: c
+            directed: true
+          - from: c
+            to: d
+            directed: true
+          - from: d
+            to: a
+            directed: true
+        labels:
+          - text: 队首
+            x: 20
+            'y': 7
+          - text: rear、p
+            x: 20
+            'y': 95
+        caption: 顺序为p->next=旧队首，再接旧尾，最后更新rear。
+      - type: bullets
+        items:
+          - rear改到d后，rear->next仍指队首a。
+          - 每一步只改固定个指针，不扫描整个队列。
+  - type: content
+    kicker: 解题过程
+    title: 出队时区分一结点和多结点
+    blocks:
+      - type: code
+        text: |-
+          LinkNode *DeQueue(LinkQueue *Q) {
+              if (Q->rear == NULL) return NULL;
+              LinkNode *p = Q->rear->next;
+              if (Q->rear == p) {
+                  ②;
+              } else {
+                  Q->rear->next = p->next;
+              }
+              return p;
+          }
+  - type: content
+    title: 最后一个结点出队后，rear必须为空
+    blocks:
+      - type: table
+        head:
+          - 出队前状态
+          - 正确更新
+          - 继续按多结点处理的后果
+        rows:
+          - - rear和p指同一结点e
+            - rear=NULL
+            - rear仍指向已出队的e
+          - - e->next=e
+            - 返回e，由调用者使用和释放
+            - 再次出队会重复返回e
+          - - 重新入队新结点f
+            - f->next=f，rear=f
+            - 若旧e已释放，还会访问悬空地址
+      - type: bullets
+        items:
+          - 用rear==p判断唯一结点，空队列只由rear=NULL表示。
+  - type: content
+    kicker: 解题过程
+    title: 沿操作序列检查状态
+    blocks:
+      - type: table
+        head:
+          - 操作
+          - 队列逻辑次序
+          - rear
+        rows:
+          - - 入 a、入 b、入 c
+            - a → b → c
+            - c
+          - - 出队
+            - b → c，返回 a
+            - c
+          - - 入 d
+            - b → c → d
+            - d
+          - - 连续出 b、c、d
+            - 空
+            - 'NULL'
+          - - 再次入 e
+            - 只有 e，e->next=e
+            - e
+  - type: content
+    kicker: 解题过程
+    title: 队列题的完整作答
+    blocks:
+      - type: bullets
+        items:
+          - ① p->next = Q->rear->next
+          - ② Q->rear = NULL
+          - 每次入队、出队均为 O(1) 时间、O(1) 辅助空间。
+          - 入队前结点必须独立；出队后由调用者管理其生命周期。
+  - type: content
+    title: 循环队列题的作答依据
+    blocks:
+      - type: bullets
+        items:
+          - 非空入队先让新结点连原队首，再让原尾连新结点，最后更新rear。
+          - 出队先保存rear->next。若它就是rear，删除后将rear置空。
+          - 否则使尾结点越过旧队首，返回保存的结点。
+          - 操作只修改固定条连接，入队和出队各为O(1)。
+  - type: content
+    kicker: 解题过程
+    title: 2026 阅读题：两个栈共用一个数组
+    blocks:
+      - type: bullets
+        items:
+          - 数组有效下标 0…m−1，栈0向右增长，栈1向左增长。
+          - top[0] 初值 −1，top[1] 初值 m；top 指已入栈的栈顶。
+          - 入栈失败返回 false；出栈成功通过引用 x 返回元素。
+          - 补全判满、两侧入栈和两侧出栈的五处表达式。
+  - type: content
+    kicker: 解题过程
+    title: 从占用区间推导判满
+    blocks:
+      - type: table
+        head:
+          - 部分
+          - 占用范围
+          - 元素数
+        rows:
+          - - 栈0
+            - 0…top[0]
+            - top[0]+1
+          - - 空位
+            - top[0]+1…top[1]−1
+            - top[1]−top[0]−1
+          - - 栈1
+            - top[1]…m−1
+            - m−top[1]
+          - - 判满
+            - 空位数为0
+            - top[0]+1==top[1]
+  - type: content
+    title: 共享栈的空闲格正好位于两个top之间
+    blocks:
+      - type: diagram
+        nodes:
+          - id: a0
+            text: '10'
+            x: 10
+            'y': 50
+            shape: rect
+          - id: a1
+            text: '20'
+            x: 26
+            'y': 50
+            shape: rect
+            highlight: true
+          - id: a2
+            text: 空
+            x: 42
+            'y': 50
+            shape: rect
+          - id: a3
+            text: 空
+            x: 58
+            'y': 50
+            shape: rect
+          - id: a4
+            text: '80'
+            x: 74
+            'y': 50
+            shape: rect
+            highlight: true
+          - id: a5
+            text: '90'
+            x: 90
+            'y': 50
+            shape: rect
+        edges: []
+        labels:
+          - text: 下标0
+            x: 10
+            'y': 80
+          - text: top[0]=1
+            x: 26
+            'y': 18
+          - text: '2'
+            x: 42
+            'y': 80
+          - text: '3'
+            x: 58
+            'y': 80
+          - text: top[1]=4
+            x: 74
+            'y': 18
+          - text: 下标5
+            x: 90
+            'y': 80
+        caption: m=6，两个栈占用下标0、1与4、5。
+      - type: bullets
+        items:
+          - 空位数为4−1−1=2，下标2与3尚未占用。
+          - 任一栈均可继续使用中间空位，不固定各占一半。
+  - type: content
+    kicker: 解题过程
+    title: 入栈与出栈的五个空
+    blocks:
+      - type: code
+        text: |-
+          // Push：满时 return false
+          if (①) return false;
+          if (i == 0) S.data[②] = x;
+          else S.data[③] = x;
+          // Pop：空时 return false
+          if (S.top[i] == S.bot[i]) return false;
+          if (i == 0) x = S.data[④];
+          else x = S.data[⑤];
+  - type: content
+    title: 前置与后置运算由一次操作推导
+    blocks:
+      - type: table
+        head:
+          - 操作
+          - 先做什么
+          - 再做什么
+          - 表达式
+        rows:
+          - - 左入栈
+            - top0加1
+            - 在新top0写x
+            - data[++top0]=x
+          - - 右入栈
+            - top1减1
+            - 在新top1写x
+            - data[--top1]=x
+          - - 左出栈
+            - 读旧top0给x
+            - top0减1
+            - x=data[top0--]
+          - - 右出栈
+            - 读旧top1给x
+            - top1加1
+            - x=data[top1++]
+      - type: note
+        text: 前提：入栈已通过判满，出栈已通过本栈判空。
+  - type: content
+    kicker: 解题过程
+    title: 容量为6的混合操作
+    blocks:
+      - type: table
+        head:
+          - 操作
+          - top[0]
+          - top[1]
+          - 结果
+        rows:
+          - - Push0(10)、Push0(20)
+            - '1'
+            - '6'
+            - 左侧为10,20
+          - - Push1(90)、Push1(80)
+            - '1'
+            - '4'
+            - 右侧自栈顶为80,90
+          - - Pop0
+            - '0'
+            - '4'
+            - x=20
+          - - Push1(70)、Push0(30)
+            - '1'
+            - '3'
+            - 还剩下标2
+          - - Push1(60)，再Push0(40)
+            - '1'
+            - '2'
+            - 60成功，40失败
+  - type: content
+    title: 满状态下失败入栈不改变两个top
+    blocks:
+      - type: diagram
+        nodes:
+          - id: a0
+            text: '10'
+            x: 10
+            'y': 50
+            shape: rect
+          - id: a1
+            text: '30'
+            x: 26
+            'y': 50
+            shape: rect
+            highlight: true
+          - id: a2
+            text: '60'
+            x: 42
+            'y': 50
+            shape: rect
+            highlight: true
+          - id: a3
+            text: '70'
+            x: 58
+            'y': 50
+            shape: rect
+          - id: a4
+            text: '80'
+            x: 74
+            'y': 50
+            shape: rect
+          - id: a5
+            text: '90'
+            x: 90
+            'y': 50
+            shape: rect
+        edges: []
+        labels:
+          - text: top[0]=1
+            x: 23
+            'y': 18
+          - text: top[1]=2
+            x: 46
+            'y': 82
+          - text: Push0(40)失败
+            x: 75
+            'y': 18
+        caption: 混合操作中Push1(60)成功后，所有6格均已占用。
+      - type: bullets
+        items:
+          - 1+1==2，判满成立，直接返回false。
+          - 失败前后top均不变，40没有覆盖60。
+  - type: content
+    kicker: 解题过程
+    title: 共享栈的结构和初始化
+    blocks:
+      - type: code
+        text: |-
+          const int CAP = 100;
+          struct TwStack { int data[CAP], top[2], bot[2], m; };
+          void InitStack(TwStack &S, int m) {
+              S.m = m;
+              S.bot[0] = S.top[0] = -1;
+              S.bot[1] = S.top[1] = m;
+          }
+  - type: content
+    kicker: 答案代码
+    title: 共享栈操作答案（1/2）
+    blocks:
+      - type: code
+        text: |-
+          bool Push(TwStack &S, int i, int x) {
+              if (S.top[0] + 1 == S.top[1]) return false;
+              if (i == 0) S.data[++S.top[0]] = x;
+              else S.data[--S.top[1]] = x;
+              return true;
+          }
+  - type: content
+    kicker: 答案代码
+    title: 共享栈操作答案（2/2）
+    blocks:
+      - type: code
+        text: |-
+          bool Pop(TwStack &S, int i, int &x) {
+              if (S.top[i] == S.bot[i]) return false;
+              if (i == 0) x = S.data[S.top[0]--];
+              else x = S.data[S.top[1]++];
+              return true;
+          }
+  - type: content
+    title: 单次操作与整段操作序列的复杂度
+    blocks:
+      - type: bullets
+        items:
+          - Push和Pop各只做固定次判断与读写，单次时间O(1)。
+          - 连续执行r次操作，总时间O(r)，失败操作也有常数开销。
+          - data是栈的存储结构。单次操作只用固定临时变量，辅助空间O(1)。
+          - 出栈成功才使用x。失败调用不会产生一个新的输出元素。
+  - type: content
+    kicker: 解题过程
+    title: 课堂检查：输出和操作次数
+    blocks:
+      - type: bullets
+        items:
+          - m=4，初始化后执行：Push0(1)、Push1(9)、Push0(2)、Pop1。
+          - 接着执行：Push1(8)、Push1(7)、Push0(3)、Pop0、Pop1。
+          - 按顺序写出三次成功出栈的 x 值。
+          - 统计成功入栈次数和失败入栈次数。
+  - type: content
+    kicker: 检查答案
+    title: 课堂检查参考
+    blocks:
+      - type: bullets
+        items:
+          - 三次出栈值依次为 9、2、7。
+          - 成功入栈5次，失败入栈1次；失败的是 Push0(3)。
+          - 最后左栈为 [1]，右栈从底到顶为 [8]。

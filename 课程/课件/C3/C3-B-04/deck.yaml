@@ -1,0 +1,580 @@
+meta:
+  id: C3-B-04
+  title: 二叉树算法的状态与完整输出
+  stage: B解题
+  instructor: 牙膏学长
+  duration: 48min
+slides:
+  - type: cover
+    kicker: 重邮802 数据结构代码课程
+    title: 数据结构冲刺阶段
+    subtitle: 二叉树算法的状态与完整输出
+    meta: 主讲：牙膏学长 ｜ 资料答疑：伴梦研途QQ群
+  - type: content
+    kicker: 解题过程
+    title: 树题先确定递归返回什么
+    blocks:
+      - type: table
+        head:
+          - 任务
+          - 单个子树需要提供的信息
+        rows:
+          - - 最长根叶路径长度
+            - 子树高度
+          - - 输出某条路径
+            - 当前路径位置、是否找到
+          - - 从遍历序列生成后序
+            - 左右子树对应区间
+          - - 复杂度核查
+            - 扫描、复制与递归栈都计入
+  - type: content
+    kicker: 解题过程
+    title: 2025 算法题：输出最长根叶路径
+    blocks:
+      - type: bullets
+        items:
+          - 二叉树使用左右孩子指针存储。
+          - 输出一条从根到叶的最长路径，打印结点值及路径长度。
+          - 课堂约定长度按结点数计；并列任选一条；空树长度为0。
+          - path 容量足够；写思想、完整代码及时间和辅助空间。
+  - type: content
+    kicker: 解题过程
+    title: 题目要求决定函数必须交出的结果
+    blocks:
+      - type: table
+        head:
+          - 题目要求
+          - 实现中必须出现的内容
+        rows:
+          - - 路径长度
+            - 以结点数定义树高，空树为0
+          - - 路径本身
+            - 记录从根到当前结点的数组前缀
+          - - 并列任选
+            - 找到第一条达到目标高度的根叶路径即可
+          - - 完整输出
+            - 调用路径函数后，输出序列及长度
+  - type: content
+    kicker: 解题过程
+    title: 把最长路径先定位到最深叶
+    blocks:
+      - type: diagram
+        nodes:
+          - id: A
+            text: A
+            x: 50
+            'y': 8
+            shape: ellipse
+            highlight: true
+          - id: B
+            text: B
+            x: 26
+            'y': 34
+            shape: ellipse
+          - id: C
+            text: C
+            x: 74
+            'y': 34
+            shape: ellipse
+          - id: D
+            text: D
+            x: 12
+            'y': 60
+            shape: ellipse
+          - id: E
+            text: E
+            x: 40
+            'y': 60
+            shape: ellipse
+          - id: F
+            text: F
+            x: 74
+            'y': 60
+            shape: ellipse
+          - id: G
+            text: G
+            x: 40
+            'y': 88
+            shape: ellipse
+          - id: H
+            text: H
+            x: 88
+            'y': 88
+            shape: ellipse
+        edges:
+          - from: A
+            to: B
+            directed: true
+          - from: A
+            to: C
+            directed: true
+          - from: B
+            to: D
+            directed: true
+          - from: B
+            to: E
+            directed: true
+          - from: C
+            to: F
+            directed: true
+          - from: E
+            to: G
+            directed: true
+          - from: F
+            to: H
+            directed: true
+        labels: []
+        caption: 两条最长路径均含4个结点，按先左后右搜索可先找到A、B、E、G。
+      - type: bullets
+        items:
+          - D虽先被访问，但它所在根叶路径只有3个结点。
+  - type: content
+    kicker: 解题过程
+    title: 高度从孩子返回到父结点
+    blocks:
+      - type: diagram
+        nodes:
+          - id: A
+            text: A:4
+            x: 50
+            'y': 8
+            shape: ellipse
+            highlight: true
+          - id: B
+            text: B:3
+            x: 26
+            'y': 34
+            shape: ellipse
+          - id: C
+            text: C:3
+            x: 74
+            'y': 34
+            shape: ellipse
+          - id: D
+            text: D:1
+            x: 12
+            'y': 60
+            shape: ellipse
+          - id: E
+            text: E:2
+            x: 40
+            'y': 60
+            shape: ellipse
+          - id: F
+            text: F:2
+            x: 74
+            'y': 60
+            shape: ellipse
+          - id: G
+            text: G:1
+            x: 40
+            'y': 88
+            shape: ellipse
+          - id: H
+            text: H:1
+            x: 88
+            'y': 88
+            shape: ellipse
+        edges:
+          - from: A
+            to: B
+            directed: true
+          - from: A
+            to: C
+            directed: true
+          - from: B
+            to: D
+            directed: true
+          - from: B
+            to: E
+            directed: true
+          - from: C
+            to: F
+            directed: true
+          - from: E
+            to: G
+            directed: true
+          - from: F
+            to: H
+            directed: true
+        labels: []
+        caption: 结点后的数是子树高度。空孩子返回0，父结点取两个孩子高度的较大者加1。
+      - type: bullets
+        items:
+          - G返回1，E返回2，B比较D的1与E的2后返回3。
+          - A比较左右子树的3与3，得到目标高度4。
+  - type: content
+    kicker: 解题过程
+    title: 两次遍历分别完成一个任务
+    blocks:
+      - type: bullets
+        items:
+          - 第1次：递归求树高 h。
+          - 第2次：从根搜索，进入深度 d 时写 path[d]。
+          - 找到满足 d+1=h 的叶结点就返回成功，保留当前数组前 h 项。
+          - 搜索失败的支路可被后续支路覆盖，无须每次复制整条路径。
+  - type: content
+    kicker: 解题过程
+    title: 路径数组与当前递归层一一对应
+    blocks:
+      - type: diagram
+        nodes:
+          - id: A
+            text: A
+            x: 12
+            'y': 40
+            shape: rect
+            highlight: true
+          - id: B
+            text: B
+            x: 37
+            'y': 40
+            shape: rect
+            highlight: true
+          - id: E
+            text: E
+            x: 62
+            'y': 40
+            shape: rect
+            highlight: true
+          - id: G
+            text: G
+            x: 87
+            'y': 40
+            shape: rect
+            highlight: true
+        edges:
+          - from: A
+            to: B
+            directed: true
+          - from: B
+            to: E
+            directed: true
+          - from: E
+            to: G
+            directed: true
+        labels:
+          - text: path[0]
+            x: 12
+            'y': 76
+          - text: path[1]
+            x: 37
+            'y': 76
+          - text: path[2]
+            x: 62
+            'y': 76
+          - text: path[3]
+            x: 87
+            'y': 76
+        caption: 成功时path的有效前缀为A、B、E、G。
+      - type: bullets
+        items:
+          - 先访问D时path[2]=D，转入E后同一位置改为E。
+          - d=3对应第4个结点，叶G满足d+1==h。
+  - type: content
+    kicker: 答案代码
+    title: 最长根叶路径的实现（1/3）
+    blocks:
+      - type: code
+        text: |-
+          int treeHeight(const TreeNode *t) {
+              if (t == NULL) return 0;
+              int a=treeHeight(t->left), b=treeHeight(t->right);
+              return (a>b ? a:b)+1;
+          }
+  - type: content
+    kicker: 答案代码
+    title: 最长根叶路径的实现（2/3）
+    blocks:
+      - type: code
+        text: |-
+          bool deepest(const TreeNode *t, int d, int h, int path[]) {
+              if (t == NULL) return false;
+              path[d] = t->data;
+              if (t->left==NULL && t->right==NULL) return d+1==h;
+              return deepest(t->left,d+1,h,path) ||
+                     deepest(t->right,d+1,h,path);
+          }
+  - type: content
+    kicker: 答案代码
+    title: 最长根叶路径的实现（3/3）
+    blocks:
+      - type: code
+        text: |-
+          int longestPath(const TreeNode *root, int path[]) {
+              int h=treeHeight(root);
+              if (h!=0) deepest(root,0,h,path);
+              return h;
+          }
+          void printLongest(const TreeNode *root, int path[]) {
+              int len=longestPath(root,path);
+              for (int i=0;i<len;++i) printf("%d ",path[i]);
+              printf("length=%d\n",len);
+          }
+  - type: content
+    kicker: 解题过程
+    title: 最长路径的答案思想段怎样组织
+    blocks:
+      - type: bullets
+        items:
+          - 先递归计算树高h，空树高度为0。
+          - 再从根开始深度优先搜索，将深度d的结点写入path[d]。
+          - 遇到满足d+1=h的叶结点时成功返回，保留这条根叶路径。
+          - 最后输出path的前h项及长度h。
+  - type: content
+    kicker: 解题过程
+    title: 复制路径会改变时间分析
+    blocks:
+      - type: bullets
+        items:
+          - 本实现：求高 O(n)，再找最深叶至多 O(n)，打印 O(h)。
+          - 总时间 O(n)，辅助递归栈 O(h)。
+          - path 是输出数组，容量 O(h) 即可；若一并计存储，总量仍 O(h)。
+          - 每遇新最优就复制整条路径的另一写法，必须额外统计复制量。
+  - type: content
+    kicker: 解题过程
+    title: 反复复制更长路径可能累计到平方
+    blocks:
+      - type: diagram
+        nodes:
+          - id: A
+            text: A
+            x: 15
+            'y': 8
+            shape: ellipse
+          - id: X
+            text: X
+            x: 5
+            'y': 35
+            shape: ellipse
+          - id: B
+            text: B
+            x: 40
+            'y': 35
+            shape: ellipse
+          - id: 'Y'
+            text: 'Y'
+            x: 30
+            'y': 62
+            shape: ellipse
+          - id: C
+            text: C
+            x: 65
+            'y': 62
+            shape: ellipse
+          - id: Z
+            text: Z
+            x: 55
+            'y': 89
+            shape: ellipse
+          - id: D
+            text: D
+            x: 90
+            'y': 89
+            shape: ellipse
+        edges:
+          - from: A
+            to: X
+            directed: true
+          - from: A
+            to: B
+            directed: true
+          - from: B
+            to: 'Y'
+            directed: true
+          - from: B
+            to: C
+            directed: true
+          - from: C
+            to: Z
+            directed: true
+          - from: C
+            to: D
+            directed: true
+        labels: []
+        caption: 按先左后右访问，首次发现更长路径时依次复制2、3、4个结点。
+      - type: bullets
+        items:
+          - 延长同样结构，复制总量为2+3+…+h。
+          - 结点数量与h同阶，累计复制可达到O(n²)。
+  - type: content
+    kicker: 解题过程
+    title: 模拟卷六：直接写出后序序列
+    blocks:
+      - type: bullets
+        items:
+          - 给定合法先序 pre 和中序 in，n 个标识互不相同。
+          - 输出同一棵树的后序到 post，不创建树结点。
+          - 数组下标0起；n=0时不写入任何元素。
+          - 题目要求序列结果，不能把“建好树”当作完成任务。
+  - type: content
+    kicker: 解题过程
+    title: 一个完整区间怎样划分
+    blocks:
+      - type: table
+        head:
+          - 序列
+          - 当前内容
+        rows:
+          - - pre
+            - A B D E C F
+          - - in
+            - D B E A C F
+          - - 根
+            - A，中序左段长3
+          - - 左子树
+            - pre=B D E；in=D B E
+          - - 右子树
+            - pre=C F；in=C F
+          - - 后序
+            - D E B F C A
+  - type: content
+    kicker: 解题过程
+    title: 递归调用前写清三个区间
+    blocks:
+      - type: table
+        head:
+          - 部分
+          - 先序起点
+          - 中序起点
+          - 长度
+        rows:
+          - - 当前树
+            - pre
+            - in
+            - 'n'
+          - - 左子树
+            - pre+1
+            - in
+            - left
+          - - 右子树
+            - pre+left+1
+            - in+left+1
+            - n−left−1
+  - type: content
+    kicker: 解题过程
+    title: 后序输出的位置由递归完成次序决定
+    blocks:
+      - type: diagram
+        nodes:
+          - id: A
+            text: A
+            x: 50
+            'y': 10
+            shape: ellipse
+          - id: B
+            text: B
+            x: 25
+            'y': 39
+            shape: ellipse
+          - id: C
+            text: C
+            x: 77
+            'y': 39
+            shape: ellipse
+          - id: D
+            text: D
+            x: 10
+            'y': 73
+            shape: ellipse
+          - id: E
+            text: E
+            x: 40
+            'y': 73
+            shape: ellipse
+          - id: F
+            text: F
+            x: 88
+            'y': 73
+            shape: ellipse
+        edges:
+          - from: A
+            to: B
+            directed: true
+          - from: A
+            to: C
+            directed: true
+          - from: B
+            to: D
+            directed: true
+          - from: B
+            to: E
+            directed: true
+          - from: C
+            to: F
+            directed: true
+        labels:
+          - text: 左段3项
+            x: 25
+            'y': 96
+          - text: 右段2项
+            x: 77
+            'y': 96
+        caption: 完成左子树D、E、B，再完成右子树F、C，最后写入根A。
+      - type: bullets
+        items:
+          - out由0推进到3，再推进到5，根A写入post[5]。
+  - type: content
+    kicker: 答案代码
+    title: 直接生成后序的实现（1/2）
+    blocks:
+      - type: code
+        text: |-
+          void fillPost(const int pre[], const int in[], int n,
+                        int post[], int &out) {
+              if (n==0) return;
+              int left=0;
+              while (in[left]!=pre[0]) ++left;
+              fillPost(pre+1,in,left,post,out);
+              fillPost(pre+left+1,in+left+1,n-left-1,post,out);
+              post[out++]=pre[0];
+          }
+  - type: content
+    kicker: 答案代码
+    title: 直接生成后序的实现（2/2）
+    blocks:
+      - type: code
+        text: |-
+          void toPost(const int pre[], const int in[], int n, int post[]) {
+              int out=0;
+              fillPost(pre,in,n,post,out);
+          }
+  - type: content
+    kicker: 解题过程
+    title: 扫描根位置使最坏时间达到平方
+    blocks:
+      - type: bullets
+        items:
+          - 在每个中序段中线性寻找根。
+          - 最坏左链：扫描 n、n−1、…、1 个元素。
+          - 最坏时间 O(n²)，递归栈 O(h)，最坏 O(n)。
+          - post 为题目给定输出数组，不计新增辅助空间。
+          - 若另建值到下标的查找结构，需说明额外空间和实现条件。
+  - type: content
+    kicker: 解题过程
+    title: 直接后序题的思想与复杂度怎样落笔
+    blocks:
+      - type: bullets
+        items:
+          - 以先序首项为根，在当前中序段找到根，得到左子树长度left。
+          - 按left划分两组遍历区间，递归写左后序、右后序，最后写根。
+          - 用共享输出下标out连续填充post，空区间直接返回。
+          - 当前代码逐段扫描根位置，最坏时间O(n²)，辅助栈O(h)。
+  - type: content
+    kicker: 解题过程
+    title: 课堂检查：两个输出错误
+    blocks:
+      - type: bullets
+        items:
+          - 最长路径代码只返回 treeHeight(root)，遗漏什么？
+          - 直接后序代码把 out 改成值传递，会发生什么？
+          - 对 pre=[1,2,3]、in=[2,1,3] 手写正确后序。
+  - type: content
+    kicker: 检查答案
+    title: 课堂检查参考
+    blocks:
+      - type: bullets
+        items:
+          - 须补输出完整根叶结点序列，树高只是其中一个结果。
+          - out 必须在子树之间共享推进；值传递会让输出位置回退。
+          - 正确后序为 [2,3,1]。

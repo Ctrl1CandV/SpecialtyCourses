@@ -1,0 +1,357 @@
+{
+  "papers": [
+    {
+      "paper": 1,
+      "source_sha256": "302f368b33db2022b913a9f7c307ebfe17ece7bcc383b7ecb4be9870603467dc",
+      "outputs": [
+        {
+          "file": "成品\\试卷\\重邮802押题卷第1套.pdf",
+          "pages": 19,
+          "sha256": "7d34ea252a5830116f576a2bdfa6a811618b9fad6408c2b97d0408311cc5862a",
+          "writing_spaces": [
+            {
+              "id": "P1-I01",
+              "page": 1,
+              "height_mm": 107.4
+            },
+            {
+              "id": "P1-I02",
+              "page": 2,
+              "height_mm": 94.7
+            },
+            {
+              "id": "P1-I03",
+              "page": 3,
+              "height_mm": 192.0
+            },
+            {
+              "id": "P1-I04",
+              "page": 4,
+              "height_mm": 187.8
+            },
+            {
+              "id": "P1-II05-草算",
+              "page": 5,
+              "height_mm": 89.4
+            },
+            {
+              "id": "P1-II10-草算",
+              "page": 6,
+              "height_mm": 89.4
+            },
+            {
+              "id": "P1-III01",
+              "page": 7,
+              "height_mm": 121.8
+            },
+            {
+              "id": "P1-III02",
+              "page": 8,
+              "height_mm": 200.1
+            },
+            {
+              "id": "P1-III03",
+              "page": 9,
+              "height_mm": 178.3
+            },
+            {
+              "id": "P1-III04",
+              "page": 10,
+              "height_mm": 205.8
+            },
+            {
+              "id": "P1-III05",
+              "page": 11,
+              "height_mm": 90.3
+            },
+            {
+              "id": "P1-III06",
+              "page": 12,
+              "height_mm": 90.3
+            },
+            {
+              "id": "P1-III07",
+              "page": 13,
+              "height_mm": 208.3
+            },
+            {
+              "id": "P1-IV01",
+              "page": 14,
+              "height_mm": 191.7
+            },
+            {
+              "id": "P1-IV01-续答",
+              "page": 15,
+              "height_mm": 249.2
+            },
+            {
+              "id": "P1-IV02",
+              "page": 16,
+              "height_mm": 188.5
+            },
+            {
+              "id": "P1-IV02-续答",
+              "page": 17,
+              "height_mm": 249.2
+            },
+            {
+              "id": "P1-IV03",
+              "page": 18,
+              "height_mm": 210.7
+            },
+            {
+              "id": "P1-IV03-续答",
+              "page": 19,
+              "height_mm": 249.2
+            }
+          ]
+        },
+        {
+          "file": "成品\\答案\\重邮802押题卷第1套参考答案.pdf",
+          "pages": 13,
+          "sha256": "827c61792d81345162906d3c2a0570fc01ce68536b7fa8abe5cd36f0a7430e6f",
+          "writing_spaces": []
+        }
+      ]
+    },
+    {
+      "paper": 2,
+      "source_sha256": "4dca29e71a9c5398df0257635e101b6cb0bbdd66afa199d81b8c6ddd02699300",
+      "outputs": [
+        {
+          "file": "成品\\试卷\\重邮802押题卷第2套.pdf",
+          "pages": 20,
+          "sha256": "55edae00b1e6f2590225cdefaed30704322de5e484fc898ffd9fabce53d376af",
+          "writing_spaces": [
+            {
+              "id": "P2-I01",
+              "page": 1,
+              "height_mm": 44.2
+            },
+            {
+              "id": "P2-I02",
+              "page": 2,
+              "height_mm": 134.2
+            },
+            {
+              "id": "P2-I03",
+              "page": 3,
+              "height_mm": 185.0
+            },
+            {
+              "id": "P2-I04",
+              "page": 4,
+              "height_mm": 196.3
+            },
+            {
+              "id": "P2-I05",
+              "page": 5,
+              "height_mm": 132.8
+            },
+            {
+              "id": "P2-II05-草算",
+              "page": 6,
+              "height_mm": 106.3
+            },
+            {
+              "id": "P2-II10-草算",
+              "page": 7,
+              "height_mm": 95.0
+            },
+            {
+              "id": "P2-III01",
+              "page": 8,
+              "height_mm": 121.8
+            },
+            {
+              "id": "P2-III02",
+              "page": 9,
+              "height_mm": 205.8
+            },
+            {
+              "id": "P2-III03",
+              "page": 10,
+              "height_mm": 178.3
+            },
+            {
+              "id": "P2-III04",
+              "page": 11,
+              "height_mm": 205.8
+            },
+            {
+              "id": "P2-III05",
+              "page": 12,
+              "height_mm": 86.4
+            },
+            {
+              "id": "P2-III06",
+              "page": 13,
+              "height_mm": 88.5
+            },
+            {
+              "id": "P2-III07",
+              "page": 14,
+              "height_mm": 185.7
+            },
+            {
+              "id": "P2-IV01",
+              "page": 15,
+              "height_mm": 191.7
+            },
+            {
+              "id": "P2-IV01-续答",
+              "page": 16,
+              "height_mm": 249.2
+            },
+            {
+              "id": "P2-IV02",
+              "page": 17,
+              "height_mm": 209.3
+            },
+            {
+              "id": "P2-IV02-续答",
+              "page": 18,
+              "height_mm": 249.2
+            },
+            {
+              "id": "P2-IV03",
+              "page": 19,
+              "height_mm": 200.9
+            },
+            {
+              "id": "P2-IV03-续答",
+              "page": 20,
+              "height_mm": 249.2
+            }
+          ]
+        },
+        {
+          "file": "成品\\答案\\重邮802押题卷第2套参考答案.pdf",
+          "pages": 13,
+          "sha256": "7179de0732fa1badcaa1037955f01dabc5f8ab8af7b5ca1fdd388fdda8a49e48",
+          "writing_spaces": []
+        }
+      ]
+    },
+    {
+      "paper": 3,
+      "source_sha256": "f1c38849e1ff67a07856f88826690a96f4121b011ed88c10c5ff0823c08257bd",
+      "outputs": [
+        {
+          "file": "成品\\试卷\\重邮802押题卷第3套.pdf",
+          "pages": 20,
+          "sha256": "157fe1e4ad6088f7860e5b91c3f32c10673baf2a541d373c3b448e683af7feb8",
+          "writing_spaces": [
+            {
+              "id": "P3-I01",
+              "page": 1,
+              "height_mm": 86.2
+            },
+            {
+              "id": "P3-I02",
+              "page": 2,
+              "height_mm": 107.4
+            },
+            {
+              "id": "P3-I03",
+              "page": 3,
+              "height_mm": 218.8
+            },
+            {
+              "id": "P3-I04",
+              "page": 4,
+              "height_mm": 201.9
+            },
+            {
+              "id": "P3-I05",
+              "page": 5,
+              "height_mm": 100.3
+            },
+            {
+              "id": "P3-II05-草算",
+              "page": 6,
+              "height_mm": 78.1
+            },
+            {
+              "id": "P3-II10-草算",
+              "page": 7,
+              "height_mm": 83.7
+            },
+            {
+              "id": "P3-III01",
+              "page": 8,
+              "height_mm": 121.8
+            },
+            {
+              "id": "P3-III02",
+              "page": 9,
+              "height_mm": 200.1
+            },
+            {
+              "id": "P3-III03",
+              "page": 10,
+              "height_mm": 178.3
+            },
+            {
+              "id": "P3-III04",
+              "page": 11,
+              "height_mm": 205.8
+            },
+            {
+              "id": "P3-III05",
+              "page": 12,
+              "height_mm": 85.8
+            },
+            {
+              "id": "P3-III06",
+              "page": 13,
+              "height_mm": 90.3
+            },
+            {
+              "id": "P3-III07",
+              "page": 14,
+              "height_mm": 174.4
+            },
+            {
+              "id": "P3-IV01",
+              "page": 15,
+              "height_mm": 191.7
+            },
+            {
+              "id": "P3-IV01-续答",
+              "page": 16,
+              "height_mm": 249.2
+            },
+            {
+              "id": "P3-IV02",
+              "page": 17,
+              "height_mm": 209.3
+            },
+            {
+              "id": "P3-IV02-续答",
+              "page": 18,
+              "height_mm": 249.2
+            },
+            {
+              "id": "P3-IV03",
+              "page": 19,
+              "height_mm": 189.6
+            },
+            {
+              "id": "P3-IV03-续答",
+              "page": 20,
+              "height_mm": 249.2
+            }
+          ]
+        },
+        {
+          "file": "成品\\答案\\重邮802押题卷第3套参考答案.pdf",
+          "pages": 13,
+          "sha256": "d261907015e300dc1700c5e76c1d8525326c8457ca675b4aa284198647e84e56",
+          "writing_spaces": []
+        }
+      ]
+    }
+  ],
+  "说明": "结构、总分、源稿/PDF绑定与作答留白记录；不替代独立数学核答或限时试做。"
+}

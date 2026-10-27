@@ -1,0 +1,23 @@
+{
+  "精选题集": {
+    "v3Spans": 172,
+    "baseSpans": 172,
+    "baseErrors": 0,
+    "v3Errors": 0,
+    "newErrors": []
+  },
+  "补充题集": {
+    "v3Spans": 389,
+    "baseSpans": 389,
+    "baseErrors": 1,
+    "v3Errors": 1,
+    "newErrors": []
+  },
+  "答案册": {
+    "v3Spans": 0,
+    "baseSpans": 0,
+    "baseErrors": 0,
+    "v3Errors": 0,
+    "newErrors": []
+  }
+}

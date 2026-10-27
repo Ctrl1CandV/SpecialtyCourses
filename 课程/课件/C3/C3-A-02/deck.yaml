@@ -1,0 +1,526 @@
+meta:
+  id: C3-A-02
+  title: 数组算法的辅助信息与指针选法
+  stage: A冲刺补缺
+  instructor: 牙膏学长
+  duration: 51min
+slides:
+  - type: cover
+    kicker: 重邮802 数据结构代码课程
+    title: 数组算法的辅助信息与指针选法
+    subtitle: 冲刺补缺第2节
+    meta: 阶段：冲刺补缺 ｜ 主讲：牙膏学长 ｜ 预计51分钟 ｜ 资料答疑：伴梦研途QQ群
+  - type: content
+    kicker: 算法补缺
+    title: 同是扫描数组，保留的信息不同
+    blocks:
+      - type: table
+        head:
+          - 问题
+          - 必须保存的信息
+          - 方法
+        rows:
+          - - 哪些值出现过
+            - 出现与否
+            - 标记数组
+          - - 哪些元素要留下
+            - 保留前缀的长度
+            - 读写指针
+          - - 升序数组中找一对数
+            - 尚未排除的左右边界
+            - 两端指针
+  - type: content
+    kicker: 算法补缺
+    title: 标记数组先由取值范围确定大小
+    blocks:
+      - type: bullets
+        items:
+          - 若合法值为0…M，可令seen[x]表示x是否出现。
+          - 初始化M+1个标记，扫描n个元素：O(n+M)时间。
+          - 辅助空间O(M)；值域很大时不宜直接开表。
+          - 先判值域，再访问下标；n是元素个数，M是值域上界。
+  - type: content
+    kicker: 算法补缺
+    title: 求最小缺失正整数，先缩小答案范围
+    blocks:
+      - type: bullets
+        items:
+          - 输入a[0…n−1]，可含负数、0、重复值和大于n的数。
+          - 若1…n全出现，答案是n+1；否则答案在1…n中。
+          - 只标记1…n；其他值直接跳过。
+          - 示例：[3,−1,1,3,7,2]，最小缺失正整数是多少？
+  - type: content
+    kicker: 过程推演
+    title: 把输入逐个映射到标记表
+    blocks:
+      - type: table
+        head:
+          - 读入值
+          - 处理
+          - 已出现的1…6
+        rows:
+          - - '3'
+            - 标记3
+            - '{3}'
+          - - −1
+            - 跳过
+            - '{3}'
+          - - '1'
+            - 标记1
+            - '{1,3}'
+          - - '3'
+            - 重复标记
+            - '{1,3}'
+          - - '7'
+            - 超过n，跳过
+            - '{1,3}'
+          - - '2'
+            - 标记2
+            - '{1,2,3}'
+  - type: content
+    title: 标记表保存出现情况，不保存原数组位置
+    blocks:
+      - type: diagram
+        nodes:
+          - id: s1
+            text: 1:有
+            x: 10
+            'y': 50
+            shape: rect
+          - id: s2
+            text: 2:有
+            x: 26
+            'y': 50
+            shape: rect
+          - id: s3
+            text: 3:有
+            x: 42
+            'y': 50
+            shape: rect
+          - id: s4
+            text: 4:无
+            x: 58
+            'y': 50
+            shape: rect
+            highlight: true
+          - id: s5
+            text: 5:无
+            x: 74
+            'y': 50
+            shape: rect
+          - id: s6
+            text: 6:无
+            x: 90
+            'y': 50
+            shape: rect
+        edges: []
+        labels:
+          - text: 候选值1至6
+            x: 50
+            'y': 18
+          - text: 首次未出现：4
+            x: 58
+            'y': 82
+        caption: 输入为[3,−1,1,3,7,2]，n=6。
+      - type: bullets
+        items:
+          - 下标3表示数值3出现过，与原数组第3格无关。
+          - 重复的3只需一个标记，−1和7不访问标记表。
+  - type: content
+    kicker: 算法补缺
+    title: 最小缺失值代码：建立并填写标记
+    blocks:
+      - type: code
+        text: |
+          int MissingPositive(const int a[], int n){
+              bool *seen=(bool*)malloc((n+1)*sizeof(bool));
+              if(seen==NULL) return -1;
+              for(int x=0; x<=n; ++x) seen[x]=false;
+              for(int i=0; i<n; ++i)
+                  if(a[i]>=1 && a[i]<=n) seen[a[i]]=true;
+      - type: bullets
+        items:
+          - 前提：n≥0，数组至少含n个元素；接下一页完成返回。
+  - type: content
+    kicker: 算法补缺
+    title: 最小缺失值代码：找到答案并释放
+    blocks:
+      - type: code
+        text: |2
+              int answer=1;
+              while(answer<=n && seen[answer]) ++answer;
+              free(seen);
+              return answer;
+          }
+      - type: bullets
+        items:
+          - 时间O(n)，额外空间O(n)；空数组答案为1。
+          - a=[1,2,3]时答案为4，不访问seen[4]。
+  - type: content
+    title: 最小缺失正整数的完整思想段
+    blocks:
+      - type: bullets
+        items:
+          - n个元素不可能包含1至n+1的全部n+1个不同正整数。
+          - 建立seen[1…n]，只记录输入中处于该范围的值。
+          - 从1到n找到首个未标记值，全部已标记则返回n+1。
+          - 初始化、输入扫描、答案查找各至多线性，总时间O(n)。
+  - type: content
+    kicker: 算法补缺
+    title: 批量删除不必每删一次就搬移
+    blocks:
+      - type: bullets
+        items:
+          - 任务：删除闭区间[lo,hi]内的值，保留其他元素的原有次序。
+          - read读取原数组；write指向下一个保留位置。
+          - 读到应保留的值才写入，最后返回write作为新长度。
+          - 有效结果是a[0…write−1]；尾部旧值无需清零。
+  - type: content
+    kicker: 过程推演
+    title: 读写指针不会覆盖尚未读取的值
+    blocks:
+      - type: bullets
+        items:
+          - 原数组[2,7,3,2,5,1]；删除闭区间[2,4]内的值。
+      - type: table
+        head:
+          - read与值
+          - 动作
+          - write之后
+          - 有效前缀
+        rows:
+          - - '0: 2'
+            - 删除
+            - '0'
+            - 空
+          - - '1: 7'
+            - a[0]=7
+            - '1'
+            - '7'
+          - - '2: 3'
+            - 删除
+            - '1'
+            - '7'
+          - - '3: 2'
+            - 删除
+            - '1'
+            - '7'
+          - - '4: 5'
+            - a[1]=5
+            - '2'
+            - 7,5
+          - - '5: 1'
+            - a[2]=1
+            - '3'
+            - 7,5,1
+  - type: content
+    title: read=4时，写入位置仍在已读区域
+    blocks:
+      - type: diagram
+        nodes:
+          - id: a0
+            text: '7'
+            x: 10
+            'y': 50
+            shape: rect
+            highlight: true
+          - id: a1
+            text: '7'
+            x: 26
+            'y': 50
+            shape: rect
+          - id: a2
+            text: '3'
+            x: 42
+            'y': 50
+            shape: rect
+          - id: a3
+            text: '2'
+            x: 58
+            'y': 50
+            shape: rect
+          - id: a4
+            text: '5'
+            x: 74
+            'y': 50
+            shape: rect
+            highlight: true
+          - id: a5
+            text: '1'
+            x: 90
+            'y': 50
+            shape: rect
+        edges: []
+        labels:
+          - text: 下标0
+            x: 10
+            'y': 78
+          - text: write=1
+            x: 26
+            'y': 18
+          - text: read=4
+            x: 74
+            'y': 18
+          - text: 0号已保留
+            x: 13
+            'y': 95
+          - text: 1至3号旧值无效
+            x: 44
+            'y': 95
+          - text: 4至5号尚未读取
+            x: 82
+            'y': 95
+        caption: 本轮把5写到1号格，然后write变2，read继续向右。
+      - type: bullets
+        items:
+          - write≤read，覆盖的格子已经读过。
+          - 按输入顺序追加到有效前缀，保留元素的次序不变。
+  - type: content
+    kicker: 算法补缺
+    title: 稳定删除区间值的代码
+    blocks:
+      - type: code
+        text: |
+          int RemoveRange(int a[], int n, int lo, int hi){
+              int write=0;
+              for(int read=0; read<n; ++read)
+                  if(a[read]<lo || a[read]>hi)
+                      a[write++]=a[read];
+              return write;
+          }
+      - type: bullets
+        items:
+          - 前提lo≤hi；时间O(n)，额外空间O(1)，保留次序不变。
+  - type: content
+    title: 稳定压缩的思想与工作量
+    blocks:
+      - type: bullets
+        items:
+          - 用read扫描输入，write表示已保留元素数。
+          - 若当前值在删除区间外，将其写入a[write]并增加write。
+          - 扫描结束返回write，a[0…write−1]就是保持原次序的结果。
+          - read走n次，每次至多一次写入，时间O(n)、空间O(1)。
+  - type: content
+    kicker: 算法补缺
+    title: 有序去重也可以维护一个有效前缀
+    blocks:
+      - type: code
+        text: |
+          int UniqueSorted(int a[], int n){
+              if(n==0) return 0;
+              int write=1;
+              for(int read=1; read<n; ++read)
+                  if(a[read]!=a[write-1])
+                      a[write++]=a[read];
+              return write;
+          }
+      - type: bullets
+        items:
+          - '[1,1,2,2,2,4] → 有效前缀[1,2,4]，返回3。'
+  - type: content
+    kicker: 算法补缺
+    title: 无序有界去重需要两类状态
+    blocks:
+      - type: bullets
+        items:
+          - 输入无序，且保证0≤a[i]≤M；保留每个值第一次出现的次序。
+          - seen[x]：x以前是否出现；write：已经保留的元素数。
+          - 若seen[x]为假：a[write++]=x，并把seen[x]置真。
+          - 时间O(n+M)，额外空间O(M)；原数组允许原地修改。
+  - type: content
+    title: 先排序再去重会改变首次出现的顺序
+    blocks:
+      - type: table
+        head:
+          - 输入与要求
+          - 所得结果
+          - 是否满足
+        rows:
+          - - '[3,1,3,2,1]，保留首次出现次序'
+            - '[3,1,2]'
+            - 题目要求
+          - - 排序后再去重
+            - '[1,2,3]'
+            - 顺序改变
+          - - 只与前一个保留值比较
+            - '[3,1,3,2,1]'
+            - 漏掉非相邻重复值
+      - type: bullets
+        items:
+          - 有界标记记录全体已见值，读写指针维护原次序。
+  - type: content
+    kicker: 算法补缺
+    title: 两端指针依靠有序条件排除候选
+    blocks:
+      - type: bullets
+        items:
+          - 输入非递减数组，找i<j，使a[i]+a[j]=target。
+          - left=0，right=n−1；只在left<right时比较。
+          - 和太小：固定left已不可能成功，left前进。
+          - 和太大：固定right已不可能成功，right后退。
+  - type: content
+    kicker: 过程推演
+    title: 从两端开始，逐次排除不可能的位置
+    blocks:
+      - type: bullets
+        items:
+          - 数组[1,2,4,7,9,11]；下标从0开始。
+      - type: table
+        head:
+          - 目标
+          - left值
+          - right值
+          - 和
+          - 动作
+        rows:
+          - - '13'
+            - '1'
+            - '11'
+            - '12'
+            - left前进
+          - - '13'
+            - '2'
+            - '11'
+            - '13'
+            - 返回下标(1,5)
+          - - '10'
+            - '1'
+            - '11'
+            - '12'
+            - right后退
+          - - '10'
+            - '1'
+            - '9'
+            - '10'
+            - 返回下标(0,4)
+  - type: content
+    kicker: 算法补缺
+    title: 移动一端的理由要能说完整
+    blocks:
+      - type: bullets
+        items:
+          - 和太小：对任意j≤right，有a[left]+a[j]≤当前和<target。
+          - 和太大：对任意i≥left，有a[i]+a[right]≥当前和>target。
+          - 没有有序条件时，上述排除理由不成立。
+          - 若先排序，时间和原下标的维护都要重新分析。
+  - type: content
+    title: 无序数组会使两端排除漏掉正确答案
+    blocks:
+      - type: diagram
+        nodes:
+          - id: a0
+            text: '3'
+            x: 20
+            'y': 50
+            shape: rect
+            highlight: true
+          - id: a1
+            text: '2'
+            x: 50
+            'y': 50
+            shape: rect
+          - id: a2
+            text: '4'
+            x: 80
+            'y': 50
+            shape: rect
+            highlight: true
+        edges: []
+        labels:
+          - text: left=0
+            x: 20
+            'y': 18
+          - text: right=2
+            x: 80
+            'y': 18
+          - text: 目标和6
+            x: 50
+            'y': 84
+        caption: 真实解为下标(1,2)，即2+4=6。
+      - type: bullets
+        items:
+          - 首轮3+4=7，照搬有序规则会错误排除右端4。
+          - 余下3和2不能凑6，最终漏掉已有答案。
+  - type: content
+    kicker: 算法补缺
+    title: 两端指针的代码
+    blocks:
+      - type: code
+        text: |
+          bool TwoSumSorted(const int a[], int n, long long target,
+                            int &i, int &j){
+              int left=0, right=n-1;
+              while(left<right){
+                  long long sum=(long long)a[left]+a[right];
+                  if(sum==target){ i=left; j=right; return true; }
+                  if(sum<target) ++left; else --right;
+              }
+              return false;
+          }
+  - type: content
+    title: 两端求和题的完整思想与复杂度
+    blocks:
+      - type: bullets
+        items:
+          - 在非递减数组中，从left=0、right=n−1开始。
+          - 和小于目标时排除left，大于目标时排除right，相等即返回下标。
+          - 排除依据：固定被舍弃端点，与其余候选组合都不能达到目标。
+          - 每次失败比较使right−left减1，最多n−1轮，辅助空间O(1)。
+  - type: content
+    kicker: 算法补缺
+    title: 读题时怎样决定用哪一种方法
+    blocks:
+      - type: table
+        head:
+          - 题目条件
+          - 优先考虑
+          - 额外核对
+        rows:
+          - - 值域可控，需记录出现
+            - 标记表
+            - 范围、初始化代价
+          - - 原地保留，相对次序不变
+            - 读写指针
+            - 写入不越过读取
+          - - 已有序，比较可排除一端
+            - 两端指针
+            - 移动理由、位置是否不同
+  - type: content
+    kicker: 算法补缺
+    title: 课后练习：无序有界去重
+    blocks:
+      - type: bullets
+        items:
+          - a[0…n−1]的值都在0…M中，原地去重，保留首次出现次序。
+          - 函数返回新长度；辅助数组允许使用。
+          - 例：[3,1,3,0,2,1,0] → [3,1,0,2]。
+          - 写思想、代码及时间和空间复杂度。
+  - type: content
+    kicker: 算法补缺
+    title: 参考答案：初始化与原地保留
+    blocks:
+      - type: code
+        text: |
+          int UniqueBounded(int a[], int n, int M){
+              bool *seen=(bool*)malloc((M+1)*sizeof(bool));
+              if(seen==NULL) return -1;
+              for(int x=0; x<=M; ++x) seen[x]=false;
+              int write=0;
+              for(int read=0; read<n; ++read){
+                  int x=a[read];
+                  if(!seen[x]){ a[write++]=x; seen[x]=true; }
+              }
+  - type: content
+    kicker: 算法补缺
+    title: 参考答案：返回与复杂度
+    blocks:
+      - type: code
+        text: |2
+              free(seen);
+              return write;
+          }
+      - type: bullets
+        items:
+          - 返回有效前缀长度；保留第一次出现的顺序。
+          - 时间O(n+M)，额外空间O(M)。
+          - 前提n≥0、M≥0且0≤a[i]≤M；空数组返回0。

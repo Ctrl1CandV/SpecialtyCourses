@@ -1,0 +1,517 @@
+meta:
+  id: C3-B-01
+  title: 链表程序阅读与运行代价
+  stage: B解题
+  instructor: 牙膏学长
+  duration: 50min
+slides:
+  - type: cover
+    kicker: 重邮802 数据结构代码课程
+    title: 数据结构冲刺阶段
+    subtitle: 链表程序阅读与运行代价
+    meta: 主讲：牙膏学长 ｜ 资料答疑：伴梦研途QQ群
+  - type: content
+    kicker: 解题过程
+    title: 读代码时先确定四件事
+    blocks:
+      - type: table
+        head:
+          - 先读哪里
+          - 得到什么
+        rows:
+          - - 函数与参数
+            - 输入结构、头结点约定
+          - - 循环和指针推进
+            - 每轮消耗哪些结点
+          - - 结果构造与返回
+            - 输出方向、复用还是复制
+          - - 循环后收尾
+            - 还剩哪些情况必须处理
+  - type: content
+    kicker: 解题过程
+    title: 2024 阅读题：归并成非递增链表
+    blocks:
+      - type: bullets
+        items:
+          - 两条不带头结点的链表 La、Lb 各按值非递减排列。
+          - 复用原结点，合并为一条非递增链表，返回首结点。
+          - 主循环选出较小结点 p，再接入结果；补全四处。
+          - 读完程序后分析长度分别为 m、n 时的时间复杂度。
+  - type: content
+    kicker: 解题过程
+    title: 先读已给出的收尾循环
+    blocks:
+      - type: code
+        text: |-
+          while (La != NULL) {
+              Node *p = La;
+              La = La->next;
+              p->next = Lc;
+              Lc = p;
+          }
+          // Lb 的收尾循环具有相同结构
+          return Lc;
+  - type: content
+    title: 头插前，p与La分别保留当前结点和余链
+    blocks:
+      - type: diagram
+        nodes:
+          - id: p
+            text: 3a
+            x: 16
+            'y': 28
+            shape: rect
+            highlight: true
+          - id: a5
+            text: '5'
+            x: 55
+            'y': 28
+            shape: rect
+          - id: nilA
+            text: 'NULL'
+            x: 90
+            'y': 28
+            shape: rect
+          - id: c2
+            text: '2'
+            x: 16
+            'y': 74
+            shape: rect
+          - id: c1
+            text: '1'
+            x: 55
+            'y': 74
+            shape: rect
+          - id: nilC
+            text: 'NULL'
+            x: 90
+            'y': 74
+            shape: rect
+        edges:
+          - from: p
+            to: a5
+            directed: true
+          - from: a5
+            to: nilA
+            directed: true
+          - from: c2
+            to: c1
+            directed: true
+          - from: c1
+            to: nilC
+            directed: true
+        labels:
+          - text: p
+            x: 16
+            'y': 10
+          - text: La已前进
+            x: 55
+            'y': 10
+          - text: Lc
+            x: 16
+            'y': 94
+        caption: 当前取A中的3a，原结果链是2→1。
+      - type: bullets
+        items:
+          - 先保存p，再将La推进到5。
+          - p->next尚未改写，余链已由La保存。
+  - type: content
+    title: 头插后，3a成为新的结果首结点
+    blocks:
+      - type: diagram
+        nodes:
+          - id: c3
+            text: 3a
+            x: 12
+            'y': 30
+            shape: rect
+            highlight: true
+          - id: c2
+            text: '2'
+            x: 38
+            'y': 30
+            shape: rect
+          - id: c1
+            text: '1'
+            x: 64
+            'y': 30
+            shape: rect
+          - id: nilC
+            text: 'NULL'
+            x: 90
+            'y': 30
+            shape: rect
+          - id: a5
+            text: '5'
+            x: 38
+            'y': 76
+            shape: rect
+          - id: nilA
+            text: 'NULL'
+            x: 70
+            'y': 76
+            shape: rect
+        edges:
+          - from: c3
+            to: c2
+            directed: true
+          - from: c2
+            to: c1
+            directed: true
+          - from: c1
+            to: nilC
+            directed: true
+          - from: a5
+            to: nilA
+            directed: true
+        labels:
+          - text: Lc、p
+            x: 12
+            'y': 10
+          - text: La
+            x: 38
+            'y': 96
+        caption: 执行p->next=Lc，再执行Lc=p。
+      - type: bullets
+        items:
+          - 新取出的3不小于已取出的2和1，头插后仍非递增。
+          - 只重连现有结点，没有复制数据结点。
+  - type: content
+    kicker: 解题过程
+    title: 主循环的四处填空
+    blocks:
+      - type: code
+        text: |-
+          while (①) {
+              Node *p;
+              if (②) { p = La; La = La->next; }
+              else { p = Lb; Lb = Lb->next; }
+              ③;
+              ④;
+          }
+  - type: content
+    title: 四个空分别受哪条已知条件约束
+    blocks:
+      - type: table
+        head:
+          - 空
+          - 必须满足的状态
+          - 依据
+        rows:
+          - - ①
+            - La和Lb都能取data
+            - 比较分支访问两表当前结点
+          - - ②
+            - 取较小的当前结点
+            - 头插使取出顺序反转
+          - - ③
+            - p先连到原Lc
+            - 旧结果链不能丢失
+          - - ④
+            - Lc再改为p
+            - p成为新首结点
+      - type: note
+        text: 相等时取任一侧均可，只改变同值结点的身份次序。
+  - type: content
+    kicker: 解题过程
+    title: 用重复值区分结点和关键字
+    blocks:
+      - type: table
+        head:
+          - 轮次
+          - 取出的结点
+          - 结果链 Lc
+        rows:
+          - - '1'
+            - A 的 1
+            - '1'
+          - - '2'
+            - B 的 2
+            - 2 → 1
+          - - '3'
+            - A 的 3a
+            - 3a → 2 → 1
+          - - '4'
+            - B 的 3b
+            - 3b → 3a → 2 → 1
+          - - 第5轮与收尾
+            - 主循环取 A 的 5；收尾取 B 的 7
+            - 7 → 5 → 3b → 3a → 2 → 1
+  - type: content
+    kicker: 答案代码
+    title: 归并逆序的答案（1/2）
+    blocks:
+      - type: code
+        text: |-
+          Node *mergeAndReverse(Node *La, Node *Lb) {
+              Node *Lc = NULL;
+              while (La != NULL && Lb != NULL) {
+                  Node *p;
+                  if (La->data <= Lb->data) {
+                      p = La; La = La->next;
+                  } else { p = Lb; Lb = Lb->next; }
+                  p->next = Lc; Lc = p;
+              }
+  - type: content
+    kicker: 答案代码
+    title: 归并逆序的答案（2/2）
+    blocks:
+      - type: code
+        text: |-
+          while (La != NULL) {
+                  Node *p = La; La = La->next;
+                  p->next = Lc; Lc = p;
+              }
+              while (Lb != NULL) {
+                  Node *p = Lb; Lb = Lb->next;
+                  p->next = Lc; Lc = p;
+              }
+              return Lc;
+          }
+  - type: content
+    title: 三个循环共同消耗m+n个结点
+    blocks:
+      - type: table
+        head:
+          - 部分
+          - 消耗的结点
+          - 每结点工作
+        rows:
+          - - 主循环
+            - 两表仍同时非空时取出的结点
+            - 比较一次，摘取和头插
+          - - A收尾
+            - 主循环未取出的A余段
+            - 摘取和头插
+          - - B收尾
+            - 主循环未取出的B余段
+            - 摘取和头插
+          - - 合计
+            - 每个输入结点恰好一次
+            - 固定次指针操作
+      - type: bullets
+        items:
+          - 对非空输入，总摘取次数m+n，时间O(m+n)。
+  - type: content
+    kicker: 解题过程
+    title: 把功能与复杂度写完整
+    blocks:
+      - type: bullets
+        items:
+          - 功能：复用两条非递减链表的全部结点，生成一条非递增链表。
+          - 时间 O(m+n)：每个输入结点只被取出一次。
+          - 辅助空间 O(1)：结果使用原结点，只有固定数量指针。
+          - 空表、单结点、重复值均可；输入不能共享结点。
+  - type: content
+    kicker: 解题过程
+    title: 2025 阅读题：链表简单选择排序
+    blocks:
+      - type: bullets
+        items:
+          - 带头结点单链表 L；按 data 升序排序。
+          - p 指向本趟待确定的位置；q 扫描余段；min 记录最小值结点。
+          - 交换两个结点的数据，不重新连接结点。
+          - 补全起点、交换条件和下一趟的位置。
+  - type: content
+    kicker: 解题过程
+    title: 先读寻找最小值的一段
+    blocks:
+      - type: code
+        text: |-
+          p = ①;
+          while (p != NULL) {
+              Node *min = p, *q = p->next;
+              while (q != NULL) {
+                  if (q->data < min->data) min = q;
+                  q = q->next;
+              }
+              // 随后交换 data，并推进 p
+          }
+  - type: content
+    title: 第二趟扫描时，p之前的前缀已经确定
+    blocks:
+      - type: diagram
+        nodes:
+          - id: head
+            text: L
+            x: 7
+            'y': 50
+            shape: rect
+          - id: n1
+            text: '1'
+            x: 25
+            'y': 50
+            shape: rect
+          - id: n4
+            text: '4'
+            x: 43
+            'y': 50
+            shape: rect
+            highlight: true
+          - id: n2
+            text: '2'
+            x: 61
+            'y': 50
+            shape: rect
+            highlight: true
+          - id: n3
+            text: '3'
+            x: 79
+            'y': 50
+            shape: rect
+          - id: nil
+            text: 'NULL'
+            x: 96
+            'y': 50
+            shape: rect
+        edges:
+          - from: head
+            to: n1
+            directed: true
+          - from: n1
+            to: n4
+            directed: true
+          - from: n4
+            to: n2
+            directed: true
+          - from: n2
+            to: n3
+            directed: true
+          - from: n3
+            to: nil
+            directed: true
+        labels:
+          - text: 已排好
+            x: 25
+            'y': 82
+          - text: p
+            x: 43
+            'y': 20
+          - text: min
+            x: 61
+            'y': 20
+          - text: q
+            x: 79
+            'y': 20
+        caption: 当前余段4、2、3。已比较4与2，下一次检查3。
+      - type: bullets
+        items:
+          - min指向已经扫描部分的最小值结点。
+          - q继续向后，p保持本趟要填的位置。
+  - type: content
+    kicker: 解题过程
+    title: 交换与推进分别填什么
+    blocks:
+      - type: code
+        text: |-
+          if (②) {
+              int temp = p->data;
+              p->data = min->data;
+              min->data = temp;
+          }
+          ③;
+  - type: content
+    title: p=min不能代替交换数据
+    blocks:
+      - type: table
+        head:
+          - 操作
+          - 输入余段4、2、3的变化
+        rows:
+          - - 交换p与min的data
+            - 当前位置变2，余段变2、4、3
+          - - 仅执行p=min
+            - 结点数据仍是4、2、3，只移动了游标
+          - - 再执行p=p->next
+            - 游标到3，前面的4仍未排好
+      - type: bullets
+        items:
+          - “记录最小值结点”与“把最小值放到当前位置”是两个动作。
+  - type: content
+    kicker: 解题过程
+    title: 同键记录的次序可能改变
+    blocks:
+      - type: table
+        head:
+          - 状态
+          - 数据记录序列
+          - 说明
+        rows:
+          - - 初始
+            - 2a，2b，1
+            - a、b 区分同键记录
+          - - 第1趟
+            - 1，2b，2a
+            - 1 与首位置的 2a 交换
+          - - 第2趟
+            - 1，2b，2a
+            - 比较相等不更新 min
+          - - 结论
+            - 2a 与 2b 次序颠倒
+            - 简单选择排序不稳定
+  - type: content
+    kicker: 答案代码
+    title: 选择排序的答案（1/2）
+    blocks:
+      - type: code
+        text: |-
+          void SelectionSort(SortNode *L) {
+              SortNode *p = L->next;
+              while (p != NULL) {
+                  SortNode *min = p, *q = p->next;
+                  while (q != NULL) {
+                      if (q->data < min->data) min = q;
+                      q = q->next;
+                  }
+  - type: content
+    kicker: 答案代码
+    title: 选择排序的答案（2/2）
+    blocks:
+      - type: code
+        text: |-
+          if (min != p) {
+                      int temp = p->data;
+                      p->data = min->data;
+                      min->data = temp;
+                  }
+                  p = p->next;
+              }
+          }
+  - type: content
+    kicker: 解题过程
+    title: 工作量由每趟的扫描范围决定
+    blocks:
+      - type: bullets
+        items:
+          - n 个数据结点：关键字比较总数为 (n−1)+(n−2)+…+1。
+          - 无论原序列已排序、逆序还是含重复值，比较总数不变。
+          - 时间 O(n²)，辅助空间 O(1)。
+          - 交换次数与输入有关，最多 n−1 次；比较次数与交换次数分开统计。
+  - type: content
+    title: 选择排序题的完整解释答案
+    blocks:
+      - type: bullets
+        items:
+          - 功能：依次选出未排序余段的最小数据，与当前结点数据交换。
+          - n个数据结点共比较n(n−1)/2次，已升序时仍需扫描各余段。
+          - 时间O(n²)，辅助空间O(1)，交换次数至多n−1。
+          - 结点连接不变。若把数据看作带身份的记录，此排序不稳定。
+  - type: content
+    kicker: 解题过程
+    title: 课堂检查：哪些修改会破坏答案
+    blocks:
+      - type: bullets
+        items:
+          - 归并题将 Lc=p 放到 p->next=Lc 之前。
+          - 选择排序把 p=L->next 改为 p=L。
+          - 选择排序删除最后的 p=p->next。
+          - 分别写出一个最小反例，不只回答“错误”。
+  - type: content
+    kicker: 检查答案
+    title: 课堂检查参考
+    blocks:
+      - type: bullets
+        items:
+          - 归并：p->next 指回 p，原结果链丢失。
+          - 头结点参与排序：数据结点内容和哨兵数据可能互换。
+          - p 不推进：在同一个位置反复选择，非空表不能终止。

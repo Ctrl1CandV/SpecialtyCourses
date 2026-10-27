@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg
+  PUBLIC '-//W3C//DTD SVG 1.0//EN'
+  'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'>
+<svg width="475.5590551181103" height="215" preserveAspectRatio="xMinYMin meet" viewBox="0 0 475 215" xmlns="http://www.w3.org/2000/svg" version="1.0" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<title>...</title>
+	<desc>...</desc>
+	<clipPath id="clip">
+		<rect x="0" y="0" width="475.5590551181103" height="215"/>
+	</clipPath>
+	<g id="group" transform="scale(1,-1) translate(0,-215)" style="clip-path: url(#clip)">
+		<g transform="">
+			<path d="M 36.147408,106.688445 L 113.852592,153.311555 Z" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 0.8;"/>
+			<polygon points="113.8526 153.3116, 109.3936 147.1376, 106.3067 152.2826" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 1; fill: rgb(14%,20%,26%); fill-rule: evenodd;"/>
+			<rect x="72.8079830217101" y="124.57002829714982" width="8.5" height="11.999999999999986" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="74.8079830217101" y="126.57002829714982" style="font-family: PredSong; font-size: 9px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,253) scale(1,-1)">5</text>
+			<path d="M 36.147408,93.311555 L 113.852592,46.688445 Z" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 0.8;"/>
+			<polygon points="113.8526 46.68844, 106.3067 47.71744, 109.3936 52.86239" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 1; fill: rgb(14%,20%,26%); fill-rule: evenodd;"/>
+			<rect x="68.6920169782899" y="64.57002829714982" width="8.5" height="12.0" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="70.6920169782899" y="66.57002829714982" style="font-family: PredSong; font-size: 9px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,133) scale(1,-1)">3</text>
+			<path d="M 137.836728,162.053877 L 237.163272,177.946123 Z" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 0.8;"/>
+			<polygon points="237.1633 177.9461, 230.7252 173.8779, 229.7772 179.8025" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 1; fill: rgb(14%,20%,26%); fill-rule: evenodd;"/>
+			<rect x="183.8819620044267" y="164.05023747233318" width="8.5" height="12.0" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="185.8819620044267" y="166.05023747233318" style="font-family: PredSong; font-size: 9px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,332) scale(1,-1)">4</text>
+			<path d="M 137.070197,155.171921 L 237.929803,114.828079 Z" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 0.8;"/>
+			<polygon points="237.9298 114.8281, 230.3163 114.6424, 232.5446 120.2132" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 1; fill: rgb(14%,20%,26%); fill-rule: evenodd;"/>
+			<rect x="181.7644372945836" y="129.28609323645895" width="8.5" height="12.0" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="183.7644372945836" y="131.28609323645895" style="font-family: PredSong; font-size: 9px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,262) scale(1,-1)">6</text>
+			<path d="M 136.342578,46.351844 L 238.657422,103.648156 Z" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 0.8;"/>
+			<polygon points="238.6574 103.6482, 234.0157 97.61041, 231.0841 102.8455" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 1; fill: rgb(14%,20%,26%); fill-rule: evenodd;"/>
+			<rect x="185.20441347572736" y="69.50997593620112" width="8.5" height="12.0" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="187.20441347572736" y="71.50997593620112" style="font-family: PredSong; font-size: 9px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,143) scale(1,-1)">6</text>
+			<path d="M 137.958599,38.963312 L 237.041401,31.036688 Z" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 0.8;"/>
+			<polygon points="237.0414 31.03669, 229.8245 28.60446, 230.3029 34.58535" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 1; fill: rgb(14%,20%,26%); fill-rule: evenodd;"/>
+			<rect x="182.93101911086845" y="29.012738885855498" width="8.5" height="12.0" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="184.93101911086845" y="31.012738885855498" style="font-family: PredSong; font-size: 9px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,62) scale(1,-1)">5</text>
+			<path d="M 262.890805,178.318591 L 352.109195,166.681409 Z" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 0.8;"/>
+			<polygon points="352.1092 166.6814, 344.78 164.612, 345.556 170.5616" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 1; fill: rgb(14%,20%,26%); fill-rule: evenodd;"/>
+			<rect x="302.7326432637289" y="166.53359835525512" width="8.5" height="12.0" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="304.7326432637289" y="168.53359835525512" style="font-family: PredSong; font-size: 9px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,337) scale(1,-1)">5</text>
+			<path d="M 261.727745,115.608921 L 353.272255,159.391079 Z" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 0.8;"/>
+			<polygon points="353.2723 159.3911, 348.2517 153.6645, 345.6629 159.0773" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 1; fill: rgb(14%,20%,26%); fill-rule: evenodd;"/>
+			<rect x="304.975821989216" y="131.8914631134574" width="8.5" height="12.0" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="306.975821989216" y="133.8914631134574" style="font-family: PredSong; font-size: 9px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,267) scale(1,-1)">3</text>
+			<path d="M 262.747549,107.45049 L 437.252451,72.54951 Z" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 0.8;"/>
+			<polygon points="437.2525 72.54951, 429.8 70.98058, 430.9767 76.86406" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 1; fill: rgb(14%,20%,26%); fill-rule: evenodd;"/>
+			<rect x="344.96553545944727" y="84.07767729723632" width="8.5" height="12.0" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="346.96553545944727" y="86.07767729723632" style="font-family: PredSong; font-size: 9px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,172) scale(1,-1)">6</text>
+			<path d="M 262.747549,32.54951 L 437.252451,67.45049 Z" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 0.8;"/>
+			<polygon points="437.2525 67.45049, 430.9767 63.13594, 429.8 69.01942" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 1; fill: rgb(14%,20%,26%); fill-rule: evenodd;"/>
+			<rect x="346.53446454055273" y="44.07767729723632" width="8.5" height="12.0" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="348.53446454055273" y="46.07767729723632" style="font-family: PredSong; font-size: 9px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,92) scale(1,-1)">8</text>
+			<path d="M 373.668333,155.311863 L 441.331667,79.688137 Z" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 0.8;"/>
+			<polygon points="441.3317 79.68814, 434.4284 82.90444, 438.8998 86.90521" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 1; fill: rgb(14%,20%,26%); fill-rule: evenodd;"/>
+			<rect x="400.2690347458996" y="112.8328205621207" width="8.5" height="12.0" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="402.2690347458996" y="114.8328205621207" style="font-family: PredSong; font-size: 9px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,229) scale(1,-1)">4</text>
+			<circle cx="25" cy="100" r="13" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="22.5" y="96.5" style="font-family: PredSong; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,193) scale(1,-1)">A</text>
+			<circle cx="125" cy="160" r="13" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="122.5" y="156.5" style="font-family: PredSong; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,313) scale(1,-1)">B</text>
+			<circle cx="125" cy="40" r="13" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="122.5" y="36.5" style="font-family: PredSong; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,73) scale(1,-1)">C</text>
+			<circle cx="250" cy="180" r="13" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="247.5" y="176.5" style="font-family: PredSong; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,353) scale(1,-1)">D</text>
+			<circle cx="250" cy="110" r="13" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="247.5" y="106.5" style="font-family: PredSong; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,213) scale(1,-1)">E</text>
+			<circle cx="250" cy="30" r="13" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="247.5" y="26.5" style="font-family: PredSong; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,53) scale(1,-1)">F</text>
+			<circle cx="365" cy="165" r="13" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="362.5" y="161.5" style="font-family: PredSong; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,323) scale(1,-1)">G</text>
+			<circle cx="450" cy="70" r="13" style="stroke: rgb(14%,20%,26%); stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="447.5" y="66.5" style="font-family: PredSong; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,133) scale(1,-1)">H</text>
+		</g>
+	</g>
+</svg>

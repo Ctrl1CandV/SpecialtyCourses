@@ -1,0 +1,676 @@
+meta:
+  id: C3-A-01
+  title: 快慢指针的环入口与分点
+  stage: A冲刺补缺
+  instructor: 牙膏学长
+  duration: 49min
+slides:
+  - type: cover
+    kicker: 重邮802 数据结构代码课程
+    title: 快慢指针的环入口与分点
+    subtitle: 冲刺补缺第1节
+    meta: 阶段：冲刺补缺 ｜ 主讲：牙膏学长 ｜ 预计49分钟 ｜ 资料答疑：伴梦研途QQ群
+  - type: content
+    kicker: 算法补缺
+    title: 冲刺阶段先补缺，再讲完整题目
+    blocks:
+      - type: table
+        head:
+          - 阶段
+          - 主要任务
+        rows:
+          - - 补缺课程
+            - 环入口、分点、辅助信息与数组指针
+          - - 讲题课程
+            - 程序阅读与算法设计的完整解题过程
+      - type: bullets
+        items:
+          - 程序阅读20分，算法设计与分析30分；既要读状态，也要写完整解法。
+          - 已学前置：链表遍历、空指针判断、固定间距找倒数第k。
+  - type: content
+    kicker: 算法补缺
+    title: 先区分三种双指针的关系
+    blocks:
+      - type: table
+        head:
+          - 任务
+          - 指针如何走
+          - 何时停止
+        rows:
+          - - 倒数第k
+            - 先拉开间距，再同速
+            - 前面的指针走到尾部
+          - - 长度的1/k位置
+            - 快指针每组k步，慢指针相应前进
+            - 快指针走到尾部
+          - - 检测环
+            - 慢指针1步，快指针2步
+            - 相遇，或快指针到NULL
+  - type: content
+    kicker: 算法补缺
+    title: 有环链表的入口是什么
+    blocks:
+      - type: bullets
+        items:
+          - 带头结点L；first=L->next；头结点不属于环。
+          - 示例连接：1 → 2 → 3 → 4 → 5 → 6 → 7 → 3。
+          - 入口是3；入口前有2条边，环长为5。
+          - 返回入口结点的指针；无环或空表返回NULL。
+  - type: content
+    title: 数据相同的三个结点仍然可以无环
+    blocks:
+      - type: diagram
+        nodes:
+          - id: u
+            text: '7'
+            x: 15
+            'y': 50
+            shape: rect
+            highlight: true
+          - id: v
+            text: '7'
+            x: 45
+            'y': 50
+            shape: rect
+          - id: w
+            text: '7'
+            x: 75
+            'y': 50
+            shape: rect
+          - id: nil
+            text: 'NULL'
+            x: 95
+            'y': 50
+            shape: rect
+        edges:
+          - from: u
+            to: v
+            directed: true
+          - from: v
+            to: w
+            directed: true
+          - from: w
+            to: nil
+            directed: true
+        labels:
+          - text: 地址u
+            x: 15
+            'y': 20
+          - text: 地址v
+            x: 45
+            'y': 20
+          - text: 地址w
+            x: 75
+            'y': 20
+        caption: 三个data相等，三个结点地址不同。
+      - type: bullets
+        items:
+          - 判断相遇使用slow==fast。
+          - 从首元开始立即比较也会误判，必须先移动。
+  - type: content
+    kicker: 算法补缺
+    title: 检测环时，两指针先移动再比较
+    blocks:
+      - type: code
+        text: |
+          LNode *Meet(LNode *first){
+              LNode *slow=first, *fast=first;
+              while(fast!=NULL && fast->next!=NULL){
+                  slow=slow->next;
+                  fast=fast->next->next;
+                  if(slow==fast) return slow;
+              }
+              return NULL;
+          }
+  - type: content
+    kicker: 过程推演
+    title: 逐轮跟踪第一次相遇
+    blocks:
+      - type: table
+        head:
+          - 移动轮数
+          - slow
+          - fast
+        rows:
+          - - '1'
+            - '2'
+            - '3'
+          - - '2'
+            - '3'
+            - '5'
+          - - '3'
+            - '4'
+            - '7'
+          - - '4'
+            - '5'
+            - '4'
+          - - '5'
+            - '6'
+            - 6，首次相遇
+  - type: content
+    title: 第五轮两指针在6相遇
+    blocks:
+      - type: diagram
+        nodes:
+          - id: n1
+            text: '1'
+            x: 8
+            'y': 24
+            shape: rect
+          - id: n2
+            text: '2'
+            x: 30
+            'y': 24
+            shape: rect
+          - id: n3
+            text: '3'
+            x: 52
+            'y': 24
+            shape: rect
+          - id: n4
+            text: '4'
+            x: 78
+            'y': 24
+            shape: rect
+          - id: n5
+            text: '5'
+            x: 78
+            'y': 53
+            shape: rect
+          - id: n6
+            text: '6'
+            x: 78
+            'y': 82
+            shape: rect
+            highlight: true
+          - id: n7
+            text: '7'
+            x: 52
+            'y': 82
+            shape: rect
+        edges:
+          - from: n1
+            to: n2
+            directed: true
+          - from: n2
+            to: n3
+            directed: true
+          - from: n3
+            to: n4
+            directed: true
+          - from: n4
+            to: n5
+            directed: true
+          - from: n5
+            to: n6
+            directed: true
+          - from: n6
+            to: n7
+            directed: true
+          - from: n7
+            to: n3
+            directed: true
+        labels:
+          - text: first
+            x: 8
+            'y': 7
+          - text: 入口
+            x: 52
+            'y': 7
+          - text: slow、fast
+            x: 78
+            'y': 98
+      - type: bullets
+        items:
+          - 从首元走了5步，slow到6，fast走了10步也到6。
+          - 入口是3，直接返回相遇点6没有完成题目。
+  - type: content
+    kicker: 算法补缺
+    title: 为什么有环就一定能相遇
+    blocks:
+      - type: bullets
+        items:
+          - 两指针都进入环后，每轮的相对位移增加1。
+          - 环长为c，至多再经过c轮便会相遇。
+          - 入口前a条边：检测时间O(a+c)，额外空间O(1)。
+          - 比较的是指针地址，不是结点的data。
+  - type: content
+    kicker: 算法补缺
+    title: 相遇后，入口由路程关系确定
+    blocks:
+      - type: bullets
+        items:
+          - a：first到入口的距离；b：入口到相遇点的环上距离；c：环长。
+          - 设慢指针共走T步：T=a+b+q·c；快指针走2T步。
+          - 相遇时两者相差整圈：2T−T=m·c，因此a+b是c的整数倍。
+          - 一个指针回first，另一个留在相遇点；二者都每次走1步。
+          - 从first走a步到入口；从相遇点走a步也到入口。
+  - type: content
+    title: 复位后不会在入口之前相遇
+    blocks:
+      - type: diagram
+        nodes:
+          - id: n1
+            text: '1'
+            x: 8
+            'y': 24
+            shape: rect
+            highlight: true
+          - id: n2
+            text: '2'
+            x: 30
+            'y': 24
+            shape: rect
+          - id: n3
+            text: '3'
+            x: 52
+            'y': 24
+            shape: rect
+          - id: n4
+            text: '4'
+            x: 78
+            'y': 24
+            shape: rect
+          - id: n5
+            text: '5'
+            x: 78
+            'y': 53
+            shape: rect
+          - id: n6
+            text: '6'
+            x: 78
+            'y': 82
+            shape: rect
+          - id: n7
+            text: '7'
+            x: 52
+            'y': 82
+            shape: rect
+        edges:
+          - from: n1
+            to: n2
+            directed: true
+          - from: n2
+            to: n3
+            directed: true
+          - from: n3
+            to: n4
+            directed: true
+          - from: n4
+            to: n5
+            directed: true
+          - from: n5
+            to: n6
+            directed: true
+          - from: n6
+            to: n7
+            directed: true
+          - from: n7
+            to: n3
+            directed: true
+        labels:
+          - text: p从first出发
+            x: 10
+            'y': 7
+          - text: 入口
+            x: 52
+            'y': 7
+          - text: q留在相遇点
+            x: 77
+            'y': 98
+      - type: bullets
+        items:
+          - p依次经过1、2、3，q依次经过6、7、3。
+          - 入口前的结点不在环上，p与q不会提前重合。
+  - type: content
+    kicker: 过程推演
+    title: 在同一条链上验证复位过程
+    blocks:
+      - type: table
+        head:
+          - 同速移动
+          - p从first出发
+          - q从相遇点出发
+        rows:
+          - - 0步
+            - '1'
+            - '6'
+          - - 1步
+            - '2'
+            - '7'
+          - - 2步
+            - '3'
+            - 3，入口
+      - type: bullets
+        items:
+          - 此例a=2，b=3，c=5；a+b=c。
+  - type: content
+    kicker: 算法补缺
+    title: 找环入口的完整调用
+    blocks:
+      - type: code
+        text: |
+          LNode *FindEntry(LinkList L){
+              LNode *first=(L==NULL ? NULL : L->next);
+              LNode *meet=Meet(first), *p=first;
+              if(meet==NULL) return NULL;
+              while(p!=meet){
+                  p=p->next;
+                  meet=meet->next;
+              }
+              return p;
+          }
+  - type: content
+    title: 环入口题的完整思想段
+    blocks:
+      - type: bullets
+        items:
+          - 从首元设置快、慢指针，每轮分别前进2步和1步。
+          - 快指针到空则无环。相遇后，将一个指针复位到首元。
+          - 两指针改为每轮各走1步，再次相遇的结点即入口。
+          - 依据相遇路程差为整圈，有a+b为环长的整数倍。
+  - type: content
+    title: 两个阶段的时间按实际路程相加
+    blocks:
+      - type: table
+        head:
+          - 阶段
+          - 最多需要的工作量
+        rows:
+          - - 进入环并相遇
+            - O(a+c)轮，每轮固定次访问
+          - - 复位后找入口
+            - a次同速移动
+          - - 合计
+            - O(a+c)，即不同数据结点数的线性量级
+          - - 额外存储
+            - 固定个指针，O(1)
+      - type: note
+        text: 无环长度为n时，快指针到尾部结束，时间O(n)。
+  - type: content
+    kicker: 课堂检查
+    title: 环检测的四类边界
+    blocks:
+      - type: table
+        head:
+          - 输入
+          - 返回值
+          - 核对点
+        rows:
+          - - 空表或L为NULL
+            - 'NULL'
+            - 不访问空指针字段
+          - - 单结点，next为NULL
+            - 'NULL'
+            - 不进入检测循环
+          - - 单结点，next指向自己
+            - 该结点
+            - 移动后相遇，入口即first
+          - - 不同结点具有相同data
+            - 按实际连接判断
+            - 不能以数据相等代替地址相等
+  - type: content
+    kicker: 算法补缺
+    title: 找分点前，先定义位序与取整
+    blocks:
+      - type: bullets
+        items:
+          - 本节约定：数据结点位序从1开始，返回第⌈n/k⌉个结点。
+          - ⌈n/k⌉表示n/k向上取整；例如⌈8/3⌉=3。
+          - k=2时得到前中点：n=6返回第3个，n=7返回第4个。
+          - 要求普通无环链表、k≥1；空表返回NULL。
+  - type: content
+    kicker: 算法补缺
+    title: 按每组k个结点推进快指针
+    blocks:
+      - type: bullets
+        items:
+          - slow、fast均从第一个数据结点出发。
+          - fast每组最多走k步，遇NULL立即停止。
+          - 一组走完后，只有fast非空，slow才走1步。
+          - 最后slow的位序=组数=⌈n/k⌉。
+  - type: content
+    kicker: 过程推演
+    title: 八结点链表寻找三分之一点
+    blocks:
+      - type: table
+        head:
+          - 当前组
+          - fast消耗的结点
+          - 组后fast
+          - 组后slow
+        rows:
+          - - 第1组
+            - 1、2、3
+            - '4'
+            - '2'
+          - - 第2组
+            - 4、5、6
+            - '7'
+            - '3'
+          - - 第3组
+            - 7、8
+            - 'NULL'
+            - 3，返回
+  - type: content
+    title: 处理完第二组时，slow恰好位于第3个
+    blocks:
+      - type: diagram
+        nodes:
+          - id: n1
+            text: '1'
+            x: 8
+            'y': 50
+            shape: rect
+          - id: n2
+            text: '2'
+            x: 20
+            'y': 50
+            shape: rect
+          - id: n3
+            text: '3'
+            x: 32
+            'y': 50
+            shape: rect
+            highlight: true
+          - id: n4
+            text: '4'
+            x: 44
+            'y': 50
+            shape: rect
+          - id: n5
+            text: '5'
+            x: 56
+            'y': 50
+            shape: rect
+          - id: n6
+            text: '6'
+            x: 68
+            'y': 50
+            shape: rect
+          - id: n7
+            text: '7'
+            x: 80
+            'y': 50
+            shape: rect
+            highlight: true
+          - id: n8
+            text: '8'
+            x: 92
+            'y': 50
+            shape: rect
+        edges:
+          - from: n1
+            to: n2
+            directed: true
+          - from: n2
+            to: n3
+            directed: true
+          - from: n3
+            to: n4
+            directed: true
+          - from: n4
+            to: n5
+            directed: true
+          - from: n5
+            to: n6
+            directed: true
+          - from: n6
+            to: n7
+            directed: true
+          - from: n7
+            to: n8
+            directed: true
+        labels:
+          - text: slow
+            x: 32
+            'y': 23
+          - text: fast
+            x: 80
+            'y': 23
+          - text: 第1组：1至3
+            x: 20
+            'y': 82
+          - text: 第2组：4至6
+            x: 56
+            'y': 82
+          - text: 第3组：7至8
+            x: 86
+            'y': 82
+        caption: 当前已消耗6个结点，fast还要处理最后一组。
+      - type: bullets
+        items:
+          - slow记录组号，不要求与fast位于同一组。
+          - 最后一组结束后没有下一组，slow停在第3个。
+  - type: content
+    kicker: 算法补缺
+    title: 分点代码先确定入口与合法参数
+    blocks:
+      - type: code
+        text: |
+          LNode *FractionPoint(LinkList L, int k){
+              if(L==NULL || L->next==NULL || k<1)
+                  return NULL;
+              LNode *slow=L->next, *fast=L->next;
+      - type: bullets
+        items:
+          - 接下一段循环；目标位序为⌈n/k⌉。
+  - type: content
+    kicker: 算法补缺
+    title: 分点代码按组推进并返回
+    blocks:
+      - type: code
+        text: |2
+              while(fast!=NULL){
+                  for(int step=0; step<k && fast!=NULL; ++step)
+                      fast=fast->next;
+                  if(fast!=NULL) slow=slow->next;
+              }
+              return slow;
+          }
+      - type: bullets
+        items:
+          - 所有内层循环合计走n次next；时间O(n)，额外空间O(1)。
+  - type: content
+    title: 最后一组结束后再移动slow会多走一步
+    blocks:
+      - type: table
+        head:
+          - 长度与k
+          - 正确位序
+          - 无条件移动slow的结果
+        rows:
+          - - n=6，k=3
+            - '2'
+            - 3，多走一格
+          - - n=7，k=3
+            - '3'
+            - 4，多走一格
+          - - n=1，k=3
+            - '1'
+            - NULL，越过唯一结点
+      - type: bullets
+        items:
+          - slow初始已代表第1组，每出现下一组才增加1。
+  - type: content
+    title: 分点题的思想与复杂度可以这样写
+    blocks:
+      - type: bullets
+        items:
+          - 将n个数据结点按每组至多k个处理，共有⌈n/k⌉组。
+          - fast消耗每组，slow从第1个结点起，只在仍有下一组时前进。
+          - 结束时slow位序等于组数，返回所需的向上取整分点。
+          - fast总共走n步，slow走⌈n/k⌉−1步，时间O(n)、空间O(1)。
+  - type: content
+    kicker: 课堂检查
+    title: 用短链验证取整规则
+    blocks:
+      - type: table
+        head:
+          - 长度n
+          - k
+          - 本函数返回位序
+        rows:
+          - - '1'
+            - '3'
+            - '1'
+          - - '6'
+            - '3'
+            - '2'
+          - - '7'
+            - '3'
+            - '3'
+          - - '8'
+            - '2'
+            - 4，前中点
+          - - '5'
+            - '1'
+            - 5，尾结点
+  - type: content
+    kicker: 算法补缺
+    title: 课后检查：条件变了，哪里要改
+    blocks:
+      - type: bullets
+        items:
+          - 1. 首元A，连接A→B→C→D→E→C；写首次相遇点与环入口。
+          - 2. 普通链表长n≥1，返回第⌊n/3⌋个数据结点；位序为0时返回NULL。
+          - 第2问不要求单趟：写出可验证的O(n)时间、O(1)空间方法。
+  - type: content
+    kicker: 算法补缺
+    title: 参考答案：环的相遇点与入口
+    blocks:
+      - type: table
+        head:
+          - 检测轮数
+          - slow
+          - fast
+        rows:
+          - - '1'
+            - B
+            - C
+          - - '2'
+            - C
+            - E
+          - - '3'
+            - D
+            - D
+      - type: bullets
+        items:
+          - 相遇后复位：(A,D) → (B,E) → (C,C)。
+          - 首次相遇D；环入口C。
+  - type: content
+    kicker: 算法补缺
+    title: 参考答案：向下取整先数长度再定位
+    blocks:
+      - type: code
+        text: |
+          LNode *ThirdFloor(LinkList L){
+              if(L==NULL) return NULL;
+              int n=0;
+              for(LNode *p=L->next; p!=NULL; p=p->next) ++n;
+              int target=n/3;
+              if(target==0) return NULL;
+              LNode *p=L->next;
+              for(int i=1; i<target; ++i) p=p->next;
+              return p;
+          }

@@ -1,0 +1,113 @@
+{
+  "说明": "现行源稿、逐页讲稿与PPT的指纹绑定。九课逐页静态审查及问题页复查已完成；全套LibreOffice导出页数一致，抽查图/代码/表格显示正常。PowerPoint放映及录制节奏仍由主讲审阅。",
+  "lessons": [
+    {
+      "id": "C3-A-01",
+      "pages": 28,
+      "duration": "49min",
+      "diagram_pages": 4,
+      "source_sha256": "395d249d891ce5979f93acd23754ae9381de26b1b2101adb1ef6fb6a93617627",
+      "lecture_sha256": "09732879238faf724259be3a020146616960d985ac987db307d0a78fc5e149c5",
+      "pptx_sha256": "5718ced5e6624f33fd7f7a69978c6fefe133479462c581963f128147aee65774",
+      "background_sha256": "d08ab5f23f8a8570b07c7047d43e6bdd8c25b6be63e4a0e045dcf79875ade7c0",
+      "package_integrity": "pass",
+      "layout_findings": 0
+    },
+    {
+      "id": "C3-A-02",
+      "pages": 27,
+      "duration": "51min",
+      "diagram_pages": 3,
+      "source_sha256": "d57f7d74b33444596e37e0519c80a1d5441e48ce601daecf78087bc319757b64",
+      "lecture_sha256": "2ac8c0e16b11a8cd341b981d2078b399e2e17f4b2119d2b89a29f0b50c2fb50a",
+      "pptx_sha256": "1d7276622a9dfb4428e50bbc31c563f405e180ef4ee7dd3b69ccc11d263ec32e",
+      "background_sha256": "d08ab5f23f8a8570b07c7047d43e6bdd8c25b6be63e4a0e045dcf79875ade7c0",
+      "package_integrity": "pass",
+      "layout_findings": 0
+    },
+    {
+      "id": "C3-B-01",
+      "pages": 25,
+      "duration": "50min",
+      "diagram_pages": 3,
+      "source_sha256": "214c7312d1229eb77c9c4187b8b24e7ae6c9448cee78c302d84c35c0997f11fb",
+      "lecture_sha256": "d12eb1082dfea0aa3678ed409962480990f3304467b0176e708396683040e412",
+      "pptx_sha256": "cf44d1e8dddc5d26958ca2a6480a90a57fadb8b1204105c69eb18e96251a707d",
+      "background_sha256": "d08ab5f23f8a8570b07c7047d43e6bdd8c25b6be63e4a0e045dcf79875ade7c0",
+      "package_integrity": "pass",
+      "layout_findings": 0
+    },
+    {
+      "id": "C3-B-02",
+      "pages": 24,
+      "duration": "49min",
+      "diagram_pages": 4,
+      "source_sha256": "ed9842e2d431d3fae229d4e29fe9ccda36165a941e6dca44b262328168005006",
+      "lecture_sha256": "2db6541e0661a2724d6baaaecd147d1e7a2ff807efb6c5a10db484ec2b574a6b",
+      "pptx_sha256": "9b5545cbcbe89dea28dfa867ec1ea2634b1f96625bbaaac60de7e9518ca151f0",
+      "background_sha256": "d08ab5f23f8a8570b07c7047d43e6bdd8c25b6be63e4a0e045dcf79875ade7c0",
+      "package_integrity": "pass",
+      "layout_findings": 0
+    },
+    {
+      "id": "C3-B-03",
+      "pages": 24,
+      "duration": "48min",
+      "diagram_pages": 4,
+      "source_sha256": "08608a749370510b0e0812f770542bd6faa67d407c20bfe8520e32cddf6a9139",
+      "lecture_sha256": "eb494c899907a17de4402b90a56c3dfe4d382b1851f5b819a3499b7becdc51b4",
+      "pptx_sha256": "a6717b2f74045da913e0260bb77c8c9c84e3b3091febd714d783bf09002bee69",
+      "background_sha256": "d08ab5f23f8a8570b07c7047d43e6bdd8c25b6be63e4a0e045dcf79875ade7c0",
+      "package_integrity": "pass",
+      "layout_findings": 0
+    },
+    {
+      "id": "C3-B-04",
+      "pages": 24,
+      "duration": "48min",
+      "diagram_pages": 5,
+      "source_sha256": "dc0630818b22ab5d44ea712762fd267319600544e58dda78cbe83914c7055205",
+      "lecture_sha256": "700b3cb29193c4e68218815b19f70ce0f42843a6fe59d0b7c7c4964ce6256905",
+      "pptx_sha256": "3725970b2e1cba94d668d1b541d3af665d0d354c6aa254b540f9737487ff6dce",
+      "background_sha256": "d08ab5f23f8a8570b07c7047d43e6bdd8c25b6be63e4a0e045dcf79875ade7c0",
+      "package_integrity": "pass",
+      "layout_findings": 0
+    },
+    {
+      "id": "C3-B-05",
+      "pages": 23,
+      "duration": "47min",
+      "diagram_pages": 5,
+      "source_sha256": "6e42c522fd77637b3e7cbe3e7529d4106c7483d0b04a2a7ab47c70512a4a7fef",
+      "lecture_sha256": "dfde3ae51f50aeb57823f0802175c5325c9c2feda18c63b5fe656f5c77d152b4",
+      "pptx_sha256": "22a859aa3d50a7a97f37afb74ed4cf720e34d8a4477420d1f3e6646985b17144",
+      "background_sha256": "d08ab5f23f8a8570b07c7047d43e6bdd8c25b6be63e4a0e045dcf79875ade7c0",
+      "package_integrity": "pass",
+      "layout_findings": 0
+    },
+    {
+      "id": "C3-B-06",
+      "pages": 24,
+      "duration": "47min",
+      "diagram_pages": 5,
+      "source_sha256": "75d29ebb47336e7a32033c4744a6ea169b0b0849c9004d147b40bcad25948c6d",
+      "lecture_sha256": "21c61a0707b0333cffc21681d15f224638e3e93d0fb7ccf266ec596f498582f6",
+      "pptx_sha256": "e64bf97f40c4fcf27d55a252d958b1284d24dab3ba34419b754a290e9be10400",
+      "background_sha256": "d08ab5f23f8a8570b07c7047d43e6bdd8c25b6be63e4a0e045dcf79875ade7c0",
+      "package_integrity": "pass",
+      "layout_findings": 0
+    },
+    {
+      "id": "C3-B-07",
+      "pages": 30,
+      "duration": "49min",
+      "diagram_pages": 6,
+      "source_sha256": "9b3ae4ca59476ef26d987f3fdc990a947053c5b9f8c2b294d2a751b893c42e2b",
+      "lecture_sha256": "505b9bb93e6a9116f16fde4c33f72b61c13c8651372613a0d07d8a5b8780200d",
+      "pptx_sha256": "562b0846c5ee97e9a2272e6eacd521561179c3a4c89c4f7761f85cdeb91d84be",
+      "background_sha256": "d08ab5f23f8a8570b07c7047d43e6bdd8c25b6be63e4a0e045dcf79875ade7c0",
+      "package_integrity": "pass",
+      "layout_findings": 0
+    }
+  ]
+}

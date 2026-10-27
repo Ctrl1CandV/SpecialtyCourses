@@ -1,0 +1,198 @@
+{
+  "all_pass": true,
+  "books": {
+    "精选题集": {
+      "questions": 401,
+      "pages": 115,
+      "bytes": 2448822,
+      "outline_roots": [
+        "精选题集",
+        "选择题215 题",
+        "填空题29 题",
+        "程序阅读题14 题",
+        "综合应用题92 题",
+        "算法设计题51 题"
+      ],
+      "outline_entries": 46,
+      "links": 44
+    },
+    "补充题集": {
+      "questions": 553,
+      "pages": 114,
+      "bytes": 2337883,
+      "outline_roots": [
+        "补充题集",
+        "选择题218 题",
+        "综合应用题124 题",
+        "算法设计题211 题"
+      ],
+      "outline_entries": 32,
+      "links": 30
+    },
+    "答案册": {
+      "questions": 223,
+      "pages": 92,
+      "bytes": 2434352,
+      "outline_roots": [
+        "答案册",
+        "选择题128 题",
+        "填空题29 题",
+        "程序阅读题14 题",
+        "综合应用题43 题",
+        "算法设计题9 题"
+      ],
+      "outline_entries": 39,
+      "links": 37
+    }
+  },
+  "checks": {
+    "tiku_db_hash_unchanged": {
+      "pass": true,
+      "detail": "6684ce361bebf47c1be0b59e1a521e7af03088dd42b26192d4d90ea311ddb3ea"
+    },
+    "精选题集_set_same_as_baseline": {
+      "pass": true,
+      "detail": ""
+    },
+    "精选题集_count": {
+      "pass": true,
+      "detail": "401/401"
+    },
+    "精选题集_seq_continuous": {
+      "pass": true,
+      "detail": ""
+    },
+    "精选题集_sections_sum": {
+      "pass": true,
+      "detail": "5 题型区 / 39 章节"
+    },
+    "精选题集_part_order": {
+      "pass": true,
+      "detail": "选择题→填空题→程序阅读题→综合应用题→算法设计题"
+    },
+    "精选题集_toc_anchors": {
+      "pass": true,
+      "detail": "44 个目录锚点"
+    },
+    "精选题集_no_blank_pages": {
+      "pass": true,
+      "detail": "pages=115"
+    },
+    "精选题集_no_text_overflow": {
+      "pass": true,
+      "detail": "[]"
+    },
+    "精选题集_footer_page_numbers": {
+      "pass": true,
+      "detail": "[]"
+    },
+    "精选题集_outline_level1_parts": {
+      "pass": true,
+      "detail": "一级书签（除书名）: ['选择题', '填空题', '程序阅读题', '综合应用题', '算法设计题']"
+    },
+    "精选题集_outline_level2_chapters": {
+      "pass": true,
+      "detail": "章书签 39 个；例: ['第一章\\u3000绪论12 题', '第二章\\u3000线性表10 题', '第三章\\u3000栈队列16 题']"
+    },
+    "精选题集_links_valid": {
+      "pass": true,
+      "detail": "44 个链接注解"
+    },
+    "补充题集_set_same_as_baseline": {
+      "pass": true,
+      "detail": ""
+    },
+    "补充题集_count": {
+      "pass": true,
+      "detail": "553/553"
+    },
+    "补充题集_seq_continuous": {
+      "pass": true,
+      "detail": ""
+    },
+    "补充题集_sections_sum": {
+      "pass": true,
+      "detail": "3 题型区 / 27 章节"
+    },
+    "补充题集_part_order": {
+      "pass": true,
+      "detail": "选择题→综合应用题→算法设计题"
+    },
+    "补充题集_toc_anchors": {
+      "pass": true,
+      "detail": "30 个目录锚点"
+    },
+    "补充题集_no_blank_pages": {
+      "pass": true,
+      "detail": "pages=114"
+    },
+    "补充题集_no_text_overflow": {
+      "pass": true,
+      "detail": "[]"
+    },
+    "补充题集_footer_page_numbers": {
+      "pass": true,
+      "detail": "[]"
+    },
+    "补充题集_outline_level1_parts": {
+      "pass": true,
+      "detail": "一级书签（除书名）: ['选择题', '综合应用题', '算法设计题']"
+    },
+    "补充题集_outline_level2_chapters": {
+      "pass": true,
+      "detail": "章书签 27 个；例: ['第一章\\u3000绪论15 题', '第二章\\u3000线性表21 题', '第三章\\u3000栈队列17 题']"
+    },
+    "补充题集_links_valid": {
+      "pass": true,
+      "detail": "30 个链接注解"
+    },
+    "答案册_set_same_as_baseline": {
+      "pass": true,
+      "detail": ""
+    },
+    "答案册_count": {
+      "pass": true,
+      "detail": "223/223"
+    },
+    "答案册_seq_matches_jingxuan": {
+      "pass": true,
+      "detail": "223 题"
+    },
+    "答案册_sections_sum": {
+      "pass": true,
+      "detail": "5 题型区 / 32 章节"
+    },
+    "答案册_part_order": {
+      "pass": true,
+      "detail": "选择题→填空题→程序阅读题→综合应用题→算法设计题"
+    },
+    "答案册_toc_anchors": {
+      "pass": true,
+      "detail": "37 个目录锚点"
+    },
+    "答案册_no_blank_pages": {
+      "pass": true,
+      "detail": "pages=92"
+    },
+    "答案册_no_text_overflow": {
+      "pass": true,
+      "detail": "[]"
+    },
+    "答案册_footer_page_numbers": {
+      "pass": true,
+      "detail": "[]"
+    },
+    "答案册_outline_level1_parts": {
+      "pass": true,
+      "detail": "一级书签（除书名）: ['选择题', '填空题', '程序阅读题', '综合应用题', '算法设计题']"
+    },
+    "答案册_outline_level2_chapters": {
+      "pass": true,
+      "detail": "章书签 32 个；例: ['第一章\\u3000绪论4 题', '第二章\\u3000线性表8 题', '第三章\\u3000栈队列10 题']"
+    },
+    "答案册_links_valid": {
+      "pass": true,
+      "detail": "37 个链接注解"
+    }
+  }
+}
