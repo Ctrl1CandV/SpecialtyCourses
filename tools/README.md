@@ -13,6 +13,8 @@
 | 去年三套押题答案生成 | `python tools/build_prediction_answers.py 一`（或二、三） |
 | 押题答案算法功能验证 | `python tools/verify_prediction_algorithms.py` |
 | 押题答案逐页渲染与边界检查 | `python tools/verify_prediction_layout.py 一`（或二、三） |
+| 去年机构三套模拟答案生成 | `python tools/build_institution_mock_answers.py 一`（或二、三） |
+| 模拟答案指纹、版面与六道C算法验算 | `python tools/verify_institution_mock_answers.py --render --algorithms`；算法验算需要GCC |
 | 通用PPT生成 | `render-pptx.js`；内容规范见[CONTENT-SPEC.md](CONTENT-SPEC.md) |
 | C2-B-pro旧构建来源和只读结构检查 | [c2b](c2b/)，先读[当前文件依据](../课程/课件/C2/C2-B-pro/当前文件依据.md) |
 | 主讲视频转写 | `transcribe.py` |

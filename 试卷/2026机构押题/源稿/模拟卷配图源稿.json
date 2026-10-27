@@ -1,0 +1,865 @@
+{
+  "M1-tree": {
+    "tree": {
+      "label": "a",
+      "children": [
+        {
+          "label": "b",
+          "children": [
+            {
+              "label": "c",
+              "children": [
+                {
+                  "label": "e",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "d",
+          "children": [
+            {
+              "label": "f",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "g",
+          "children": []
+        }
+      ]
+    },
+    "caption": "还原后的原树：a的有序孩子为b、d、g。"
+  },
+  "M1-mst": {
+    "kind": "network",
+    "nodes": [
+      {
+        "id": "A",
+        "x": 230,
+        "y": 190
+      },
+      {
+        "id": "B",
+        "x": 55,
+        "y": 110
+      },
+      {
+        "id": "C",
+        "x": 410,
+        "y": 110
+      },
+      {
+        "id": "D",
+        "x": 120,
+        "y": 25
+      },
+      {
+        "id": "E",
+        "x": 340,
+        "y": 25
+      }
+    ],
+    "edges": [
+      [
+        "A",
+        "D",
+        3
+      ],
+      [
+        "D",
+        "C",
+        2
+      ],
+      [
+        "A",
+        "E",
+        4
+      ],
+      [
+        "E",
+        "B",
+        1
+      ]
+    ],
+    "caption": "从A出发得到的最小生成树，权值总和10。",
+    "size": [
+      465,
+      220
+    ],
+    "directed": false
+  },
+  "M1-kmp": {
+    "kind": "kmp",
+    "text": "abcaabbabcabaaacbba",
+    "pattern": "abcabaa",
+    "next": [
+      0,
+      1,
+      1,
+      1,
+      2,
+      3,
+      2
+    ],
+    "nextval": [
+      0,
+      1,
+      1,
+      0,
+      1,
+      3,
+      2
+    ],
+    "alignments": [
+      {
+        "start": 1,
+        "matched": 4,
+        "mismatch": [
+          5,
+          5
+        ]
+      },
+      {
+        "start": 5,
+        "matched": 2,
+        "mismatch": [
+          7,
+          3
+        ]
+      },
+      {
+        "start": 7,
+        "matched": 0,
+        "mismatch": [
+          7,
+          1
+        ]
+      },
+      {
+        "start": 8,
+        "matched": 7,
+        "success": true
+      }
+    ],
+    "position": 8,
+    "caption": "绿色格为本趟已匹配字符，红色格为失配字符；第四趟匹配成功。"
+  },
+  "M1-critical": {
+    "kind": "network",
+    "nodes": [
+      {
+        "id": "1",
+        "x": 25,
+        "y": 40
+      },
+      {
+        "id": "2",
+        "x": 93,
+        "y": 40
+      },
+      {
+        "id": "4",
+        "x": 161,
+        "y": 40
+      },
+      {
+        "id": "6",
+        "x": 229,
+        "y": 40
+      },
+      {
+        "id": "8",
+        "x": 297,
+        "y": 40
+      },
+      {
+        "id": "10",
+        "x": 365,
+        "y": 40
+      },
+      {
+        "id": "11",
+        "x": 433,
+        "y": 40
+      }
+    ],
+    "edges": [
+      [
+        "1",
+        "2",
+        15
+      ],
+      [
+        "2",
+        "4",
+        50
+      ],
+      [
+        "4",
+        "6",
+        15
+      ],
+      [
+        "6",
+        "8",
+        300
+      ],
+      [
+        "8",
+        "10",
+        35
+      ],
+      [
+        "10",
+        "11",
+        20
+      ]
+    ],
+    "caption": "关键路径及各活动工期。",
+    "size": [
+      465,
+      80
+    ],
+    "directed": true
+  },
+  "M2-list": {
+    "kind": "linked_cases",
+    "caption": "各小题均从原图独立开始；省略号为未列出的中间结点。P、Q、R、S在所指结点正下方，末结点next=NULL。",
+    "cases": [
+      {
+        "name": "原图",
+        "values": [
+          2,
+          5,
+          7,
+          3,
+          8,
+          "...",
+          6,
+          4
+        ]
+      },
+      {
+        "name": "(1)",
+        "values": [
+          2,
+          5,
+          7,
+          3,
+          8,
+          "...",
+          6,
+          4
+        ]
+      },
+      {
+        "name": "(2)",
+        "values": [
+          2,
+          5,
+          7,
+          3,
+          8,
+          "...",
+          6,
+          4
+        ],
+        "L": 2
+      },
+      {
+        "name": "(3)",
+        "values": [
+          2,
+          5,
+          7,
+          5,
+          8,
+          "...",
+          6,
+          4
+        ]
+      },
+      {
+        "name": "(4)",
+        "values": [
+          2,
+          5,
+          7,
+          7,
+          8,
+          "...",
+          6,
+          4
+        ]
+      },
+      {
+        "name": "(5)",
+        "values": [
+          2,
+          5,
+          7,
+          3,
+          5,
+          "...",
+          6,
+          4
+        ]
+      },
+      {
+        "name": "(6)",
+        "values": [
+          2,
+          10,
+          14,
+          6,
+          16,
+          "...",
+          12,
+          8
+        ],
+        "T": "T=NULL"
+      },
+      {
+        "name": "(7)",
+        "values": [
+          2,
+          10,
+          14,
+          6,
+          16,
+          "...",
+          12,
+          4
+        ],
+        "T": "T指向末结点"
+      }
+    ]
+  },
+  "M2-judge": {
+    "tree": {
+      "label": "7",
+      "children": [
+        {
+          "label": "3",
+          "children": [
+            {
+              "label": "1",
+              "children": [
+                null,
+                {
+                  "label": "2",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "label": "5",
+              "children": [
+                {
+                  "label": "4",
+                  "children": []
+                },
+                {
+                  "label": "6",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "10",
+          "children": [
+            {
+              "label": "8",
+              "children": [
+                null,
+                {
+                  "label": "9",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "label": "12",
+              "children": [
+                {
+                  "label": "11",
+                  "children": []
+                },
+                {
+                  "label": "13",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "caption": "有序表位置1～13的折半查找判定树；每次mid向下取整。"
+  },
+  "M2-mst": {
+    "kind": "network",
+    "nodes": [
+      {
+        "id": "v0",
+        "x": 170,
+        "y": 205
+      },
+      {
+        "id": "v1",
+        "x": 340,
+        "y": 205
+      },
+      {
+        "id": "v2",
+        "x": 30,
+        "y": 105
+      },
+      {
+        "id": "v3",
+        "x": 125,
+        "y": 105
+      },
+      {
+        "id": "v4",
+        "x": 255,
+        "y": 115
+      },
+      {
+        "id": "v5",
+        "x": 425,
+        "y": 115
+      },
+      {
+        "id": "v6",
+        "x": 115,
+        "y": 25
+      },
+      {
+        "id": "v7",
+        "x": 345,
+        "y": 25
+      }
+    ],
+    "edges": [
+      [
+        "v0",
+        "v4",
+        6
+      ],
+      [
+        "v4",
+        "v5",
+        4
+      ],
+      [
+        "v5",
+        "v1",
+        7
+      ],
+      [
+        "v4",
+        "v6",
+        7
+      ],
+      [
+        "v6",
+        "v2",
+        2
+      ],
+      [
+        "v6",
+        "v3",
+        2
+      ],
+      [
+        "v6",
+        "v7",
+        5
+      ]
+    ],
+    "caption": "一棵最小生成树；同权候选优先选择编号较小的待入树顶点。",
+    "size": [
+      465,
+      235
+    ],
+    "directed": false
+  },
+  "M2-aoe": {
+    "kind": "network",
+    "nodes": [
+      {
+        "id": "v0",
+        "x": 25,
+        "y": 105
+      },
+      {
+        "id": "v1",
+        "x": 145,
+        "y": 155
+      },
+      {
+        "id": "v2",
+        "x": 145,
+        "y": 30
+      },
+      {
+        "id": "v3",
+        "x": 300,
+        "y": 85
+      },
+      {
+        "id": "v4",
+        "x": 300,
+        "y": 205
+      },
+      {
+        "id": "v5",
+        "x": 435,
+        "y": 140
+      }
+    ],
+    "edges": [
+      [
+        "v0",
+        "v1",
+        "A:3"
+      ],
+      [
+        "v0",
+        "v2",
+        "B:2"
+      ],
+      [
+        "v1",
+        "v3",
+        "C:2"
+      ],
+      [
+        "v1",
+        "v4",
+        "D:3"
+      ],
+      [
+        "v2",
+        "v3",
+        "E:4"
+      ],
+      [
+        "v1",
+        "v5",
+        "F:3",
+        [
+          265,
+          155
+        ]
+      ],
+      [
+        "v3",
+        "v5",
+        "G:2"
+      ],
+      [
+        "v4",
+        "v5",
+        "H:1"
+      ]
+    ],
+    "caption": "活动在弧上，v0为起点、v5为统一终点；C与E共用终点后才能启动G。",
+    "size": [
+      465,
+      245
+    ],
+    "directed": true
+  },
+  "M3-forest": {
+    "roots": [
+      {
+        "label": "A",
+        "children": [
+          {
+            "label": "B",
+            "children": [
+              {
+                "label": "D",
+                "children": [
+                  {
+                    "label": "G",
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "label": "H",
+                "children": [
+                  {
+                    "label": "J",
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "label": "K",
+                "children": []
+              }
+            ]
+          },
+          {
+            "label": "E",
+            "children": []
+          }
+        ]
+      },
+      {
+        "label": "C",
+        "children": []
+      },
+      {
+        "label": "F",
+        "children": []
+      },
+      {
+        "label": "I",
+        "children": [
+          {
+            "label": "M",
+            "children": []
+          }
+        ]
+      }
+    ],
+    "caption": "森林共有四棵树，根按原二叉树的右链依次为A、C、F、I。"
+  },
+  "M3-huffman": {
+    "tree": {
+      "label": "64",
+      "children": [
+        {
+          "label": "E:30",
+          "children": []
+        },
+        {
+          "label": "34",
+          "children": [
+            {
+              "label": "A:16",
+              "children": []
+            },
+            {
+              "label": "18",
+              "children": [
+                {
+                  "label": "C:9",
+                  "children": []
+                },
+                {
+                  "label": "9",
+                  "children": [
+                    {
+                      "label": "4",
+                      "children": [
+                        {
+                          "label": "F:1",
+                          "children": []
+                        },
+                        {
+                          "label": "D:3",
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "label": "B:5",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "caption": "一棵Huffman树；同权9时把原字符C放左侧，左0右1。"
+  },
+  "M3-b90": {
+    "tree": {
+      "label": "50",
+      "children": [
+        {
+          "label": "30",
+          "children": [
+            {
+              "label": "8,20",
+              "children": []
+            },
+            {
+              "label": "35,40",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "80",
+          "children": [
+            {
+              "label": "60",
+              "children": []
+            },
+            {
+              "label": "90,100",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    "box": true,
+    "gap": 48,
+    "caption": "①插入90：叶[100]变为[90,100]。"
+  },
+  "M3-b25": {
+    "tree": {
+      "label": "50",
+      "children": [
+        {
+          "label": "20,30",
+          "children": [
+            {
+              "label": "8",
+              "children": []
+            },
+            {
+              "label": "25",
+              "children": []
+            },
+            {
+              "label": "35,40",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "80",
+          "children": [
+            {
+              "label": "60",
+              "children": []
+            },
+            {
+              "label": "90,100",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    "box": true,
+    "gap": 48,
+    "caption": "②插入25：分裂[8,20,25]，20上升。"
+  },
+  "M3-b45": {
+    "tree": {
+      "label": "30,50",
+      "children": [
+        {
+          "label": "20",
+          "children": [
+            {
+              "label": "8",
+              "children": []
+            },
+            {
+              "label": "25",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "40",
+          "children": [
+            {
+              "label": "35",
+              "children": []
+            },
+            {
+              "label": "45",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "80",
+          "children": [
+            {
+              "label": "60",
+              "children": []
+            },
+            {
+              "label": "90,100",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    "box": true,
+    "gap": 48,
+    "caption": "③插入45：先提升40，内部结点再分裂，30上升到根。"
+  },
+  "M3-bdel": {
+    "tree": {
+      "label": "30,50",
+      "children": [
+        {
+          "label": "20",
+          "children": [
+            {
+              "label": "8",
+              "children": []
+            },
+            {
+              "label": "25",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "40",
+          "children": [
+            {
+              "label": "35",
+              "children": []
+            },
+            {
+              "label": "45",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "90",
+          "children": [
+            {
+              "label": "80",
+              "children": []
+            },
+            {
+              "label": "100",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    "box": true,
+    "gap": 48,
+    "caption": "④删除60：向右兄弟借键，80下移、90上升。"
+  }
+}

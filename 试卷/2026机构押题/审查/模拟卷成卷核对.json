@@ -1,0 +1,84 @@
+{
+  "papers": [
+    {
+      "paper": "一",
+      "questions": 23,
+      "pages": 11,
+      "page_chars": [
+        1204,
+        645,
+        435,
+        1311,
+        549,
+        943,
+        1284,
+        1506,
+        1315,
+        1070,
+        682
+      ],
+      "source_pdf_sha256": "25336a3d12c29955621535d73eb9913f6e054738eaec4f4a9be7b26fd88719fb",
+      "answer_md_sha256": "d3c2a40d212cf09791dca7e714a3da587db7d9de1ea638ce538b3ffa7a91ef15",
+      "answer_pdf_sha256": "33732356413c3d09be2c7806482281a68667beec13f39389c00f02eff8d42830",
+      "render_fingerprint": "6906cd8f4474bec847b841d0aef0dbec56d5ae77ecd008ca0a7d8f75cf8d699c",
+      "errors": []
+    },
+    {
+      "paper": "二",
+      "questions": 23,
+      "pages": 12,
+      "page_chars": [
+        574,
+        2121,
+        907,
+        1209,
+        453,
+        559,
+        882,
+        772,
+        2043,
+        323,
+        1061,
+        1301
+      ],
+      "source_pdf_sha256": "1cce655feb41fd3d5087fc8962257f749dc6f83dc9f8d6d0886f287b50c370e8",
+      "answer_md_sha256": "c27cdc5b7f4c4c9060726b666879bd256fb302b46f637bf4c4f20491519803c2",
+      "answer_pdf_sha256": "7ecc878907f65660730c3dad4e96bfbf4fb7090c63396a56bce022581c729d81",
+      "render_fingerprint": "4ebc0555ce54b42c7aec9ff3b7575bff958e828fa100ab150dcaef5450b01ef3",
+      "errors": []
+    },
+    {
+      "paper": "三",
+      "questions": 23,
+      "pages": 12,
+      "page_chars": [
+        1192,
+        1283,
+        485,
+        934,
+        452,
+        877,
+        440,
+        1207,
+        1617,
+        1223,
+        861,
+        1363
+      ],
+      "source_pdf_sha256": "a9d7000ac289e57be0e96602ff45e3d0fe645d37aad0c047fc7615f095193b7c",
+      "answer_md_sha256": "bbfdee37a1889638d5eed1cc9c6471b10465cdc56434781531c195ad297dda6c",
+      "answer_pdf_sha256": "7531ca75769cc3516cda2dbd81c1bd0ee3bcd1abd045c8260f2618d64f4fb94e",
+      "render_fingerprint": "b43b57c67bb8e64b4dcbc444e115ae69a744695c151c45ba657c76f392dddc89",
+      "errors": []
+    }
+  ],
+  "algorithms": [
+    "M1 expression: both original examples and null input",
+    "M1 Euler: all 43 connected simple graphs on 2-4 vertices; edge-trail enumeration oracle",
+    "M2 deletion: 101400 sorted-array interval cases including repeats and empty/reversed ranges",
+    "M2 all simple paths: 50 directed/undirected cyclic/disconnected cases, exact path-set oracle",
+    "M3 LCA: all node pairs in complete/left-chain/right-chain trees of sizes 1-24, duplicated values",
+    "M3 DFS topo: 50 DAG/cyclic/self-loop/disconnected cases, Kahn cycle oracle and edge-order checks"
+  ],
+  "figure_source_sha256": "ad1157fddd97a113b551ffb1675b82aaf24d48128a4f709c5c9bfbd1cb0c86e2"
+}
