@@ -7,6 +7,7 @@
 | 题库查询/导出/导入 | `python tools/题库/tiku.py` |
 | 六套模拟卷交付核验 | `python tools/verify_exam_delivery.py` |
 | 六套卷蓝图一致性核对 | `python tools/exam_blueprint.py` |
+| 冲刺合集PDF生成与代码验证 | `python -B tools/build_sprint_collection.py`；`python -B tools/verify_sprint_collection.py`（需要g++，可用`--compiler`指定路径） |
 | 旧设计种子验算（当前部分输入绑定已失效） | `verify_exam_seeds.py`；保留作历史核验来源，不自动重绑定 |
 | 六套卷成品及MD生成 | `build_exam_papers.py`、`build_exam_answers.py`及配图脚本 |
 | 登记新路径下的交付清单，不生成ZIP | `python tools/package_exam_delivery.py` |

@@ -1,4 +1,4 @@
-# B-07 P18 跟练答案一：Prim 21 行完整代码双栏（不再溢出）
+# B-07 P18 Prim教学实现参考：保留旧代码，取消默写要求
 page: 18
 fixed:
   - id: prim-code
@@ -10,4 +10,4 @@ fixed:
         - "void Prim(ALGraph &G){\n  bool include[MaxVertexNum];\n  int dist[MaxVertexNum], parent[MaxVertexNum];\n  for(int i = 0; i < G.vexnum; i++)\n    { include[i] = false; dist[i] = INF;\n      parent[i] = -1; }            // 不能写 dist[] = {INF}\n  dist[0] = 0;\n  for(int k = 0; k < G.vexnum; k++){\n    int u = -1, minDist = INF;"
         - "    for(int i = 0; i < G.vexnum; i++)      // ①选树外 dist 最小的 u\n      if(!include[i] && dist[i] < minDist)\n        { minDist = dist[i]; u = i; }\n      if(u == -1) break;               // 图不连通，停\n      include[u] = true;               // ②u 并入树\n      for(ArcNode *p = G.vertices[u].firstarc;\n          p != NULL; p = p->nextarc)\n        if(!include[p->adjvex] && p->weight < dist[p->adjvex])\n          { dist[p->adjvex] = p->weight; parent[p->adjvex] = u; }  // ③刷新\n  }\n}"
 native:
-  - { id: note1, kind: note, box: [0.9, 6.02, 11.53, 0.38], props: { fontSize: 13, text: "默写检查：初始化写循环（不能写 dist[] = {INF}）；每轮选最小、并入、刷新三拍。完整代码同步见讲稿附录二，可复制。" } }
+  - { id: note1, kind: note, box: [0.9, 6.02, 11.53, 0.38], props: { fontSize: 13, text: "实现参考：Prim代码不考、不要求背诵；手算按轮次选边并更新连接代价，记录生成树和总权值。" } }

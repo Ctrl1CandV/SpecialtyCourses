@@ -26,8 +26,8 @@ slides:
       - type: table
         head: [主题, 在802里的考法, 本节怎么对待]
         rows:
-          - [Prim 与 Kruskal 最小生成树, 中频，选择题考权值计算（题集 7选25）, 逐行走主循环，骨架背默]
-          - [Dijkstra 与 Floyd 最短路径, 综合应用题以手算为主, 只给骨架，讲清三重循环的含义]
+          - [Prim 与 Kruskal 最小生成树, 中频，选择题考权值计算（题集 7选25）, 手算选边；Prim 不背代码]
+          - [Dijkstra 与 Floyd 最短路径, 综合应用题以手算为主, 逐轮手算，不背代码]
           - [多源 BFS, 2023 年第 2 题的解法, 完整讲：思想、骨架、逐层扩散动画]
           - [关键路径, 考手算 AOE 网, 一页认识四个量，不写代码]
       - type: bullets
@@ -253,14 +253,14 @@ slides:
           - [多源 BFS, "所有源点先入队，逐层扩展", "入队时标记，dist 作判重"]
       - type: bullets
         items:
-          - "跟练：默写 Prim 主循环和多源 BFS 初始化；4 顶点图手算 Prim、Kruskal 并比较总权值。"
+          - "跟练：默写多源 BFS 初始化；4 顶点图手算 Prim、Kruskal 并比较总权值。"
           - "题集手算：7答7、7答11、7答13、7选27，按题意记录生成树或最短路过程。"
           - "拓展：像素图由四连通改为八连通，补方向数组并检查越界。"
 
   # [混合页] 正文由 pages/p18.yaml 渲染：Prim 21 行双栏代码
   - type: content
-    kicker: 参考答案 · 跟练题一
-    title: 跟练题一参考答案：Prim 默写（自行对照）
+    kicker: 教学参考 · 非背诵要求
+    title: Prim 实现参考（不要求背诵）
     blocks: []
 
   - type: content
